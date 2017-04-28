@@ -13,3 +13,5 @@ var levrette = new Administrateur();
 paul.hydrate(jsonPaul);
 jacqueLembrouille.hydrate(jsonJacqueLembrouille);
 levrette.hydrate(jsonLevrette);
+
+//hello world !
