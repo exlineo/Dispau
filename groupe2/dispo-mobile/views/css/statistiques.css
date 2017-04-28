@@ -1,18 +1,18 @@
 #statistiques h1{
-	background: url(img/stat.png) no-repeat center right;
+	background: url(../images/stats/stat.png) no-repeat center right;
 	margin: 80px 40px;;
 }
 
 #logo_horaires{
 	display: inline-block;
-	background: url(img/date.png) no-repeat center center;
+	background: url(../images/stats/date.png) no-repeat center center;
 	width: 70%;
 	height: 80px;
 }
 
 #logo_groupe{
 	display: inline-block;
-	background: url(img/groupe.png) no-repeat center center;
+	background: url(../images/stats/groupe.png) no-repeat center center;
 	height: 80px;
 	width: 27%;
 }
@@ -23,7 +23,7 @@
 }
 
 #liste_statistiques ul li{
-	list-style-image: url(img/puce.png);
+	list-style-image: url(../images/stats/puce.png);
 
 }
 
