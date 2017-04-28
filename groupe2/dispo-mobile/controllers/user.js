@@ -150,3 +150,19 @@ function Administrateur(_pseudo_str, _email_str, _pass_str) {
 //     this.envoyeDemandeAmi = function(){};
     
 // }
+
+
+
+
+/* Connexion de l'utilisateur */
+var connected = false;
+
+function connexion()
+{
+    if(_pass_str && _pseudo_)
+    {
+        connected = true;
+    }else{
+        connected = false;
+    }
+}
