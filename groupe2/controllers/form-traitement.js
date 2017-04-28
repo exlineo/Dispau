@@ -6,10 +6,9 @@
  */
 $(document).ready(function() {
 
-
 	$('#form-password-input').on('input', function() {
 		var password_str = this.value;
-		var password_check_str = $('#form-password-check-input');
+		var password_check_str = $('#form-password-check-input').val();
  		// check egalite passwords
 		var state = checkPasswordsEgal(password_str, password_check_str);
 		// test console
@@ -18,7 +17,7 @@ $(document).ready(function() {
 
 	$('#form-password-check-input').on('input', function() {
 		var password_check_str = this.value;
-		var password_str = $('#form-password-input');
+		var password_str = $('#form-password-input').val();
  		// check egalite passwords
 		var state = checkPasswordsEgal(password_str, password_check_str);
 		// test console
@@ -29,7 +28,6 @@ $(document).ready(function() {
 	$('#form-btn-user-send').click(function(event) {
 	  	event.preventDefault();
 	  	recupFormData();
-
 	});
 
 });
@@ -75,10 +73,22 @@ function recupFormData()
 /**
  * checkPasswordsEgal
  * @function
- * return passwordsEgal_bl
+ * return bool
  */
 function checkPasswordsEgal(password_str, password_check_str)
 {
-	// variable de retour fonction ( = 0 si egalite )
-	return password_str.localeCompare(password_check_str)
+	// variable comparaison
+	var compare_nb = password_str.localeCompare(password_check_str);
+
+	// test comparaison
+	if(compare_nb == 0)
+	{
+		// strings ==
+		return true;
+	}
+	else
+	{
+		// string !=
+		return false;
+	}
 }
