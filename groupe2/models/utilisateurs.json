@@ -40,7 +40,7 @@
 		"image_img": ["images/people/profil-2.jpg", "images/people/profil-3.jpg", "images/people/profil-1.jpg"]
 	},
 	"utilisateur5" : {
-		"id_nb": 49,
+		"id_nb": 48,
 		"pseudo_str":"LevretteLaGalette", 
 		"email_str":"chev@uche.moi",
 		"pass_str":"youpiyoupiyeah",
