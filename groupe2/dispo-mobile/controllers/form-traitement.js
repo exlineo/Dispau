@@ -79,15 +79,6 @@ function recupFormData()
  */
 function checkPasswordsEgal(password_str, password_check_str)
 {
-	// variable de retour fonction
-	var passwordsEgal_bl = false;
-
-	// test egalite passwords
-	if(password_str == password_check_str)
-	{
-		console.log(password_str + ' == ' + password_check_str);
-		passwordsEgal_bl = true; 
-	}
-
-	return passwordsEgal_bl;
+	// variable de retour fonction ( = 0 si egalite )
+	return password_str.localeCompare(password_check_str)
 }
