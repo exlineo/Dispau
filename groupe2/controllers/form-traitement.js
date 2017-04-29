@@ -6,6 +6,7 @@
  */
 $(document).ready(function() {
 
+	// check input on change #form-password-input
 	$('#form-password-input').on('input', function() {
 		var password_str = this.value;
 		var password_check_str = $('#form-password-check-input').val();
@@ -15,6 +16,7 @@ $(document).ready(function() {
   		console.log(state);
 	});
 
+	// check input on change #form-password-check-input
 	$('#form-password-check-input').on('input', function() {
 		var password_check_str = this.value;
 		var password_str = $('#form-password-input').val();
