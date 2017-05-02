@@ -20,7 +20,7 @@ var users ={
 		"image_img": ["images/people/profil-2.jpg", "images/people/profil-3.jpg", "images/people/profil-1.jpg"]
 	},
 	"utilisateur3" : {
-		"id_nb": 0,
+		"id_nb": 2,
 		"pseudo_str":"PauloLeFifou", 
 		"email_str":"polo@gni.ko",
 		"pass_str":"azertyuio",
@@ -30,7 +30,7 @@ var users ={
 		"image_img": ["images/people/profil-2.jpg", "images/people/profil-3.jpg", "images/people/profil-1.jpg"]
 	},
 	"utilisateur4" : {
-		"id_nb": 0,
+		"id_nb": 3,
 		"pseudo_str":"PaulLeDeglingo", 
 		"email_str":"polo@gni.ko",
 		"pass_str":"azertyuio",
@@ -40,7 +40,7 @@ var users ={
 		"image_img": ["images/people/profil-2.jpg", "images/people/profil-3.jpg", "images/people/profil-1.jpg"]
 	},
 	"utilisateur5" : {
-		"id_nb": 48,
+		"id_nb": 4,
 		"pseudo_str":"LevretteLaGalette", 
 		"email_str":"chev@uche.moi",
 		"pass_str":"youpiyoupiyeah",
