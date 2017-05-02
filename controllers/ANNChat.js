@@ -7,14 +7,19 @@ function Chat(id_chat) {
 
 	this.getMessages = function () {
 		// body...
-		this.messages_ar = tableau_messages;
+		this.messages_ar = tableau_messages; //remplir avec les messages contenus dans la bdd
 	}
 
-	this.setBannis = function (obj) {
+	this.setBannis = function (id_nb) {
 		// body...
-		alert("bannir???");
+		console.log(id_nb," est banni!");
 		// transmettre dans le tableau des bannis
-		// tableau_bannis.push(obj);
+		if (this.bannis_ar.indexOf(id_nb) < 0) {
+			// this.bannis_ar.push(id_nb);
+	
+			tableau_bannis.push(id_nb); // transmis à la base de données
+			
+		}
 	}
 
 	this.getBannis = function () {
@@ -25,7 +30,7 @@ function Chat(id_chat) {
 	this.evenements = function () {
 		// body...
 		// évènements
-	// $(document).ready(function() {
+
 
 		$('#valider-btn').on('click', function () {
 			// body...
@@ -33,18 +38,18 @@ function Chat(id_chat) {
 			mes.contenu_str = $('#message-input').val();
 			mes.transmettre_BDD();
 			mes.update();
-			// console.log(mes);
+		
 
 		});
 
 		$('#messages_tchat div').on('dblclick', function () {
 			// body...
-			if ($(this).data("message")) {
-				the_tchat.setBannis($(this).data("message"));
+			if ($(this).data().id_nb != utilisateur_moi.id_nb) {
+				the_tchat.setBannis($(this).data("id_nb"));
 			}
 		})
 
-	// });
+
 	}
 
 	this.affichageMessages = function () {
@@ -56,23 +61,29 @@ function Chat(id_chat) {
 		$('#messages_tchat div').remove();
 
 		for (var i = 0; i < this.messages_ar.length; i++) {
-			var $div = $('<div>');
-			var $p = $('<p>');
-			
-			if (this.messages_ar[i].expediteur_obj.id_nb == utilisateur_moi.id_nb) {
-				$div.addClass("mon_message");
-			}
-			else
-			{
-				$div.addClass("autre_user");
-				// associe l'objet message à la balise
-				$div.data("message",this.messages_ar[i]);
-				// console.log($div.data("message"));
+			if (this.bannis_ar.indexOf(this.messages_ar[i].expediteur_obj.id_nb) < 0) {
+				var $div = $('<div>');
+				// introduit dans la data de la div l'id de l'expéditeur
+				$div.data("id_nb", this.messages_ar[i].expediteur_obj.id_nb);
+				var $p = $('<p>');
+				
+				if (this.messages_ar[i].expediteur_obj.id_nb == utilisateur_moi.id_nb) {
+					$div.addClass("mon_message");
+				}
+				else
+				{
+					$div.addClass("autre_user");
+					// associe l'objet message à la balise
+					$div.data("message",this.messages_ar[i]);
+		
 
+				}
+				$p.html( this.messages_ar[i].contenu_str );
+				$p.appendTo($div);
+				$div.appendTo('#messages_tchat');
+				
 			}
-			$p.html( this.messages_ar[i].contenu_str );
-			$p.appendTo($div);
-			$div.appendTo('#messages_tchat');
+
 
 		}
 		var temp = this.messages_ar.length * $('#messages_tchat').height();
