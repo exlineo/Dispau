@@ -28,7 +28,7 @@ function Annonce()
 
 
 
-
+// Fonction qui hydrate un objet annonce
 this.hydrate = function(obj)
 {
 	console.log("Annonce obj >", obj);
