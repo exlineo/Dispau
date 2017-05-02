@@ -76,7 +76,7 @@ function AnnonceListe() {
         var annonceQuiMatch = {};
         for (var i in annonces_obj) {
             for (var j in i) {
-                if(j.centresInterets_ar(centreinteret)) {
+                if(j.trieCentreInteret(centreinteret)) {
                     annonceQuiMatch.push(i);
                 }
             }
