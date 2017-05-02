@@ -82,7 +82,7 @@ function ListUtilisateurs(_idLieu)
     }
 
 
-    var hydrateUtilisateurs = function(dbv) {
+    var hydrate = function(dbv) {
         for(var k in objet ) {
         iciLU(k) = objet(dbv);
         }
