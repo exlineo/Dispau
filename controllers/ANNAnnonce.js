@@ -41,7 +41,7 @@ function Annonce() {
     /*age minimum requis pour la participation en années*/
     this.conditionsDAdmition_st;
     /*chaine de caractere decrivant d'autres conditions d'admission*/
-    this.centresDInterets_ar;
+    this.centresInterets_ar;
     /*Liste des centres d'interets auquels se rapporte cette annonce.¨Pour cibler les éventuels "clients"*/
     var centreInteret = this.centresInterets_ar;
     this.salleDeTchat_nb;
@@ -411,18 +411,11 @@ function Annonce() {
 
 // si le centre d'interet entré en paramètre concorde avec un de ceux de la liste, il renvoie true
     this.trieCentreInteret = function (centreinteret) {
-        if (centreinteret == '') {
+        if (ici.centresInterets_ar.length == 0) {
             return true;
         }
-
-        for(var i in centreInteret) {
-            if (i == centreinteret) {
-                return true;
-            }
-        }
-        return false;
+        return ici.centresInterets_ar.indexOf(centreinteret) >= 0;
     }
-
 }
 /* Fin de la definition de la classe annonce*/
 

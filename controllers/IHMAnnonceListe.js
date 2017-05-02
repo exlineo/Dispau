@@ -27,8 +27,8 @@ function AnnonceListe() {
      */
     this.hydrate = function (liste_annonces_json) {
         for (var i in liste_annonces_json) {
-            this.tmp = new Annonce();
-            tmp.hydrate(data[i]);
+            var tmp = new Annonce();
+            tmp.hydrate(liste_annonces_json[i]);
             annonces_obj[i] = tmp;
         }
 
@@ -73,10 +73,10 @@ function AnnonceListe() {
 // en paramètre, il y aura un centre d'interet
 // et dans la variable, il y aura la liste des annonces possédants les annonces possédant ce centre d'interet
     this.annoncesCentresInterets = function (centreinteret) {
-        var annonceQuiMatch = {};
+        var annonceQuiMatch = [];
         for (var i in annonces_obj) {
-            if (i.trieCentreInteret(centreinteret)) {
-                annonceQuiMatch.push(i);
+            if (annonces_obj[i].trieCentreInteret(centreinteret)) {
+                annonceQuiMatch.push(annonces_obj[i]);
             }
         }
         return annonceQuiMatch;
@@ -139,11 +139,11 @@ var annonce3 = {
 };
 
 
-var json = $.getJSON("./annonces.json", function (data) {
-    annonceslistes_anl = new AnnoncesListe();
-    annoncesliste_anl.annoncesLieu(data);
-
-});
+//var json = $.getJSON("./annonces.json", function (data) {
+//    annonceslistes_anl = new AnnoncesListe();
+//    annoncesliste_anl.annoncesLieu(data);
+//
+//});
 
 var testAnnonce = {
     "annonce1": {
