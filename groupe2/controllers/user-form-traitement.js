@@ -163,6 +163,11 @@ function TraitementUserCreateForm() {
  */
 $(document).ready(function() {
 
+	$("#btn-parameters").click(function() {
+		// toggle class .para-open
+		$('#parameters').toggleClass("para-open");
+	}); 
+
 	var nouvelUtilisateur = new TraitementUserCreateForm();
 	nouvelUtilisateur.checkEgal('#form-password-input', '#form-password-check-input', 'password');
 	nouvelUtilisateur.checkEgal('#form-password-input', '#form-password-check-input', 'email');
