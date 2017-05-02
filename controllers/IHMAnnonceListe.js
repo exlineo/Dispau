@@ -70,13 +70,19 @@ function AnnonceListe() {
      }*/
 
 
-// en paramètre, il y aura un tableau de centre d'interet des annonces du lieu en question
-    this.annoncesCentresInterets = function (annonces_ar) {
-        annonces_ar.sort(function (a, b) {
-            return a.centresInterets_ar - b.centresInterets_ar;
-        });
-    }
+// en paramètre, il y aura un centre d'interet
+// et dans la variable, il y aura la liste des annonces possédants les annonces possédant ce centre d'interet
+    this.annoncesCentresInterets = function (centreinteret) {
+        var annonceQuiMatch = {};
+        for (var i in annonces_obj) {
+            for (var j in i) {
+                if(j.centresInterets_ar(centreinteret)) {
+                    annonceQuiMatch.push(i);
+                }
+            }
+        }
 
+    }
 }
 /* Fin de la definition de la classe annonce_Liste*/
 
