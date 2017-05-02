@@ -29,6 +29,43 @@ function Profil(_pseudo_str, _email_str, _pass_str) {
             ici[k] = obj[k];
         }
     }
+
+    /**
+     * recupFormData
+     * @function
+     * return userData_obj
+     */
+    this.recupFormData = function()
+    {
+        // recup valeur input pseudo_str
+        var pseudo_str = $('#form-pseudo-input').val();
+
+        // recup valeur input password_str
+        var password_str = $('#form-password-input').val();
+
+        // recup valeur nom_str
+        var nom_str = $('#form-nom-input').val();
+
+        // recup valeur prenom_str
+        var prenom_str = $('#form-prenom-input').val();
+
+        // recup valeur email_str
+        var email_str = $('#form-email-input').val();
+
+        // recup valeur file_str
+        var file_str = $('#form-file-input').val();
+
+        var userData_obj = {
+            "pseudo_str": pseudo_str,
+            "password_str": password_str,
+            "nom_str": nom_str,
+            "prenom_str": prenom_str,
+            "email_str": email_str,
+            "file_str": file_str
+        }
+        return userData_obj;
+    }
+
 }
 
 /**
@@ -166,3 +203,14 @@ function connexion()
         connected = false;
     }
 }
+
+/**
+ * form-btn-user-send action
+ * @function
+ */
+$('#form-btn-user-send').click(function(event) {
+    event.preventDefault();
+    var profil = new Profil();
+    var data = profil.recupFormData();
+    console.log(data);
+});
