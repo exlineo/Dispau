@@ -75,13 +75,11 @@ function AnnonceListe() {
     this.annoncesCentresInterets = function (centreinteret) {
         var annonceQuiMatch = {};
         for (var i in annonces_obj) {
-            for (var j in i) {
-                if(j.trieCentreInteret(centreinteret)) {
-                    annonceQuiMatch.push(i);
-                }
+            if (i.trieCentreInteret(centreinteret)) {
+                annonceQuiMatch.push(i);
             }
         }
-
+        return annonceQuiMatch;
     }
 }
 /* Fin de la definition de la classe annonce_Liste*/
