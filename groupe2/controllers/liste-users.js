@@ -1,40 +1,93 @@
 /* liste-users.js */
 
 /**
- * ListeUsers
+ * ListeUtilisateur
  * @class
- * @param {string} _pseudo_str
- * @param {string} _email_str
- * @param {string} _pass_str
+ * @param {int} _idLieu
  */
 
 // Creer une Class liste d'utilisateur
-var listUtilisateurs = {};
-
-function ListUtilisateurs(_pseudo_str, _email_str, _pass_str)
+function ListUtilisateurs(_idLieu)
 {
-    if(_pseudo_str && _email_str && _pass_str){
-        var _pseudo_str = new Profil(_pseudo_str, _email_str, _pass_str);
-        return _pseudo_str;
-    }
-    if(this.abonnementsLieux_arr){
-        var _pseudo_str = new Utilisateur(_pseudo_str, _email_str, _pass_str);
-        return _pseudo_str;
-    }
-    if(this.annoncesGerees_arr){
-        var _pseudo_str = new Gestionnaire(_pseudo_str, _email_str, _pass_str);
-        return _pseudo_str;
-    }
-    if(this.lieuxAdministres_ar){
-        var _pseudo_str = new Administrateur(_pseudo_str, _email_str, _pass_str);
-        return _pseudo_str;
-    }
-         
-    var hydrateUtilisateurs = function(dbv) {
-        for(var k in objet ) {
-        listUtilisateurs.hydrate(ListUtilisateurs);
+    this.iciLU = this;
+    this.list = [];
+    this.idLieu = _idlieu;
+
+
+    /**
+     * Retrouver un idUtilisateur
+     */
+    this.isIn = function(idUtilisateur_nb)
+    {
+        while(i < iciLU.list)
+        { 
+            if(iciLU.list[i] == idUtilisateur_nb){
+                return idUtilisateur_nb;
+            }else{
+                console.log("Error: Id doesn't exists");
+            }
         }
     }
 
+    /**
+     * Permet de rajouter un idUtilisateur au tableau list
+     * @param {int} idUtilisateur_nb
+     */
+    this.charge = function (idUtilisateur_nb)
+    {
+        if(true) // If user id existe (bdd)
+        {
+            return iciLU.list.push(idUtilisateur_nb) ;  
+        }else{
+            console.log("Error: Id doesn't exist");
+        }
+    }
+    
+    /**
+     * Permet de supprimer un idUtilisateur du tableau list
+     * @param {int} idUtilisateur_nb
+     */
+    this.decharge = function (idUtilisateur_nb)
+    {
+        if(iciLU.isIn(idUtilisateur_nb)){
+            iciLU.list.pop(idUtilisateur_nb);
+        }else{
+            console.log("Error: Id dont in the list");
+        }
+    }
+
+    /**
+     * Réinitialiser le tableau list
+     */
+    this.clear = function ()
+    {
+        alert("Are you sure to delete list ?");
+        iciLU.list = [];
+    }
+
+    /**
+     * Parcourir le tableau list
+     */
+    this.lenght = function (idUtilisateur_nb)
+    {
+        while(i < iciLU.list)
+        {
+            if(iciLU.list[i] == idUtilisateur_nb){
+                return iciLU.list.lenght;
+            }else{
+                console.log("Error: Id doesn't exists");
+            }
+            i++;
+        }
+    }
+
+
+    var hydrateUtilisateurs = function(dbv) {
+        for(var k in objet ) {
+        iciLU(k) = objet(dbv);
+        }
+    }
+    
 }
-listUtilisateurs.push(ListUtilisateurs); 
+
+
