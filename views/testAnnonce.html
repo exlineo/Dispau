@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="annonce"></div>
+</body>
+<script src="../controllers/ANNAnnonce.js"></script>
+<script src="../controllers/IHMAnnonceListe.js"></script>
+<script src="../controllers/IHMAnnonceListeElement.js"></script>
+<script>
+    var annonce = new AnnonceListeElement();
+    annonce.ajouterAnnonce(testAnnonce);
+    annonce.afficherAnnonces();
+</script>
+</html>

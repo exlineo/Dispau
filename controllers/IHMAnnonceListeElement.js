@@ -4,7 +4,7 @@ function AnnonceListeElement() {
 
     this.afficherAnnonces = function () {
         this.annonces_ar.forEach(function (el) {
-            console.log(el.id_nb);
+            console.log(el.dateFinInscription_dat);
 
             //Permet de créer le DOM d'affichage de l'annonce.
             var annonceID = document.getElementById('annonce');
@@ -35,10 +35,10 @@ function AnnonceListeElement() {
             dateFinInscription.innerHTML = el.dateFinInscription_dat;
 
             dateCreation = document.createElement('div');
-            dateCreation.innerHTML = el.dateCreattion_str;
+            dateCreation.innerHTML = el.dateCreation_dat;
 
             lieu = document.createElement('p');
-            lieu.innerHTML = el.lieu_nb;
+            lieu.innerHTML = el.lieu_lie;
 
             var ulCentreInteret;
             ulCentreInteret = document.createElement('ul');

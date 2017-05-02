@@ -124,9 +124,9 @@ var annonce3 = {
     'id_nb': 3,
         'nom_str': 'Rami',
         'description_str': 'Qui veut jouer au rami avec moi ?',
-        'dateDebut_str': '17-04-2017:15.00',
-        'dateFin_str': '17-04-2017:17.00',
-        'dateCreattion_str' : '17-04-2017:17.00',
+        'dateDebut_dat': '17-04-2017:15.00',
+        'dateFin_dat': '17-04-2017:17.00',
+        'dateCreattion_dat' : '17-04-2017:17.00',
         'lieu_lie': 'Café du passage',
         'centresInterets_ar': ['belote', 'tarot', 'poker', 'rami', 'apéro'],
         'placesMin_nb': 3,
@@ -139,20 +139,21 @@ var annonce3 = {
 };
 
 
-var json = $.getJSON("./annonces.json", function (data) {
+/*var json = $.getJSON("./annonces.json", function (data) {
     annonceslistes_anl = new AnnoncesListe();
     annoncesliste_anl.annoncesLieu(data);
 
-});
+});*/
 
 var testAnnonce = {
     "annonce1":{
     "id_nb": 1,
         "nom_str": "toto",
         "description_str": "Qui veut jouer à la belote ?",
-        "dateDebut_str": "17-04-2017:15.00",
-        "dateFin_str": "17-04-2017:17.00",
-        "dateCreattion_str" : "17-04-2017:17.00",
+        "dateDebut_dat": "17-04-2017:15.00",
+        "dateFin_dat": "17-04-2017:17.00",
+        "dateCreation_dat" : "17-04-2017:13.00",
+        "dateFinInscription_dat" : "17-04-2017:17.00",
         "lieu_lie": "N°5",
         "centresInterets_ar": ["belote", "tarot", "poker", "apéro"],
         "placesMin_nb": 4,
@@ -167,9 +168,10 @@ var testAnnonce = {
     "id_nb": 2,
         "nom_str": "Poker",
         "description_str": "Qui veut jouer à la belote ?",
-        "dateDebut_str": "17-04-2017:15.00",
-        "dateFin_str": "17-04-2017:17.00",
-        "dateCreattion_str" : "17-04-2017:17.00",
+        "dateDebut_dat": "17-04-2017:15.00",
+        "dateFin_dat": "17-04-2017:17.00",
+        "dateCreation_dat" : "17-04-2017:17.00",
+        "dateFinInscription_dat" : "17-04-2017:17.00",
         "lieu_lie": "N°5",
         "centresInterets_ar": ["belote", "tarot", "poker", "apéro"],
         "placesMin_nb": 4,
@@ -184,9 +186,10 @@ var testAnnonce = {
     "id_nb": 3,
         "nom_str": "Rami",
         "description_str": "Qui veut jouer au rami avec moi ?",
-        "dateDebut_str": "17-04-2017:15.00",
-        "dateFin_str": "17-04-2017:17.00",
-        "dateCreattion_str" : "17-04-2017:17.00",
+        "dateDebut_dat": "17-04-2017:15.00",
+        "dateFin_dat": "17-04-2017:17.00",
+        "dateCreation_dat" : "17-04-2017:17.00",
+        "dateFinInscription_dat" : "17-04-2017:17.00",
         "lieu_lie": "Café du passage",
         "centresInterets_ar": ["belote", "tarot", "poker", "rami", "apéro"],
         "placesMin_nb": 3,
