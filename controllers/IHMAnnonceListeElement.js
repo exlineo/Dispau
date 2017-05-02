@@ -6,7 +6,26 @@ function AnnonceListeElement() {
         this.annonces_ar.forEach(function (el) {
             console.log(el.dateFinInscription_dat);
 
-            //Permet de créer le DOM d'affichage de l'annonce.
+            var annonceID = document.getElementById('annonceTest');
+
+            var divItem = document.createElement('div');
+            divItem.className = 'item';
+            divItem.style.background = 'url(' + el.image_Img + ')';
+            divItem.style.backgroundSize = 'cover';
+            divItem.style.backgroundPosition = 'center top';
+
+
+            var divCarousel = document.createElement('div');
+            divCarousel.className = 'carousel-caption';
+
+            var titreAnnonce = document.createElement('h2');
+            titreAnnonce.innerHTML = el.nom_str;
+
+            divCarousel.appendChild(titreAnnonce);
+            divItem.appendChild(divCarousel);
+            annonceID.appendChild(divItem);
+
+            /*//Permet de créer le DOM d'affichage de l'annonce.
             var annonceID = document.getElementById('annonce');
             var divAnnonce = document.createElement('div');
 
@@ -85,7 +104,7 @@ function AnnonceListeElement() {
             divAnnonce.appendChild(placesMin);
             divAnnonce.appendChild(placesMax);
             divAnnonce.appendChild(ulParticipants);
-            annonceID.appendChild(divAnnonce);
+            annonceID.appendChild(divAnnonce);*/
         });
     }
 }
