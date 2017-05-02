@@ -1,14 +1,11 @@
 function AnnonceListe(){
-<<<<<<< HEAD
     /**
      * Variable possédant toutes les annonces
      * Il est intéressant de l'utiliser pour trier tout les objets
      * @type {{}}
      */
     var annonces_obj = {};
-=======
     this.annonces_ar = [];
->>>>>>> groupe1
 
     /**
      * Permet de créer un objet d'Annonce()
@@ -24,7 +21,6 @@ function AnnonceListe(){
         }
     };
 
-<<<<<<< HEAD
     /**
      * propriété qui permet de remplir la variable annonces_obj
      * @param liste_annonces_json est le fichier json récupéré depuis le model
@@ -36,15 +32,13 @@ function AnnonceListe(){
             annonces_obj[i] = tmp;
         }
 
-    }
+    };
     /*this.annoncesLieu = function (_lieu) {
         var lieu = _lieu.lieu_lie;
         this.annonces_ar[lieu];
         console.log("Annonces du lieu", this.annonces_ar);
     };*/
-    
-=======
->>>>>>> groupe1
+
     /**
      * Permet de supprimer une annonce par rapport à l'ID de l'annonce
      * @param _annonceID est l'ID de l'annonce
@@ -90,7 +84,6 @@ function AnnonceListe(){
     }
 }
 
-<<<<<<< HEAD
 var annonce1 = {
     'id_nb': 1,
         'nom_str': 'Belote',
@@ -151,7 +144,7 @@ var json = $.getJSON("./annonces.json", function (data) {
     annoncesliste_anl.annoncesLieu(data);
 
 });
-=======
+
 var testAnnonce = {
     "annonce1":{
     "id_nb": 1,
@@ -205,4 +198,3 @@ var testAnnonce = {
         "validee_bl": false
 }
 }
->>>>>>> groupe1
