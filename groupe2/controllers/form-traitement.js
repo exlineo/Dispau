@@ -63,7 +63,6 @@ function TraitementUserCreateForm() {
 	 			}
 	 		}
 		});
-
 	}
 
 	/**
@@ -127,7 +126,6 @@ function TraitementUserCreateForm() {
 		console.log(this.passwords_egal_bl);
 	}
 
-
 		// check input on change #form-password-input
 		$('#form-password-input').on('input', function() {
 			var password_str = this.value;
@@ -155,8 +153,6 @@ function TraitementUserCreateForm() {
 
 	  		console.log('passwords egal : ' + this.passwords_egal_bl);
 		});
-
-	
 
 }
 

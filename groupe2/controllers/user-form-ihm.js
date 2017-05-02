@@ -38,18 +38,3 @@ function toggleClass(element, className){
     }
     element.className = classString;
 }
-
-/*
-document.getElementById('btn-parameters').addEventListener('click', function() {
-    toggleClass(document.getElementById('parameters'), 'para-open');
-});
-
-document.getElementById('btn-infos').addEventListener('click', function() {
-    toggleClass(document.getElementById('annonce-infos'), 'annonce-infos-open');
-});
-
-document.querySelectorAll('home-icon').addEventListener('click', function() {
-    //toggleClass(document.getElementById('parameters'), 'para-open');
-    alert("OK");
-});
-*/

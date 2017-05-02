@@ -19,6 +19,7 @@ function Profil(_pseudo_str, _email_str, _pass_str) {
     this.dateInscription_date = Date.now();
     this.image_img = [];
     this.description_str = "";
+
     /**
      * hydrate
      * @function
@@ -29,43 +30,6 @@ function Profil(_pseudo_str, _email_str, _pass_str) {
             ici[k] = obj[k];
         }
     }
-
-    /**
-     * recupFormData
-     * @function
-     * return userData_obj
-     */
-    this.recupFormData = function()
-    {
-        // recup valeur input pseudo_str
-        var pseudo_str = $('#form-pseudo-input').val();
-
-        // recup valeur input password_str
-        var password_str = $('#form-password-input').val();
-
-        // recup valeur nom_str
-        var nom_str = $('#form-nom-input').val();
-
-        // recup valeur prenom_str
-        var prenom_str = $('#form-prenom-input').val();
-
-        // recup valeur email_str
-        var email_str = $('#form-email-input').val();
-
-        // recup valeur file_str
-        var file_str = $('#form-file-input').val();
-
-        var userData_obj = {
-            "pseudo_str": pseudo_str,
-            "password_str": password_str,
-            "nom_str": nom_str,
-            "prenom_str": prenom_str,
-            "email_str": email_str,
-            "file_str": file_str
-        }
-        return userData_obj;
-    }
-
 }
 
 /**
@@ -157,60 +121,3 @@ function Administrateur(_pseudo_str, _email_str, _pass_str) {
 	Gestionnaire.call(this, _pseudo_str, _email_str, _pass_str);
 }
 
-
-/*--------------------------------------
-    code en cours
--------------------------------------- */
-
-// var listUtilisateur = [];
-// var rempli = function(dbv) {
-//     for (var k in dbv) {
-//         var utilisateur = new Utilisateur();
-//         utilisateur.mouille(k);
-//         listUtilisateur.push(utilisateur);
-//     }
-// }
-
-/**
- * DemanderAmi
- * @class
- */
-// function DemanderAmi(){
-//     this.de_usr;
-//     this.a_usr;
-//     this.date_date = new Date.now();
-    
-//     /**
-//      * envoyeDemandeAmi
-//      * @function
-//      */
-//     this.envoyeDemandeAmi = function(){};
-    
-// }
-
-
-
-
-/* Connexion de l'utilisateur */
-var connected = false;
-
-function connexion()
-{
-    if(_pass_str && _pseudo_)
-    {
-        connected = true;
-    }else{
-        connected = false;
-    }
-}
-
-/**
- * form-btn-user-send action
- * @function
- */
-$('#form-btn-user-send').click(function(event) {
-    event.preventDefault();
-    var profil = new Profil();
-    var data = profil.recupFormData();
-    console.log(data);
-});
