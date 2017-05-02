@@ -163,6 +163,11 @@ function TraitementUserCreateForm() {
  */
 $(document).ready(function() {
 
+	/**
+     * click
+     * @function
+     * click sur parameters
+     */
 	$("#btn-parameters").click(function() {
 		// toggle class .para-open
 		$('#parameters').toggleClass("para-open");
