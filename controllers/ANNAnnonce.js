@@ -411,7 +411,7 @@ function Annonce() {
 
 // si le centre d'interet entré en paramètre concorde avec un de ceux de la liste, il renvoie true
     this.trieCentreInteret = function (centreinteret) {
-        if (centreinteret = '') {
+        if (centreinteret == '') {
             return true;
         }
 
