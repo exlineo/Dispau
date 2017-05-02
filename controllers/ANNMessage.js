@@ -1,5 +1,5 @@
 
-function Message(the_chat) {
+function Message(utilisateur_moi, the_chat) {
 	// body...
 	this.id_nb = new Date();
 	this.expediteur_obj = utilisateur_moi;
@@ -8,10 +8,11 @@ function Message(the_chat) {
 	this.statut_mst = "NON_LU";
 
 
-	this.transmettre_BDD = function () {
+
+	this.transmettre_BDD = function (message_str) {
 		// body...
 		if (this.contenu_str != "") {
-			tableau_messages.push(this);
+			tableau_messages.push(message_str);
 			
 		}
 	}
