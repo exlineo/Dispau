@@ -1,0 +1,73 @@
+Icônes
+
+La conception du site dispose d'un "écouteur" vérifiant le bon chargement - la disponibilité - des icônes de la bibliothèque FontAwsome. Ainsi, tant que les polices ne sont pas chargées, des icônes de substitution seront affichées  (sans l'effet désagréable, visuellement, dit de "FONC" caractéristique).
+
+La structure a adopter est la suivante :
+
+	<a href="#!" title="Fermer" class="close"><i class="fa fa-times" aria-hidden="true"></i><em>×</em></a>
+
+Avec, encapsulé dans des balises <em>, un signe de remplacement ("Fallback"). Vous êtes invités à utiliser tous signes HTML ou ASCII comme bon vous semblera en choisissant, éventuellement, depuis le site copypastcharacter.com.
+
+Fenêtres modales
+
+La conception permet l'usage de "Modal Boxes" ou encore de "Message Boxes". 
+Ces derniers seront particulièrement utiles pour l'affichage de messages d'erreurs, notamment.
+
+La structure a respecter est la suivante (fenêtre modale) :
+
+	<div aria-hidden="true" role="dialog" class="modal-dialog" id="open-modal-aide">
+
+			<div>
+				<div class="modal">
+					<div class="inner-dialog">
+						(... contenu HTML)
+					</div> <!-- /inner-dialog -->
+
+				</div> <!-- /modal -->
+				<div class="footer-modal">
+					<a href="#close" class="help">Fermer</a> <a href="#!" class="link">Aide</a>
+				</div> <!-- /footer-modal -->
+			</div>
+	</div> <!-- /modal-dialog -->
+
+N.B. L'ID renseignée dans la première div servira comme ancre des liens pour l'ouverture de la fenêtre correspondante. 
+Ainsi, le lien suivant ouvrira la fenêtre ci-dessus (qu'importe sa localisation au travers du DOM à tout le moins entre <body> et </body>) :
+
+	<a href="#open-modal-aide" title="Aide contextuelle">Aide</a>
+
+
+Les fenêtres modales disposent d'un pied de boîte (<div class="footer-modal">) permettant d'y insérer des boutons (d'envoi de formaulaires) 
+ou liens (de fermeture, notamment).
+
+L'usage de simples "Message Box" ne nécessitant pas de telles informations complémentaires, il sera fait usage d'un simple lien pour autoriser 
+la fermeture de ces messages informatifs affiché en haut et à droite du dit message :
+
+	<div aria-hidden="true" role="dialog" class="modal-dialog dialog" id="open-modal-error">
+
+		<a href="#!" title="Fermer" class="close"><i class="fa fa-times" aria-hidden="true"></i><em>×</em></a>
+
+			<div>
+				<div class="modal">
+					<div class="inner-dialog">
+						(... contenu HTML ...)
+					</div> <!-- /inner-dialog -->
+
+				</div> <!-- /modal -->
+			</div>
+	</div>
+
+Veuillez noter que la structure, semblable à celle des fenêtres modales, se différencie par l'usage d'une classe supplémentaire "dialog".
+
+N.B. La conception tient compte du modèle de "Box" utilisé. Quand bien même un pied de boîte serait présent dans le cas d'un simple message, 
+celui-ci ne sera pas affiché. De même, un lien de fermeture (disposant d'une classe "close") ne sera pas affiché dans le cas de l'usage d'une fenêtre modale.
+
+GitHub
+
+Contrairement à ce qui m'avait été demandé, et, pour éviter de surcharger inutilement la structure du projet, 
+je vous propose de stocker vos divers "Boxes" dans un sous-dossier sur GitHub aux fins ultérieures. 
+De toute évidence, ces divers éléments risquent fort d'être géré dynamiquement, dans leur structure individuelle, voire via Angular JS.
+
+SEO - JSON-LD - GOOGLE AMP
+
+Pour un meilleur référencement, en plus des éléments de référencements préconisés, désormais, par Google avec l'usage de JSON-LD, 
+je vous propose de porter toutes les pages complémentaires du site, en sa version Web, dans la technologie AMP. 
