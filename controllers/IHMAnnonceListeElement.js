@@ -9,6 +9,7 @@ function AnnonceListeElement() {
             var annonceID = document.getElementById('annonceTest');
 
             var divItem = document.createElement('div');
+            //Ajout d'un attribut data-id pour mieux identifier l'annonce
             divItem.setAttribute('data-id', el.id_nb);
             divItem.className = 'item';
             divItem.style.background = 'url(' + el.image_Img + ')';
@@ -120,17 +121,19 @@ function AnnonceListeElement() {
         //Permet de récupérer le parent Annonce
         var divAnnonce = document.getElementById('annonceTest');
 
-        //Parcours les différentes éléments du DOM et test les ID afin de pouvoir les supprimer
+        //Parcours les différentes éléments du DOM et test les ID afin de pouvoir les supprimer dans le DOM et tableau d'annonce
         for( var i =0; i < divElement.length; i++){
             var dataId = divElement[i].getAttribute('data-id');
             if(dataId == _id){
                 console.log(divElement[i]);
+                delete this.annonces_ar[_id]
                 divAnnonce.removeChild(divElement[i])
             }
             else{
                 console.log('L\'annonce n\'existe pas')
             }
         }
+
     }
 }
 
