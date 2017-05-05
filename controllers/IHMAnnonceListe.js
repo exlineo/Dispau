@@ -159,7 +159,7 @@ var testAnnonce = {
         "placesMin_nb": 4,
         "placesMax_nb": 4,
         "image_Img": "./images/belote.jpg",
-        "participants_ar": [],
+        "participants_ar": ['Laurent', 'Simon', 'Francis', 'Tahar', 'Fabien'],
         "salleAttente_ar": [],
         "banis_ar": [],
         "validee_bl": false
