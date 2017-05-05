@@ -1,19 +1,16 @@
 // utilisateur identifié
-	var utilisateur_bob = {};
-	utilisateur_bob.id_nb = 32;
-
-	var utilisateur_moi = {};
-	utilisateur_moi.id_nb = 12;
+	var utilisateur_bob = {'id_nb' : 32};
+	var utilisateur_moi = {'id_nb' : 19};
 
 // liste des chats et messages déjà créés 
 	var tableau_chat = [ 1 , 2 , 3 , 4 , 5 ];
 	var tableau_messages = [
 			{
-				'expediteur_obj' : utilisateur_moi,
+				'expediteur_nb' : utilisateur_moi.id_nb,
 				'contenu_str' : "Le poker c'est vraiment Super !"
 			},
 			{
-				'expediteur_obj' : utilisateur_bob,
+				'expediteur_nb' : utilisateur_bob.id_nb,
 				'contenu_str' : "f*** the poker"
 			}
 		];

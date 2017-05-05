@@ -34,9 +34,14 @@ function Chat(id_chat) {
 
 		$('#valider-btn').on('click', function () {
 			// body...
+			console.log('click');
 			var mes = new Message(the_tchat);
 			mes.contenu_str = $('#message-input').val();
+			console.log(mes.contenu_str);
+			mes.expediteur_nb = utilisateur_moi.id_nb;
+			console.log(mes.expediteur_nb);
 			mes.transmettre_BDD();
+
 			mes.update();
 		
 
@@ -60,14 +65,19 @@ function Chat(id_chat) {
 		this.getBannis();
 		$('#messages_tchat div').remove();
 
+
 		for (var i = 0; i < this.messages_ar.length; i++) {
-			if (this.bannis_ar.indexOf(this.messages_ar[i].expediteur_obj.id_nb) < 0) {
+			console.log("taille= ", this.messages_ar.length);
+			// l'expéditeur est-il dans le tableau des bannis?
+			var testBannis = this.bannis_ar.indexOf(this.messages_ar[i].expediteur_nb) < 0;
+
+			if (testBannis) {
 				var $div = $('<div>');
 				// introduit dans la data de la div l'id de l'expéditeur
-				$div.data("id_nb", this.messages_ar[i].expediteur_obj.id_nb);
+				$div.data("id_nb", this.messages_ar[i].expediteur_nb);
 				var $p = $('<p>');
 				
-				if (this.messages_ar[i].expediteur_obj.id_nb == utilisateur_moi.id_nb) {
+				if (this.messages_ar[i].expediteur_nb == utilisateur_moi.id_nb) {
 					$div.addClass("mon_message");
 				}
 				else
@@ -86,6 +96,7 @@ function Chat(id_chat) {
 
 
 		}
+
 		var temp = this.messages_ar.length * $('#messages_tchat').height();
 		$('#messages_tchat').animate({ scrollTop: temp }, 1000);
 

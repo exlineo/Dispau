@@ -2,17 +2,19 @@
 function Message(utilisateur_moi, the_chat) {
 	// body...
 	this.id_nb = new Date();
-	this.expediteur_obj = utilisateur_moi;
+	this.expediteur_nb = 0;
 	this.destinataire_obj = the_chat;
 	this.contenu_str = "";
 	this.statut_mst = "NON_LU";
 
 
 
-	this.transmettre_BDD = function (message_str) {
+	this.transmettre_BDD = function () {
 		// body...
+		console.log("texte=",this.contenu_str," /// id_nb= ", this.expediteur_nb);
 		if (this.contenu_str != "") {
-			tableau_messages.push(message_str);
+
+			tableau_messages.push(this);
 			
 		}
 	}
