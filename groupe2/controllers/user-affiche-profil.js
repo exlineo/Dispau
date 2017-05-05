@@ -6,7 +6,7 @@ $(document).ready(function() {
 	// var jenny = new Administrateur();
 
 	var paul = new Profil();
-	paul.hydrate(users.utilisateur1);
+	paul.hydrate(users_ar[0]);
 	console.log(paul);
 	afficherDataUser(paul);
 
