@@ -9,6 +9,7 @@ function AnnonceListeElement() {
             var annonceID = document.getElementById('annonceTest');
 
             var divItem = document.createElement('div');
+            divItem.setAttribute('data-id', el.id_nb);
             divItem.className = 'item';
             divItem.style.background = 'url(' + el.image_Img + ')';
             divItem.style.backgroundSize = 'cover';
@@ -106,6 +107,30 @@ function AnnonceListeElement() {
             divAnnonce.appendChild(ulParticipants);
             annonceID.appendChild(divAnnonce);*/
         });
+    };
+
+    /**
+     * Permet de supprimer une annonce du DOM grâce à son ID
+     * @param _id ID de l'annonce
+     */
+    this.supprimerAnnonce = function( _id){
+        //Permet de récupérer toutes les annonces du DOM
+        var divElement = document.getElementsByClassName('item');
+
+        //Permet de récupérer le parent Annonce
+        var divAnnonce = document.getElementById('annonceTest');
+
+        //Parcours les différentes éléments du DOM et test les ID afin de pouvoir les supprimer
+        for( var i =0; i < divElement.length; i++){
+            var dataId = divElement[i].getAttribute('data-id');
+            if(dataId == _id){
+                console.log(divElement[i]);
+                divAnnonce.removeChild(divElement[i])
+            }
+            else{
+                console.log('L\'annonce n\'existe pas')
+            }
+        }
     }
 }
 
