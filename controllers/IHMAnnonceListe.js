@@ -33,11 +33,6 @@ function AnnonceListe(){
         }
 
     };
-    /*this.annoncesLieu = function (_lieu) {
-        var lieu = _lieu.lieu_lie;
-        this.annonces_ar[lieu];
-        console.log("Annonces du lieu", this.annonces_ar);
-    };*/
 
     /**
      * Permet de supprimer une annonce par rapport à l'ID de l'annonce
@@ -52,14 +47,6 @@ function AnnonceListe(){
 
         else console.log("L'annonce n'existe pas")
     };
-    
-    this.afficherLesAnnonces = function () {
-        for(var i in this.annonces_ar){
-            var annonces = this.annonces_ar[i];
-            console.log("afficherLesAnnonces ", annonces)
-
-        }
-    }
 
     /*this.afficherAnnonce = function (_annonceID) {
         if(_annonceID in this.annonces_ar){
