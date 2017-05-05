@@ -1,0 +1,154 @@
+test_ann=new Annonce();
+
+liste_personnes_lieu_ar=
+[
+{
+	id_nb:1,
+	age_nb:18
+},
+{
+	id_nb:2,
+	age_nb:23
+},
+{
+	id_nb:3,
+	age_nb:16
+},
+{
+	id_nb:4,
+	age_nb:18
+},
+{
+	id_nb:5,
+	age_nb:23
+},
+{
+	id_nb:6,
+	age_nb:55
+},
+{
+	id_nb:7,
+	age_nb:30
+},
+{
+	id_nb:8,
+	age_nb:30
+},
+{
+	id_nb:9,
+	age_nb:15
+},
+{
+	id_nb:10,
+	age_nb:23
+},
+{
+	id_nb:11,
+	age_nb:20
+},
+{
+	id_nb:12,
+	age_nb:21
+},
+{
+	id_nb:13,
+	age_nb:20
+},
+{
+	id_nb:14,
+	age_nb:22
+},
+{
+	id_nb:15,
+	age_nb:62
+},
+{
+	id_nb:16,
+	age_nb:12
+},
+{
+	id_nb:17,
+	age_nb:19
+},
+{
+	id_nb:18,
+	age_nb:13
+},
+{
+	id_nb:19,
+	age_nb:13
+},
+{
+	id_nb:20,
+	age_nb:20
+},
+{
+	id_nb:21,
+	age_nb:21
+},
+{
+	id_nb:22,
+	age_nb:21
+},
+{
+	id_nb:23,
+	age_nb:21
+},
+{
+	id_nb:24,
+	age_nb:22
+},
+{
+	id_nb:25,
+	age_nb:21
+},
+{
+	id_nb:26,
+	age_nb:33
+},
+{
+	id_nb:27,
+	age_nb:21
+},
+{
+	id_nb:28,
+	age_nb:22
+},
+{
+	id_nb:29,
+	age_nb:20
+}
+];
+
+function age(id) //retourne l'age d'un user ayant l'identifiant id
+{
+	for (var i = 0; i < liste_personnes_lieu_ar.length; i++) 
+	{
+		if(liste_personnes_lieu_ar[i].id_nb==id)
+		{
+			return liste_personnes_lieu_ar[i].age_nb;
+			
+		}
+	}
+}
+test_ann.id_nb=1;
+test_ann.nom_str="Poker";
+test_ann.lieu_nb=5;
+test_ann.description_str='pour jouer au poker';
+test_ann.photo_str='photoOriginale.jpg'
+test_ann.personnesInscrites_ar=[1,2,3,4,5,6,7,9,8,10,11];
+test_ann.personnesMax_nb=11;
+test_ann.personnesMin_nb=5;
+test_ann.personnesBannies_ar=[12,13];
+test_ann.salleDAttente_ar=[14,15,16,17];
+test_ann.limiteAge_nb=99;
+test_ann.validite_bl=true;
+test_ann.annulee_bl=false;
+test_ann.dateFinInscriptions_dat=new Date(2018,0,27,14,25);
+console.log(test_ann.personnesInscrites_ar);
+console.log(test_ann.salleDAttente_ar);
+console.log(test_ann.modifierAgeLimite(18));
+console.log(test_ann.personnesInscrites_ar);
+console.log(test_ann.salleDAttente_ar);
+
+
