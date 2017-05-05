@@ -538,7 +538,7 @@ section#parameters.para-open {
   top: 0;
 }
 
-#profil-affiche-image li span{
+li#image-profil{
   display: inline-block;
   vertical-align: top;
   min-width: 150px;

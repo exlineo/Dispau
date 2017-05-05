@@ -175,7 +175,7 @@ $(document).ready(function() {
 
 	var nouvelUtilisateur = new TraitementUserCreateForm();
 	nouvelUtilisateur.checkEgal('#form-password-input', '#form-password-check-input', 'password');
-	nouvelUtilisateur.checkEgal('#form-password-input', '#form-password-check-input', 'email');
+	nouvelUtilisateur.checkEgal('#form-email-input', '#form-email-check-input', 'email');
 });
 
 
