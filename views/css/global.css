@@ -2,39 +2,44 @@
 
 /**
  * Modèle web version "Responsive" pour DISPAU
- * Largeur maximale : 1280px centree avec Google Map en fond et plein ecran
+ * Largeur maximale : 1280px centrée avec Google Map en fond et plein écran
  *
- * Version de developpement ; en production minifier ce fichier dans css/global.min.css avec http://www.minifier.org/
+ * Version de développement ; en production, minifier ce fichier dans css/global.min.css avec http://www.minifier.org/
+ * Attention : pour la version de production minifiée, tous les commentaires seront supprimés
  *
  * @date     30/04/2017
- * @revision 04/05/2017
+ * @revision 06/05/2017
  * @authors  Patrick ; ...
  *
  */
 
 /* Importation/chargement des @font-face en premier pour optimisation */
 @import url(font-awesome.min.css);
-/* importation de Normalize v6.0.0 */
+/* Ou chargement via CDN :
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
+*/
+/* Importation de Normalize v6.0.0 */
 @import url(normalize.min.css);
 
 /*!
  * ====== SOMMAIRE ======
  *
+ * 0°.  Importations : @font-face et Normalize
  * 1°.  Micro resets & dimensions
  * 2°.  Helpers
  * 3°.  Typos
  * 4°.  Couleurs
  * 5°.  Layout
  * 6°.  Google Maps
- * 7°.  Menu general de navigation
- * 8°.  Systeme de Grilles
- * 9°.  Formulaires & fenetres modales
+ * 7°.  Menu général de navigation
+ * 8°.  Système de Grilles
+ * 9°.  Formulaires & fenêtres modales
  * 10°. Animations
  * 11°. WTF?
- * 12°. Media Queries
+ * 12°. Media Queries & Supports
  *
  *
- * NB : il est fait profit du principe de cascade en CSS pour abolir la regle !important (veiller a maintenir cette precaution)
+ * NB : il est fait profit du principe de cascade en CSS pour abolir la règle !important (veiller à maintenir cette précaution)
  *
  */
 
@@ -48,7 +53,7 @@ html,
 }
 
 .wrapper {
-	/* la marge basse est la valeur negative correspondante a la hauteur du footer plus celles top & bottom des paddings de footer-inner */
+	/* la marge basse est la valeur négative correspondante à la hauteur du footer plus celles top & bottom des paddings de footer-inner */
 	margin: 0 auto -100px
 }
 
@@ -59,11 +64,12 @@ header,
 			height: 5.7em
 }
 
-/* Largeur maximale des elements centres sur grands ecrans (le reste, autour, demeure en pleine largeur [la Map]) */
+/* Largeur maximale des élements centres sur grands écrans (le reste, autour, demeure en pleine largeur [la Map]) */
 .header-inner,
 	.content,
 	.footer-inner {
-	max-width: 1280px
+		/* Si changement, modifier @media only screen and (min-width: 1280px) en conséquence ! */
+		max-width: 1280px
 }
 
 #map {
@@ -75,27 +81,27 @@ header,
 
 .push,
 	.footer {
-	/* '.push' doit avoir la meme hauteur que 'footer' */
+	/* '.push' doit avoir la même hauteur que 'footer' */
 	height: 100px
 }
 
 .footer-inner {
-	/* Top & bottom padding en pixels a deduire de la hauteur voulue de footer-inner */
+	/* Top & bottom padding en pixels à deduire de la hauteur voulue de footer-inner */
 	height: 50px
 }
 
 /*! 2°) Helpers 
 	================ */
 
-/* Positionnement */
+/* Positionnements */
 .fixed {position: fixed}
 .static {position: static}
 .relative {position: relative}
 .absolute {position: absolute}
-/* Flotement */
+/* Flottements */
 .left {float: left}
 .right {float: right}
-/* cacher un element */
+/* Cacher un élément */
 .hidden {
 	display: none;
 	width: 0;
@@ -109,7 +115,7 @@ header,
 	white-space: nowrap;
 	font-size: 0
 }
-/* Suppression de la selection a la souris */
+/* Suppression de la selection à la souris */
 .no-select {
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -118,7 +124,7 @@ header,
 }
 .full { width: 100% }
 .inblock{ display: inline-block }
-/* Creer un systeme de marges et paddings au besoin 
+/* Créer un système de marges et paddings au besoin 
 .mt5 {margin-top: 5em}
 */
 /* Positionner du texte */
@@ -158,7 +164,7 @@ p {
 	hyphens: auto
 }
 
-/*! A) Masque les icones Fontawsome non encore chargees pour affichage du fallback */
+/*! A) Masque les icônes Fontawsome non encore chargées pour affichage du fallback */
 
 html:not(.wf-active) .fa {display: none}
 
@@ -171,7 +177,7 @@ html:not(.wf-active) .fa {display: none}
 
 /* B) Google fonts chargees */
 
-/* Masque les alternatives textuelles sur les icones sociales */
+/* Masque les alternatives textuelles sur les icônes sociales */
 .wf-active .social em,
 	.wf-active .fa + em {display: none}
 
@@ -190,6 +196,11 @@ ul {line-height: 2em}
 .modal-dialog,
 	form {
 	font-family: 'Roboto', Arial, Helvetica, sans-serif
+}
+
+.button {
+	letter-spacing: 1px;
+	font: normal bold normal 1em/26px 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif
 }
 
 .social .fa {
@@ -211,7 +222,7 @@ ul {line-height: 2em}
 
 	================ */
 
-/* Selection de texte a la souris */
+/* Selection de texte à la souris */
 ::-moz-selection {
 	background: #e6005c;
 	color: #fff;
@@ -223,6 +234,12 @@ ul {line-height: 2em}
 	color: #fff;
 	text-shadow: none
 }
+
+/* Placeholders des champs de formulaires */
+::-webkit-input-placeholder {color: #e6005c}
+::-moz-placeholder {color: #e6005c; opacity: 1}
+:-ms-input-placeholder {color: #e6005c}
+:-moz-placeholder {color: #e6005c}
 
 .gris { color: #999 }
 
@@ -284,6 +301,19 @@ header h1 a {color: #e6005c}
 
 input:focus {border-bottom: 1px solid #333}
 
+/* Valeurs de champs invalides */
+input:required:focus:valid,
+	input[pattern]:focus:valid {
+		border-color: #b3f3a2;
+		box-shadow: 0 0 1px #b3f3a2
+}
+
+input:required:focus:invalid,
+	input[pattern]:focus:invalid {
+		border-color: #f79c9c;
+		box-shadow: 0 0 1px #f79c9c
+}
+
 select {
 	/* Fallback */
 	color: #000;
@@ -291,6 +321,11 @@ select {
  /*
 	background-color: #dff4f3
 */
+}
+
+/* Boutons inactifs (désactivés) */
+html .inactive {
+	background: #f0f0f0
 }
 
 footer {
@@ -301,6 +336,10 @@ footer {
 }
 
 .social .fa {color: #000}
+
+#block-cookies {background: #000}
+
+#block-cookies a{color: #fff}
 
 
 
@@ -350,7 +389,7 @@ header h1 a {text-decoration: none}
 	width: 100%;
 	/* Marge top négative pour positionnement sur le haut du header */
 	margin: -5.7em auto 0;
-	/* Marge sur le contenu central pour obtenir une hauteur identique a celle de Map et le footer conserve sa visibilite :
+	/* Marge sur le contenu central pour obtenir une hauteur identique à celle de Map et le footer conserve sa visibilite :
 	valeur cherchee 2em soit 5em : [-3em (marge top) + 3em] = 0 + 2em 
 	margin-bottom: 5em;
 	*/
@@ -388,11 +427,11 @@ footer {z-index: 1}
 */
 }
 
-/* Masque certains affichages propres a Google Map	*/
+/* Masque certains affichages propres à Google Map	*/
 a[href^="https://maps.google.com/maps?"],
 	a[href^="https://www.google.com/intl/fr_US/help/terms_maps.html"] {display: none!important}
 
-/*! Menu navigation 
+/*! 7°) Menu navigation 
 	================ */
 
 .top-menu {
@@ -418,8 +457,24 @@ a[href^="https://maps.google.com/maps?"],
 	line-height: 2.9
 }
 
+/*! 8°) Système de grilles
+		============ */
 
-/* Icone de fermeture des modales */
+.full {width: 100%;clear: both}
+
+.c-2 {
+	float: left;
+	display: inline;
+	width: 48%;
+	margin: 0 1%;
+}
+
+
+/*! 9°) Formulaires et fenêtres modales
+		============ */
+
+
+/* Icône de fermeture des modales */
 .close {
 	position: absolute;
 	top: .2em;
@@ -432,25 +487,25 @@ a[href^="https://maps.google.com/maps?"],
 	text-decoration: none
 }
 
+/* Correction du centrage du Fallback sur boutons close */
+.close em {
+	display: inline-block;
+	padding: 0 .1em 0 0
+}
+
 .close:focus {
 	outline: none
 }
 
-/*! Fenetres modales 
+/*! Fenêtres modales 
     ============ */
 
 .modal-dialog:target {
-	/*
-	opacity:1;
-	*/
 	display: block;
 	pointer-events: auto
 }
 
 .modal-dialog {
-	/*
-	opacity:0;
-	*/
 	display: none;
 	position: fixed;
 	z-index: 99999;
@@ -471,11 +526,11 @@ a[href^="https://maps.google.com/maps?"],
 	min-width: 250px;
 	width: 80%;
 	max-height: 200px;
-	/* Bizarrement, 80vh excede */
+	/* Bizarrement, 80vh excède */
 	max-height: 60vh;
 	margin: 11% auto;
 	margin: 15vh auto;
-/* Pas de padding : a reserver pour un element d'encapsulation interne 
+/* Pas de padding : à reserver pour un élement d'encapsulation interne 
 	padding: 5px 20px 13px 20px;
 */
 	border-radius: 2px 2px 0 0
@@ -485,7 +540,7 @@ a[href^="https://maps.google.com/maps?"],
 	max-width: 400px
 }
 
-.modal-dialog.dialog .modal {overflow: hidden}
+.modal-dialog.dialog:not(.overflow) .modal {overflow: hidden}
 
 .modal-dialog .close {display:none}
 
@@ -498,19 +553,37 @@ a[href^="https://maps.google.com/maps?"],
 /*
 	width: 80%;
 */
-	margin: 0 auto
+	margin: 0 auto;
+
+	/*
+	width: -moz-fit-content;
+	width: -webkit-fit-content;
+	width: fit-content;
+*/
+	height: -moz-fit-content;
+	height: -webkit-fit-content;
+	height: fit-content
 }
 
 .modal-dialog .inner-dialog {
-	/* Semble etre on necessaire
+	/* Semble ne plus être nécessaire :D
 	max-height: 100%;
 	max-height: 100vh;
 	height: 90%;
 	*/
-	padding: 5px 20px 5px 20px
+/*
+	width: -moz-fit-content;
+	width: -webkit-fit-content;
+	width: fit-content;
+*/
+	height: -moz-fit-content;
+	height: -webkit-fit-content;
+	height: fit-content;
+	padding: 1em 20px 5px 20px
 }
 
 .footer-modal {
+	direction: rtl;
 	overflow-y: hidden;
 	position: absolute;
 	right: 0;
@@ -525,14 +598,14 @@ a[href^="https://maps.google.com/maps?"],
 }
 
 .footer-modal a {
-	float: right;
+	display: inline-table;
 	padding: 1.1em 2em 1.1em;
 	color: #fff;
 	text-transform: uppercase;
 	text-decoration: none;
 	font-weight: bold;
 	outline: none;
-/* Ou ajouter la classe 'no-select' sur l'element */
+/* Ou ajouter la classe 'no-select' sur l'élement */
 	-webkit-tap-highlight-color: transparent;
 }
 
@@ -585,6 +658,15 @@ input[type="text"]:focus,
 		outline: none
 }
 
+.label-file {
+	color: #00b1ca;
+	font-weight: bold;
+	cursor: pointer
+}
+
+.label-file:hover {color: #25a5c4}
+.input-file {display: none}
+
 select {
 	min-width: 101.5%;
 	background-image: url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==");
@@ -613,26 +695,6 @@ input.password + button {
 	-webkit-tap-highlight-color: transparent
 
 }
-/* Ne fonctionne pas : a corriger 
-input:invalid {
-	box-shadow: 0 0 2px 1px red
-}
-
-input:valid {
-   box-shadow: 0 0 2px 1px green
-}
-*/
-/*
-input:-moz-submit-invalid {
-	border-bottom: 1px solid red;
-	box-shadow: none
-}
-
-input:-moz-ui-invalid {
-	border-bottom: 1px solid red;
-	box-shadow: none
-}
-*/
 
 /* Boutons */
 
@@ -662,7 +724,6 @@ input:-moz-ui-invalid {
 		text-transform: uppercase;
 		text-decoration: none;
 		color: #333;
-		line-height: 26px;
 		outline: none;
 		border: none;
 		border-radius: 2px;
@@ -689,10 +750,85 @@ button.button {
   display: table;
   height: auto;
   margin: 1em auto .5em;
+  white-space: nowrap;
   cursor: pointer
 }
 
+.button-green.ripple-in:hover:before,
+	.button-green.ripple-in:focus:before,
+	.button-green.ripple-in:active:before {
+	border-color: rgba(0, 137, 123, 0.5);
+	-webkit-animation-name: ripple-in;
+	animation-name: ripple-in
+}
 
+.button-orange.ripple-in:hover:before,
+	.button-orange.ripple-in:focus:before,
+	.button-orange.ripple-in:active:before {
+		border-color: rgba(239, 108, 0, 0.5);
+		-webkit-animation-name: ripple-in;
+		animation-name: ripple-in
+}
+
+.btn-group {
+	display: table;
+	margin: 0 auto
+}
+
+.btn-group .button {text-transform: none;font-size: small}
+
+.dropdown-btn {
+	display: none;
+	position: relative;
+	top: 100%;
+	z-index: 1000;
+	min-width: 160px;
+	margin: -5px 0 0 35px;
+	padding: 5px;
+	list-style: none;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	text-align: left;
+	font-size: 14px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175)
+}
+
+.caret {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	margin-left: 2px;
+	vertical-align: middle;
+	border-top: 4px dashed;
+	border-top: 4px solid;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent
+}
+
+.btn-group .active + ul {display: inline-table}
+
+/* Cookies */
+
+#block-cookies{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	text-align: center
+}
+
+/* Responsive images */
+img {
+	display: block;
+	width: 100%;
+	height: auto;
+	vertical-align: top;
+	text-align: center
+}
 
 .social .fa {
 	margin: 0 .5em 0 0;
@@ -708,6 +844,33 @@ button.button {
 	transition:opacity 400ms ease-in
 }
 
+.ripple {
+	position:relative;
+	overflow:hidden;
+	transform:translate3d(0,0,0)
+}
+.ripple:after {
+	content:"";
+	display:block;
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	pointer-events:none;
+	background-image:radial-gradient(circle,#000 10%,transparent 10.01%);
+	background-repeat:no-repeat;
+	background-position:50%;
+	transform:scale(10,10);
+	opacity:0;
+	transition:transform .5s,opacity 1s
+}
+.ripple:active:after {
+	transform:scale(0,0);
+	opacity:.2;
+	transition:0s
+}
+
 .squizz {
 	-moz-transition: box-shadow 200ms ease-out, -moz-transform 200ms ease-out, opacity 200ms ease-in-out;
 	-o-transition: box-shadow 200ms ease-out, -o-transform 200ms ease-out, opacity 200ms ease-in-out;
@@ -718,14 +881,14 @@ button.button {
 .squizz:hover {
 	/* Le "Fallback" est : icone grise sur fond blanc */
 	color: rgba(255, 255, 255, 1);
-	-moz-transform: scale(0.8);
-	-ms-transform: scale(0.8);
-	-webkit-transform: scale(0.8);
-	transform: scale(0.8);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
 	background: rgba(230, 0, 92, 1)
 }
 
-@-webkit-keyframes ripple-out {
+@-webkit-keyframes ripple-in {
 	100% {
 		top: -12px;
 		right: -12px;
@@ -735,7 +898,7 @@ button.button {
 	}
 }
 
-@keyframes ripple-out {
+@keyframes ripple-in {
 	100% {
 		top: -12px;
 		right: -12px;
@@ -745,7 +908,7 @@ button.button {
 	}
 }
 
-.ripple-out {
+.ripple-in {
 	position: relative;
 	display: inline-block;
 	vertical-align: middle;
@@ -754,7 +917,7 @@ button.button {
 	box-shadow: 0 0 1px transparent
 }
 
-.ripple-out:before {
+.ripple-in:before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -765,21 +928,30 @@ button.button {
 	-webkit-animation-duration: 1s;
 	animation-duration: 1s
 }
+/*
+.ripple:hover {transform: translate(-50%, -50%)}
 
-.button-green.ripple-out:hover:before,
-	.button-green.ripple-out:focus:before,
-	.button-green.ripple-out:active:before {
-	border-color: rgba(0, 137, 123, 0.5);
-	-webkit-animation-name: ripple-out;
-	animation-name: ripple-out
+.ripple:focus {
+	transition: transform 0.3s cubic-bezier(.4, 0 , .2, 1),
+	width 0.3s cubic-bezier(0, 0 , .2, 1),
+	height 0.3s cubic-bezier(0, 0 , .2, 1),
+	opacity 0.6s cubic-bezier(0, 0 , .2, 1);
+}
+*/
+
+html .inactive {
+	position: static;
+	-webkit-transform: none;
+	transform: none;
+	cursor: default
 }
 
-.button-orange.ripple-out:hover:before,
-	.button-orange.ripple-out:focus:before,
-	.button-orange.ripple-out:active:before {
-		border-color: rgba(239, 108, 0, 0.5);
-		-webkit-animation-name: ripple-out;
-		animation-name: ripple-out
+html .inactive:before{content: none}
+
+html .inactive:hover:before {
+	border: none;
+	-webkit-animation-name: none;
+	animation-name: none
 }
 
 /* Personnalisation des scrool bars sur moteur WebKit */
@@ -814,6 +986,7 @@ button.button {
 
 	/* 100% - 1280px = marges en %. (Marges /2) + 46px (centre du logo) = distance en % depuis la gauche (.mask est positionne a gauche) jusque le centre du logo */
 	header .mask {width: calc(((100% - 1280px) / 2) + 46px)}
+	small {font-size: 85%}
 
 }
 
@@ -822,6 +995,7 @@ button.button {
 	html .wrapper {width: 100%;margin: 0 0 0 0}
 	html #map {min-height: 100%;height: 465px;overflow: hidden}
 	html .content {margin-bottom: 0}
+	html .c-2{width: 100%}
 	html .push,
 		html .footer,
 		html .footer-inner {
@@ -830,9 +1004,15 @@ button.button {
 			min-height: 1px
 	}
 
-	/* Augmente la hauteur de ligne pour un usage facilite avec les doigts sur mobiles */
+	/* Augmente la hauteur de ligne pour un usage facilité avec les doigts sur mobiles */
 	html .footer-inner p {line-height: 2em; font-size: large; hyphens: none}
 	html small {font-size: 100%; word-wrap: break-word}
+
+	/* Réduction de la taille de polices des placeholders */
+	::-webkit-input-placeholder {font-size:small}
+	::-moz-placeholder {font-size:small}
+	::-ms-input-placeholder {font-size:small}
+	::-moz-placeholder {font-size:small}
 
 }
 
@@ -841,9 +1021,9 @@ button.button {
 	/* Temporaire */
 	.top-menu{display:none}
 
-	/* Changement de fixe en absolue pour le fond des fenetres modales */
+	/* Changement de fixe en absolue pour le fond des fenêtres modales */
 	.modal-dialog{position: absolute}
-	/* Position en haut des fenetres modales */
+	/* Position en haut des fenêtres modales */
 	.modal-dialog .modal {margin-top: 6em}
 	/* Evite la compression des 'Message Boxes' */
 	.modal-dialog.dialog .modal{overflow-y: scroll}
@@ -852,7 +1032,7 @@ button.button {
 
 @media only screen and (max-height: 610px), handheld and (max-device-height: 799px), and (orientation: portrait) {
 
-	/* Reduit le header et ses contenus pour les petits ecrans */
+	/* Reduit le header et ses contenus pour les petits écrans */
 	html header,
 		html header .mask,
 		header .header-inner {height: 3em}
@@ -864,14 +1044,14 @@ button.button {
 
 	header .header-inner h1 {margin:.3em 0 0}
 
-	/* Changement de fixe en absolue pour le fond des fenetres modales */
+	/* Changement de fixe en absolue pour le fond des fenêtres modales */
 	.modal-dialog{
 		position: absolute;
 		width: 100%;
-		height: 100vh;
+		height: 110vh;
 		margin: 0 auto
 	}
-	/* Position et taille des fenetres modales */
+	/* Position et taille des fenêtres modales */
 	.modal-dialog .modal {
 		margin-top: 6em;
 		max-height: 60vh;
@@ -886,6 +1066,23 @@ button.button {
 		width: 96%;
 		height: 100%;
 		padding: 0 2%
+	}
+
+}
+
+/* Supports */
+@supports (flex-wrap: wrap) {
+
+	.flex{display:flex}
+
+	html input.password{width:100%}
+
+	html #eye{
+		float: none;
+		width: auto;
+		margin-top: -1em;
+		padding: 0;
+		font-size: large
 	}
 
 }
