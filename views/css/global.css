@@ -8,7 +8,7 @@
  * Attention : pour la version de production minifiée, tous les commentaires seront supprimés
  *
  * @date     30/04/2017
- * @revision 06/05/2017
+ * @revision 07/05/2017
  * @authors  Patrick ; ...
  *
  */
@@ -101,6 +101,8 @@ header,
 /* Flottements */
 .left {float: left}
 .right {float: right}
+/* Clear both */
+.clear{clear: both}
 /* Cacher un élément */
 .hidden {
 	display: none;
@@ -215,9 +217,9 @@ ul {line-height: 2em}
 		Bistre :     #95405a		rgb(149, 64, 90)
 		Orange :     #ef6c00		rgb(239, 108, 0)
 		Vert   :     #00897b		rgb(0, 137, 123)
-		Blanc :      #fff			rgb(255, 255, 255)
-		Noir :       #000			rgb(0, 0, 0)
-		Gris :		 #999			rgb(161, 161, 161)
+		Blanc :      #ffffff		rgb(255, 255, 255)
+		Noir :       #000000		rgb(0, 0, 0)
+		Gris :		 #999999		rgb(161, 161, 161)
 		Gris clair : #a1a1a1		rgb(153, 153, 153)	
 
 	================ */
@@ -462,11 +464,25 @@ a[href^="https://maps.google.com/maps?"],
 
 .full {width: 100%;clear: both}
 
-.c-2 {
+[class^="c-"] {
+	*display: inline;
 	float: left;
-	display: inline;
+}
+
+.c-2 {
 	width: 48%;
-	margin: 0 1%;
+	/* 48% + 1% = 50% */
+	margin: 0 1%
+}
+
+.c-3 {
+	width: 31.3333333334%;
+	margin: 0 1%
+}
+
+.c-4 {
+	width: 18%;
+	margin: 0 1%
 }
 
 
@@ -540,10 +556,23 @@ a[href^="https://maps.google.com/maps?"],
 	max-width: 400px
 }
 
-.modal-dialog.dialog:not(.overflow) .modal {overflow: hidden}
+/* Aspect de message boxes */
+.dialog .modal {overflow: hidden}
 
+/* Aspect de modal boxes avec scrolling */
+.dialog.overflow .modal{overflow-y: scroll}
+
+/* Pas utile : la règle suivante est suffisante
 .modal-dialog .close {display:none}
+.modal-dialog.dialog .close,
+.modal-dialog.overflow .close {
+	display:block;
+}
+*/
+/* Masquage du lien de fermeture sur toutes les modal boxes */
+.modal-dialog .close {display: none}
 
+/* Affichage du lien de fermeture sur tous les message boxes */
 .modal-dialog.dialog .close {display:block}
 
 .modal-dialog > div {
@@ -553,8 +582,10 @@ a[href^="https://maps.google.com/maps?"],
 /*
 	width: 80%;
 */
-	margin: 0 auto;
+	margin: 0 auto
+}
 
+.modal-dialog:not('.overflow') > div {
 	/*
 	width: -moz-fit-content;
 	width: -webkit-fit-content;
@@ -731,27 +762,27 @@ input.password + button {
 }
 
 .btn-large {
-    height: 54px;
-    line-height: 54px;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2)
+	height: 54px;
+	line-height: 54px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2)
 }
 
 .button-orange {
-  background: #ef6c00;
-  color: #fff;
+	background: #ef6c00;
+	color: #fff
 }
 
 .button-green {
-  background: #00897b /* #00bfa5*/;
-  color: #fff;
+	background: #00897b /* #00bfa5*/;
+	color: #fff
 }
 
 button.button {
-  display: table;
-  height: auto;
-  margin: 1em auto .5em;
-  white-space: nowrap;
-  cursor: pointer
+	display: table;
+	height: auto;
+	margin: 1em auto .5em;
+	white-space: nowrap;
+	cursor: pointer
 }
 
 .button-green.ripple-in:hover:before,
@@ -772,28 +803,8 @@ button.button {
 
 .btn-group {
 	display: table;
-	margin: 0 auto
-}
-
-.btn-group .button {text-transform: none;font-size: small}
-
-.dropdown-btn {
-	display: none;
 	position: relative;
-	top: 100%;
-	z-index: 1000;
-	min-width: 160px;
-	margin: -5px 0 0 35px;
-	padding: 5px;
-	list-style: none;
-	background-color: #fff;
-	border: 1px solid #ccc;
-	border: 1px solid rgba(0, 0, 0, 0.15);
-	text-align: left;
-	font-size: 14px;
-	border-radius: 4px;
-	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175)
+	margin: 0 auto
 }
 
 .caret {
@@ -806,6 +817,42 @@ button.button {
 	border-top: 4px solid;
 	border-right: 4px solid transparent;
 	border-left: 4px solid transparent
+}
+
+.btn-group .button {
+	display: table;
+	text-transform: none;
+	font-size: small
+}
+
+.btn-group .button:focus{outline: none}
+
+
+.dropdown-btn {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	min-width: 160px;
+	margin: -5px 0 0 0;
+	padding: 5px 5px 0 5px;
+	list-style: none;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	text-align: left;
+	font-size: 14px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175)
+}
+
+.dropdown-btn li{border-bottom: 1px solid #eee}
+
+.dropdown-btn li a {
+	display: block;
+	width: 100%;
 }
 
 .btn-group .active + ul {display: inline-table}
@@ -943,7 +990,10 @@ html .inactive {
 	position: static;
 	-webkit-transform: none;
 	transform: none;
-	cursor: default
+	/* cursor défaut ou...
+	cursor: default;
+	*/
+	cursor: not-allowed
 }
 
 html .inactive:before{content: none}
@@ -995,7 +1045,13 @@ html .inactive:hover:before {
 	html .wrapper {width: 100%;margin: 0 0 0 0}
 	html #map {min-height: 100%;height: 465px;overflow: hidden}
 	html .content {margin-bottom: 0}
-	html .c-2{width: 100%}
+	/* Certaines grilles réinitialisées à 100% */
+	html .c-3,
+		html .c-4 {width: 100%}
+	/* Restaure le scroll sur les modales pour très petits écrans */
+	html .modal-dialog.dialog .modal {
+		overflow-y: scroll
+	}
 	html .push,
 		html .footer,
 		html .footer-inner {
@@ -1020,6 +1076,9 @@ html .inactive:hover:before {
 
 	/* Temporaire */
 	.top-menu{display:none}
+
+	/* Système de grilles réinitialisé à 100% pour petits écrans */
+	html [class^="c-"] {width: 100%}
 
 	/* Changement de fixe en absolue pour le fond des fenêtres modales */
 	.modal-dialog{position: absolute}
@@ -1057,10 +1116,6 @@ html .inactive:hover:before {
 		max-height: 60vh;
 		min-height: 100px;
 		min-height: 40vh
-	}
-	/* Restaure le scroll sur les modales pour très petits écrans */
-	html .modal-dialog.dialog .modal {
-		overflow-y: auto
 	}
 	html #block-cookies {
 		width: 96%;
