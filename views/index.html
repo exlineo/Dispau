@@ -205,7 +205,7 @@ if(document.documentElement){document.documentElement.className+='js';}
 
 		<!-- CREER LIEU -->
 
-		<div aria-hidden="true" role="dialog" class="modal-dialog no-select" id="open-modal-creer-lieu">
+		<div aria-hidden="true" role="dialog" class="modal-dialog dialog overflow" id="open-modal-creer-lieu">
 
 			<div>
 				<div class="modal">
@@ -218,7 +218,7 @@ if(document.documentElement){document.documentElement.className+='js';}
 				<input name="nom_str" type="text" id="nom-lieu-input" placeholder="Nom du lieu" class="input-txt">
 				</div>
 				<div class="c-2">
-				<label for="image-lieu-btn" class="label-file">Photo du Lieu <i class="fa fa-picture-o" aria-hidden="true"></i>
+				<label for="image-lieu-btn" title="Charger une image" class="label-file">Photo du Lieu <i class="fa fa-picture-o" aria-hidden="true"></i>
 <em>:</em></label>
 				<input name="image_img" type="file" class="input-file" id="image-lieu-btn">
 				<div class="preview" style="height: 9em">
@@ -227,9 +227,9 @@ if(document.documentElement){document.documentElement.className+='js';}
 				</div>
 				<div class="full">
 				<label for="description-lieu-input">Description :</label>
-				<textarea id="description-lieu-input" name="description_str" placeholder="Description du lieu"></textarea>
+				<textarea id="description-lieu-input" name="description_str" rows="6" cols="6" placeholder="Description du lieu"></textarea>
 				<label for="adresse-lieu-input">Adresse :</label>
-				<textarea id="adresse-lieu-input" name="adresse_str" placeholder="Adresse du lieu"></textarea>
+				<textarea id="adresse-lieu-input" name="adresse_str" rows="6" cols="6" placeholder="Adresse du lieu"></textarea>
 				</div>
 				<div class="c-2">
 					<label for="longitude-lieu-input">Longitude :</label>
