@@ -149,12 +149,14 @@ if(document.documentElement){document.documentElement.className+='js';}
 						<ul>
 							<li>Formulaires ;</li>
 							<li>Logs d'accès ;</li>
-							<li>Simples "Message Box" d'erreurs ou succès d'actions.</li>
+							<li>Simples "Message Box" d'erreurs ou succès d'actions (scroll maîtrisable : avec ou sans).</li>
 						</ul>
-						<button class="button btn-flat button-green ripple-in inactive"><span>Inactif</span></button>
+						<button class="button btn-flat button-green ripple-in inactive clear"><span>Inactif</span></button>
 						<div class="btn-group">
 							<button class="button btn-flat ripple">Avec liste <span class="caret"></span></button>
 							<ul class="dropdown-btn">
+								<li>Test</li>
+								<li><a href="" title="Zyva !">Test</a></li>
 								<li>Test</li>
 							</ul>
 						</div>
@@ -183,7 +185,7 @@ if(document.documentElement){document.documentElement.className+='js';}
 						<p>Le réseau de vos centres d'intérêts <strong>DISPAU</strong>&nbsp;&reg; est trop ouf que ça jette : mais trop, grave !</p>
 						<p>A tout moment, vous trouverez, ici, l'aide en ligne contextuelle pour vous familiariser avec les différentes fonctionnalités offertes.</p>
 						<h3>Connexion</h3>
-						<p>Une fois inscrit, vous pourrez vous connecter à DISPAU à tout monment à l'aide de votre pseudonyme et votre mot de passe renseigné.</p>
+						<p>Une fois inscrit(e), vous pourrez vous connecter à <strong>DISPAU</strong>&nbsp;&reg; à tout monment à l'aide de votre pseudonyme et de votre mot de passe préalablement renseignés.</p>
 						<h3>Inscription</h3>
 						<p>En quelques renseignements, inscrivez-vous pour profiter, immédiatement, de tous les avantages de <strong>DISPAU</strong>&nbsp;&reg;.</p>
 						<h3>Mon profil</h3>
@@ -205,58 +207,59 @@ if(document.documentElement){document.documentElement.className+='js';}
 
 		<!-- CREER LIEU -->
 
-		<div aria-hidden="true" role="dialog" class="modal-dialog dialog overflow" id="open-modal-creer-lieu">
+		<div aria-hidden="true" role="dialog" class="modal-dialog no-select" id="open-modal-creer-lieu">
 
 			<div>
 				<div class="modal">
 					<div class="inner-dialog">
 
-		<h2 class="gris">Création d'un lieu</h2>
-			<form action="" method="post">
-				<div class="c-2">
-				<label for="nom-lieu-input">Nom :</label>
-				<input name="nom_str" type="text" id="nom-lieu-input" placeholder="Nom du lieu" class="input-txt">
-				</div>
-				<div class="c-2">
-				<label for="image-lieu-btn" title="Charger une image" class="label-file">Photo du Lieu <i class="fa fa-picture-o" aria-hidden="true"></i>
+						<h2 class="gris">Création d'un lieu</h2>
+						<form action="" method="post">
+							<div class="c-2">
+								<label for="nom-lieu-input">Nom :</label>
+								<input name="nom_str" type="text" id="nom-lieu-input" placeholder="Nom du lieu" class="input-txt">
+							</div> <!-- /c-2 -->
+							<div class="c-2">
+								<label for="image-lieu-btn" title="Charger une image" class="label-file">Photo du Lieu <i class="fa fa-picture-o" aria-hidden="true"></i>
 <em>:</em></label>
-				<input name="image_img" type="file" class="input-file" id="image-lieu-btn">
-				<div class="preview" style="height: 9em">
-					<img src="http://placehold.it/350x150" alt="placeholder" />
-				</div>
-				</div>
-				<div class="full">
-				<label for="description-lieu-input">Description :</label>
-				<textarea id="description-lieu-input" name="description_str" rows="6" cols="6" placeholder="Description du lieu"></textarea>
-				<label for="adresse-lieu-input">Adresse :</label>
-				<textarea id="adresse-lieu-input" name="adresse_str" rows="6" cols="6" placeholder="Adresse du lieu"></textarea>
-				</div>
-				<div class="c-2">
-					<label for="longitude-lieu-input">Longitude :</label>
-					<input name="longitude_str" id="longitude-lieu-input" placeholder="Longitude" class="input-txt" type="text">
-				</div>
-				<div class="c-2">
-					<label for="latitude-lieu-input">Latitude :</label>
-					<input name="latitude_str" id="latitude-lieu-input" placeholder="Latitude" class="input-txt" type="text">
-				</div>
-				<!--  <fieldset>
-					<legend>Voulez vous créer des Sous-Lieux ?</legend>
-					<input type="radio" name="sousLieu" id="sous-lieu"> <label for="ouiSL">Oui</label>
-					<input type="radio" name="sousLieu" id="sous-lieu"> <label for="nonSL">Non</label>
-				</fieldset>
-				<fieldset>
-					<legend>Voulez vous disposez d'un chat affilier à votre Lieu ?</legend>
-					<input type="radio" name="chatLieu" id="chat-lieu"> <label for="ouiChat">Oui</label>
-					<input type="radio" name="chatLieu" id="chat-lieu"> <label for="nonChat">Non</label>
-				</fieldset>--> 
-				<div class="checkbox">
-					<label><input value="" type="checkbox">&nbsp;Voulez vous créer des Sous-Lieux ?</label>
-				</div>
-				<div class="checkbox">
-					<label><input value="" type="checkbox">&nbsp;Voulez-vous disposer d'un chat affilié à votre Lieu ?</label>
-				</div>
-				<button type="submit" title="Enregistrer ce nouveau lieu" class="button btn-flat button-green ripple-in" id="creer-lieu-btn">Valider</button>
-			</form>
+								<input name="image_img" type="file" class="input-file" id="image-lieu-btn">
+								<div class="preview" style="height: 9em">
+									<img src="http://placehold.it/350x150" alt="placeholder" />
+								</div>
+							</div> <!-- /c-2 -->
+
+							<div class="full">
+								<label for="description-lieu-input">Description :</label>
+								<textarea id="description-lieu-input" name="description_str" rows="6" cols="6" placeholder="Description du lieu"></textarea>
+								<label for="adresse-lieu-input">Adresse :</label>
+								<textarea id="adresse-lieu-input" name="adresse_str" rows="6" cols="6" placeholder="Adresse du lieu"></textarea>
+							</div> <!-- /full -->
+							<div class="c-2">
+								<label for="longitude-lieu-input">Longitude :</label>
+								<input name="longitude_str" id="longitude-lieu-input" placeholder="Longitude" class="input-txt" type="text">
+							</div> <!-- /c-2 -->
+							<div class="c-2">
+								<label for="latitude-lieu-input">Latitude :</label>
+								<input name="latitude_str" id="latitude-lieu-input" placeholder="Latitude" class="input-txt" type="text">
+							</div> <!-- /c-2 -->
+							<!--  <fieldset>
+								<legend>Voulez vous créer des Sous-Lieux ?</legend>
+								<input type="radio" name="sousLieu" id="sous-lieu"> <label for="ouiSL">Oui</label>
+								<input type="radio" name="sousLieu" id="sous-lieu"> <label for="nonSL">Non</label>
+							</fieldset>
+							<fieldset>
+								<legend>Voulez vous disposez d'un chat affilier à votre Lieu ?</legend>
+								<input type="radio" name="chatLieu" id="chat-lieu"> <label for="ouiChat">Oui</label>
+								<input type="radio" name="chatLieu" id="chat-lieu"> <label for="nonChat">Non</label>
+							</fieldset>--> 
+							<div class="checkbox">
+								<label><input value="" type="checkbox">&nbsp;Voulez vous créer des Sous-Lieux ?</label>
+							</div>
+							<div class="checkbox">
+								<label><input value="" type="checkbox">&nbsp;Voulez-vous disposer d'un chat affilié à votre Lieu ?</label>
+							</div>
+							<button type="submit" title="Enregistrer ce nouveau lieu" class="button btn-flat button-green ripple-in" id="creer-lieu-btn">Valider</button>
+						</form>
 					</div> <!-- /inner-dialog -->
 
 				</div> <!-- /modal -->
@@ -264,7 +267,7 @@ if(document.documentElement){document.documentElement.className+='js';}
 					<a href="#close" class="help">Fermer</a> <a href="https://www.cara-tm.com" class="link">Aide</a>
 				</div>
 			</div>
-		</div> <!-- /open-modal-profil -->
+		</div> <!-- /open-modal-creer-lieu -->
 
 		<!-- FIN CREER LIEU -->
 
@@ -286,7 +289,7 @@ if(document.documentElement){document.documentElement.className+='js';}
 	</div>
 </footer>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery-1.12.4.min.js">\x3C/script>')</script>
 <script async defer type="text/javascript">
 /*! Simple EU Cookies Law Compliance without dependencies by cara-tm.com, 2017. MIT license - https://github.com/cara-tm/EU-Cookies-Law-Compliance/ */
