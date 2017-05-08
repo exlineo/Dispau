@@ -1,7 +1,12 @@
 test_ann=new Annonce();
+var langue='de';
 
 liste_personnes_lieu_ar=
 [
+{
+	id_nb:0,
+	age_nb:18
+},
 {
 	id_nb:1,
 	age_nb:18
@@ -112,7 +117,7 @@ liste_personnes_lieu_ar=
 },
 {
 	id_nb:28,
-	age_nb:22
+	age_nb:16
 },
 {
 	id_nb:29,
@@ -136,18 +141,23 @@ test_ann.nom_str="Poker";
 test_ann.lieu_nb=5;
 test_ann.description_str='pour jouer au poker';
 test_ann.photo_str='photoOriginale.jpg'
-test_ann.personnesInscrites_ar=[1,2,3,4,5,6,7,9,8,10,11];
+test_ann.personnesInscrites_ar=[1,2,3,4,5,6,7,9,8,9,10,11];
 test_ann.personnesMax_nb=11;
 test_ann.personnesMin_nb=5;
 test_ann.personnesBannies_ar=[12,13];
 test_ann.salleDAttente_ar=[14,15,16,17];
-test_ann.limiteAge_nb=99;
+test_ann.limiteAge_nb=1;
 test_ann.validite_bl=true;
 test_ann.annulee_bl=false;
 test_ann.dateFinInscriptions_dat=new Date(2018,0,27,14,25);
 console.log(test_ann.personnesInscrites_ar);
 console.log(test_ann.salleDAttente_ar);
-console.log(test_ann.modifierAgeLimite(18));
+//console.log(test_ann.annuler());
+//console.log(test_ann.valider(false));
+//console.log(test_ann.inscrireUser(liste_personnes_lieu_ar[11]));
+//test_ann.modifierAgeLimite(18);
+test_ann.modifierDates(8,-1)
+
 console.log(test_ann.personnesInscrites_ar);
 console.log(test_ann.salleDAttente_ar);
 
