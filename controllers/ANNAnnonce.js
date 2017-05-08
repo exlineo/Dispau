@@ -1,6 +1,7 @@
 /*definition de la Classe Annonce*/ /* code erreur 01*/
 function Annonce()
-{
+{	
+	var notice= new Notification();
 	var ici=this;
 	this.id_nb; /*identifiant de l'annonce. Cle de la base de donnée*/
 	this.nom_str; /*nom de l'annonce*/
@@ -57,48 +58,48 @@ this.inscrireUser =function(utilisateur)
 var resultat;
 var idUser=utilisateur.id_nb;
 /* le test sur l'age requiert la classe utilisateur la ligne suivante est provisoire */
-if (utilisateur.age<ici.limiteAge_nb) 
+if (utilisateur.age_nb<ici.limiteAge_nb) 
 	{
-		Notification.call(this, 1005); //vous n'avez pas l'âge requis
+		notice.appel(1005); //vous n'avez pas l'âge requis
 		return 'erreur';
 	}
 
 if (!ici.validite_bl)/* test si l'annonce n'est pas validée*/
 	{
 		 // annonce non validée
-		Notification.call(this, 1009);
+		notice.appel(1009);
 		return 'erreur';
 	} 
 
 if (ici.annulee_bl) /* test si l'annonce est annulée */
 	{
 		
-		Notification.call(this, 1008); //annonce annulée
+		notice.appel(1008); //annonce annulée
 		return 'erreur';
 	}
 
 if (ici.personnesBannies_ar.indexOf(idUser)>=0) /* test si l'utilisateur est bloqué */
 	{
-		Notification.call(this, 1002); //utilisateur bloqué'
+		notice.appel(1002); //utilisateur bloqué'
 		return 'erreur';
 	}
 
 if (Date.now()>ici.dateFinInscriptions_dat.getTime())/* test si la date d'inscription est dépassée */
 	{
-		Notification.call(this, 1004); //date inscription dépassée
+		notice.appel(1004); //date inscription dépassée
 		return 'erreur';
 	}
 
 
 if (ici.personnesInscrites_ar.indexOf(idUser)>=0)/* test si la personne est déjà inscrite */
 	{
-		Notification.call(this, 1006); //utilisateur deja inscrit
+		notice.appel(1006); //utilisateur deja inscrit
 		return 'erreur';
 	}
 
 if (ici.salleDAttente_ar.indexOf(idUser)>=0) /* test si la personne est déjà en liste d'attente */
 	{
-		Notification.call(this, 1007); //utilisateur deja inscrit en liste d'attente
+		notice.appel(1007); //utilisateur deja inscrit en liste d'attente
 		return 'erreur';
 	}
 if (ici.personnesInscrites_ar.length<ici.personnesMax_nb) /*si il reste au moins une place */
@@ -109,6 +110,7 @@ if (ici.personnesInscrites_ar.length<ici.personnesMax_nb) /*si il reste au moins
 else 
 	{
 		ici.salleDAttente_ar.push(idUser)
+		notice.appel(1003); //utilisateur mis en liste d'attente
 		
 		
 		return 	2;
@@ -124,7 +126,7 @@ this.annuler=function()
 {
 if (ici.annulee_bl==true)
     {
-        Notification.call(this, 1001); //annonce déjà annulée
+        notice.appel(1001); //annonce déjà annulée
 		return 'erreur';
     }
 else
@@ -145,7 +147,7 @@ this.modifierNom=function(nom_str)
 {
     if (nom_str =='')
         {
-        Notification.call(this, 1010); //le nom entré est vide
+        notice.appel(1010); //le nom entré est vide
 		return 'erreur';
         }
     else
@@ -167,7 +169,7 @@ this.modifierPhoto=function(photo_str)
     if (photo_str =='')
         {
           
-		Notification.call(this, 1012); //le nom de fichier photo entre est nul
+		notice.appel(1012); //le nom de fichier photo entre est nul
 		return 'erreur';
         }
     else
@@ -186,7 +188,7 @@ this.modifierDescription=function(description_str)
 {
 if (description_str =='')
         {
-        Notification.call(this, 1013); //le nom  entre est vide
+        notice.appel(1013); //le nom  entre est vide
 		return 'erreur';
         }
     else
@@ -207,7 +209,7 @@ this.modifierLieu=function(idLieu_nb)
 {
 if (idLieu_nb == ici.lieu_nb)
     {
-        Notification.call(this, 1014); //le meme lieu a ete entre\'
+        notice.appel(1014); //le meme lieu a ete entre\'
 		return 'erreur';
     }
 else
@@ -238,7 +240,7 @@ this.modifierNbPersonnes=function(personnesMax_nb,personnesMin_nb)
 
      if ((personnesMin_nb != -1 && personnesMax_nb != -1) && personnesMin_nb > personnesMax_nb)
      {
-     	Notification.call(this, 1015); //max inferieur à min'
+     	notice.appel(1015); //max inferieur à min'
 		return 'erreur';
   
      }
@@ -247,7 +249,7 @@ this.modifierNbPersonnes=function(personnesMax_nb,personnesMin_nb)
     {
     	if ((personnesMin_nb > ici.personnesMax_nb) && (personnesMax_nb == -1))
     	{
-    	Notification.call(this, 1015); //max inferieur à min'
+    	notice.appel(1015); //max inferieur à min'
 		return 'erreur';
     	}
         ici.personnesMin_nb = personnesMin_nb;
@@ -258,7 +260,7 @@ this.modifierNbPersonnes=function(personnesMax_nb,personnesMin_nb)
 
     	if ((ici.personnesMin_nb > personnesMax_nb) && (personnesMin_nb == -1))
     	{
-    	Notification.call(this, 1015); //max inferieur à min'
+    	notice.appel(1015); //max inferieur à min'
 		return 'erreur';
     	}
        
@@ -366,12 +368,12 @@ this.modifierDates=function(dateDebut_dat,dateFin_dat)
 {
 	if (dateDebut_dat.valueOf()>datefin_dat.valueOf())
 	{
-		Notification.call(this, 1018); //date de début avant date de fin
+		notice.appel(1018); //date de début avant date de fin
 		return 'erreur';
 	}
 	if (dateDebut_dat.valueof()<now())
 	{
-		Notification.call(this, 1019); //date d'inscription est depassee
+		notice.appel(1019); //date d'inscription est depassee
 		return 'erreur';
 	}
 	ici.dateFin_dat = dateFin_dat;
@@ -395,7 +397,7 @@ this.modifierDateInscription=function(dateFinInscriptions_dat)
 {
 if (dateDebut_dat.valueof()<now())
 	{
-		Notification.call(this, 1019); //date d'inscription est depassee
+		notice.appel(1019); //date d'inscription est depassee
 		return 'erreur';
 	}
 else
@@ -458,7 +460,7 @@ this.valider=function(action)
 {
 	if (action==ici.validite_bl)
 	{
-	Notification.call(this, 1020); //annonce dejà validée
+	notice.appel(1020); //annonce dejà validée
 		return 'erreur';
 	}
 	else 	
