@@ -28,7 +28,8 @@ function afficherDataUser(utilisateur_obj)
 	$('#description').html(utilisateur_obj.description_str);
 	// image-profil
 	var imageUrl = utilisateur_obj.image_img[0];
-	$('#image-profil span').css({
+	
+	$('#image-profil').css({
 		"background": "url('"+imageUrl+"')", 
 		"background-size": "cover",
 		"background-position": "center top"
