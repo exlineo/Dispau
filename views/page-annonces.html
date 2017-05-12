@@ -21,7 +21,8 @@
   </head>
   <body>
     <div class='wrapper'>
-      <div id="icon-section"><span class="glyphicon glyphicon-list-alt white" aria-hidden="true"></div>
+      <div id="icon-section"><span class="glyphicon glyphicon-list-alt white" aria-hidden="true"></span>
+      </div>
       <div id="annonce">
         <!-- Carousel -->
         <div id="carousel-annonce" class="carousel slide" data-ride="carousel">
@@ -90,7 +91,7 @@
 
       <section id="parameters">
         <div id="btn-parameters">
-          <span class="glyphicon glyphicon-menu-down white" aria-hidden="true">
+          <span class="glyphicon glyphicon-menu-down white" aria-hidden="true"></span>
         </div>
         <nav id="para-menu">
           <ul>
@@ -119,6 +120,7 @@
         var annonce = new AnnonceListeElement();
         annonce.ajouterAnnonce(testAnnonce);
         annonce.afficherAnnonces();
+        console.log(annonce.annonces_ar);
     </script>
   </body>
 </html>

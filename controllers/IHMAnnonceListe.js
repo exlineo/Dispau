@@ -4,6 +4,7 @@ function AnnonceListe() {
      * Il est intéressant de l'utiliser pour trier tout les objets
      * @type {{}}
      */
+    var ici = this;
     var annonces_obj = {};
     this.annonces_ar = [];
 
@@ -61,9 +62,9 @@ function AnnonceListe() {
 // et dans la variable, il y aura la liste des annonces possédants les annonces possédant ce centre d'interet
     this.annoncesCentresInterets = function (centreinteret) {
         var annonceQuiMatch = [];
-        for (var i in annonces_obj) {
-            if (annonces_obj[i].trieCentreInteret(centreinteret)) {
-                annonceQuiMatch.push(annonces_obj[i]);
+        for (var i in ici.annonces_ar) {
+            if (ici.annonces_ar[i].trieCentreInteret(centreinteret)) {
+                annonceQuiMatch.push(ici.annonces_ar[i]);
             }
         }
         return annonceQuiMatch;
