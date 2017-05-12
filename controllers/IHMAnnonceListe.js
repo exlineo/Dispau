@@ -63,7 +63,7 @@ function AnnonceListe() {
     this.annoncesCentresInterets = function (centreinteret) {
         var annonceQuiMatch = [];
         for (var i in ici.annonces_ar) {
-            if (ici.annonces_ar[i].trieCentreInteret(centreinteret)) {
+            if (ici.annonces_ar[i].trieCentreInteret(centreinteret) || typeof(centreinteret) === 'undefined') {
                 annonceQuiMatch.push(ici.annonces_ar[i]);
             }
         }
