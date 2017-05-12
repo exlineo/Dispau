@@ -8,7 +8,7 @@
  * Attention : pour la version de production minifiée, tous les commentaires seront supprimés
  *
  * @date     30/04/2017
- * @revision 07/05/2017
+ * @revision 11/05/2017
  * @authors  Patrick ; ...
  *
  */
@@ -93,6 +93,10 @@ header,
 /*! 2°) Helpers 
 	================ */
 
+[role=button], a,  button, input, label, select, textarea {
+	-ms-touch-action: manipulation;
+	touch-action: manipulation
+}
 /* Positionnements */
 .fixed {position: fixed}
 .static {position: static}
@@ -124,7 +128,7 @@ header,
 	-ms-user-select: none;
 	user-select: none
 }
-.full { width: 100% }
+.full,.c-1 { width: 100% }
 .inblock{ display: inline-block }
 /* Créer un système de marges et paddings au besoin 
 .mt5 {margin-top: 5em}
@@ -177,6 +181,8 @@ html:not(.wf-active) .fa {display: none}
 	font-size: large
 }
 
+.fa + em{font-style: normal}
+
 /* B) Google fonts chargees */
 
 /* Masque les alternatives textuelles sur les icônes sociales */
@@ -186,7 +192,8 @@ html:not(.wf-active) .fa {display: none}
 .wf-active h1,
 	.wf-active h2,
 	.wf-active h3 {
-		margin: 0
+		margin: 0;
+		font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif
 }
 
 ul {line-height: 2em}
@@ -255,14 +262,16 @@ header .mask {background: #7ac9ed}
 
 header h1 a {color: #e6005c}
 
-#map {background: #eee}
+#map {background: #fff /* #edf0f4 */}
 
 .close {
 	background: #eee;
 	color: #d4d4d4
 }
 
-.close:hover {
+.close:hover,
+	/* UX : pour la mise en valeur du bouton en réduction automatique */
+	.highlight {
 	background: #fff;
 	color: #999;
 	box-shadow: 0 0 10px rgba(0,0,0,.3)
@@ -320,6 +329,8 @@ select {
 	/* Fallback */
 	color: #000;
 	color:rgba(0, 0, 0, 0.7);
+	/* ou couleur DISPAU */
+	color: #e6005c;
  /*
 	background-color: #dff4f3
 */
@@ -337,7 +348,7 @@ footer {
 	color: #fff
 }
 
-.social .fa {color: #000}
+.social .fa {color: #000; text-shadow: 0px 0px 1px #a1a1a1}
 
 #block-cookies {background: #000}
 
@@ -455,35 +466,68 @@ a[href^="https://maps.google.com/maps?"],
 .top-menu li {
 	display: inline;
 	float: left;
-	padding: 0 .5em;
 	line-height: 2.9
 }
+
+.top-menu a{margin: 0 .5em;padding: 2em .5em;color: #333}
+
+.top-menu a:hover{background: #7ac9ed; color: #000}
 
 /*! 8°) Système de grilles
 		============ */
 
-.full {width: 100%;clear: both}
+.full,
+	.row {
+		width: 100%;
+		clear: both
+}
 
-[class^="c-"] {
-	*display: inline;
-	float: left;
+.full,
+	.row,
+	[class^="c-"] {
+		/* Pour vieux navigateurs : compense les problèmes de marges avec float */
+		display: inline;
+		float: left
 }
 
 .c-2 {
+	zoom:1;
 	width: 48%;
-	/* 48% + 1% = 50% */
-	margin: 0 1%
+	/* 48% + 4% - 2% = 50% */
+	margin: 0 -2% 0 0%;
+	padding: 0 4% 0 0%
 }
+
+/* Seconde colonne */
+.c-2:nth-child(2n+0) {padding-right: 0}
 
 .c-3 {
-	width: 31.3333333334%;
-	margin: 0 1%
+	zoom:1;
+	/* 31% compensé par les marges et padding au lieu de 33.33% pour un support Cross Browsers */ 
+	width: 31%;
+	margin: 0 -1%;
+	padding: 0 2%
 }
 
+/* Première colonne */
+.c-3:nth-child(3n+0) {margin-right: -1%}
+
 .c-4 {
-	width: 18%;
-	margin: 0 1%
+	zoom:1;
+	width: 23%;
+	margin: 0 -2%;
+	padding: 0 3%
 }
+
+.c-5 {
+	zoom:1;
+	width: 18%;
+	margin: 0 -1%;
+	padding: 0 2%
+}
+
+/* Première colonne */
+.c-5:nth-child(5n+1) {margin-left: -2%}
 
 
 /*! 9°) Formulaires et fenêtres modales
@@ -516,10 +560,37 @@ a[href^="https://maps.google.com/maps?"],
 /*! Fenêtres modales 
     ============ */
 
+#info {
+	position: absolute;
+	z-index: 3;
+	right: 3%;
+	bottom: 80px;
+	width: 19em;
+	min-height: 400px;
+	max-height: 27em;
+	padding: 1em;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.87);
+	box-shadow: 0 0 35px rgba(0, 0, 0, 0.3);
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
+}
+
+/* Etat masqué de l'élément */
+#info.masked {
+	overflow: hidden;
+	bottom: 0;
+	height: 50px;
+	min-height: 50px
+}
+
 .modal-dialog:target {
 	display: block;
 	pointer-events: auto
 }
+
+form:target{}
 
 .modal-dialog {
 	display: none;
@@ -529,6 +600,7 @@ a[href^="https://maps.google.com/maps?"],
 	right: 0;
 	bottom: 0;
 	left: 0;
+	background-size: cover;
 	-webkit-transition: opacity 400ms ease-in;
 	-moz-transition: opacity 400ms ease-in;
 	transition: opacity 400ms ease-in;
@@ -543,9 +615,9 @@ a[href^="https://maps.google.com/maps?"],
 	width: 80%;
 	max-height: 200px;
 	/* Bizarrement, 80vh excède */
-	max-height: 60vh;
-	margin: 11% auto;
-	margin: 15vh auto;
+	max-height: 55vh;
+	margin: 11% auto 0;
+	margin: 15vh auto 0;
 /* Pas de padding : à reserver pour un élement d'encapsulation interne 
 	padding: 5px 20px 13px 20px;
 */
@@ -577,6 +649,7 @@ a[href^="https://maps.google.com/maps?"],
 
 .modal-dialog > div {
 	position: relative;
+/* Est-ce vraiment, mais vraiment nécessaire ?
 	max-width: 900px;
 	min-width: 250px;
 /*
@@ -603,19 +676,16 @@ a[href^="https://maps.google.com/maps?"],
 	height: 90%;
 	*/
 /*
-	width: -moz-fit-content;
-	width: -webkit-fit-content;
-	width: fit-content;
-*/
+
 	height: -moz-fit-content;
 	height: -webkit-fit-content;
 	height: fit-content;
+*/
 	padding: 1em 20px 5px 20px
 }
 
 .footer-modal {
-	direction: rtl;
-	overflow-y: hidden;
+	direction: ltr;
 	position: absolute;
 	right: 0;
     bottom: -50px;
@@ -625,6 +695,7 @@ a[href^="https://maps.google.com/maps?"],
     width: 80%;
     height: 50px;
     margin: 0 auto;
+    text-align: right;
     border-radius: 0 0 2px 2px
 }
 
@@ -699,7 +770,7 @@ input[type="text"]:focus,
 .input-file {display: none}
 
 select {
-	min-width: 101.5%;
+	min-width: 98% /* 101.5% */;
 	background-image: url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==");
 	background-repeat: no-repeat;
 	background-position: 100% 50%;
@@ -780,7 +851,7 @@ input.password + button {
 button.button {
 	display: table;
 	height: auto;
-	margin: 1em auto .5em;
+	margin: 1em auto 1.5em;
 	white-space: nowrap;
 	cursor: pointer
 }
@@ -835,7 +906,7 @@ button.button {
 	left: 0;
 	z-index: 1000;
 	min-width: 160px;
-	margin: -5px 0 0 0;
+	margin: -1.5em 0 0 0;
 	padding: 5px 5px 0 5px;
 	list-style: none;
 	background-color: #fff;
@@ -1028,8 +1099,53 @@ html .inactive:hover:before {
 }
 */
 
-/* Media Queries ============
- */
+/* Media Queries & Supports 
+	============ */
+
+/* Supports */
+@supports (flex-wrap: wrap) {
+
+	.flex,
+		.row {display: flex}
+
+	.c-1,
+		.c-2,
+		.c-3,
+		.c-4,
+		.c-5 {
+			width: auto;
+			margin: 0;
+			padding:0 1%
+	}
+
+	.c-1 {flex: 1}
+
+	.c-2 {flex: 2}
+
+	.c-3 {flex: 3}
+
+	.c-4 {flex: 4}
+
+	.c-5 {flex: 5}
+
+	.c-2:nth-child(0n+1),
+		.c-3:nth-child(0n+3),
+		.c-4:nth-child(0n+0),
+		.c-5:nth-child(5n+1) {padding-left: 0}
+
+	.c-5:nth-child(5n+1) {margin-left: 0}
+
+	html input.password {width: 100%}
+
+	html #eye {
+		float: none;
+		width: auto;
+		margin-top: -1em;
+		padding: 0;
+		font-size: large
+	}
+
+}
 
 /* Positionnement du masque du header pour les écrans >= 1280px */
 @media only screen and (min-width: 1280px) {
@@ -1075,21 +1191,22 @@ html .inactive:hover:before {
 @media only screen and (max-width: 450px) {
 
 	/* Temporaire */
-	.top-menu{display:none}
+	.top-menu {display:none}
 
 	/* Système de grilles réinitialisé à 100% pour petits écrans */
+	html .row {display: block}
 	html [class^="c-"] {width: 100%}
 
 	/* Changement de fixe en absolue pour le fond des fenêtres modales */
-	.modal-dialog{position: absolute}
+	.modal-dialog {position: absolute}
 	/* Position en haut des fenêtres modales */
 	.modal-dialog .modal {margin-top: 6em}
 	/* Evite la compression des 'Message Boxes' */
-	.modal-dialog.dialog .modal{overflow-y: scroll}
+	.modal-dialog.dialog .modal {overflow-y: scroll}
 
 }
 
-@media only screen and (max-height: 610px), handheld and (max-device-height: 799px), and (orientation: portrait) {
+@media only screen and (max-height: 610px), and (max-device-height: 799px), and (orientation: portrait) {
 
 	/* Reduit le header et ses contenus pour les petits écrans */
 	html header,
@@ -1103,20 +1220,42 @@ html .inactive:hover:before {
 
 	header .header-inner h1 {margin:.3em 0 0}
 
+	/* Corrige le positionnement sur petits écrans */
+	#info {
+		bottom: 0;
+		width: 85%;
+		max-width: 350px;
+		max-height: 90vh;
+		min-height: 90vh;
+		overflow-y: scroll
+	}
+
 	/* Changement de fixe en absolue pour le fond des fenêtres modales */
 	.modal-dialog{
 		position: absolute;
 		width: 100%;
 		height: 110vh;
-		margin: 0 auto
+		margin: 0 auto;
+		overflow: hidden
 	}
 	/* Position et taille des fenêtres modales */
 	.modal-dialog .modal {
 		margin-top: 6em;
 		max-height: 60vh;
 		min-height: 100px;
-		min-height: 40vh
+		min-height: 40vh;
+
+		max-height: 40vh;
+
+		max-device-height: 60vh;
+		min-device-height: 100px;
+		min-device-height: 40vh
 	}
+
+	.modal h1,
+		.modal h2,
+		.modal h3{padding-right: 1em}
+
 	html #block-cookies {
 		width: 96%;
 		height: 100%;
@@ -1125,19 +1264,60 @@ html .inactive:hover:before {
 
 }
 
-/* Supports */
-@supports (flex-wrap: wrap) {
+// Small devices (landscape phones, 576px and up)
+@media (max-device-width: 576px) {
 
-	.flex{display:flex}
 
-	html input.password{width:100%}
 
-	html #eye{
-		float: none;
-		width: auto;
-		margin-top: -1em;
-		padding: 0;
-		font-size: large
-	}
 
 }
+
+// Medium devices (tablets, 768px and up)
+@media (max-device-width: 768px) {
+
+
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (max-device-width: 992px) {
+
+
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+	
+	
+}
+
+
+/*! iPad toutes générations en mode portrait et paysage */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)  {
+
+
+}
+
+/*! iPad toutes générations mode paysage */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+
+
+}
+
+/*! iPad toutes générations mode portrait */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+
+
+}
+
+/*! */
