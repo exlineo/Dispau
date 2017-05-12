@@ -30,14 +30,13 @@ function Annonce()
 
 
 
-this.hydrate = function(obj)
-{
-    for (var i in obj)
+	this.hydrate = function(obj)
+	{
+    	for (var i in obj)
     {
         ici[i]=obj[i];
     }
-}
-
+	}
 /* traite les demandes d'inscription ajoute l'utilisateur dans le tableau des inscrits, vérifie si il peut être inscrit,
     le met en liste d'attente si le nombre max est atteint
 @param {number} utilisateur : objet utilisateur
@@ -117,10 +116,13 @@ else
 	}	
 } //fin de la methode inscrireUser
 
+
 /*Annulation de l'annonce
 mets le booleen annulee_bl à true
 @returns erreur 1010 si l'annonce est déjà annulée
 @author Francis Thomas le 9 Avril 2017*/
+
+
 
 this.annuler=function()
 {
@@ -496,12 +498,43 @@ this.supprimerUser=function(idUser)
 }
 
 
-/*cette fonction permet d'envoyer une notification aux utilisateurs connectes dans le lieuet non inscrits à l'annonce.
- declenché soit spontanement (criteres à definir) soit par l'organisateur de l'annonce
+/*cette fonction permet d'envoyer une notification aux utilisateurs connectes dans le lieu et non inscrits à l'annonce
+ declenché soit spontanement (toutes les n millisecondes si le nombre minimum n'est pas atteint) soit par l'organisateur de l'annonce
+ envoyé aux utilisateurs présents dans le lieu, qui ne sont pas inscrits à l'annonce.
 	*/
+
 this.envoyerNotification=function()
 {
 	/***********************************************************************/
 	// envoyer notification
+// tableau contenant les utilisateurs du lieu à récupérer avec la fonction getUtilisateursLieu
+notification() //pour appel volontaire du createur aux utilisateurs non inscrits
+notification=function()
+{
+	//mettre ici une fonction qui va recupérer un tableau d'utilisateurs du lieu parent supérieur
+	//envoyer une notification "il y a encore des places pour this au lieu ici.lieu_nb" a tous les utilisateurs du tableau ci dessus
 }
+//répétition de la notification automatiquement
+
+var tropTard=setInterval(function()
+	{
+var intervalle=3600000; //par defaut, notifiction toutes les heures (avant trois heures)
+var tempsrestantheure=(ici.dateFinInscriptions_dat.valueof()-now())/intervalle; //temps restant avant la date limite d'inscription
+
+notification() //envoyer la notification à intervalles réguliers
+
+if (tempsrestantheure <3) //trois heures avant notification toutes les demi heures
+{
+	intervalle=intervalle/2;
+}
+if (tempsrestantheure <1) //une heure avant toutes les dix minutes
+{
+	intervalle=intervalle/3
+}
+},intervalle);	
+
+if (tempsrestantheure<=0)
+}
+
 }/* Fin de la definition de la classe annonce*/
+
