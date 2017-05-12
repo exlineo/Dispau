@@ -39,7 +39,7 @@ function AnnonceListe() {
      * Permet de supprimer une annonce par rapport à l'ID de l'annonce
      * @param _annonceID est l'ID de l'annonce
      */
-    this.supprimerAnnonce = function (_annonceID) {
+    /*this.supprimerAnnonce = function (_annonceID) {
         if (_annonceID in this.annonces_ar) {
             delete this.annonces_ar[_annonceID];
             console.log("Annonces", this.annonces_ar);
@@ -47,7 +47,7 @@ function AnnonceListe() {
         }
 
         else console.log("L'annonce n'existe pas")
-    };
+    };*/
 
     /*this.afficherAnnonce = function (_annonceID) {
      if(_annonceID in this.annonces_ar){
