@@ -68,17 +68,27 @@ function Annonce()
     /* Salle de tchat specifisue pour cette activité */
 
 
-    this.hydrate = function (obj) {
-        for (var i in obj) {
-            ici[i] = obj[i];
-        }
+	this.hydrate = function(obj)
+	{
+    	for (var i in obj)
+    {
+        ici[i]=obj[i];
     }
-
-    /* traite les demandes d'inscription ajoute l'utilisateur dans le tableau des inscrits, vérifie si il peut être inscrit,
-     le met en liste d'attente si le nombre max est atteint
-     @param {number} utilisateur : objet utilisateur
-     @returns 1 si inscription, 2 si liste d'attente
-     @returns {erreur}
+	}
+/* traite les demandes d'inscription ajoute l'utilisateur dans le tableau des inscrits, vérifie si il peut être inscrit,
+    le met en liste d'attente si le nombre max est atteint
+@param {number} utilisateur : objet utilisateur
+@returns 1 si inscription, 2 si liste d'attente
+@returns {erreur}
+	
+	1002 si l'utilisateur est bloqué
+	1004 si la date d'inscription est depassee
+	1005 si l'utilisateur n'a pas l'age requis
+	1006 si l'utilisateur est déjà inscrit
+	1007 si l'utilisateur est déjà en liste d'attente
+	1008 si l'annonce est annulée
+	1009 si l'annonce n'est pas validée
+@author Francis Thomas le 9 Avril 2017*/
 
 this.inscrireUser =function(utilisateur)
 {
@@ -149,11 +159,13 @@ else
 	}	
 } //fin de la methode inscrireUser
 
-        if (ici.personnesInscrites_ar.indexOf(idUser) >= 0)/* test si la personne est déjà inscrite */
-        {
-            Notification.call(this, 1006); //utilisateur deja inscrit
-            return 'erreur';
-        }
+
+/*Annulation de l'annonce
+mets le booleen annulee_bl à true
+@returns erreur 1010 si l'annonce est déjà annulée
+@author Francis Thomas le 9 Avril 2017*/
+
+
 
 this.annuler=function()
 {
@@ -580,5 +592,43 @@ this.valider=function(action)
     }
 
 
+/*cette fonction permet d'envoyer une notification aux utilisateurs connectes dans le lieu et non inscrits à l'annonce
+ declenché soit spontanement (toutes les n millisecondes si le nombre minimum n'est pas atteint) soit par l'organisateur de l'annonce
+ envoyé aux utilisateurs présents dans le lieu, qui ne sont pas inscrits à l'annonce.
+	*/
+
+this.envoyerNotification=function()
+{
+	/***********************************************************************/
+	// envoyer notification
+// tableau contenant les utilisateurs du lieu à récupérer avec la fonction getUtilisateursLieu
+notification() //pour appel volontaire du createur aux utilisateurs non inscrits
+notification=function()
+{
+	//mettre ici une fonction qui va recupérer un tableau d'utilisateurs du lieu parent supérieur
+	//envoyer une notification "il y a encore des places pour this au lieu ici.lieu_nb" a tous les utilisateurs du tableau ci dessus
 }
-/* Fin de la definition de la classe annonce*/
+//répétition de la notification automatiquement
+
+var tropTard=setInterval(function()
+	{
+var intervalle=3600000; //par defaut, notifiction toutes les heures (avant trois heures)
+var tempsrestantheure=(ici.dateFinInscriptions_dat.valueof()-now())/intervalle; //temps restant avant la date limite d'inscription
+
+notification() //envoyer la notification à intervalles réguliers
+
+if (tempsrestantheure <3) //trois heures avant notification toutes les demi heures
+{
+	intervalle=intervalle/2;
+}
+if (tempsrestantheure <1) //une heure avant toutes les dix minutes
+{
+	intervalle=intervalle/3
+}
+},intervalle);	
+
+if (tempsrestantheure<=0)
+}
+
+}/* Fin de la definition de la classe annonce*/
+
