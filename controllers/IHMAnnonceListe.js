@@ -35,6 +35,10 @@ function AnnonceListe() {
 
     };
 
+    this.clearAllAnnonce = function (){
+      this.annonces_ar = [];
+    };
+
     /**
      * Permet de supprimer une annonce par rapport à l'ID de l'annonce
      * @param _annonceID est l'ID de l'annonce
