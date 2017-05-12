@@ -5,6 +5,7 @@ function LIELieu () {
     this.description_str = '';
     this.annonces_ar = [];
     this.sousLieux_ar = [];
+    this.utilisateurs = []; // liste d'utilisateurs par lieu
     this.adresse_str = '';
     this.latitude_nb = 0;
     this.longitude_nb = 0;
