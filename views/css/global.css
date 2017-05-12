@@ -1142,6 +1142,8 @@ html .inactive:hover:before {
 		width: auto;
 		margin-top: -1em;
 		padding: 0;
+		background: none;
+		border: none;
 		font-size: large
 	}
 
