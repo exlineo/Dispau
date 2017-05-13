@@ -8,7 +8,7 @@
  * Attention : pour la version de production minifiée, tous les commentaires seront supprimés
  *
  * @date     30/04/2017
- * @revision 11/05/2017
+ * @revision 13/05/2017
  * @authors  Patrick ; ...
  *
  */
@@ -45,6 +45,10 @@
 
 /*! 1°) Micro resets & dimensions
 	=============== */
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
 
 html,
 	body {
@@ -196,7 +200,7 @@ html:not(.wf-active) .fa {display: none}
 		font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif
 }
 
-ul {line-height: 2em}
+ul {line-height: 2}
 
 .close {
 	font: normal normal normal 1.3em/1.5em Arial,sans-serif
@@ -447,6 +451,45 @@ a[href^="https://maps.google.com/maps?"],
 /*! 7°) Menu navigation 
 	================ */
 
+.header-inner .top-menu label {
+	display: none;
+	position: relative;
+	display: inline-block;
+/*
+	width: 4em;
+*/
+	margin: .43em 1.2em 0 0;
+	padding: .9em .8em .9em 1.6em;
+	background: #fff;
+	text-align: center
+}
+
+#toggle-nav,
+	.header-inner .top-menu label,
+	i.visually-hidden {display:none}
+
+/*
+#toggle-nav {
+	display: none;
+	position: relative;
+	margin: .6em .5em 0 0;
+	padding: .4em .4em .5em 1.5em;
+	vertical-align: middle;
+	background: #fff;
+	border: none;
+	font-size: 1.1em;
+	font-style: normal
+}
+*/
+
+i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
+
+.visually-hidden svg{
+	position: absolute;
+	top: .8em;
+	left: .7em;
+}
+
 .top-menu {
 	float: right;
 	width: auto;
@@ -466,10 +509,19 @@ a[href^="https://maps.google.com/maps?"],
 .top-menu li {
 	display: inline;
 	float: left;
+/*
 	line-height: 2.9
+*/
 }
 
-.top-menu a{margin: 0 .5em;padding: 2em .5em;color: #333}
+.top-menu a {
+	display: block;
+	min-width: 6em;
+	margin: 0 .5em;
+	padding: .1em .5em .3em;
+	text-align: center;
+	color: #333
+}
 
 .top-menu a:hover{background: #7ac9ed; color: #000}
 
@@ -567,7 +619,7 @@ a[href^="https://maps.google.com/maps?"],
 	bottom: 80px;
 	width: 19em;
 	min-height: 400px;
-	max-height: 27em;
+	max-height: 28em;
 	padding: 1em;
 	background: #fff;
 	background: rgba(255, 255, 255, 0.87);
@@ -585,12 +637,11 @@ a[href^="https://maps.google.com/maps?"],
 	min-height: 50px
 }
 
+/* Révélateur des modales */
 .modal-dialog:target {
 	display: block;
 	pointer-events: auto
 }
-
-form:target{}
 
 .modal-dialog {
 	display: none;
@@ -782,6 +833,10 @@ select {
 	appearance: none
 }
 
+/* correction pour certains navigateurs mobiles */
+option:checked,
+	option:hover {background: transparent}
+
 input.password {
 	float: left;
 	width: 85%
@@ -930,12 +985,12 @@ button.button {
 
 /* Cookies */
 
-#block-cookies{
+#block-cookies {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100px;
+	height: 100%;
 	text-align: center
 }
 
@@ -1077,16 +1132,18 @@ html .inactive:hover:before {
 
 /* Personnalisation des scrool bars sur moteur WebKit */
 
+/*
 .modal::-webkit-scrollbar { width: 6px; height: 3px}
-/* bouton haut et bas */
+/* bouton haut et bas 
 .modal::-webkit-scrollbar-button {  background-color: #666}
 .modal::-webkit-scrollbar-track {  background-color: #999}
-/* Fond du scroll bar */
+/* Fond du scroll bar 
 .modal::-webkit-scrollbar-track-piece { background-color: #fff}
-/* La barre de defilement */
+/* La barre de defilement 
 .modal::-webkit-scrollbar-thumb { height: 50px; background-color: #999; border-radius: 3px}
 .modal::-webkit-scrollbar-corner { background-color: #999}
 .modal::-webkit-resizer { background-color: #666}
+*/
 
 /* Version plus simple :
 .modal::-webkit-scrollbar {
@@ -1098,6 +1155,21 @@ html .inactive:hover:before {
 	border-radius: 3px
 }
 */
+
+.modal::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #f5f5f5
+}
+
+.modal::-webkit-scrollbar {
+	width: 5px;
+	background-color: #f5f5f5
+}
+
+.modal::-webkit-scrollbar-thumb {
+	background-color: #999;
+	border: 1px solid #777
+}
 
 /* Media Queries & Supports 
 	============ */
@@ -1115,7 +1187,7 @@ html .inactive:hover:before {
 		.c-5 {
 			width: auto;
 			margin: 0;
-			padding:0 1%
+			padding: 0 1%
 	}
 
 	.c-1 {flex: 1}
@@ -1143,7 +1215,7 @@ html .inactive:hover:before {
 		margin-top: -1em;
 		padding: 0;
 		background: none;
-		border: none;
+		border: 0;
 		font-size: large
 	}
 
@@ -1154,6 +1226,10 @@ html .inactive:hover:before {
 
 	/* 100% - 1280px = marges en %. (Marges /2) + 46px (centre du logo) = distance en % depuis la gauche (.mask est positionne a gauche) jusque le centre du logo */
 	header .mask {width: calc(((100% - 1280px) / 2) + 46px)}
+
+	.top-menu li {line-height: 2.9}
+
+	/* Corrige la taille de Normalizer */
 	small {font-size: 85%}
 
 }
@@ -1161,15 +1237,24 @@ html .inactive:hover:before {
 @media only screen and (max-width: 790px) {
 
 	html .wrapper {width: 100%;margin: 0 0 0 0}
+
 	html #map {min-height: 100%;height: 465px;overflow: hidden}
+
+	
+
 	html .content {margin-bottom: 0}
+
 	/* Certaines grilles réinitialisées à 100% */
 	html .c-3,
 		html .c-4 {width: 100%}
+
 	/* Restaure le scroll sur les modales pour très petits écrans */
 	html .modal-dialog.dialog .modal {
 		overflow-y: scroll
 	}
+
+	#info {bottom: 40px}
+
 	html .push,
 		html .footer,
 		html .footer-inner {
@@ -1180,20 +1265,23 @@ html .inactive:hover:before {
 
 	/* Augmente la hauteur de ligne pour un usage facilité avec les doigts sur mobiles */
 	html .footer-inner p {line-height: 2em; font-size: large; hyphens: none}
+
 	html small {font-size: 100%; word-wrap: break-word}
 
 	/* Réduction de la taille de polices des placeholders */
-	::-webkit-input-placeholder {font-size:small}
-	::-moz-placeholder {font-size:small}
-	::-ms-input-placeholder {font-size:small}
-	::-moz-placeholder {font-size:small}
+	::-webkit-input-placeholder,select {font-size: small}
+	::-moz-placeholder {font-size: small}
+	::-ms-input-placeholder {font-size: small}
+	::-moz-placeholder {font-size: small}
 
 }
 
 @media only screen and (max-width: 450px) {
 
+
 	/* Temporaire */
-	.top-menu {display:none}
+	.top-menu {min-width:auto;max-width:auto}
+	.top-menu ul {display:none}
 
 	/* Système de grilles réinitialisé à 100% pour petits écrans */
 	html .row {display: block}
@@ -1214,6 +1302,7 @@ html .inactive:hover:before {
 	html header,
 		html header .mask,
 		header .header-inner {height: 3em}
+
 	html header .logo {
 		width: 48px;
 		height: 70px;
@@ -1222,14 +1311,9 @@ html .inactive:hover:before {
 
 	header .header-inner h1 {margin:.3em 0 0}
 
-	/* Corrige le positionnement sur petits écrans */
-	#info {
-		bottom: 0;
-		width: 85%;
-		max-width: 350px;
-		max-height: 90vh;
-		min-height: 90vh;
-		overflow-y: scroll
+	html .top-menu {
+		height: 3em;
+		margin: -.4em 0 0 0
 	}
 
 	/* Changement de fixe en absolue pour le fond des fenêtres modales */
@@ -1259,36 +1343,87 @@ html .inactive:hover:before {
 		.modal h3{padding-right: 1em}
 
 	html #block-cookies {
+		/*
 		width: 96%;
-		height: 100%;
+		*/
 		padding: 0 2%
 	}
 
 }
 
-// Small devices (landscape phones, 576px and up)
+@media only screen and (max-width: 710px) {
+
+
+	.header-inner .top-menu label,
+	i.visually-hidden {display: inline-block}
+
+	#toggle-nav:checked ~ ul {
+		display: block;
+		overflow: hidden;
+		position: absolute;
+		top: 2.2em;
+		left: 0;
+		width: 100%;
+		/*
+		height: 100%;
+		*/
+		background: #fff;
+/*
+pointer-events: none;
+*/
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden
+	}
+
+	.top-menu li {
+		display: inline-block;
+		float: left;
+		width: 100%;
+		line-height: 2.9
+	}
+
+
+	html .top-menu {width: auto; min-width: auto; max-width: auto}
+
+	
+
+}
+
+/*! From Twitter Bootstrap */
+
+/* Small devices (landscape phones, 576px and up) */
 @media (max-device-width: 576px) {
 
 
 
+	/* Corrige le positionnement sur petits écrans */
+	#info {
+		bottom: 0;
+		width: 85%;
+		max-width: 350px;
+		max-height: 85vh;
+		min-height: 85vh;
+		overflow-y: scroll
+	}
+
 
 }
 
-// Medium devices (tablets, 768px and up)
+/* Medium devices (tablets, 768px and up) */
 @media (max-device-width: 768px) {
 
-
+	#info{bottom:0;overflow-y:scroll;max-height:85vh;min-height:85vh}
 
 }
 
-// Large devices (desktops, 992px and up)
+/* Large devices (desktops, 992px and up) */
 @media (max-device-width: 992px) {
 
 
 
 }
 
-// Extra large devices (large desktops, 1200px and up)
+/* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 
 	
