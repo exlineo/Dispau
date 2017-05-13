@@ -44,7 +44,7 @@ La structure à adopter est la suivante :
 
 L'ID de l'élément est l'identifiant unique permettant d'ouvrir les fenêtres modales par un lien avec cet ID en guise d'ancre.
 
-Par exemple, placé dans le menu de navigation, ce lien ouvrira la fenêtre modale, ci-avant, identifiée par son ID `open-modal-connexion` :
+Par exemple, placé dans le menu de navigation, ce lien ouvrira la fenêtre modale, ci-avant, sur un clic ou "Tap" identifiée par son ID `open-modal-connexion` :
 
     <a href="#open-modal-connexion" data-tooltip="" title="J'en suis !" data-cible="connexion" class="tooltip-bottom" id="connexionBtn"><i class="fa fa-sign-in" aria-hidden="true"></i><em>☑</em> Connexion</a></li>
 
@@ -115,13 +115,13 @@ La structure nécessite l'encapsulation - quoique *falcultative* mais requise po
 * `c-4` : quatre colonnes identiques, côte à côte ;
 * `c-5` : cinq colonnes identiques, côte à côte.
 
-**Notez bien** : les colonnes sont affectées d'une pleine largeur (semblable à `c-1`) sur petits écrans.
+**Notez bien** : les colonnes sont affectées d'une pleine largeur (semblable à `c-1`) et empilées sur petits écrans.
 
 ## Boutons, liens et animations
 
 La conception de boutons se réalise de cette manière :
 
-    <button class="button btn-flat button-green ripple-in"><span>Trouver</span></button>
+    <button class="button btn-flat button-green ripple-in">Trouver</button>
 
 ### Détail des classes utilisées
 
@@ -156,9 +156,23 @@ Plusieurs animations CSS sont disponibles pour les boutons et liens. Elles sont 
 * `ripple` : effet de halo en cercle se diffusant depuis le centre, semblable à ce qu'utilise Google ;
 * `ripple-in` : effet d'une barre s'échappant des bords (pour les boutons verts et oranges).
 
+## Javascript
+
+Divers scripts en ("Vanilla") pur javascript sont inclus directement en pied du document HTML pour :
+
+* Réduire la boîte de recherche au clic sur un élément du menu (afin de dégager l'espace de lecture) ;
+* Déployer le contenu des listes dans des "dropdown" boutons ;
+* Afficher le message de présence de "Cookies" en respect de la loi Européenne ;
+* Effectuer la réduction des "Message Boxes" au clic de leur bouton de fermeture ;
+* Révéler les mots de passe en clair par appui long sur le bouton correspondant ;
+* Créer des info-bulles stylées (CSS3) sur les liens, à la demande, avec "fallback" de l'affichage par défaut des `title`sur navigateurs anciens ;
+* Le script de Google Map.
+
+Possibilité de les externaliser dans des fichiers et/ou de les convertir en jQuery, si nécessaire.
+
 ## Fichier de développement et de production
 
 Le fichier de CSS nommé `global.css` a été soigneusement organisé et comporte de nombreux commentaires explicatifs afin d'autoriser les modifications/personnalisations nécessaires au projet. Ce fichier comporte, en outre, un sommaire général présentant les diverses sections internes. Les modifications autorisées (dimensions générales, choix des polices de caractères, couleurs du sites et de ses éléments) sont permises (sans risque de malfonctionnements induits) depuis le haut jusque la section titrée `5°) Layout` (non incluse, les sections suivantes nécessitent une connaissance soutenue des comportements structuraux invoqués).
 
 **Toutes modifications effectuées sur ce fichier de développement, doivent induire sa compression (minification) sur le site [http://minifier.org](http://minifier.org/) (le meilleur outil en ligne actuel, selon nos tests) en remplacement du fichier `global.min.css` : une contrainte permettant d'accroître la rapidité d'affichage du site final, jusque 10%.**
-Veillez à maintenir conjointement ces deux fichiers à jour.
+Veillez à maintenir conjointement ces deux fichiers à jour en les datant pour identifier le "versionning".
