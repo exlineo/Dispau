@@ -165,10 +165,10 @@ Divers scripts en ("Vanilla") pur javascript sont inclus directement en pied du 
 * Afficher le message de présence de "Cookies" en respect de la loi Européenne ;
 * Effectuer la réduction des "Message Boxes" au clic de leur bouton de fermeture ;
 * Révéler les mots de passe en clair par appui long sur le bouton correspondant ;
-* Créer des info-bulles stylées (CSS3) sur les liens, à la demande, avec "fallback" de l'affichage par défaut des `title`sur navigateurs anciens ;
+* Créer des info-bulles stylées (CSS3) sur les liens, à la demande, avec "fallback" de l'affichage par défaut des `title`sur navigateurs anciens (ou javascript désactivé sur les navigateurs) ;
 * Le script de Google Map.
 
-Possibilité de les externaliser dans des fichiers et/ou de les convertir en jQuery, si nécessaire.
+Scripts, pour certains, distribués selon la "MIT License" pour usages personnels ou commerciaux, sans rétribution (avec maintient des copyright). Possibilité de les externaliser dans des fichiers et/ou de les convertir en jQuery, si nécessaire.
 
 ## Fichier de développement et de production
 
