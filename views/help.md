@@ -14,7 +14,7 @@ La création de ces éléments doit être contenue entre les balises d'ouvertre 
 ## Fenêtres modales
 
 Les fenêtres modales comportent un espace central dévolu au contenu ainsi que d'un pied de box destiné à recevoir des boutons (au minimum un seul : celui permettant leur fermeture).
-    Ces boîtes sont centrées et s'adaptent automatiquement en hauteur si bien que vous n'avez pas à vous soucier des problèmes de dimensions ni de positionnement.
+    Ces boîtes sont centrées et s'adaptent automatiquement en hauteur si bien que vous n'avez pas à vous soucier des problèmes de dimensions ni de positionnement (support des écrans larges, jusque les Smart TV ainsi que les petits écrans de SmartPhones).
 Masquées par défaut, elles s'ouvrent, tout comme les Message Box, par un lien `<a>` dont le `href` est une ancre constituée de l'ID de la fenêtre modale ou du message box, peu importe l'emplacement de ces liens d'ouverture dans le document.
 
 La structure à adopter est la suivante :
@@ -43,6 +43,10 @@ La structure à adopter est la suivante :
 ### Classes et ID à utiliser
 
 L'ID de l'élément est l'identifiant unique permettant d'ouvrir les fenêtres modales par un lien avec cet ID en guise d'ancre.
+
+Par exemple, placé dans le menu de navigation, ce lien ouvrira la fenêtre modale, ci-avant, identifiée par son ID `open-modal-connexion` :
+
+    <a href="#open-modal-connexion" data-tooltip="" title="J'en suis !" data-cible="connexion" class="tooltip-bottom" id="connexionBtn"><i class="fa fa-sign-in" aria-hidden="true"></i><em>☑</em> Connexion</a></li>
 
 Détail des classes associées à la première balise `<div>`d'une fenêtre modale :
 
@@ -106,10 +110,10 @@ La structure nécessite l'encapsulation - quoique *falcultative* mais requise po
 ### Colonnes disponibles par classes
  
 * `c-1` : une seule colonne ;
-* `c-2` : deux colonnes identiques ;
-* `c-3` : trois colonnes identiques ;
-* `c-4` : quatre colonnes identiques ;
-* `c-5` : cinq colonnes identiques.
+* `c-2` : deux colonnes identiques, côte à côte ;
+* `c-3` : trois colonnes identiques, côte à côte ;
+* `c-4` : quatre colonnes identiques, côte à côte ;
+* `c-5` : cinq colonnes identiques, côte à côte.
 
 **Notez bien** : les colonnes sont affectées d'une pleine largeur (semblable à `c-1`) sur petits écrans.
 
