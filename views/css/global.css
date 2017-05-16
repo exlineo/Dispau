@@ -1253,7 +1253,7 @@ html .inactive:hover:before {
 		overflow-y: scroll
 	}
 
-	#info {bottom: 40px}
+	#info {bottom: 40px; width: 83%}
 
 	html .push,
 		html .footer,
