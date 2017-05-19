@@ -1,10 +1,31 @@
 /*definition de la Classe Annonce*/ /* code erreur 01*/
-function Annonce() {
-    var ici = this;
-    this.id_nb;
-    /*identifiant de l'annonce. Cle de la base de donnée*/
-    this.nom_str;
-    /*nom de l'annonce*/
+function Annonce()
+{	
+	var notice= new Notification();
+	var ici=this;
+	this.id_nb; /*identifiant de l'annonce. Cle de la base de donnée*/
+	this.nom_str; /*nom de l'annonce*/
+	
+	this.photo_str; /*nomdu fichier qui contient la photo liée à l'annonce*/
+	this.description_str; /* description de l'annonce en chaine de caractere sans attribut*/
+	this.personnesMax_nb; /*nombre de personnes maximum*/
+	this.personnesMin_nb; /*nombre de personnes minimum*/
+	this.personnesInscrites_ar=[]; /*tableau de id users, liste des participants à l'annonce*/
+	this.salleDAttente_ar=[]; /*tableau de Id users, liste des participants en liste d'attente par ordre de priorité*/
+	this.personnesBannies_ar=[]; /*tableau de Id d'users; liste des participants bannis*/
+	this.lieu_nb;  /*Id clé) du Lieu auquel est attaché l'annonce. */
+	this.dateDebut_dat; /*date  du début de l'activité de cette annonce*/
+	this.dateFinInscriptions_dat; /*Date   limite pour les inscriptions */
+	this.dateFin_dat; /*date  de la fin de l'activité*/
+	this.dateCreation_dat; /*date de creation de l'annonde. Se met automatiquement*/
+	this.gestionnaire_nb; /* id du gestionnaire */
+	
+	this.validite_bl=false; /*booleen annonce validee=true*/
+	this.annulee_bl=false; /*booleen annonce annulée Pour la recréer, il faut en recréer une, avec un Id different*/
+	this.limiteAge_nb; /*age minimum requis pour la participation en années*/
+	this.conditionsDAdmition_st; /*chaine de caractere decrivant d'autres conditions d'admission*/
+	this.centresDInterets_ar=[]; /*Liste des centres d'interets auquels se rapporte cette annonce.¨Pour cibler les éventuels "clients"*/
+	this.salleDeTchat_nb; /* Salle de tchat specifisue pour cette activité */
 
     this.photo_str;
     /*nomdu fichier qui contient la photo liée à l'annonce*/
@@ -51,45 +72,64 @@ function Annonce() {
         for (var i in obj) {
             ici[i] = obj[i];
         }
+	this.hydrate = function(obj)
+	{
+    	for (var i in obj)
+    {
+        ici[i]=obj[i];
     }
+	}
+/* traite les demandes d'inscription ajoute l'utilisateur dans le tableau des inscrits, vérifie si il peut être inscrit,
+    le met en liste d'attente si le nombre max est atteint
+@param {number} utilisateur : objet utilisateur
+@returns 1 si inscription, 2 si liste d'attente
+@returns {erreur}
+	
+	1002 si l'utilisateur est bloqué
+	1004 si la date d'inscription est depassee
+	1005 si l'utilisateur n'a pas l'age requis
+	1006 si l'utilisateur est déjà inscrit
+	1007 si l'utilisateur est déjà en liste d'attente
+	1008 si l'annonce est annulée
+	1009 si l'annonce n'est pas validée
+@author Francis Thomas le 9 Avril 2017*/
 
-    /* traite les demandes d'inscription ajoute l'utilisateur dans le tableau des inscrits, vérifie si il peut être inscrit,
-     le met en liste d'attente si le nombre max est atteint
-     @param {number} utilisateur : objet utilisateur
-     @returns 1 si inscription, 2 si liste d'attente
-     @returns {erreur}
+this.inscrireUser =function(utilisateur)
+{
+var resultat;
+var idUser=utilisateur.id_nb;
+/* le test sur l'age requiert la classe utilisateur la ligne suivante est provisoire */
+if (utilisateur.age_nb<ici.limiteAge_nb) 
+	{
+		notice.appel(1005); //vous n'avez pas l'âge requis
+		return 'erreur';
+	}
 
-     1002 si l'utilisateur est bloqué
-     1004 si la date d'inscription est depassee
-     1005 si l'utilisateur n'a pas l'age requis
-     1006 si l'utilisateur est déjà inscrit
-     1007 si l'utilisateur est déjà en liste d'attente
-     1008 si l'annonce est annulée
-     1009 si l'annonce n'est pas validée
-     @author Francis Thomas le 9 Avril 2017*/
+if (!ici.validite_bl)/* test si l'annonce n'est pas validée*/
+	{
+		 // annonce non validée
+		notice.appel(1009);
+		return 'erreur';
+	} 
 
-    this.inscrireUser = function (utilisateur) {
-        var resultat;
-        var idUser = utilisateur.id_nb;
-        /* le test sur l'age requiert la classe utilisateur la ligne suivante est provisoire */
-        if (utilisateur.age < ici.limiteAge_nb) {
-            Notification.call(this, 1005); //vous n'avez pas l'âge requis
-            return 'erreur';
-        }
+if (ici.annulee_bl) /* test si l'annonce est annulée */
+	{
+		
+		notice.appel(1008); //annonce annulée
+		return 'erreur';
+	}
 
-        if (!ici.validite_bl)/* test si l'annonce n'est pas validée*/
-        {
-            // annonce non validée
-            Notification.call(this, 1009);
-            return 'erreur';
-        }
+if (ici.personnesBannies_ar.indexOf(idUser)>=0) /* test si l'utilisateur est bloqué */
+	{
+		notice.appel(1002); //utilisateur bloqué'
+		return 'erreur';
+	}
 
-        if (ici.annulee_bl) /* test si l'annonce est annulée */
-        {
-
-            Notification.call(this, 1008); //annonce annulée
-            return 'erreur';
-        }
+if (Date.now()>ici.dateFinInscriptions_dat.getTime())/* test si la date d'inscription est dépassée */
+	{
+		notice.appel(1004); //date inscription dépassée
+		return 'erreur';
+	}
 
         if (ici.personnesBannies_ar.indexOf(idUser) >= 0) /* test si l'utilisateur est bloqué */
         {
@@ -97,46 +137,65 @@ function Annonce() {
             return 'erreur';
         }
 
-        if (Date.now() > ici.dateFinInscriptions_dat.getTime())/* test si la date d'inscription est dépassée */
-        {
-            Notification.call(this, 1004); //date inscription dépassée
-            return 'erreur';
-        }
+if (ici.personnesInscrites_ar.indexOf(idUser)>=0)/* test si la personne est déjà inscrite */
+	{
+		notice.appel(1006); //utilisateur deja inscrit
+		return 'erreur';
+	}
+
+if (ici.salleDAttente_ar.indexOf(idUser)>=0) /* test si la personne est déjà en liste d'attente */
+	{
+		notice.appel(1007); //utilisateur deja inscrit en liste d'attente
+		return 'erreur';
+	}
+if (ici.personnesInscrites_ar.length<ici.personnesMax_nb) /*si il reste au moins une place */
+	{
+		ici.personnesInscrites_ar.push(idUser);	
+		return 1;
+	}
+else 
+	{
+		ici.salleDAttente_ar.push(idUser)
+		notice.appel(1003); //utilisateur mis en liste d'attente
+		
+		
+		return 	2;
+	}	
+} //fin de la methode inscrireUser
 
 
-        if (ici.personnesInscrites_ar.indexOf(idUser) >= 0)/* test si la personne est déjà inscrite */
-        {
-            Notification.call(this, 1006); //utilisateur deja inscrit
-            return 'erreur';
-        }
+/*Annulation de l'annonce
+mets le booleen annulee_bl à true
+@returns erreur 1010 si l'annonce est déjà annulée
+@author Francis Thomas le 9 Avril 2017*/
 
-        if (ici.salleDAttente_ar.indexOf(idUser) >= 0) /* test si la personne est déjà en liste d'attente */
-        {
-            Notification.call(this, 1007); //utilisateur deja inscrit en liste d'attente
-            return 'erreur';
-        }
-        if (ici.personnesInscrites_ar.length < ici.personnesMax_nb) /*si il reste au moins une place */
-        {
-            ici.personnesInscrites_ar.push(idUser);
-            return 1;
-        }
-        else {
-            ici.salleDAttente_ar.push(idUser)
+
+
+this.annuler=function()
+{
+if (ici.annulee_bl==true)
+    {
+        notice.appel(1001); //annonce déjà annulée
+		return 'erreur';
+    }
+else
+    {
+        ici.annulee_bl=true;
+        return true;
+    }
+}// fin de la méthode annuler
 
 
             return 2;
         }
     } //fin de la methode inscrireUser
 
-    /*Annulation de l'annonce
-     mets le booleen annulee_bl à true
-     @returns erreur 1010 si l'annonce est déjà annulée
-     @author Francis Thomas le 9 Avril 2017*/
-
-    this.annuler = function () {
-        if (ici.annulee_bl == true) {
-            Notification.call(this, 1001); //annonce déjà annulée
-            return 'erreur';
+this.modifierNom=function(nom_str)
+{
+    if (nom_str =='')
+        {
+        notice.appel(1010); //le nom entré est vide
+		return 'erreur';
         }
         else {
             ici.annulee_bl = true;
@@ -151,29 +210,34 @@ function Annonce() {
      return true si ça s'est bien passe
      false si le nom de l'annonce n'est pas correct*/
 
-    this.modifierNom = function (nom_str) {
-        if (nom_str == '') {
-            Notification.call(this, 1010); //le nom entré est vide
-            return 'erreur';
+/*Modifie la photo d'une annonce
+ avec des parametres entres par celui qui modifie. 
+ 	@param  {string}  	photo 			nom du fichier dela photo jpg
+ 	return true si ça s'est bien passe*/
+ 	
+this.modifierPhoto=function(photo_str)
+{
+    if (photo_str =='')
+        {
+          
+		notice.appel(1012); //le nom de fichier photo entre est nul
+		return 'erreur';
         }
         else {
             ici.nom_str = nom_str;
             return true;
         }
 
-    }
-
-
-    /*Modifie la photo d'une annonce
-     avec des parametres entres par celui qui modifie.
-     @param  {string}  	photo 			nom du fichier dela photo jpg
-     return true si ça s'est bien passe*/
-
-    this.modifierPhoto = function (photo_str) {
-        if (photo_str == '') {
-
-            Notification.call(this, 1012); //le nom de fichier photo entre est nul
-            return 'erreur';
+/*Modifie la description d'une annonce
+ avec des parametres entres par celui qui modifie. 
+ 	@param  {string}  	description chaîne contenant la description
+ 	return true si ça s'est bien passe*/
+this.modifierDescription=function(description_str)
+{
+if (description_str =='')
+        {
+        notice.appel(1013); //le nom  entre est vide
+		return 'erreur';
         }
         else {
             ici.photo_str = photo_str;
@@ -196,6 +260,12 @@ function Annonce() {
             return true;
         }
 
+this.modifierLieu=function(idLieu_nb)
+{
+if (idLieu_nb == ici.lieu_nb)
+    {
+        notice.appel(1014); //le meme lieu a ete entre\'
+		return 'erreur';
     }
 
     /*Modifie la description d'une annonce
@@ -225,16 +295,33 @@ function Annonce() {
      liste : tableau des utilisateurs transferes, que type soit vrai ou faux
      */
 
+     if ((personnesMin_nb != -1 && personnesMax_nb != -1) && personnesMin_nb > personnesMax_nb)
+     {
+     	notice.appel(1015); //max inferieur à min'
+		return 'erreur';
+  
+     }
 
-    this.modifierNbPersonnes = function (personnesMax_nb, personnesMin_nb) {
-        var resultat = {
-            type: true,
-            liste: []
-        }
+    if (personnesMin_nb != -1) // si personneMin changé
+    {
+    	if ((personnesMin_nb > ici.personnesMax_nb) && (personnesMax_nb == -1))
+    	{
+    	notice.appel(1015); //max inferieur à min'
+		return 'erreur';
+    	}
+        ici.personnesMin_nb = personnesMin_nb;
+    }
+    if (personnesMax_nb != -1)
+    {
+    	var difference = personnesMax_nb - ici.personnesMax_nb; // difference entre exixtant et entree
 
-        if ((personnesMin_nb != -1 && personnesMax_nb != -1) && personnesMin_nb > personnesMax_nb) {
-            Notification.call(this, 1015); //max inferieur à min'
-            return 'erreur';
+    	if ((ici.personnesMin_nb > personnesMax_nb) && (personnesMin_nb == -1))
+    	{
+    	notice.appel(1015); //max inferieur à min'
+		return 'erreur';
+    	}
+       
+       ici.personnesMax_nb=personnesMax_nb;
 
         }
 
@@ -360,22 +447,27 @@ function Annonce() {
      pas fini */
 
 
-    /* Modifie les dates de début, de fin et de limite d'inscription controle si la date de debut est bien posterieure à now()
-     @param 		{date} 			dateDebut				date de debut  mettre -1 si inchangé
-     @param 		{date} 			dateFin 				date de fin  mettre -1 si inchangé
-     @param 		{date} 			dateFinInscriptions		date limite d'inscription  mettre -1 si inchangé
-     @returns	{array of number} 	tableau contenant la liste des identifiants des personnes mises en liste d'attente
-     */
-    this.modifierDateInscription = function (dateFinInscriptions_dat) {
-        if (dateDebut_dat.valueof() < now()) {
-            Notification.call(this, 1019); //date d'inscription est depassee
-            return 'erreur';
-        }
-        else {
-            ici.dateFinInscriptions_dat = dateFinInscriptions_dat;
-            return true;
-        }
-    }
+/* Modifie les dates de début, de fin et de limite d'inscription controle si la date de debut est bien posterieure à now()
+@param 		{date} 			dateDebut				
+@param 		{date} 			dateFin 				
+@returns	{array of number} 	tableau contenant la liste des identifiants des personnes mises en liste d'attente	
+*/	
+this.modifierDates=function(dateDebut_dat,dateFin_dat)
+{
+	if (dateDebut_dat.valueOf()>datefin_dat.valueOf())
+	{
+		notice.appel(1018); //date de début avant date de fin
+		return 'erreur';
+	}
+	if (dateDebut_dat.valueof()<now())
+	{
+		notice.appel(1019); //date d'inscription est depassee
+		return 'erreur';
+	}
+	ici.dateFin_dat = dateFin_dat;
+	ici.dateDebut_dat = dateDebut_dat;
+}
+/* envoyer une notification à tous les utilisateurs inscrits*/
 
 
     /* Ajoute un centre d'interet relatif à cette annonce
@@ -405,7 +497,25 @@ function Annonce() {
                 if (ici.salleDAttente_ar.legth > 0);
                 ici.personnesInscrites_ar.push(ici.salleDAttente_ar.shift());
 
-            }
+/* Modifie les dates de début, de fin et de limite d'inscription controle si la date de debut est bien posterieure à now()
+@param 		{date} 			dateDebut				date de debut  mettre -1 si inchangé
+@param 		{date} 			dateFin 				date de fin  mettre -1 si inchangé
+@param 		{date} 			dateFinInscriptions		date limite d'inscription  mettre -1 si inchangé
+@returns	{array of number} 	tableau contenant la liste des identifiants des personnes mises en liste d'attente	
+*/	
+this.modifierDateInscription=function(dateFinInscriptions_dat)
+{
+if (dateDebut_dat.valueof()<now())
+	{
+		notice.appel(1019); //date d'inscription est depassee
+		return 'erreur';
+	}
+else
+	{
+		ici.dateFinInscriptions_dat=dateFinInscriptions_dat;
+		return true;
+	}
+}
 
         }
         else {
@@ -451,7 +561,22 @@ function Annonce() {
         }
 
 
-    }
+/*valide ou invalide l'annonce
+@param 		{boolean}  	action  true pour valider false pour invalider
+@returns 	{boolean}	false si la validité était dans l'état demandé 
+*/
+this.valider=function(action)
+{
+	if (action==ici.validite_bl)
+	{
+	notice.appel(1020); //annonce dejà validée
+		return 'erreur';
+	}
+	else 	
+	{
+		ici.validite_bl=action;
+	}	
+}
 
 
     /*cette fonction permet d'envoyer une notification aux utilisateurs connectes dans le lieuet non inscrits à l'annonce.
@@ -471,5 +596,43 @@ function Annonce() {
     }
 
 
+/*cette fonction permet d'envoyer une notification aux utilisateurs connectes dans le lieu et non inscrits à l'annonce
+ declenché soit spontanement (toutes les n millisecondes si le nombre minimum n'est pas atteint) soit par l'organisateur de l'annonce
+ envoyé aux utilisateurs présents dans le lieu, qui ne sont pas inscrits à l'annonce.
+	*/
+
+this.envoyerNotification=function()
+{
+	/***********************************************************************/
+	// envoyer notification
+// tableau contenant les utilisateurs du lieu à récupérer avec la fonction getUtilisateursLieu
+notification() //pour appel volontaire du createur aux utilisateurs non inscrits
+notification=function()
+{
+	//mettre ici une fonction qui va recupérer un tableau d'utilisateurs du lieu parent supérieur
+	//envoyer une notification "il y a encore des places pour this au lieu ici.lieu_nb" a tous les utilisateurs du tableau ci dessus
 }
-/* Fin de la definition de la classe annonce*/
+//répétition de la notification automatiquement
+
+var tropTard=setInterval(function()
+	{
+var intervalle=3600000; //par defaut, notifiction toutes les heures (avant trois heures)
+var tempsrestantheure=(ici.dateFinInscriptions_dat.valueof()-now())/intervalle; //temps restant avant la date limite d'inscription
+
+notification() //envoyer la notification à intervalles réguliers
+
+if (tempsrestantheure <3) //trois heures avant notification toutes les demi heures
+{
+	intervalle=intervalle/2;
+}
+if (tempsrestantheure <1) //une heure avant toutes les dix minutes
+{
+	intervalle=intervalle/3
+}
+},intervalle);	
+
+if (tempsrestantheure<=0)
+}
+
+}/* Fin de la definition de la classe annonce*/
+
