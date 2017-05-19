@@ -35,6 +35,9 @@ function AnnonceListe() {
 
     };
 
+    /**
+     * Permet de vider le tableau d'annonces
+     */
     this.clearAllAnnonce = function (){
       this.annonces_ar = [];
     };
