@@ -1,7 +1,7 @@
 
 
 
-function Notification(code){
+function Notification(){
 	var ici=this;
 	this.messageErr=
 	{
@@ -17,6 +17,9 @@ function Notification(code){
 		1002: { fr: 'Vous êtes bloqué pour cette Annonce', 
 				en: 'You are not allowed to this activity',
 				de: 'Sie sind nicht genehmigt für diese Aktivität'},
+		1003: { fr: 'Vous êtes inscrit en liste d\'attente', 
+				en: 'You have been subscribed in the waiting list',
+				de: 'Sie werden auf die Warteliste eingetragt'},
 		1004: { fr: 'La date d\'inscription est dépassée', 
 				en: 'The subscription time is passed',
 				de: 'Die Eintragungszeit ist vorbei'},
@@ -54,8 +57,11 @@ function Notification(code){
 				en: 'Activity already validated',
 				de: 'Aktivität schon validiert'},
 	}
-	this.call(msg){
-		$('#notification').text(ici.messageErr.code.langue);
+	this.appel = function(msg)
+	{
+		$('#notification').text(ici.messageErr[msg][langue]);
+		console.log(msg)
 		$('#notification').show();
+		
 	}
 }
