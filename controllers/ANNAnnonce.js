@@ -68,11 +68,10 @@ function Annonce()
     /* Salle de tchat specifisue pour cette activité */
 
 
-	this.hydrate = function(obj)
-	{
-    	for (var i in obj)
-    {
-        ici[i]=obj[i];
+    this.hydrate = function (obj) {
+        for (var i in obj) {
+            ici[i] = obj[i];
+        }
     }
 	}
 /* traite les demandes d'inscription ajoute l'utilisateur dans le tableau des inscrits, vérifie si il peut être inscrit,
