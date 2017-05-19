@@ -26,87 +26,6 @@ function AnnonceListeElement() {
             divCarousel.appendChild(titreAnnonce);
             divItem.appendChild(divCarousel);
             annonceID.appendChild(divItem);
-
-            /*//Permet de créer le DOM d'affichage de l'annonce.
-            var annonceID = document.getElementById('annonce');
-            var divAnnonce = document.createElement('div');
-
-            var nom, description, dateDebut, dateFin, dateCreation, lieu, centreInteret, placesMin, placesMax, image,
-                particpants;
-
-
-
-            image = document.createElement('img');
-            image.setAttribute('src', el.photo_str);
-            image.setAttribute('alt', el.nom_str);
-
-            nom = document.createElement('h1');
-            nom.innerHTML = el.nom_str;
-
-            description = document.createElement('p');
-            description.innerHTML = el.description_str;
-
-            dateDebut = document.createElement('div');
-            dateDebut.innerHTML = el.dateDebut_dat;
-
-            dateFin = document.createElement('div');
-            dateFin.innerHTML = el.dateFin_dat;
-
-            dateFinInscription = document.createElement('div');
-            dateFinInscription.innerHTML = el.dateFinInscription_dat;
-
-            dateCreation = document.createElement('div');
-            dateCreation.innerHTML = el.dateCreation_dat;
-
-            lieu = document.createElement('p');
-            lieu.innerHTML = el.lieu_lie;
-
-            var ulCentreInteret;
-            ulCentreInteret = document.createElement('ul');
-
-            for (var i = 0; i < el.centresInterets_ar.length; i++) {
-                centreInteret = document.createElement('li');
-                centreInteret.innerHTML = el.centresInterets_ar[i];
-                ulCentreInteret.appendChild(centreInteret);
-            }
-
-            placesMin = document.createElement('p');
-            placesMin.innerHTML = el.placesMin_nb;
-
-            placesMax = document.createElement('p');
-            placesMax.innerHTML = el.placesMax_nb;
-
-            var ulParticipants;
-            ulParticipants = document.createElement('ul');
-
-            //Test si les il y a des participants dans le tableau
-            if (el.participants_ar.length < 0) {
-                for (var i = 0; i < el.centresInterets_ar.length; i++) {
-                    particpants = document.createElement('li');
-                    particpants.innerHTML = el.participants_ar[i];
-                    ulParticipants.appendChild(particpants);
-                }
-            }
-
-            else {
-                particpants = document.createElement('li');
-                particpants.innerHTML = "Aucun participant";
-                ulParticipants.appendChild(particpants);
-            }
-
-            divAnnonce.appendChild(image);
-            divAnnonce.appendChild(nom);
-            divAnnonce.appendChild(description);
-            divAnnonce.appendChild(dateDebut);
-            divAnnonce.appendChild(dateFin);
-            divAnnonce.appendChild(dateCreation);
-            divAnnonce.appendChild(dateFinInscription)
-            divAnnonce.appendChild(lieu);
-            divAnnonce.appendChild(ulCentreInteret);
-            divAnnonce.appendChild(placesMin);
-            divAnnonce.appendChild(placesMax);
-            divAnnonce.appendChild(ulParticipants);
-            annonceID.appendChild(divAnnonce);*/
         });
     };
 
@@ -126,8 +45,8 @@ function AnnonceListeElement() {
             var dataId = divElement[i].getAttribute('data-id');
             if(dataId == _id){
                 console.log(divElement[i]);
-                delete this.annonces_ar[_id]
                 divAnnonce.removeChild(divElement[i])
+                delete this.annonces_ar[_id]
             }
             else{
                 console.log('L\'annonce n\'existe pas')
