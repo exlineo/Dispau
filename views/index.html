@@ -349,11 +349,12 @@ WebFontConfig={google:{families:['Open+Sans::latin','Roboto::latin']}};(function
 var pwd=document.getElementById('pwd')||document.getElementById('password'),eye=document.getElementById('eye');eye.addEventListener('mousedown',function(e){e.preventDefault();pwd.setAttribute('type','text');});eye.addEventListener('mouseup',function(){pwd.setAttribute('type','password');});
 /* Pour l'utilisation des 'dropdown buttons' ; convertion possible en jQuery si nécessaire */
 document.querySelector('.btn-group .button').onclick=function(){this.classList.toggle('active');};
-/*! Toogle de recherche lieu */
+/*! Toggle de recherche lieu */
 document.querySelector('#close').onclick=function(e){var x=document.querySelector('#info').getAttribute('class');if(x==='masked'){document.querySelector('#info').classList.remove('masked');this.setAttribute('title','Réduire');document.getElementById('close').classList.toggle('highlight');}else{document.querySelector('#info').classList.add('masked');this.setAttribute('title','Afficher');}e.preventDefault();};
 /*! Simple tooltips: transfert for title contents into data-tooltip attributes by cara-tm.com, MIT license. */
 (function(){"use strict";if(document.querySelectorAll)for(var t=document.querySelectorAll("[data-tooltip]"),e=t.length;e-->0;){var o=t[e].getAttribute("title");t[e].setAttribute("aria-label",o);t[e].removeAttribute("title");}})();
-
+/*! Toggle de messages d'alertes */
+document.querySelector('#close-msg').onclick=function(e){var y=document.querySelector('.msg');y.classList.toggle('hidden');e.preventDefault();};
 /* UX : helper pour masquer la recherche de lieux aux clics dans le menu */
 var menuLinks=document.querySelectorAll('.top-menu ul li a');for(var i=0;i<menuLinks.length;i++){menuLinks[i].onclick=function(){if(document.querySelector('#info').getAttribute('class')!=='masked')document.getElementById('info').classList.toggle('masked');document.getElementById('close').classList.toggle('highlight');}};
 
