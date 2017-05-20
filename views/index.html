@@ -348,7 +348,7 @@ WebFontConfig={google:{families:['Open+Sans::latin','Roboto::latin']}};(function
 /* Révelateur de mots de passe ; convertion possible en jQuery si nécessaire */
 var pwd=document.getElementById('pwd')||document.getElementById('password'),eye=document.getElementById('eye');eye.addEventListener('mousedown',function(e){e.preventDefault();pwd.setAttribute('type','text');});eye.addEventListener('mouseup',function(){pwd.setAttribute('type','password');});
 /* Pour l'utilisation des 'dropdown buttons' ; convertion possible en jQuery si nécessaire */
-document.querySelector('.btn-group .button').onclick=function(){this.classList.toggle('active');};
+var _el=document.querySelector('.btn-group .button');if(_el)_el.onclick=function(){this.classList.toggle('active');};
 /*! Toggle de recherche lieu */
 document.querySelector('#close').onclick=function(e){var x=document.querySelector('#info').getAttribute('class');if(x==='masked'){document.querySelector('#info').classList.remove('masked');this.setAttribute('title','Réduire');document.getElementById('close').classList.toggle('highlight');}else{document.querySelector('#info').classList.add('masked');this.setAttribute('title','Afficher');}e.preventDefault();};
 /*! Simple tooltips: transfert for title contents into data-tooltip attributes by cara-tm.com, MIT license. */
