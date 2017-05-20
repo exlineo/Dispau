@@ -638,9 +638,11 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 }
 
 /* Révélateur des modales */
-.modal-dialog:target {
-	display: block;
-	pointer-events: auto
+.modal-dialog:target,
+	/* Affiche tous les Messages d'alertes */
+	.modal-dialog.msg {
+		display: block;
+		pointer-events: auto
 }
 
 .modal-dialog {
@@ -675,15 +677,16 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 	border-radius: 2px 2px 0 0
 }
 
-.modal-dialog.tiny .modal {
-	max-width: 400px
+.modal-dialog.tiny .modal,
+	.modal-dialog.msg .modal {
+		max-width: 400px
 }
 
 /* Aspect de message boxes */
 .dialog .modal {overflow: hidden}
 
 /* Aspect de modal boxes avec scrolling */
-.dialog.overflow .modal{overflow-y: scroll}
+.dialog.overflow .modal {overflow-y: scroll}
 
 /* Pas utile : la règle suivante est suffisante
 .modal-dialog .close {display:none}
@@ -785,7 +788,7 @@ input[type="text"],
 	input[type="file"],
 	textarea,
 	select {
-		width: 96%;
+		width: 98%;
 		margin: 0 0 .8em;
 		padding: .1em 1% .3em;
 		border: none;
