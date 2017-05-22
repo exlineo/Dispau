@@ -1,3 +1,7 @@
+/**
+ * TODO : Refaire IHM AnnonceListe qui permet d'aficher toute les annonces d'un lieu par exemple, AnnonceListeElement permet d'afficher qu'une annonce
+ */
+
 function AnnonceListe() {
     /**
      * Variable possédant toutes les annonces
@@ -75,60 +79,3 @@ function AnnonceListe() {
 //    annoncesliste_anl.annoncesLieu(data);
 //
 //});
-
-var testAnnonce = {
-    "annonce1": {
-        "id_nb": 580,
-        "nom_str": "toto",
-        "description_str": "Qui veut jouer à la belote ?",
-        "dateDebut_dat": "17-04-2017:15.00",
-        "dateFin_dat": "17-04-2017:17.00",
-        "dateCreation_dat" : "17-04-2017:13.00",
-        "dateFinInscription_dat" : "17-04-2017:17.00",
-        "lieu_lie": "N°5",
-        "centresInterets_ar": ["belote", "tarot", "poker", "apéro"],
-        "placesMin_nb": 4,
-        "placesMax_nb": 4,
-        "image_Img": "./images/belote.jpg",
-        "participants_ar": ['Laurent', 'Simon', 'Francis', 'Tahar', 'Fabien'],
-        "salleAttente_ar": [],
-        "banis_ar": [],
-        "validee_bl": false
-    },
-    "annonce2": {
-        "id_nb": 2,
-        "nom_str": "Poker",
-        "description_str": "Qui veut jouer à la belote ?",
-        "dateDebut_dat": "17-04-2017:15.00",
-        "dateFin_dat": "17-04-2017:17.00",
-        "dateCreation_dat" : "17-04-2017:17.00",
-        "dateFinInscription_dat" : "17-04-2017:17.00",
-        "lieu_lie": "N°5",
-        "centresInterets_ar": ["belote", "tarot", "poker", "apéro"],
-        "placesMin_nb": 4,
-        "placesMax_nb": 8,
-        "image_Img": "./images/poker.jpg",
-        "participants_ar": [],
-        "salleAttente_ar": [],
-        "banis_ar": [],
-        "validee_bl": false
-    },
-    "annonce3": {
-        "id_nb": 3,
-        "nom_str": "Rami",
-        "description_str": "Qui veut jouer au rami avec moi ?",
-        "dateDebut_dat": "17-04-2017:15.00",
-        "dateFin_dat": "17-04-2017:17.00",
-        "dateCreation_dat" : "17-04-2017:17.00",
-        "dateFinInscription_dat" : "17-04-2017:17.00",
-        "lieu_lie": "Café du passage",
-        "centresInterets_ar": ["belote", "tarot", "poker", "rami", "apéro"],
-        "placesMin_nb": 3,
-        "placesMax_nb": 5,
-        "image_Img": "./images/rami.jpg",
-        "participants_ar": [],
-        "salleAttente_ar": [],
-        "banis_ar": [],
-        "validee_bl": false
-    }
-}
