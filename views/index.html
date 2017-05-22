@@ -86,7 +86,7 @@ if(document.documentElement){document.documentElement.className+='js';}
 
 	<div class="content">
 		
-		<!-- MESSAGE ALERTE : EXEMPLE -->
+		<!-- MESSAGE ALERTE : EXEMPLE 
   		<div aria-hidden="true" role="dialog" class="modal-dialog dialog msg no-select" id="open-modal-alerte">
 
       			<div>
@@ -98,9 +98,9 @@ if(document.documentElement){document.documentElement.className+='js';}
             					<h3 class="gris"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><em>!</em> ALERTE</h3>
             					<p class="alert-text">Vous avez tout cassé ! <i class="fa fa-check-circle" aria-hidden="true"></i></p>
 
-          				</div> <!-- /inner-dialog -->
+          				</div> 
 
-        			</div> <!-- /modal -->
+        			</div> 
       			</div>
     		</div> <!-- /open-modal-alerte -->
 
@@ -341,6 +341,8 @@ if(document.documentElement){document.documentElement.className+='js';}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery-1.12.4.min.js">\x3C/script>')</script>
+<script src="js/IHMAlert.js"></script>
+<script src="js/main.js"></script>
 <script async defer type="text/javascript">
 /*! Simple EU Cookies Law Compliance without dependencies by cara-tm.com, 2017. MIT license - https://github.com/cara-tm/EU-Cookies-Law-Compliance/ */
 function EU_cookies_law(r){'use strict';var msg="Vous refusez les cookies tiers externes : aucun, à l'initiative de ce site, n'est présent sur votre appareil.",
@@ -351,25 +353,6 @@ var domain=window.location.hostname,lang=(navigator.language||navigator.browserL
 EU_cookies_law(["../js/external-js.js", ""];
 /*! Google Fonts loader */ 
 WebFontConfig={google:{families:['Open+Sans::latin','Roboto::latin']}};(function(){var wf=document.createElement('script');wf.src=('https:'==document.location.protocol?'https':'http')+'://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';wf.type='text/javascript';wf.async='true';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(wf,s); })();
-/* All Browsers version 
-	var p=document.getElementById('password')||document.getElementById('pwd');
-	function show(){
-		p.setAttribute('type','text');
-	}
-	function hide(){
-		p.setAttribute('type','password');
-	}
-	var pwShown=0;
-	document.getElementById('eye').addEventListener('click',function(){
-		if(pwShown==0){
-			pwShown=1;
-			show();
-		}else{
-			pwShown=0;
-			hide();
-		}
-	},false);
-*/
 /* Révelateur de mots de passe ; convertion possible en jQuery si nécessaire */
 var pwd=document.getElementById('pwd')||document.getElementById('password'),eye=document.getElementById('eye');eye.addEventListener('mousedown',function(e){e.preventDefault();pwd.setAttribute('type','text');});eye.addEventListener('mouseup',function(){pwd.setAttribute('type','password');});
 /* Pour l'utilisation des 'dropdown buttons' ; convertion possible en jQuery si nécessaire */
