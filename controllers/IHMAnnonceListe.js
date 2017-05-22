@@ -36,6 +36,13 @@ function AnnonceListe() {
     };
 
     /**
+     * Permet de vider le tableau d'annonces
+     */
+    this.clearAllAnnonce = function (){
+      this.annonces_ar = [];
+    };
+
+    /**
      * Permet de supprimer une annonce par rapport à l'ID de l'annonce
      * @param _annonceID est l'ID de l'annonce
      */
