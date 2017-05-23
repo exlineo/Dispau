@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>DISPAU, J'en suis : trouvez et participez à des événements. Le réseau participatif de vos centres d'intérêts</title>
+<title>DISPAU, J'en suis ! Trouvez et participez à des événements : le réseau participatif de vos centres d'intérêts</title>
 
 <!-- SEO part: veuillez renseigner les informations au niveau du marketing -->
 <meta name="description" content="">
@@ -366,7 +366,7 @@ document.querySelector('#close').onclick=function(e){var x=document.querySelecto
 /*! Simple tooltips: transfert for title contents into data-tooltip attributes by cara-tm.com, MIT license. */
 (function(){"use strict";if(document.querySelectorAll)for(var t=document.querySelectorAll("[data-tooltip]"),e=t.length;e-->0;){var o=t[e].getAttribute("title");t[e].setAttribute("aria-label",o);t[e].removeAttribute("title");}})();
 /*! Toggle de messages d'alertes */
-var _g=document.querySelector('#close-msg');if(_g).onclick=function(e){var y=document.querySelector('.msg');y.classList.toggle('hidden');e.preventDefault();};
+var _g=document.querySelector('#close-msg');if(_g){_g.onclick=function(e){var y=document.querySelector('.msg');y.classList.toggle('hidden');e.preventDefault();}};
 /* UX : helper pour masquer la recherche de lieux aux clics dans le menu */
 var menuLinks=document.querySelectorAll('.top-menu ul li a');for(var i=0;i<menuLinks.length;i++){menuLinks[i].onclick=function(){if(document.querySelector('#info').getAttribute('class')!=='masked')document.getElementById('info').classList.toggle('masked');document.getElementById('close').classList.toggle('highlight');}};
 
