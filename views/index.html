@@ -339,15 +339,15 @@ if(document.documentElement){document.documentElement.className+='js';}
 	</div>
 </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script>
 window.jQuery || document.write('<script src="js/jquery-1.12.4.min.js">\x3C/script>');
-if(typeof angular=='undefined')document.write('<script src="js/angular/1.6.4/angular.min.js">\x3C/script>');
+if(typeof angular!='object') document.write('<script src="js/angular/1.6.4/angular.min.js">\x3C/script>');
 </script>
 <script src="js/IHMAlert.js"></script>
 <script src="js/main.js"></script>
-<script async defer type="text/javascript">
+<script type="text/javascript">
 /*! Simple EU Cookies Law Compliance without dependencies by cara-tm.com, 2017. MIT license - https://github.com/cara-tm/EU-Cookies-Law-Compliance/ */
 function EU_cookies_law(r){'use strict';var msg="Vous refusez les cookies tiers externes : aucun, à l'initiative de ce site, n'est présent sur votre appareil.",
 future='1 Mois',
