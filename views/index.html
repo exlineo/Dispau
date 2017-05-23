@@ -343,7 +343,7 @@ if(document.documentElement){document.documentElement.className+='js';}
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script>
 window.jQuery || document.write('<script src="js/jquery-1.12.4.min.js">\x3C/script>');
-if(typeof angular=='undefined')document.write('<script src="js/angular/1.6.4/angular.min.js">\x3C/script>';
+if(typeof angular=='undefined')document.write('<script src="js/angular/1.6.4/angular.min.js">\x3C/script>');
 </script>
 <script src="js/IHMAlert.js"></script>
 <script src="js/main.js"></script>
@@ -366,7 +366,7 @@ document.querySelector('#close').onclick=function(e){var x=document.querySelecto
 /*! Simple tooltips: transfert for title contents into data-tooltip attributes by cara-tm.com, MIT license. */
 (function(){"use strict";if(document.querySelectorAll)for(var t=document.querySelectorAll("[data-tooltip]"),e=t.length;e-->0;){var o=t[e].getAttribute("title");t[e].setAttribute("aria-label",o);t[e].removeAttribute("title");}})();
 /*! Toggle de messages d'alertes */
-document.querySelector('#close-msg').onclick=function(e){var y=document.querySelector('.msg');y.classList.toggle('hidden');e.preventDefault();};
+var _g=document.querySelector('#close-msg');if(_g).onclick=function(e){var y=document.querySelector('.msg');y.classList.toggle('hidden');e.preventDefault();};
 /* UX : helper pour masquer la recherche de lieux aux clics dans le menu */
 var menuLinks=document.querySelectorAll('.top-menu ul li a');for(var i=0;i<menuLinks.length;i++){menuLinks[i].onclick=function(){if(document.querySelector('#info').getAttribute('class')!=='masked')document.getElementById('info').classList.toggle('masked');document.getElementById('close').classList.toggle('highlight');}};
 
