@@ -36,7 +36,7 @@ function setAjaxRequest(my_method, my_url, my_data, callback) {
 	this.contenu_str = "";
 	// this.statut_mst = "NON_LU";
 
-	this.transmettre_BDD = function () {
+	this.transmettreBDD = function () {
 		// body...
 		if (this.contenu_str != "") {
 			my_data = { 'obj':'ecriture',

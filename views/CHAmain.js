@@ -26,5 +26,6 @@
 	tableau_chat.push(id_chat);
 
 // lancement du chat
-	var the_tchat = new Chat(id_chat);
-	the_tchat.rafraichiMessages();
+	var the_tchat = new IHMChat(id_chat);
+	the_tchat.rafraichirMessages();
+
