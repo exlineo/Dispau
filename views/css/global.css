@@ -654,10 +654,18 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 	bottom: 0;
 	left: 0;
 	background-size: cover;
-	-webkit-transition: opacity 400ms ease-in;
-	-moz-transition: opacity 400ms ease-in;
-	transition: opacity 400ms ease-in;
+	/* Au choix : fond noir */
+	background: rgba(0, 0, 0, 0.8);
+	/* ...ou blanc */
+	background: rgba(255,255,255,.5);
+	font-family: 'Roboto', Arial, Helvetica, sans-serif;
 	pointer-events: none
+}
+
+.modal-dialog:not('.msg') {
+	-webkit-transition: all 400ms ease-in;
+	-moz-transition: all 400ms ease-in;
+	transition: all 400ms ease-in
 }
 
 .modal-dialog .modal {
