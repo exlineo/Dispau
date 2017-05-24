@@ -45,6 +45,13 @@ function IHMAlert() {
                     NOM : Patrick
                 ////////////////////////////////////////////////////////////////////
 
+                ////////////////////////////////////////////////////////////////////
+                    DATE : 24/05/2017
+                    LIGNES : toutes les variables
+                    DESCRIPTION : correction des convention de nommage des variables 
+                    NOM : Tahar
+                ////////////////////////////////////////////////////////////////////
+
 */
 
                                 //////////////////////////////////
@@ -84,18 +91,18 @@ function IHMAlert() {
     Attention ce sont des chaines de caractères.
 */
 
-    this.creerAjaxAlerte = function (alerteType) {
+    this.creerAjaxAlerte = function (alerteType_str) {
 
-        var message = messageDispo[alerteType];
+        var message_str = messageDispo[alerteType_str];
 
-        this.creerMessageAlerte(message);
+        this.creerMessageAlerte(message_str);
 
-        if (alerteType == 'success') {
+        if (alerteType_str == 'success') {
             $('.notif-msg')
                 .css('color', 'green');
         }
 
-        if (alerteType == 'error') {
+        if (alerteType_str == 'error') {
             $('.notif-msg')
                 .css('color', 'red');
         }
@@ -108,18 +115,18 @@ function IHMAlert() {
     Attention ce sont des chaines de caractères.
 */
 
-    this.creerChatAlerte = function (alerteType, alertePseudo) {
+    this.creerChatAlerte = function (alerteType_str, alertePseudo_str) {
 
-        var message = messageDispo[alerteType] + alertePseudo;
+        var message_str = messageDispo[alerteType_str] + alertePseudo_str;
 
-        this.creerMessageAlerte(message);
+        this.creerMessageAlerte(message_str);
 
-        if (alerteType == 'newMessage') {
+        if (alerteType_str == 'newMessage') {
             $('.notif-msg')
                 .css('color', 'green');
         }
 
-        if (alerteType == 'blockMessage') {
+        if (alerteType_str == 'blockMessage') {
             $('.notif-msg')
                 .css('color', 'red');
         }
@@ -132,18 +139,18 @@ function IHMAlert() {
     Attention ce sont des chaines de caractères.
 */
 
-    this.creerAmisAlerte = function (alerteType, alertePseudo) {
+    this.creerAmisAlerte = function (alerteType_str, alertePseudo_str) {
 
-        var message = messageDispo[alerteType] + alertePseudo;
+        var message_str = messageDispo[alerteType_str] + alertePseudo_str;
 
-        this.creerMessageAlerte(message);
+        this.creerMessageAlerte(message_str);
 
-        if (alerteType == 'newFriend') {
+        if (alerteType_str == 'newFriend') {
             $('.notif-msg')
                 .css('color', 'green');
         }
 
-        if (alerteType == 'removeFriend') {
+        if (alerteType_str == 'removeFriend') {
             $('.notif-msg')
                 .css('color', 'red');
         }
@@ -157,47 +164,47 @@ function IHMAlert() {
     par les autres methodes.
 */
 
-    this.creerMessageAlerte = function (msg) {
+    this.creerMessageAlerte = function (msg_str) {
 
         ////// CONSTRUCTEUR HTML //////
 
-        var $alerteConteneur = $('<div/>');
-        var $alerteModal1 = $('<div/>');
-        var $alerteModal2 = $('<div/>');
-        var $alerteModal3 = $('<div/>');
-        var $alerteText = $('<p/>');
-        var $alerteClose = $('<a href="#!" title="Fermer" class="close squizz" id="close-msg"><i class="fa fa-times" aria-hidden="true"></i><em>×</em></a>');
-        var $site = $('.content');
+        var $alerteConteneur_elt = $('<div/>');
+        var $alerteModal1_elt = $('<div/>');
+        var $alerteModal2_elt = $('<div/>');
+        var $alerteModal3_elt = $('<div/>');
+        var $alerteText_elt = $('<p/>');
+        var $alerteClose_elt = $('<a href="#!" title="Fermer" class="close squizz" id="close-msg"><i class="fa fa-times" aria-hidden="true"></i><em>×</em></a>');
+        var $site_elt = $('.content');
         
         
-        $alerteConteneur
+        $alerteConteneur_elt
             .addClass('modal-dialog dialog msg no-select')
-            .appendTo($site)
+            .appendTo($site_elt)
             .hide();
 
-        $alerteModal1
-            .appendTo($alerteConteneur);
+        $alerteModal1_elt
+            .appendTo($alerteConteneur_elt);
 
-        $alerteModal2
+        $alerteModal2_elt
             .addClass('modal')
-            .appendTo($alerteModal1);
+            .appendTo($alerteModal1_elt);
 
-        $alerteModal3
+        $alerteModal3_elt
             .addClass('inner-dialog')
-            .appendTo($alerteModal2);
+            .appendTo($alerteModal2_elt);
 
-        $alerteText
+        $alerteText_elt
             .addClass('notif-msg')
-            .appendTo($alerteModal3);
+            .appendTo($alerteModal3_elt);
 
-        $alerteClose
-            .appendTo($alerteModal3);
+        $alerteClose_elt
+            .appendTo($alerteModal3_elt);
 
         $(window).resize(function (){
 
-            $alerteConteneur
+            $alerteConteneur_elt
                 .css('width', window.innerWidth);
-            $alerteClose
+            $alerteClose_elt
                 .css('left', window.innerWidth - 40);
 
         });
@@ -205,23 +212,23 @@ function IHMAlert() {
 
         ////// ECRITURE DU MESSAGE //////
         
-        $alerteText
-            .html(msg);
+        $alerteText_elt
+            .html(msg_str);
 
 
         ////// ANIMATION DE LA POPUP //////
 
-        $alerteConteneur
+        $alerteConteneur_elt
             .fadeIn(1000)
             .delay(5000)
             .fadeOut(1000);
 
-        $alerteClose
+        $alerteClose_elt
             .on('click', function (evt) {
 
                 evt.preventDefault();
 
-                $alerteConteneur
+                $alerteConteneur_elt
                     .clearQueue()
                     .fadeOut(1000);
 
