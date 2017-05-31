@@ -222,16 +222,16 @@ ul {line-height: 2}
 
 /*! 4°) Couleurs
 
-		Rouge :      #e6005c		rgb(230, 0, 92)
-		Bleu :       #7ac9ed		rgb(122, 201, 237)
-		Bleu vert :  #dff4f3		rgb(223, 244, 243)
-		Bistre :     #95405a		rgb(149, 64, 90)
-		Orange :     #ef6c00		rgb(239, 108, 0)
-		Vert   :     #00897b		rgb(0, 137, 123)
-		Blanc :      #ffffff		rgb(255, 255, 255)
-		Noir :       #000000		rgb(0, 0, 0)
-		Gris :		 #999999		rgb(161, 161, 161)
-		Gris clair : #a1a1a1		rgb(153, 153, 153)	
+	Rouge :      #e6005c		rgb(230, 0, 92)
+	Bleu :       #7ac9ed		rgb(122, 201, 237)
+	Bleu vert :  #dff4f3		rgb(223, 244, 243)
+	Bistre :     #95405a		rgb(149, 64, 90)
+	Orange :     #ef6c00		rgb(239, 108, 0)
+	Vert   :     #00897b		rgb(0, 137, 123)
+	Blanc :      #ffffff		rgb(255, 255, 255)
+	Noir :       #000000		rgb(0, 0, 0)
+	Gris :	     #999999	        rgb(161, 161, 161)
+	Gris clair : #a1a1a1		rgb(153, 153, 153)	
 
 	================ */
 
@@ -612,6 +612,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 /*! Fenêtres modales 
     ============ */
 
+/* Bloc recherches */
 #info {
 	position: absolute;
 	z-index: 3;
@@ -619,7 +620,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 	bottom: 80px;
 	width: 19em;
 	min-height: 400px;
-	max-height: 28em;
+	max-height: 30em;
 	padding: 1em;
 	background: #fff;
 	background: rgba(255, 255, 255, 0.87);
@@ -632,6 +633,8 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 /* Etat masqué de l'élément */
 #info.masked {
 	overflow: hidden;
+	/* Ecrase la valeur de positionnement 'top' */
+	top: auto;
 	bottom: 0;
 	height: 50px;
 	min-height: 50px
@@ -1143,7 +1146,7 @@ html .inactive:hover:before {
 
 /* Personnalisation des scrool bars sur moteur WebKit */
 
-/*
+/* 
 .modal::-webkit-scrollbar { width: 6px; height: 3px}
 /* bouton haut et bas 
 .modal::-webkit-scrollbar-button {  background-color: #666}
@@ -1157,29 +1160,34 @@ html .inactive:hover:before {
 */
 
 /* Version plus simple :
-.modal::-webkit-scrollbar {
-	background: lightyellow;
-	width: 6px
+.modal::-webkit-scrollbar,
+	#info::-webkit-scrollbar {
+		width: 5px;
+		background: #f5f5f5
 }
-.modal::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	border-radius: 3px
+.modal::-webkit-scrollbar-track,
+	#info::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+		border-radius: 3px
 }
 */
 
-.modal::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #f5f5f5
+.modal::-webkit-scrollbar,
+	#info::-webkit-scrollbar {
+		width: 5px;
+		background-color: #f5f5f5
 }
 
-.modal::-webkit-scrollbar {
-	width: 5px;
-	background-color: #f5f5f5
+.modal::-webkit-scrollbar-track,
+	#info::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+		background-color: #f5f5f5
 }
 
-.modal::-webkit-scrollbar-thumb {
-	background-color: #999;
-	border: 1px solid #777
+.modal::-webkit-scrollbar-thumb,
+	#info::-webkit-scrollbar-thumb {
+		background-color: #999;
+		border: 1px solid #777
 }
 
 /* Media Queries & Supports 
@@ -1264,7 +1272,7 @@ html .inactive:hover:before {
 		overflow-y: scroll
 	}
 
-	#info {bottom: 40px; width: 83%}
+	#info {top: 3em; bottom: 40px; width: 83%; overflow-y: scroll}
 
 	html .push,
 		html .footer,
