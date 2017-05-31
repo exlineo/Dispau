@@ -776,15 +776,15 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 	direction: ltr;
 	position: absolute;
 	right: 0;
-    bottom: -50px;
-    left: 0;
-    max-width: 910px;
-    min-width: 250px;
-    width: 80%;
-    height: 50px;
-    margin: 0 auto;
-    text-align: right;
-    border-radius: 0 0 2px 2px
+	bottom: -50px;
+	left: 0;
+	max-width: 910px;
+	min-width: 250px;
+	width: 80%;
+	height: 50px;
+	margin: 0 auto;
+	text-align: right;
+	border-radius: 0 0 2px 2px
 }
 
 .footer-modal a {
@@ -1282,8 +1282,6 @@ html .inactive:hover:before {
 
 	html #map {min-height: 100%;height: 465px;overflow: hidden}
 
-	
-
 	html .content {margin-bottom: 0}
 
 	/* Certaines grilles réinitialisées à 100% */
@@ -1362,7 +1360,7 @@ html .inactive:hover:before {
 	.modal-dialog{
 		position: absolute;
 		width: 100%;
-		height: 110vh;
+		height: 100vh;
 		margin: 0 auto;
 		overflow: hidden
 	}
@@ -1372,8 +1370,6 @@ html .inactive:hover:before {
 		max-height: 60vh;
 		min-height: 100px;
 		min-height: 40vh;
-
-		max-height: 40vh;
 
 		max-device-height: 60vh;
 		min-device-height: 100px;
