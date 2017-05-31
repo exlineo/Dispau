@@ -1298,9 +1298,10 @@ html .inactive:hover:before {
 @media only screen and (max-width: 450px) {
 
 
-	/* Temporaire */
+	/* Temporaire 
 	.top-menu {min-width:auto;max-width:auto}
 	.top-menu ul {display:none}
+	*/
 
 	/* Système de grilles réinitialisé à 100% pour petits écrans */
 	html .row {display: block}
@@ -1374,7 +1375,7 @@ html .inactive:hover:before {
 
 
 	.header-inner .top-menu label,
-	i.visually-hidden {display: inline-block}
+		i.visually-hidden {display: inline-block}
 
 	#toggle-nav:checked ~ ul {
 		display: block;
@@ -1401,7 +1402,7 @@ pointer-events: none;
 
 	.top-menu li:checked ~ ul{display:none}
 
-	html .top-menu {width: auto; min-width: auto; max-width: auto}
+	html .top-menu {width: auto; min-width: auto; max-width: 7em}
 
 	
 
