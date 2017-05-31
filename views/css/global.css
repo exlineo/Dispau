@@ -8,7 +8,7 @@
  * Attention : pour la version de production minifiée, tous les commentaires seront supprimés
  *
  * @date     30/04/2017
- * @revision 14/05/2017
+ * @revision 31/05/2017
  * @authors  Patrick ; ...
  *
  */
@@ -639,6 +639,29 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 	height: 50px;
 	min-height: 50px
 }
+
+/*! Chat */
+
+#chat {
+	min-height: 15em;
+	max-height: 15em;
+	height: auto;
+	margin: 0 0 2em;
+	padding: 0;
+	list-style: none;
+	overflow-y: scroll
+}
+
+#chat li {
+	width: 90%;
+	margin: .25em 0;
+	padding: .00053em 0;
+	border-bottom: 1px solid #ccc;
+}
+
+#chat li:nth-child(odd) {float: right}
+
+#chat li:nth-child(even) {float: left}
 
 /* Révélateur des modales */
 .modal-dialog:target,
