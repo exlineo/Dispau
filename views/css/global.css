@@ -1300,7 +1300,6 @@ html .inactive:hover:before {
 
 	/* Temporaire 
 	.top-menu {min-width:auto;max-width:auto}
-	.top-menu ul {display:none}
 	*/
 
 	/* Système de grilles réinitialisé à 100% pour petits écrans */
@@ -1373,6 +1372,7 @@ html .inactive:hover:before {
 
 @media only screen and (max-width: 710px) {
 
+	.top-menu ul {display:none}
 
 	.header-inner .top-menu label,
 		i.visually-hidden {display: inline-block}
