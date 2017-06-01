@@ -436,7 +436,6 @@ function initMap() {
 		streetViewControl: false,
 		mapTypeControl: false,
 /* Choisissez le style de Map en ligne : https://snazzymaps.com  */
-  	
 		styles: [{"featureType":"administrative","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"saturation":-100},{"lightness":"50"},{"visibility":"simplified"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"lightness":"30"}]},{"featureType":"road.local","elementType":"all","stylers":[{"lightness":"40"}]},{"featureType":"transit","elementType":"all","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]},{"featureType":"water","elementType":"labels","stylers":[{"lightness":-25},{"saturation":-100}]}],
 /* END STYLE */
 		zoomControl: true,
@@ -452,22 +451,12 @@ path: 'M19-5C6.866-5-3,4.966-3,17.214c0,2.233,0.332,4.388,0.941,6.419 c2.523,12.
 fillColor: '#e6005c',
 fillOpacity: 1,
 scale: 1,
-//anchor: new google.maps.Point(19,57),
 strokeWeight: 0
 };
 	for (i = 0; i < locations.length; i++) {
 		marker = new google.maps.Marker({
 			position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-			icon: custom_icon, //'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+locations[i][3]+'|E6005C|FFFFFF|24',
-			
-
-			/*
-			icon: {
-				path: google.maps.SymbolPath.CIRCLE,
-				scale: 10,
-				fillColor: 'yellow'
-			},
-			*/
+			icon: custom_icon,
 			label: locations[i][3],
 			map: map
 		});
@@ -479,7 +468,6 @@ strokeWeight: 0
 		})(marker, i));
 	}
 };
-
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkm4blthirzCbZy1wy6GwUtxLC_jGW9rI&amp;callback=initMap"></script>
 
