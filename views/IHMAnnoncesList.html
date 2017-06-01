@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Liste d'annonces</title>
+    <script src="../controllers/NOTNotification.js"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../controllers/ANNAnnonce.js"></script>
+    <script src="../controllers/IHMAnnonceListe.js"></script>
+</head>
+<body ng-app = "listeAnnonce">
+<header>
+    <h1>Liste des annonces</h1>
+</header>
+<section id="listeAnnoncesSec" ng-controller="ListeAnnoncesCtrl as listeAnnonceCtrl">
+    <article ng-cloak>
+        <ul id="listeAnnoncesUl">
+            <li ng-repeat="annonce in listeAnnonceCtrl.liste.annonces_ar" >
+                <div class="view">
+                    <div class="mark">
+                    <span>c'est répété</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </article>
+</section>
+</body>
+
+<script>
+    var listeAnnonce = angular.module("listeAnnonce", []);
+
+    listeAnnonce.controller("ListeAnnoncesCtrl", ["$scope",
+    function ($scope) {
+        this.liste = new AnnonceListe();
+        this.liste.ajouterAnnonce(testAnnonce);
+        console.log(this.liste.annonces_ar);
+
+    }])
+</script>
+
+</html>
