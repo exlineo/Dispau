@@ -20,6 +20,7 @@ function AnnonceListe() {
             implAnnonce.hydrate(_annonceObjet[annonce]);
             this.annonces_ar[i] = implAnnonce;
         }
+        console.log(this.annonces_ar);
     };
 
     /**
