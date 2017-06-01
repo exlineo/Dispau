@@ -1,4 +1,4 @@
-function AnnonceListe() {
+function AnnonceListe($http) {
     /**
      * Variable possédant toutes les annonces
      * Il est intéressant de l'utiliser pour trier tout les objets
@@ -7,6 +7,11 @@ function AnnonceListe() {
     var ici = this;
     var annonces_obj = {};
     this.annonces_ar = [];
+
+    $http.get("../models/annonces.json")
+        .then(function ($reponse) {
+            console.log($reponse);
+        });
 
     /**
      * Permet de créer un objet d'Annonce()
@@ -20,7 +25,7 @@ function AnnonceListe() {
             implAnnonce.hydrate(_annonceObjet[annonce]);
             this.annonces_ar[i] = implAnnonce;
         }
-        console.log(this.annonces_ar);
+
     };
 
     /**

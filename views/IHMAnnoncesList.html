@@ -20,6 +20,7 @@
                 <div class="view">
                     <div class="mark">
                     <span>c'est répété</span>
+                    <span> toto</span>
                     </div>
                 </div>
             </li>
@@ -32,15 +33,9 @@
 <script>
     var listeAnnonce = angular.module("listeAnnonce", []);
 
-    listeAnnonce.controller("ListeAnnoncesCtrl", ["$scope",
-    function ($scope) {
-        this.liste = new AnnonceListe();
-        this.liste.ajouterAnnonce(testAnnonce);
+    listeAnnonce.controller("ListeAnnoncesCtrl", ["$http", AnnonceListe]);
 
-        
-        console.log(this.liste.annonces_ar);
 
-    }])
 </script>
 
 </html>
