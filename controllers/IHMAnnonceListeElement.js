@@ -1,6 +1,6 @@
 function AnnonceListeElement() {
 
-    AnnonceListe.call(this);
+    //AnnonceListe.call(this);
 
     this.afficherAnnonces = function () {
         this.annonces_ar.forEach(function (el) {

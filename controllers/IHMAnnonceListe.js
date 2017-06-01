@@ -2,7 +2,7 @@
  * TODO : Refaire IHM AnnonceListe qui permet d'aficher toute les annonces d'un lieu par exemple, AnnonceListeElement permet d'afficher qu'une annonce
  */
 
-function AnnonceListe() {
+function IHMAnnonceListe() {
     /**
      * Variable possédant toutes les annonces
      * Il est intéressant de l'utiliser pour trier tout les objets
