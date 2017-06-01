@@ -15,7 +15,7 @@ function UtilisateurListeElement() {
             var bannir = document.createElement("button");
             var supp = document.createElement("button");
 
-
+            
         }
     }
 }
