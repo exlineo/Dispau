@@ -16,11 +16,10 @@
 <section id="listeAnnoncesSec" ng-controller="ListeAnnoncesCtrl as listeAnnonceCtrl">
     <article ng-cloak>
         <ul id="listeAnnoncesUl">
-            <li ng-repeat="annonce in listeAnnonceCtrl.liste.annonces_ar" >
+            <li ng-repeat="annonce in listeAnnonceCtrl.annonces_ar" >
                 <div class="view">
                     <div class="mark">
-                    <span>c'est répété</span>
-                    <span> toto</span>
+                    <span>{{annonce.nom_str}}</span>
                     </div>
                 </div>
             </li>
@@ -33,7 +32,7 @@
 <script>
     var listeAnnonce = angular.module("listeAnnonce", []);
 
-    listeAnnonce.controller("ListeAnnoncesCtrl", ["$http", AnnonceListe]);
+    listeAnnonce.controller("ListeAnnoncesCtrl", ["$http", "$scope", AnnonceListe]);
 
 
 </script>

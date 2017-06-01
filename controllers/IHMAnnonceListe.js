@@ -1,4 +1,4 @@
-function AnnonceListe($http) {
+function AnnonceListe($http, $scope) {
     /**
      * Variable possédant toutes les annonces
      * Il est intéressant de l'utiliser pour trier tout les objets
@@ -10,7 +10,9 @@ function AnnonceListe($http) {
 
     $http.get("../models/annonces.json")
         .then(function ($reponse) {
-            console.log($reponse);
+            ici.ajouterAnnonce($reponse.data);
+            console.log(ici.annonces_ar);
+            $scope.tmp = ici.annonces_ar;
         });
 
     /**
