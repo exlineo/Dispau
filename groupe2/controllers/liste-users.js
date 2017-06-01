@@ -9,7 +9,7 @@
 // Creer une Class liste d'utilisateur
 function ListUtilisateurs(_idLieu)
 {
-    this.iciLU = this;
+    var iciLU = this;
     this.list = [];
     this.idLieu = _idlieu;
 
@@ -79,8 +79,6 @@ function ListUtilisateurs(_idLieu)
             }
             i++;
         }
-    }
-
 
     var hydrate = function(dbv) {
         for(var k in objet ) {

@@ -64,19 +64,18 @@ function ListDemandeAmi()
 * Retourner un tableau de demande d'ami pour
 *@param {init} id_a_user, param
 */
-    this.searchById = function(id_a_user, param = "to")
-    {   
-        if(param == 'to'){
-                var list = [];
+    this.searchById = function(id_user)
+    { 
+    var list = [];
             for(var k = 0; k < lda.list.length; k++)
             {
-                if(lda.list[i].a_user == demandeAmi.a_user)
+                if(lda.list[i].a_user == id_user || lda.list[i].de_user == id_user)
                 {
-                    list.push(lda.list[i].de_user);
+                    list.push(lda.list[i]);
                 }
-            }
+    }
         return list;
-        }else if(param == "from"){
+        }
                 var list = [];
             for(var k = 0; k < lda.list.length; k++)
             {
@@ -87,7 +86,7 @@ function ListDemandeAmi()
             }
         return list;
         }else{
-            console.log("Syntaxe Error : [int]['from'||'to']");
+            console.log("Syntaxe Error : [int]");
             return [];
         }
     }
