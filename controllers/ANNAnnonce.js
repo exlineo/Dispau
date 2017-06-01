@@ -47,47 +47,6 @@ function Annonce() {
     this.salleDeTchat_nb;
     /* Salle de tchat specifisue pour cette activité */
 
-    this.photo_str;
-    /*nomdu fichier qui contient la photo liée à l'annonce*/
-    this.description_str;
-    /* description de l'annonce en chaine de caractere sans attribut*/
-    this.personnesMax_nb;
-    /*nombre de personnes maximum*/
-    this.personnesMin_nb;
-    /*nombre de personnes minimum*/
-    this.personnesInscrites_ar = [];
-    /*tableau de id users, liste des participants à l'annonce*/
-    this.salleDAttente_ar = [];
-    /*tableau de Id users, liste des participants en liste d'attente par ordre de priorité*/
-    this.personnesBannies_ar = [];
-    /*tableau de Id d'users; liste des participants bannis*/
-    this.lieu_nb;
-    /*Id clé) du Lieu auquel est attaché l'annonce. */
-    this.dateDebut_dat;
-    /*date  du début de l'activité de cette annonce*/
-    this.dateFinInscriptions_dat;
-    /*Date   limite pour les inscriptions */
-    this.dateFin_dat;
-    /*date  de la fin de l'activité*/
-    this.dateCreation_dat;
-    /*date de creation de l'annonde. Se met automatiquement*/
-    this.gestionnaire_nb;
-    /* id du gestionnaire */
-
-    this.validite_bl = false;
-    /*booleen annonce validee=true*/
-    this.annulee_bl = false;
-    /*booleen annonce annulée Pour la recréer, il faut en recréer une, avec un Id different*/
-    this.limiteAge_nb;
-    /*age minimum requis pour la participation en années*/
-    this.conditionsDAdmition_st;
-    /*chaine de caractere decrivant d'autres conditions d'admission*/
-    this.centresDInterets_ar = [];
-    /*Liste des centres d'interets auquels se rapporte cette annonce.¨Pour cibler les éventuels "clients"*/
-    this.salleDeTchat_nb;
-    /* Salle de tchat specifisue pour cette activité */
-
-
     this.hydrate = function (obj) {
         for (var i in obj) {
             ici[i] = obj[i];
