@@ -5,12 +5,14 @@
 
 Ce modèle a été testé avec succès depuis les navigateurs suivants (hors javascript pouvant poser problème) :
 
-* Internet Explorer 7 minimum ;
+* Internet Explorer 6 minimum (consultable depuis IE 5.5 quoique sans couleurs). Google Maps fonctionnel à partir de IE 9 ;
 * FireFox 3 minimum ;
 * Safari 5 ;
 * IE Mobile système Win Phone 8 ;
 * Opera Mini système Win Phone 8 ;
-* IE Mobile système Win Phone 7.5.
+* IE Mobile système Win Phone 7.5 ;
+* iPhone 5C sous Chrome ;
+* Tablette Android 4.x sous Chrome.
 
 Soit, globalement, avec un meilleur support que Twitter Bootstrap.
 
