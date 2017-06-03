@@ -8,7 +8,7 @@
  * Attention : pour la version de production minifiée, tous les commentaires seront supprimés
  *
  * @date     30/04/2017
- * @revision 31/05/2017
+ * @revision 03/06/2017
  * @authors  Patrick ; ...
  *
  */
@@ -248,7 +248,7 @@ ul {line-height: 2}
 	text-shadow: none
 }
 
-/* Placeholders des champs de formulaires */
+/*! Placeholders des champs de formulaires */
 ::-webkit-input-placeholder {color: #e6005c}
 ::-moz-placeholder {color: #e6005c; opacity: 1}
 :-ms-input-placeholder {color: #e6005c}
@@ -299,7 +299,7 @@ header h1 a {color: #e6005c}
 }
 
 .footer-modal {
-	background: #42a5f5 /*cornflowerblue*/;
+	background: #42a5f5;
 /*
 	box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
 */
@@ -503,8 +503,10 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 
 .top-menu ul {
 	display: block;
+/*
 	float: right;
 	margin: .8em 0 0;
+*/
 	padding: 0;
 	list-style: none
 }
@@ -512,15 +514,12 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 .top-menu li {
 	display: inline;
 	float: left;
-/*
-	line-height: 2.9
-*/
+	margin: 0 .4em
 }
 
 .top-menu a {
 	display: block;
 	min-width: 6em;
-	margin: 0 .5em;
 	padding: .1em .5em .3em;
 	text-align: center;
 	color: #333
@@ -708,9 +707,6 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 	max-height: 55vh;
 	margin: 11% auto 0;
 	margin: 15vh auto 0;
-/* Pas de padding : à reserver pour un élement d'encapsulation interne 
-	padding: 5px 20px 13px 20px;
-*/
 	border-radius: 2px 2px 0 0
 }
 
@@ -721,6 +717,12 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 
 /* Aspect de message boxes */
 .dialog .modal {overflow: hidden}
+
+.modal-dialog.msg {
+	opacity: 0;
+	-webkit-animation: fadeinout 9s linear 3s forwards;
+	animation: fadeinout 9s linear 3s forwards
+}
 
 /* Aspect de modal boxes avec scrolling */
 .dialog.overflow .modal {overflow-y: scroll}
@@ -750,7 +752,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 }
 
 .modal-dialog:not('.overflow') > div {
-	/*
+/*
 	width: -moz-fit-content;
 	width: -webkit-fit-content;
 	width: fit-content;
@@ -761,11 +763,6 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 }
 
 .modal-dialog .inner-dialog {
-	/* Semble ne plus être nécessaire :D
-	max-height: 100%;
-	max-height: 100vh;
-	height: 90%;
-	*/
 /*
 
 	height: -moz-fit-content;
@@ -776,12 +773,11 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 }
 
 .footer-modal {
-	direction: ltr;
 	position: absolute;
 	right: 0;
 	bottom: -50px;
 	left: 0;
-	max-width: 910px;
+	max-width: 900px;
 	min-width: 250px;
 	width: 80%;
 	height: 50px;
@@ -798,8 +794,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 	text-decoration: none;
 	font-weight: bold;
 	outline: none;
-/* Ou ajouter la classe 'no-select' sur l'élement */
-	-webkit-tap-highlight-color: transparent;
+	-webkit-tap-highlight-color: transparent
 }
 
 .footer-modal a:hover {background: rgba(0, 0, 0, 0.2)}
@@ -1121,6 +1116,20 @@ img {
 	}
 }
 
+@-webkit-keyframes fadeinout {
+	0% {opacity: 0}
+	30% {opacity: 1}
+	70% {opacity: 1}
+	100% {opacity: 0}
+}
+
+@keyframes fadeinout {
+	0% {opacity: 0}
+	30% {opacity: 1}
+	70% {opacity: 1}
+	100% {opacity: 0}
+}
+
 .ripple-in {
 	position: relative;
 	display: inline-block;
@@ -1156,13 +1165,10 @@ html .inactive {
 	position: static;
 	-webkit-transform: none;
 	transform: none;
-	/* cursor défaut ou...
-	cursor: default;
-	*/
 	cursor: not-allowed
 }
 
-html .inactive:before{content: none}
+html .inactive:before {content: none}
 
 html .inactive:hover:before {
 	border: none;
@@ -1321,11 +1327,6 @@ html .inactive:hover:before {
 
 @media only screen and (max-width: 450px) {
 
-
-	/* Temporaire 
-	.top-menu {min-width:auto;max-width:auto}
-	*/
-
 	/* Système de grilles réinitialisé à 100% pour petits écrans */
 	html .row {display: block}
 	html [class^="c-"] {width: 100%}
@@ -1352,7 +1353,7 @@ html .inactive:hover:before {
 		background: url(../img/dispau_logo-mini.png) center center no-repeat
 	}
 
-	header .header-inner h1 {margin:.3em 0 0}
+	header .header-inner h1 {margin: .3em 0 0}
 
 	html .top-menu {
 		height: 3em;
@@ -1360,7 +1361,7 @@ html .inactive:hover:before {
 	}
 
 	/* Changement de fixe en absolue pour le fond des fenêtres modales */
-	.modal-dialog{
+	.modal-dialog {
 		position: absolute;
 		width: 100%;
 		height: 100vh;
@@ -1381,12 +1382,10 @@ html .inactive:hover:before {
 
 	.modal h1,
 		.modal h2,
-		.modal h3{padding-right: 1em}
+		.modal h3 {padding-right: 1em}
 
 	html #block-cookies {
-		/*
 		width: 96%;
-		*/
 		padding: 0 2%
 	}
 
@@ -1394,9 +1393,9 @@ html .inactive:hover:before {
 
 @media only screen and (max-width: 710px) {
 
-/*
+/* The Old "Hamburger Menu"
 
-	.top-menu ul {display:none}
+	.top-menu ul {display: none}
 
 	.header-inner .top-menu label,
 		i.visually-hidden {display: inline-block}
@@ -1421,7 +1420,7 @@ html .inactive:hover:before {
 		line-height: 2.9
 	}
 
-	.top-menu li:checked ~ ul{display:none}
+	.top-menu li:checked ~ ul {display: none}
 
 	html .top-menu {width: auto; min-width: auto; max-width: 7em}
 */
@@ -1510,7 +1509,7 @@ html .inactive:hover:before {
 
 }
 
-/*! From Twitter Bootstrap */
+/*! From Twitter Bootstrap (Keeping here if we'll need it but it's not necessary) */
 
 /* Small devices (landscape phones, 576px and up) */
 @media (max-device-width: 576px) {
@@ -1533,7 +1532,12 @@ html .inactive:hover:before {
 /* Medium devices (tablets, 768px and up) */
 @media (max-device-width: 768px) {
 
-	#info{bottom:0;overflow-y:scroll;max-height:85vh;min-height:85vh}
+	#info {
+		bottom: 0;
+		max-height: 85vh;
+		min-height: 85vh;
+		overflow-y: scroll
+	}
 
 }
 
