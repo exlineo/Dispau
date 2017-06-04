@@ -1,5 +1,5 @@
 ![DISPAU sur iPhone 5](https://github.com/Greta-JS-2017/Dispau/blob/patrick/views/dispau-iphone5.png)
-![Dispau sur écran TV](https://github.com/Greta-JS-2017/Dispau/blob/patrick/views/dispau-ecran-tv.png)
+![DISPAU sur écran TV](https://github.com/Greta-JS-2017/Dispau/blob/patrick/views/dispau-ecran-tv.png)
 
 # Support des navigateurs
 
@@ -18,7 +18,7 @@ Soit, globalement, avec un meilleur support que Twitter Bootstrap.
 
 Le projet DISPAU, en raison de la particularité de sa maquette initiale, doit s'afficher dans la limite verticale de la fenêtre des navigateurs sans scroll. La seule méthode pour afficher des éléments dont le contenu ne peut excéder cette limite de hauteur contrainte est de concevoir des "Modal Boxes" (ou fenêtres modales, semblables à ce que peut produire des iframes sans leurs inconvéniants, totalement déconseillés pour le SEO, notamment).
 
-Vous pourrez donc inclure vos divers éléments IHM dans ces Modal Boxes.
+Vous pourrez donc inclure vos divers éléments IHM dans ces Modal Boxes (cf. [dossier des éléments](https://github.com/Greta-JS-2017/Dispau/tree/groupe3/views/UI)).
 
 # Creation de fenêtres modales et de message box
 
