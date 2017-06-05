@@ -76,6 +76,38 @@ header,
 		max-width: 1280px
 }
 
+/*! Loader */
+.loading {
+	display: block;
+	width: 2.25em;
+	width: 2.25rem;
+	height: 2.25em;
+	height: 2.25rem;
+	margin: 20% auto 0;
+	border: .5em solid #edf0f4;
+	border-left: .5em solid #e6005c;
+	border-radius: 50%;
+	-webkit-animation: loader 1.2s linear infinite;
+	animation: loader 1.2s linear infinite
+}
+
+@-webkit-keyframes loader {
+	0% {
+		-webkit-transform:rotate(0deg)
+	}
+	100% {
+		-webkit-transform:rotate(360deg)
+	}
+}
+@keyframes loader {
+	0% {
+		transform:rotate(0deg)
+	}
+	100% {
+		transform:rotate(360deg)
+	}
+}
+
 #map {
 	/* Fallback */
 	height: auto;
