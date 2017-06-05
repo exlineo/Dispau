@@ -438,10 +438,6 @@ footer {z-index: 1}
 	top: 0;
 	left: 0;
 	width: 100%
-/*
-	No more needed, Dude!
-	min-height: calc(100vh - 75px)
-*/
 }
 
 /* Masque certains affichages propres à Google Map	*/
@@ -458,9 +454,6 @@ a[href^="https://maps.google.com/maps?"],
 	display: none;
 	position: relative;
 	display: inline-block;
-/*
-	width: 4em;
-*/
 	margin: .43em 1.2em 0 0;
 	padding: .9em .8em .9em 1.6em;
 	background: #fff;
@@ -503,10 +496,6 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 
 .top-menu ul {
 	display: block;
-/*
-	float: right;
-	margin: .8em 0 0;
-*/
 	padding: 0;
 	list-style: none
 }
@@ -822,12 +811,7 @@ input[type="text"],
 		outline: none
 
 }
-/*
-input[type="password"] {
-	padding: .01em 1%;
-	font-size: larger
-}
-*/
+
 input[type="text"]:focus,
 	input[type="email"]:focus,
 	input[type="password"]:focus,
@@ -876,6 +860,78 @@ input.password + button {
 	-webkit-tap-highlight-color: transparent
 
 }
+
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+	position: absolute;
+	left: -9999px
+}
+
+[type="checkbox"]:not(:checked) + label,
+	[type="checkbox"]:checked + label {
+	position: relative;
+	display: inline;
+	display: inline-block;
+	padding-left: 25px;
+	cursor: pointer
+}
+
+[type="checkbox"]:not(:checked) + label:before,
+	[type="checkbox"]:checked + label:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left:0;
+		width: 15px;
+		height: 15px;
+		border: 1px solid #ddd;
+		background: #f8f8f8;
+		border-radius: 3px
+}
+ 
+/* Aspect général de la coche */
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+	content: '✔';
+	position: absolute;
+	top: -5px;
+	left: 0;
+	font-size: 22px;
+	color: #09ad7e;
+	transition: all .2s
+}
+/* Aspect si "non cochée" */
+[type="checkbox"]:not(:checked) + label:after {
+	opacity: 0;
+	transform: scale(0)
+}
+/* Aspect si "cochée" */
+[type="checkbox"]:checked + label:after {
+	opacity: 1;
+	transform: scale(1)
+}
+
+/* aspect désactivée */
+[type="checkbox"]:disabled:not(:checked) + label:before,
+[type="checkbox"]:disabled:checked + label:before,
+[type="radio"]:disabled:not(:checked) + label:before,
+[type="radio"]:disabled:checked + label:before {
+	border-color: #bbb;
+	background-color: #ddd;
+	box-shadow: none
+}
+/* styles de la coche (si cochée/désactivée) */
+[type="checkbox"]:disabled:checked + label:after,
+	[type="radio"]:disabled:checked + label:after {color: #999}
+/* le label quand désactivé */
+[type="checkbox"]:disabled + label,
+	[type="radio"]:disabled + label {color: #aaa}
+ 
+/* aspect au focus de l'élément */
+[type="checkbox"]:checked:focus + label:before,
+	[type="checkbox"]:not(:checked):focus + label:before,
+	[type="radio"]:checked:focus + label:before,
+	[type="radio"]:not(:checked):focus + label:before  {outline: none}
 
 /* Boutons */
 
