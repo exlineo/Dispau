@@ -300,15 +300,9 @@ header h1 a {color: #e6005c}
 
 .footer-modal {
 	background: #42a5f5;
-/*
-	box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
-*/
 	box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 
 				0 3px 14px 2px rgba(0, 0, 0, 0.12),
 				0 5px 15px 10px rgba(0, 0, 0, 0.1)
-				/*
-				0 5px 5px -3px rgba(0, 0, 0, 0.3)
-				*/
 }
 
 .footer-modal a,
@@ -778,7 +772,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 	max-width: 900px;
 	min-width: 250px;
 	width: 80%;
-	height: 50px;
+	height: 51px;
 	margin: 0 auto;
 	text-align: right;
 	border-radius: 0 0 2px 2px;
@@ -1245,33 +1239,6 @@ html .inactive:hover:before {
 }
 
 /* Personnalisation des scrool bars sur moteur WebKit */
-
-/* 
-.modal::-webkit-scrollbar { width: 6px; height: 3px}
-/* bouton haut et bas 
-.modal::-webkit-scrollbar-button {  background-color: #666}
-.modal::-webkit-scrollbar-track {  background-color: #999}
-/* Fond du scroll bar 
-.modal::-webkit-scrollbar-track-piece { background-color: #fff}
-/* La barre de defilement 
-.modal::-webkit-scrollbar-thumb { height: 50px; background-color: #999; border-radius: 3px}
-.modal::-webkit-scrollbar-corner { background-color: #999}
-.modal::-webkit-resizer { background-color: #666}
-*/
-
-/* Version plus simple :
-.modal::-webkit-scrollbar,
-	#info::-webkit-scrollbar {
-		width: 5px;
-		background: #f5f5f5
-}
-.modal::-webkit-scrollbar-track,
-	#info::-webkit-scrollbar-track {
-		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-		border-radius: 3px
-}
-*/
-
 .modal::-webkit-scrollbar,
 	.footer-modal::-webkit-scrollbar,
 	#info::-webkit-scrollbar,
@@ -1279,6 +1246,8 @@ html .inactive:hover:before {
 		width: 5px;
 		background-color: #f5f5f5
 }
+
+::-webkit-scrollbar:horizontal {height: 5px}
 
 .modal::-webkit-scrollbar-track,
 	.footer-modal::-webkit-track,
