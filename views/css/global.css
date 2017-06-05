@@ -654,6 +654,29 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 
 #chat li:nth-child(even) {float: left}
 
+/*! Profil individuel */
+
+.outer {/* background: rgb(138, 0, 84) */}
+
+.outer img {
+	display: block;
+	width: auto;
+	margin: 0 auto;
+	border-radius: 100%;
+	border: 5px solid #eee;
+	box-shadow: 0 0 15px rgba(0, 0, 0, .4)
+}
+
+.outer .inner {
+	height: 9em;
+	margin: .3em 0 1em;
+	background: #fff;
+	background: #eee /* rgba(255, 255, 255, .85)*/;
+	border-top: 1px solid #ccc
+}
+
+.inner .txt-center {padding: 4% 0 0}
+
 /* Révélateur des modales */
 .modal-dialog:target,
 	/* Affiche tous les Messages d'alertes */
