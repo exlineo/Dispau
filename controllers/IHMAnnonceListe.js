@@ -1,7 +1,7 @@
 function AnnonceListe() {
     /**
      * Variable possédant toutes les annonces
-     * Il est intéressant de l'utiliser pour trier tout les objets
+     * Il est intéressant de l'utiliser pour trier tous les objets
      * @type {{}}
      */
     var ici = this;
