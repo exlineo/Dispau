@@ -1,6 +1,3 @@
-
-
-
 function Notification(){
 	var ici=this;
 	this.messageErr=
