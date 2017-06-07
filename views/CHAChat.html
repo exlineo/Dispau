@@ -50,13 +50,10 @@
 
               </div>
           </section>
-
-          
-          <form id="saisie" novalidate="">
-              <input type="text" ng-model="vm.texte" autofocus="">
-              <div id="valider-btn" ng-click="vm.envoyer()"></div>
-          </form>
-          
+          <form>
+            <input type="text" ng-model="vm.texte" autofocus="" ng-keydown="vm.toucheEntree($event)">
+            <div id="valider-btn" ng-click="vm.envoyer()"></div>
+          </form>    
         </div>
       </div>
 
