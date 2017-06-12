@@ -15,10 +15,10 @@ function ANNAnnonceListe() {
      * propriété qui permet de remplir la variable annonces_obj
      * @param liste_annonces_json est le fichier json récupéré depuis le model
      */
-    this.ajouterAnnonce = function (liste_annonces_json) {
-        for (var i in liste_annonces_json) {
+    this.ajouterAnnonce = function (listeAnnonce_obj) {
+        for (var i in listeAnnonce_obj) {
             var implAnnonce = new Annonce();
-            implAnnonce.hydrate(liste_annonces_json[i]);
+            implAnnonce.hydrate(listeAnnonce_obj);
             this.annonces_ar[i] = implAnnonce;
         }
         console.log(this.annonces_ar);
