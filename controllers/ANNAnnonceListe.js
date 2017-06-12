@@ -28,9 +28,9 @@ function ANNAnnonceListe() {
      * Permet de supprimer une annonce du tableau grâce à son ID
      * @param _id ID de l'annonce
      */
-    this.supprimerAnnonceById = function(_id){
+    this.supprimerAnnonceById = function(id_nb){
         for(var i =0; i < this.annonces_ar.length; i++) {
-            if (this.annonces_ar[i].id_nb == _id) {
+            if (this.annonces_ar[i].id_nb == id_nb) {
                 delete this.annonces_ar[i]
             } else {
                 console.log("L'annonce n'existe pas")
