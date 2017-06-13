@@ -1,6 +1,6 @@
 <?php
 /**
- * ANNONCE.PHP
+ * UTILISATEUR.PHP
  *
  * Reçoit les requêtes AJAX depuis l'application AngularJS.
  * Traîte la requête HTTP.
@@ -12,20 +12,20 @@
  */
 
 /* Exemples:
- * Récupérer un annonce :
- * GET http://serveur/php/annonce.php?action=get&id=495039
+ * Récupérer un utilisateur :
+ * GET http://serveur/php/utilisateur.php?action=get&id=495039
  *
- * Récupére toutes les annonces d'un lieu :
- * GET http://serveur/php/annonce.php?action=get&lieu=49549
+ * Récupére toutes les utilisateurs d'un lieu :
+ * GET http://serveur/php/utilisateur.php?action=get&lieu=49549
  *
- * Créer une annonce :
- * POST http://serveur/php/annonce.php?action=create
+ * Créer une utilisateur :
+ * POST http://serveur/php/utilisateur.php?action=create
  *
- * Modifier une annonce :
- * POST http://serveur/php/annonce.php?action=update&id=495439
+ * Modifier une utilisateur :
+ * POST http://serveur/php/utilisateur.php?action=update&id=495439
  *
- * Supprimer une annonce :
- * GET http://serveur/php/annonce.php?action=delete&id=43953429
+ * Supprimer une utilisateur :
+ * GET http://serveur/php/utilisateur.php?action=delete&id=43953429
  */
 
 /* Méthodes à coder :
