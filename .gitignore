@@ -44,5 +44,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-
-\.idea/
+.idea/Dispau.iml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
