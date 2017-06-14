@@ -1,0 +1,64 @@
+<!-- EDITION PROFIL -->
+
+    <div aria-hidden="true" role="dialog" class="modal-dialog no-select" id="open-modal-profil">
+      <div>
+        <div class="modal">
+          <div class="inner-dialog">
+            
+            <h2>Mon Profil</h2>
+            <div class="full">
+            <button class="button btn-flat right button-green ripple-in">Créer</button>
+            </div>
+
+            <form method="post" action="">
+
+              <div class="row">
+              <div class="c-2">
+                <label for="prenom-input">Prénom :</label>
+                <input type="text" required="" name="prenomInput" value="" placeholder="Votre prénom" id="prenom-input">
+              </div> <!-- /c-2 -->
+
+              <div class="c-2">
+                <label for="nom-input">Nom :</label>
+                <input type="text" required="" name="nomInput" value="" placeholder="Votre nom" id="nom-input">
+              </div> <!-- /c-2 -->
+              </div> <!-- /row -->
+
+              <label for="email-input">Adresse :</label>
+              <input type="email" required="" name="emailInput" value="" placeholder="Votre adresse email" class="email" id="email-input">
+
+              <div class="row">
+              <div class="c-2">
+                <label for="pass-input">Mot de passe :</label>
+                <input type="password" required="" name="passInput" value="" placeholder="Votre adresse email" class="psw" id="pass-input">
+              </div> <!-- /c-2 -->
+
+              <div class="c-2">
+                <label for="pass-verif-input">Confirmation :</label>
+                <input type="password" required="" name="passVerifInput" value="" placeholder="Votre adresse email" class="psw" id="pass-verif-input">
+              </div> <!-- /c-2 -->
+              </div> <!-- /row -->
+
+              <div class="row">
+              <div class="c-2">
+                <label for="pseudo-input">Pseudonyme :</label>
+                <input type="text" required="" name="pseudoInput" value="" placeholder="Votre pseudonyme DISPAU" id="pseudo-input">
+              </div> <!-- /c-2 -->
+
+              <div class="c-2">
+                <label for="image-profil-img" title="Charger une image" class="label-file">Photo <i class="fa fa-picture-o" aria-hidden="true"></i>
+<em>:</em></label>
+                <input name="imageProfilBtn" type="file" class="input-file" id="image-profil-img">
+              </div> <!-- /c-2 -->
+              </div> <!-- /row -->
+
+              <button class="button btn-flat button-green ripple-in">Enregistrer</button>
+            </form>
+          </div> <!-- /inner-dialog -->
+
+        </div> <!-- /modal -->
+        <div class="footer-modal">
+          <a href="#open-modal-aide" class="link no-select ripple">Aide</a><a href="#!" class="help no-select ripple">Fermer</a>
+        </div>
+      </div>
+    </div> <!-- /open-modal-profil -->
