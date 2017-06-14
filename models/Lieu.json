@@ -1,4 +1,4 @@
-[
+var lieu = [
   {
     "id_nb": 0,
     "nom_str": "Lieu1",
