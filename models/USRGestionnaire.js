@@ -1,11 +1,23 @@
 /**
- *
- * @constructor
+ * Gestionnaire
+ * @class
+ * @param {string} _pseudo_str
+ * @param {string} _email_str
+ * @param {string} _pass_str
  */
-
-function USRGestionnaire()
+ 
+function USRGestionnaire(_pseudo_str, _email_str, _pass_str)
 {
-    // properties
-
-    // methods
+    this.annoncesGerees_arr = [];
+	
+	/**
+     * call
+     * @function
+     * Gestionnaire herite de Utilisateur
+     * @param {} this
+     * @param {string} _pseudo_str
+     * @param {string} _email_str
+     * @param {string} _pass_str
+     */
+	Utilisateur.call(this, _pseudo_str, _email_str, _pass_str);
 }
