@@ -41,10 +41,45 @@ require_once 'connectDB.php';
 // Exemple pour récupérer le PDO
 $db = db();
 
+switch ($_GET['action']) {
+    case "get" :
+        echo selectAnnonce($_GET['id']);
+        //selectAnnonce($_GET['id']);
+        break;
+
+    case "create" :
+        break;
+
+    case "update" :
+        break;
+
+    case "delete" :
+        break;
+}
+
+/**
+ * Permet de récupérer les annonces par rapport à l'ID
+ * @param $id
+ * @return array
+ */
 function selectAnnonce($id){
     $db = db();
-    $req = $db->prepare('SELECT * FROM annonce WHERE id = ?');
-    
+    if ($id == null){
+        $req = $db->prepare('SELECT * FROM annonce');
+        $req->execute();
+        $donnees = $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+    else{
+        $req = $db->prepare('SELECT * FROM annonce WHERE id = :id');
+        $req->execute(array(
+            'id' => $_GET['id']
+        ));
+        $donnees = $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    return json_encode($donnees);
+
+    //return $donnees;
 }
 
 function insertAnnonce(){
