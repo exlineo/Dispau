@@ -4,6 +4,8 @@
 
 // position par défaut de la carte sur pau
 var pau = {lat : 43.296371, lng : -0.370091};
+var markers;
+var infowindow;
 
 //styliser la map
 function getMapStyle() {
@@ -64,6 +66,7 @@ function getMapStyle() {
 
 //ajouter un marqueur
 function addMarker(lieu) {
+    console.log(lieu.sousLieux_ar.length);
     //instanciation du marqueur
     var marker = new google.maps.Marker({
         position 	: {
@@ -79,7 +82,7 @@ function addMarker(lieu) {
             labelOrigin	: new google.maps.Point(34, 15)
         },
         label		: {
-            text		: lieu.nom_str.toString(),
+            text		: lieu.annonces_ar.length.toString(),
             color		: '#fff',
             fontSize	: '12px'
         },
@@ -100,15 +103,15 @@ function addMarker(lieu) {
 
         var img = document.createElement('img');
         img.className = 'popup-img';
-        img.src = lieu.couv;
+        img.src = lieu.image_img;
 
         var desc = document.createElement('div');
         desc.className = 'popup-desc';
-        desc.innerHTML = lieu.content;
+        desc.innerHTML = lieu.description_str;
 
         var score = document.createElement('div');
         score.className = 'popup-score';
-        score.innerHTML = '<strong>Nom : </strong> ' + lieu.saved;
+        score.innerHTML = '<strong>Nombre d\'annonces : </strong> ' + lieu.annonces_ar.length;
 
         popup.appendChild(title);
         popup.appendChild(img);
@@ -120,7 +123,7 @@ function addMarker(lieu) {
 
         //ouvrir la bulle
         infowindow.open(gmap, marker);
-
+/*
         console.log(gmap.getZoom());
         if(gmap.getZoom() == 17) {
             console.log('pan');
@@ -130,7 +133,7 @@ function addMarker(lieu) {
             gmap.setCenter(marker.position);
             gmap.setZoom(17);
         }
-
+*/
     });
 
     return marker;
@@ -146,17 +149,14 @@ function addInfoWindow() {
     //event à la fermeture de la bulle
     infowindow.addListener('closeclick', function() {
         console.log('close');
-        // Repositionne la carte sur la position de l'utilisateur
-        gmap.setCenter(
-            pos
-        );
-        // valeur du zoom reinitialisé
-        gmap.setZoom(14);
+
+
     });
 }
 
 //callback de la map
 function initMap() {
+
     // Récupération de la position de l'user pour centrer la carte sur lui
     navigator.geolocation.getCurrentPosition(function (position) {
         pos = {
@@ -194,7 +194,7 @@ function initMap() {
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
     );
-
+console.log('valeur du lieu[0] : ' + lieu[0]);
 addMarker(lieu[0]);
-console.log(lieu[0]);
+addInfoWindow();
 }

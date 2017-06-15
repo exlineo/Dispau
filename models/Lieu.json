@@ -3,8 +3,8 @@ var lieu = [
     "id_nb": 0,
     "nom_str": "Lieu1",
     "description_str": "Lieu sympa",
-    "latitude_nb": "43.2736835",
-    "longitude_nb": " -0.4856524",
+    "latitude_nb": 43.2936835,
+    "longitude_nb": -0.3756524,
     "chat_cht": 0,
     "image_img": "img/Lieu_0.jpg",
 
