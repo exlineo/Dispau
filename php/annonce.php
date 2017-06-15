@@ -41,30 +41,53 @@ require_once 'connectDB.php';
 // Exemple pour récupérer le PDO
 $db = db();
 
-/**
- * Permet de récupérer l'action en GET
- */
-$action = $_GET['action'];
-/**
- * Permet de récupérer l'id de l'annonce en GET
- */
-$id = $_GET['id'];
+print_r($_POST);
 
-switch ($action) {
-    case "get" :
-        echo selectAnnonce($id);
-        break;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    case "create" :
-        break;
+    /**
+     * Permet de récupérer l'action en POST
+     */
+    //$actionPOST = $_POST['action'];
 
-    case "update" :
-        break;
+    /**
+     * Permet de récupérer l'id en POST
+     */
+    //$id = $_POST['id'];
 
-    case "delete" :
-        deleteAnnonce($id);
-        break;
+    /*switch ($actionPOST) {
+        case "create" :
+            echo "hello";
+            break;
+
+        case "update" :
+            break;
+    }*/
 }
+
+else{
+    /**
+     * Permet de récupérer l'action en GET
+     */
+    $actionGET = $_GET['action'];
+
+    /**
+     * Permet de récupérer l'id de l'annonce en GET
+     */
+    $id = $_GET['id'];
+
+    switch ($actionGET) {
+        case "get" :
+            echo selectAnnonce($id);
+            break;
+
+        case "delete" :
+            deleteAnnonce($id);
+            break;
+    }
+}
+
+
 
 /**
  * Permet de récupérer les annonces par rapport à l'ID
@@ -106,7 +129,40 @@ function insertAnnonce(){
 }
 
 function updateAnnonce(){
+    $db = db();
 
+    $nom_str = $_POST['nom_str'];
+    $image_str = $_POST['image_str'];
+    $dateCreation_date = $_POST['dateCreation_date'];
+    $dateFinInscription_date = $_POST['dateFinInscription_date'];
+    $dateFin_date = $_POST['dateFin_date'];
+    $dateDebut_date = $_POST['dateDebut_date'];
+    $idLieu_nb = $_POST['idLieu_nb'];
+    $placeMin_nb = $_POST['placeMin_nb'];
+    $placeMax_nb = $_POST['placeMax_nb'];
+    $idGestionnaire_nb = $_POST['idGestionnaire_nb'];
+    $idChat_nb = $_POST['idChat_nb'];
+    $salleDAttente_ar = $_POST['salleDAttente_ar'];
+    $participant_ar = $_POST['participant_ar'];
+    $centreInteret_ar = $_POST['centreInteret_ar'];
+    $validite_nb = $_POST['validite_nb'];
+
+    $req = $db->prepare("UPDATE `annonce` SET  nom_str   = :nom_str,
+                                                        image_str = :image_str,
+                                                        dateCreation_date = :dateCreation_date,
+                                                        dateFinInscription_date = :ateFinInscription_date,
+                                                        dateFin_date = :dateFin_date,
+                                                        dateDebut_date = :dateDebut_date,
+                                                        idLieu_nb = :idLieu_nb,
+                                                        placeMin_nb = :placeMin_nb,
+                                                        placeMax_nb = :placeMax_nb,
+                                                        idGestionnaire_nb = :idGestionnaire_nb,
+                                                        idChat_nb = :idChat_nb,
+                                                        salleDAttente_ar = :salleDAttente_ar,
+                                                        participant_ar = :participant_ar,
+                                                        centreInteret_ar = :centreInteret_ar,
+                                                        validite_nb = :validite_nb
+                                                        WHERE id = :id");
 }
 
 function deleteAnnonce($id){

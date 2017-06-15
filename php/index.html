@@ -13,14 +13,14 @@
         crossorigin="anonymous"></script>
 <script>
     $.ajax({
-        type : 'get',
+        type : 'post',
         url : 'annonce.php',
         data : {
-            'action' : 'get',
+            'action' : 'create',
             'id' : null
         },
         success: function (data) {
-            var data = JSON.parse(data);
+            //var data = JSON.parse(data);
             console.log(typeof data)
             console.log(data)
         }
