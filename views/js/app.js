@@ -33,91 +33,206 @@ var menuLinks=document.querySelectorAll('.top-menu ul li a');for(var i=0;i<menuL
  *
  */
 
-function initMap() {
-    var beaumont = {
-        info: '<strong>Palais Beaumont</strong><br>\
-		Allée Alfred de Musset<br> 64000 Pau<br>\
-		<a href="https://www.google.fr/maps/place/Palais+Beaumont+-+Centre+de+Congr%C3%A8s+Historique/@43.295448,-0.3620232,17z/data=!4m5!3m4!1s0x0:0x41ad40ac6be0e288!8m2!3d43.2946982!4d-0.3624094">Localiser</a>',
-        lat: 43.2946984,
-        long: -0.3645981,
-        label: 12,
-        persons: 56
-    };
-    var parcbeaumont = {
-        info: '<strong>Hôtel Parc Beaumont</strong><br>\
-		MGallery by Sofitel<br> 1 Avenue Edouard VII<br> 64000 Pau<br>\
-		<a href="https://www.google.fr/maps/place/H%C3%B4tel+Parc+Beaumont+Pau+MGallery+by+Sofitel/@43.295448,-0.3620232,17z/data=!4m5!3m4!1s0x0:0x6032f82053a5e806!8m2!3d43.2973712!4d-0.359534">Localiser</a>',
-        lat: 43.295448,
-        long: -0.3620232,
-        persons: 3
-    };
-    var pautheatre = {
-        info: '<strong>Théâtre de Pau</strong><br>\r\
-		8 Rue Maréchal Foch<br> 64000 Pau<br>\
-		<a href="https://www.google.fr/maps/place/Pau\'s+Th%C3%A9%C3%A2tre/@43.2960102,-0.364641,17z/data=!4m5!3m4!1s0x0:0xa73469402524048b!8m2!3d43.2969778!4d-0.367291">Localiser</a>',
-        lat: 43.2960102,
-        long: -0.364641,
-        persons: 12
-    };
-    var gretapau = {
-        info: '<strong>Greta Béarn-Soule</strong><br>\r\
-		3 Bis Avenue Nitot<br> 64000 Pau<br>\
-		<a href="https://www.google.fr/maps/place/Gr%C3%A9ta+B%C3%A9arn+Soule/@43.2973845,-0.3566934,17z/data=!4m5!3m4!1s0xd5648e6dfca3837:0x8d092792c1354faf!8m2!3d43.2973806!4d-0.3545047">Localiser</a>',
-        lat: 43.2973845,
-        long: -0.3566934,
-        persons: 23
-    };
-    var pauparcexpos = {
-        info: '<strong>Parc des Expositions</strong><br>\r\
-		7 Boulevard Champetier de Ribes<br> 64000 Pau<br>\
-		<img src="upload/parc-des-expositions-pau-mini.jpg" alt="" />\
-		<a href="https://www.google.fr/maps/place/Parc+Des+Expositions/@43.3049039,-0.3791547,17z/data=!3m1!4b1!4m5!3m4!1s0xd564f34816cc5ad:0xdda6f31828f90593!8m2!3d43.3049!4d-0.376966">Localiser</a>',
-        lat: 43.3049039,
-        long: -0.3791547,
-        persons: 5
-    }
-    var locations = [
-        [beaumont.info, beaumont.lat, beaumont.long, beaumont.persons, 0],
-        [parcbeaumont.info, parcbeaumont.lat, parcbeaumont.long, parcbeaumont.persons,1],
-        [pautheatre.info, pautheatre.lat, pautheatre.long, pautheatre.persons, 2],
-        [gretapau.info, gretapau.lat, gretapau.long, gretapau.persons, 3],
-        [pauparcexpos.info, pauparcexpos.lat, pauparcexpos.long, pauparcexpos.persons, 4]
-    ];
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 14,
-        scrollwheel: false,
-        streetViewControl: false,
-        mapTypeControl: false,
-        /* Choisissez le style de Map en ligne : https://snazzymaps.com  */
-        styles: [{"featureType":"administrative","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"saturation":-100},{"lightness":"50"},{"visibility":"simplified"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"lightness":"30"}]},{"featureType":"road.local","elementType":"all","stylers":[{"lightness":"40"}]},{"featureType":"transit","elementType":"all","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]},{"featureType":"water","elementType":"labels","stylers":[{"lightness":-25},{"saturation":-100}]}],
-        /* END STYLE */
-        zoomControl: true,
-        zoomControlOptions: {
-            position: google.maps.ControlPosition.LEFT_CENTER
+    /**
+     * Created by alexa on 14/06/2017.
+     */
+
+// position par défaut de la carte sur pau
+    var pau = {lat: 43.296371, lng: -0.370091};
+    var markers;
+    var infowindow;
+
+    //styliser la map
+    function getMapStyle() {
+        var style = [{
+            "featureType": "administrative",
+            "elementType": "all",
+            "stylers": [{"saturation": "-100"}]
         },
-        center: new google.maps.LatLng(43.2946984,-0.3645981),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-    var infowindow = new google.maps.InfoWindow({}), marker, i;
-    var custom_icon = {
-        path: 'M19-5C6.866-5-3,4.966-3,17.214c0,2.233,0.332,4.388,0.941,6.419 c2.523,12.103,17.896,30.404,20.013,32.887C18.217,56.827,18.602,57,19,57c0.049,0,0.096,0,0.145-0.007 c0.372-0.04,0.708-0.227,0.935-0.517l0.083-0.104c4.704-5.628,17.608-21.826,19.901-32.761C40.677,21.588,41,19.439,41,17.214 C41,4.966,31.126-5,19-5 M19,26.169c-4.928,0-8.938-4.016-8.938-8.956c0-1.666,0.461-3.236,1.264-4.58 c0.799-1.351,1.947-2.473,3.322-3.237C15.934,8.673,17.425,8.261,19,8.261c1.589,0,3.087,0.419,4.381,1.156 c1.365,0.764,2.508,1.887,3.304,3.237c0.799,1.336,1.255,2.9,1.255,4.559C27.939,22.154,23.929,26.169,19,26.169',
-        fillColor: '#e6005c',
-        fillOpacity: 1,
-        scale: 1,
-        strokeWeight: 0
-    };
-    for (i = 0; i < locations.length; i++) {
-        marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-            icon: custom_icon,
-            label: locations[i][3],
-            map: map
-        });
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            return function () {
-                infowindow.setContent(locations[i][0]);
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
+            {
+                "featureType": "administrative.province",
+                "elementType": "all",
+                "stylers": [{"visibility": "off"}]
+            }, {
+                "featureType": "landscape",
+                "elementType": "all",
+                "stylers": [{"saturation": -100},
+                    {"lightness": 65},
+                    {"visibility": "on"}]
+            }, {
+                "featureType": "poi",
+                "elementType": "all",
+                "stylers": [{"saturation": -100},
+                    {"lightness": "50"},
+                    {"visibility": "simplified"}]
+            }, {
+                "featureType": "road",
+                "elementType": "all",
+                "stylers": [{"saturation": "-100"}]
+            }, {
+                "featureType": "road.highway",
+                "elementType": "all",
+                "stylers": [{"visibility": "simplified"}]
+            }, {
+                "featureType": "road.arterial",
+                "elementType": "all",
+                "stylers": [{"lightness": "30"}]
+            }, {
+                "featureType": "road.local",
+                "elementType": "all",
+                "stylers": [{"lightness": "40"}]
+            }, {
+                "featureType": "transit",
+                "elementType": "all",
+                "stylers": [{"saturation": -100}, {"visibility": "simplified"}]
+            }, {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [{"hue": "#ffff00"}, {"lightness": -25}, {"saturation": -97}]
+            }, {
+                "featureType": "water",
+                "elementType": "labels",
+                "stylers": [{"lightness": -25}, {"saturation": -100}]
+            }];
+
+        return style;
     }
-};
+
+
+    //ajouter un marqueur
+    function addMarker(lieu) {
+        console.log(lieu.sousLieux_ar.length);
+        //instanciation du marqueur
+        var marker = new google.maps.Marker({
+            position: {
+                lat: lieu.latitude_nb, lng: lieu.longitude_nb
+            },
+            map: gmap,
+            icon: {
+                // Le path est un fichier svg
+                path: 'M19-5C6.866-5-3,4.966-3,17.214c0,2.233,0.332,4.388,0.941,6.419 c2.523,12.103,17.896,30.404,20.013,32.887C18.217,56.827,18.602,57,19,57c0.049,0,0.096,0,0.145-0.007 c0.372-0.04,0.708-0.227,0.935-0.517l0.083-0.104c4.704-5.628,17.608-21.826,19.901-32.761C40.677,21.588,41,19.439,41,17.214 C41,4.966,31.126-5,19-5 M19,26.169c-4.928,0-8.938-4.016-8.938-8.956c0-1.666,0.461-3.236,1.264-4.58 c0.799-1.351,1.947-2.473,3.322-3.237C15.934,8.673,17.425,8.261,19,8.261c1.589,0,3.087,0.419,4.381,1.156 c1.365,0.764,2.508,1.887,3.304,3.237c0.799,1.336,1.255,2.9,1.255,4.559C27.939,22.154,23.929,26.169,19,26.169',
+                fillColor: '#e6005c',
+                fillOpacity: 1,
+                scale: 1,
+                strokeWeight: 0,
+                labelOrigin: new google.maps.Point(34, 15)
+            },
+            label: {
+                text: lieu.annonces_ar.length.toString(),
+                color: '#fff',
+                fontSize: '12px'
+            },
+            //animation	: google.maps.Animation.DROP,
+            title: lieu.nom_str
+        });
+
+
+        //event au clic
+        marker.addListener('click', function () {
+            //creation du html de la bulle
+            var popup = document.createElement('div');
+            popup.className = 'popup';
+
+            var title = document.createElement('h3');
+            title.className = 'popup-title';
+            title.innerHTML = marker.title;
+
+            var img = document.createElement('img');
+            img.className = 'popup-img';
+            img.src = lieu.image_img;
+
+            var desc = document.createElement('div');
+            desc.className = 'popup-desc';
+            desc.innerHTML = lieu.description_str;
+
+            var score = document.createElement('div');
+            score.className = 'popup-score';
+            score.innerHTML = '<strong>Nombre d\'annonces : </strong> ' + lieu.annonces_ar.length;
+
+            popup.appendChild(title);
+            popup.appendChild(img);
+            popup.appendChild(desc);
+            popup.appendChild(score);
+
+            //ajouter le contenu à la bulle
+            infowindow.setContent(popup);
+
+            //ouvrir la bulle
+            infowindow.open(gmap, marker);
+            /*
+             console.log(gmap.getZoom());
+             if(gmap.getZoom() == 17) {
+             console.log('pan');
+             gmap.panTo(marker.position);
+             } else {
+             console.log('zoom');
+             gmap.setCenter(marker.position);
+             gmap.setZoom(17);
+             }
+             */
+        });
+
+        return marker;
+    }
+
+    //ajouter l'infobulle
+    function addInfoWindow() {
+        //creation de la fenetre d'info
+        infowindow = new google.maps.InfoWindow({
+            // Dimension max de la fenêtre d'information
+            maxWidth: 200
+        });
+
+        //event à la fermeture de la bulle
+        infowindow.addListener('closeclick', function () {
+            console.log('close');
+
+
+        });
+    }
+
+    //callback de la google API située dans views/index.html
+    function initMap() {
+
+        // Récupération de la position de l'user pour centrer la carte sur lui
+        navigator.geolocation.getCurrentPosition(function (position) {
+            pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            gmap.panTo(pos);
+            console.log('position de l\'utilisateur : ' + pos.lat);
+        });
+        //creation de la map comme variable globale centré sur pau
+        gmap = new google.maps.Map(
+            document.getElementById('map'),
+            {
+                // Zoom de la carte
+                zoom: 14,
+                // Position de la carte
+                center: pau,
+                // Controle le zoom sur la map
+                scrollwheel: false,
+                // Carte avec l'option street view
+                streetViewControl: false,
+                // Empeche de basculer sur d'autres types de cartes
+                mapTypeControl: false,
+                // Pour modifier le style de la carte
+                styles: getMapStyle(),
+                // Désactive le comportement par defaut de l'API (au dessus ça ne sert plus vraiment...)
+                disableDefaultUI: true,
+                // le + et - du zoom
+                zoomControl: true,
+                // position du zoom control
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.LEFT_CENTER
+                },
+                // type carte routière utilisé
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+        );
+        console.log('valeur du lieu[0] : ' + lieu[0]);
+// lieu[0] c'est un objet lieu qui se trouve dans Dispau/models/Lieu.json
+        addMarker(lieu[0]);
+        addInfoWindow();
+    }
