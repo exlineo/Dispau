@@ -36,7 +36,7 @@ if(!empty($_POST) && !empty($_POST['username_co']) && !empty($_POST['password_co
     </div>
 
     <div class="form-group">
-        <label for="">Votre mot de passe <a href="forget.php">(J'ai oublié mon de passe)</a> :</label>
+        <label for="">Votre mot de passe <a href="forget.php">(mot de passe oublié ?)</a> :</label>
         <input type="password" name="password_co" class="form-control">
     </div>
 
