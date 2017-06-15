@@ -41,10 +41,18 @@ require_once 'connectDB.php';
 // Exemple pour récupérer le PDO
 $db = db();
 
-switch ($_GET['action']) {
+/**
+ * Permet de récupérer l'action en GET
+ */
+$action = $_GET['action'];
+/**
+ * Permet de récupérer l'id de l'annonce en GET
+ */
+$id = $_GET['id'];
+
+switch ($action) {
     case "get" :
-        echo selectAnnonce($_GET['id']);
-        //selectAnnonce($_GET['id']);
+        echo selectAnnonce($id);
         break;
 
     case "create" :
@@ -54,30 +62,41 @@ switch ($_GET['action']) {
         break;
 
     case "delete" :
+        deleteAnnonce($id);
         break;
 }
 
 /**
  * Permet de récupérer les annonces par rapport à l'ID
- * @param $id
- * @return array
+ * @param $id de l'annonce
+ * @return array d'annonce
  */
 function selectAnnonce($id){
+    /**
+     * Connexion à la DB
+     */
     $db = db();
-    if ($id == null){
-        $req = $db->prepare('SELECT * FROM annonce');
-        $req->execute();
-        $donnees = $req->fetchAll(PDO::FETCH_ASSOC);
-    }
-    else{
-        $req = $db->prepare('SELECT * FROM annonce WHERE id = :id');
-        $req->execute(array(
-            'id' => $_GET['id']
-        ));
-        $donnees = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    try {
+        if (isset($id)){
+            $req = $db->prepare("SELECT * FROM `annonce`");
+            $req->execute();
+            $donnees = $req->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        else{
+            $req = $db->prepare("SELECT * FROM `annonce` WHERE id = :id");
+            $req->execute(array(
+                'id' => $id
+            ));
+            $donnees = $req->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        return json_encode($donnees);
+    } catch (Exception $e) {
+        echo 'ERROR: '. $e->getMessage();
     }
 
-    return json_encode($donnees);
 
     //return $donnees;
 }
@@ -90,6 +109,18 @@ function updateAnnonce(){
 
 }
 
-function deleteAnnonce(){
+function deleteAnnonce($id){
+    /**
+     * Connexion à la DB
+     */
+    $db = db();
 
+    try{
+        $req = $db->prepare("DELETE FROM `annonce` WHERE id = :id");
+        $req->execute(array(
+            'id' => $id
+        ));
+    } catch (Exception $e){
+        echo 'ERROR: '. $e->getMessage();
+    }
 }
