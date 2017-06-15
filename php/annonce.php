@@ -40,3 +40,21 @@ require_once 'connectDB.php';
 
 // Exemple pour récupérer le PDO
 $db = db();
+
+function selectAnnonce($id){
+    $db = db();
+    $req = $db->prepare('SELECT * FROM annonce WHERE id = ?');
+    
+}
+
+function insertAnnonce(){
+
+}
+
+function updateAnnonce(){
+
+}
+
+function deleteAnnonce(){
+
+}
