@@ -52,42 +52,49 @@ function Utilisateur(_pseudo_str, _email_str, _pass_str) {
     this.dernierConnection = date.now();
 
 
-/**
-* demanderAmi
-* @function
-* @param {obj} Utilisateur
-*/
-this.demanderAmi = function(_Utilisateur) {
-	var utile = new DemanderAmi();
-	utile.de_user = ici.id_nb;
-	utile.a_user = Utilisateur.id_nb;
-	utile.date_date = new Date.now();
-	return utile;
-	}
+    /**
+    * demanderAmi
+    * @function
+    * @param {obj} Utilisateur
+    */
+    this.demanderAmi = function(_Utilisateur) {
+    	var utile = new DemanderAmi();
+    	utile.de_user = ici.id_nb;
+    	utile.a_user = Utilisateur.id_nb;
+    	utile.date_date = new Date.now();
+    	return utile;
+    }
 	
-/**
-* validerDemandeAmi
-* @function
-*/
-this.validerDemandeAmi = function() {
-    if(ici.demandeAmi == true){
-        if(validation = true){
-            ici.amis_arr.push(ici.demanderAmi.a_user);
-            ici.demanderAmi.a_user.amis_arr.push(ici.demanderAmi.de_user); // a verifier, test!
-        }else{
-            console.log('Validation refusé !');
+    /**
+    * validerDemandeAmi
+    * @function
+    */
+    this.validerDemandeAmi = function() {
+        if(ici.demandeAmi == true){
+            if(validation = true){
+                ici.amis_arr.push(ici.demanderAmi.a_user);
+                ici.demanderAmi.a_user.amis_arr.push(ici.demanderAmi.de_user); // a verifier, test!
+            }
+            else{
+                console.log('Validation refusé !');
+            }
         }
-        }else{
+        else{
             console.log('Demande d\'amis inexistante');
         }
-    };
+    }
 
-/**
-* call
-* @function
-* Utilisateur herite de Profil
-*/
-Profil.call(this, _pseudo_str, _email_str, _pass_str);
+    /**
+    * call
+    * @function
+    * Utilisateur herite de Profil
+    * @param {} this
+    * @param {string} _pseudo_str
+    * @param {string} _email_str
+    * @param {string} _pass_str
+    */
+    Profil.call(this, _pseudo_str, _email_str, _pass_str);
+
 }
 
 /**
@@ -105,6 +112,10 @@ function Gestionnaire(_pseudo_str, _email_str, _pass_str) {
      * call
      * @function
      * Gestionnaire herite de Utilisateur
+     * @param {} this
+     * @param {string} _pseudo_str
+     * @param {string} _email_str
+     * @param {string} _pass_str
      */
 	Utilisateur.call(this, _pseudo_str, _email_str, _pass_str);
 }
@@ -125,6 +136,10 @@ function Administrateur(_pseudo_str, _email_str, _pass_str) {
      * call
      * @function
      * Administrateur herite de Gestionnaire
+     * @param {} this
+     * @param {string} _pseudo_str
+     * @param {string} _email_str
+     * @param {string} _pass_str
      */
 	Gestionnaire.call(this, _pseudo_str, _email_str, _pass_str);
 }
