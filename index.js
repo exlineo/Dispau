@@ -2,7 +2,7 @@
  * Created by gaelph on 15/06/2017.
  */
 
-app.module('dispau-app', ['ngRoute']);
+var app = angular.module('dispau-app', ['ngRoute']);
 
 app.factory('ConnectionServeur', ['$http', ConnectionServeur]);
 app.factory('NotificationService', ['$http', NotificationService]);
