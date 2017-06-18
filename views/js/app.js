@@ -435,7 +435,7 @@ function initMap() {
         }
     );
     console.log('valeur du lieu[0] : ' + lieu[0]);
-    // lieu[0] c'est un objet lieu qui se trouve dans Dispau/models/Lieu.json
+    // lieu[0] c'est un objet lieu
     addMarker(lieu[0]);
     addInfoWindow();
 }
