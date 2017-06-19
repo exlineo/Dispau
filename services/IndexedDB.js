@@ -35,13 +35,11 @@ function IndexedDB() {
     };
 
     // chargement de la base de données
-    var db = new Dexie("Dispau_db");
+    var db = new Dexie("exlineodev");
 
     // Chargement itératif des stores
 
-    db.version(7).stores(databaseDeclarations[7]);
-
-    console.log("Loaded db version " + 7);
+    db.version(0).stores(databaseDeclarations[0]);
 
     // On renvoie l'instance de Dexie.
     return db;

@@ -1,16 +1,12 @@
 /**
- * RIEN A CHANGER SAUF ADPATER NOM DEXIE
- */
-
-/**
  * Manager pour la base de données distant (REST)
- * @param {$dexie} $dexie               Le service d'accès à la base de données
+ * @param {$indexedDB} $indexedDB       Le service d'accès à la base de données
  * @param {RestService} restService     Le service d'accès à l'API REST
  * @param {RequestQueue} requestQueue   Le service de mise en attente des requêtes
  * @param {LocalManager} localManager   Service Manager pour la base de données locale utilisé en fallback
  * @constructor
  */
-function RemoteManager ($dexie, restService, requestQueue, localManager) {
+function RemoteManager ($indexedDB, restService, requestQueue, localManager) {
     var _instance = this;
 
     /**
@@ -20,7 +16,7 @@ function RemoteManager ($dexie, restService, requestQueue, localManager) {
      * @private
      */
     this._slug = function (className) {
-        return className.toLowerCase() + 's';
+        return className.substr(3).toLowerCase();
     };
 
     /**
