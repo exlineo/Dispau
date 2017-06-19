@@ -50,12 +50,28 @@
             document.documentElement.className += 'js';
         }
     </script>
-
-    <!-- Je conseille vivement l'usage de JSON-LD pour le référencement : c'est la méthode désormais recommandée par Google.
-         Me demander pour de plus amples informations -->
-    <script type="application/ld+json">
-
-    </script>
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "WebApplication",
+	"url": "http://exlineo.com/dispau",
+	"name": "DISPAU",
+	"description": "DISPAU : Trouvez et participez à des événements : le réseau participatif de vos centres d'intérêts.",
+	"aggregateRating": {
+		"ratingValue": "5",
+		"ratingCount": "10"
+	},
+	"countriesSupported": "fr",
+	"applicationCategory": "Social Network, Events",
+	"offers": {
+		"priceCurrency": "€",
+		"price": "0"
+	},
+	"operatingSystem": "Windows 7, OSX 10.6, Android 4.4",
+	"browserRequirements": "requires HTML5 support",
+	"screenshot": "http://exlineo.com/dispau/img/dispau_preview.png"
+}
+</script>
 
     <script type="application/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
