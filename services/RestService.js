@@ -5,23 +5,20 @@
 /**
  * Service d'accès à l'API REST JSON
  * @param {$http} $http                 Service Ajax Angular
- * @param {ConfigService} configService Service d'options de configuration pour connaître l'addresse du serveur
- * @param {UserService} userService     Service utilisateur (tokens)
  * @constructor
  */
-function RestService ($http, configService, userService) {
+function RestService ($http, $cookies) {
     var _instance = this;
     // Properties
     /**
      * L'url de l'API
      * @type {string}
-     * @default ""
      */
-    this.apiUrl = "http://" + configService.get('server') + "/PHPCameraServerPOC/web/app_dev.php/";
+    this.apiUrl = "http://localhost/php/";
 
     // Définition des headers à envoyer à chaque requête
     // Le token de l'utilisateur
-    $http.defaults.headers.common['X-Access-Token'] = userService.getToken();
+    $http.defaults.headers.common['X-Access-Token'] = $cookies.get('api-token');
     // On demande du JSON
     $http.defaults.headers.common['Accept'] = "application/json";
     // On signale l'emploi de Ajax pour la requête
@@ -37,19 +34,19 @@ function RestService ($http, configService, userService) {
      * @return {string}
      */
     this.getApiUrl = function () {
-        this.apiUrl = "http://" + configService.get('server') + "/PHPCameraServerPOC/web/app_dev.php/";
+        //this.apiUrl = "http://" + configService.get('server') + "/PHPCameraServerPOC/web/app_dev.php/";
         return this.apiUrl;
     };
 
     /**
      * Envoi d'une requête GET
-     * @param {string} query    L'url de la requêten relative au résultat de getApiUrl
+     * @param {string|Request} query    L'url de la requêten relative au résultat de getApiUrl
      * @return {Promise}        Une promise qui résout au corps de la réponse
      */
     this.get = function (query) {
         var _instance = this; // Un référence à cette instance dans la Promise
 
-        $http.defaults.headers.common['X-Access-Token'] = userService.getToken();
+        $http.defaults.headers.common['X-Access-Token'] = $cookies.get('api-token');
 
         if (query instanceof Request) {
             query = query.url;
@@ -59,7 +56,8 @@ function RestService ($http, configService, userService) {
             $http.get(_instance.getApiUrl() + query).then(function (response) {
                 resolve(response.data);
             }, function () {
-                userService.disconnect();
+                //userService.disconnect();
+                // TODO: déconnecter l'utilisateur
 
                 reject();
             });
@@ -75,7 +73,7 @@ function RestService ($http, configService, userService) {
     this.put = function (query, object) {
         var _instance = this; // Un référence à l'instance dans la Promise
 
-        $http.defaults.headers.common['X-Access-Token'] = userService.getToken();
+        $http.defaults.headers.common['X-Access-Token'] = $cookies.get('api-token');
 
         if (query instanceof Request) {
             object = query.body;
@@ -83,12 +81,12 @@ function RestService ($http, configService, userService) {
         }
 
         return new Promise(function (resolve, reject) {
-            $http.put(_instance.getApiUrl() + query, object)
+            $http.post(_instance.getApiUrl() + query, object)
                 .then(function (response) {
                     resolve(response.data);
                 }, function () {
-                    userService.disconnect();
-
+                    //userService.disconnect();
+                    // TODO: déconnecter l'utilisateur
                     reject();
                 });
         });
@@ -103,7 +101,7 @@ function RestService ($http, configService, userService) {
     this.post = function (query, object) {
         var _instance = this; // Un référence à l'instance dans la Promise
 
-        $http.defaults.headers.common['X-Access-Token'] = userService.getToken();
+        $http.defaults.headers.common['X-Access-Token'] = $cookies.get('api-token');
 
         if (query instanceof Request) {
             object = query.body;
@@ -120,8 +118,8 @@ function RestService ($http, configService, userService) {
                 .then(function (response) {
                     resolve(response.data);
                 }, function () {
-                    userService.disconnect();
-
+                    //userService.disconnect();
+                    // TODO: déconnecter l'utilisateur
                     reject();
                 });
         });
@@ -192,7 +190,7 @@ function RestService ($http, configService, userService) {
     this.delete = function (query) {
         var _instance = this; // Une référence à l'instance pour la Promise
 
-        $http.defaults.headers.common['X-Access-Token'] = userService.getToken();
+        $http.defaults.headers.common['X-Access-Token'] = $cookies.get('api-token');
 
         if (query instanceof Request) {
             query = query.url;
@@ -200,12 +198,12 @@ function RestService ($http, configService, userService) {
         }
 
         return new Promise(function (resolve, reject) {
-            $http.delete(_instance.getApiUrl() + query)
+            $http.post(_instance.getApiUrl() + query)
                 .then(function (response) {
                     resolve(response);
                 }, function () {
-                    userService.disconnect();
-
+                    //userService.disconnect();
+                    // TODO: déconnecter l'utilisateur
                     reject();
                 });
         });
