@@ -5,12 +5,12 @@
 /**
  * Manager pour la base de données distant (REST)
  * @param {IndexedDB} IndexedDB               Le service d'accès à la base de données
- * @param {RestService} restService     Le service d'accès à l'API REST
+ * @param {AjaxService} restService     Le service d'accès à l'API REST
  * @param {RequestQueue} requestQueue   Le service de mise en attente des requêtes
- * @param {LocalManager} localManager   Service Manager pour la base de données locale utilisé en fallback
+ * @param {IndexedDBManager} localManager   Service Manager pour la base de données locale utilisé en fallback
  * @constructor
  */
-function RemoteManager (IndexedDB, restService, requestQueue, localManager) {
+function DBManager (IndexedDB, restService, requestQueue, localManager) {
     var _instance = this;
 
     /**

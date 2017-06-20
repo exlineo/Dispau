@@ -5,9 +5,10 @@
 /**
  * Service d'accès à l'API REST JSON
  * @param {$http} $http                 Service Ajax Angular
+ * @param {$cookies} $cookies           Service Cookies Angular
  * @constructor
  */
-function RestService ($http, $cookies) {
+function AjaxService ($http, $cookies) {
     var _instance = this;
     // Properties
     /**

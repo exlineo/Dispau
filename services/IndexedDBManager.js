@@ -4,10 +4,10 @@
 
 /**
  * Manager pour la base de données locale (indexedDB)
- * @param {$indexedDB} $indexedDB
+ * @param {IndexedDB} indexedDB
  * @constructor
  */
-function LocalManager ($indexedDB) {
+function IndexedDBManager (indexedDB) {
     var _instance = this;
 
     /**
@@ -27,7 +27,7 @@ function LocalManager ($indexedDB) {
      * @returns {Promise}           Une promise qui résout à l'instance de l'objet récupéré
      */
     this.get = function (className, id) {
-        return $indexedDB[this._slug(className)].get(id);
+        return indexedDB[this._slug(className)].get(id);
     };
 
     /**
@@ -37,7 +37,7 @@ function LocalManager ($indexedDB) {
      */
     this.all = function (className) {
         return new Promise(function (resolve, reject) {
-            resolve($indexedDB[_instance._slug(className)].toCollection());
+            resolve(indexedDB[_instance._slug(className)].toCollection());
         });
     };
 
@@ -80,7 +80,7 @@ function LocalManager ($indexedDB) {
                         }
 
                         // Insertion / Mise à jour dans la base
-                        $indexedDB[_instance._slug(className)].put(object)
+                        indexedDB[_instance._slug(className)].put(object)
                             .then(resolve)
                             .catch(reject);
                     });
@@ -97,7 +97,7 @@ function LocalManager ($indexedDB) {
                 object.id = 0;
 
                 // Insertion dans la base
-                $indexedDB[_instance._slug(className)].put(object)
+                indexedDB[_instance._slug(className)].put(object)
                     .then(resolve)
                     .catch(reject);
             }
@@ -111,7 +111,7 @@ function LocalManager ($indexedDB) {
      * @return {Promise<Key>|*}
      */
     this.bulkSave = function (className, data) {
-        return $indexedDB[_instance._slug(className)].bulkPut(data);
+        return indexedDB[_instance._slug(className)].bulkPut(data);
     };
 
     /**
@@ -121,7 +121,7 @@ function LocalManager ($indexedDB) {
      * @returns {Promise}           Un promise qui résout à l'id de l'objet supprimé
      */
     this.delete = function (className, id) {
-        return $indexedDB[_instance._slug(className)].delete(id);
+        return indexedDB[_instance._slug(className)].delete(id);
     };
 
     /**
@@ -130,7 +130,7 @@ function LocalManager ($indexedDB) {
      * @return {Promise<void>|boolean|*}
      */
     this.clearStore = function (className) {
-        return $indexedDB[_instance._slug(className)].clear();
+        return indexedDB[_instance._slug(className)].clear();
     };
 
     return this;
