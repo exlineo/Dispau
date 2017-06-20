@@ -2,14 +2,14 @@
 
 - [Déclaration des services](#declaration-des-services)
 - [Utilisation](#utilisation)
-  1. [DBManager.all()](#dbmanager.all(*nomDeClasse*))
-  2. [DBManager.get()](#dbmanager.get(*nomDeClasse*,-*identifiant*))
-  3. [DBManager.save()](#dbmnanger.save(*nomDeClasse*,-*objet*))
-  4. [DBManager.delete()](#dbmanager.delete(*nomDeClasse*,-*identifiant*))
+  1. [DBManager.all()](#dbmnangerallnomdeclasse)
+  2. [DBManager.get()](#dbmnangergetnomdeclasse-identifiant)
+  3. [DBManager.save()](#dbmnangersavenomdeclasse-objet)
+  4. [DBManager.delete()](#dbmnangerdeletenomdeclasse-identifiant)
 - [Authentification](#authentification)
 - [Considérations pour le serveur](#considerations-pour-le-serveur)
 
-##Déclaration des services
+## Déclaration des services
 ```javascript
 // Déclaration du module
 var app = angular.module('myApp', []);
@@ -29,7 +29,7 @@ app.controller('myController', ['DBManager', function (dbManager) {
 
 ## Utilisation
 ### Récupération des données
-####DBManager.all(*nomDeClasse*)
+#### DBManager.all(*nomDeClasse*)
 Permet de récupérer touts les enregistrements d'une table. 
 Renvoie un tableau "hydraté".  
 Le premier paramètre permet :
