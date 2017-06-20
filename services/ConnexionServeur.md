@@ -8,6 +8,9 @@
   4. [DBManager.delete()](#dbmanagerdeletenomdeclasse-identifiant)
 - [Authentification](#authentification)
 - [Considérations pour le serveur](#considerations-pour-le-serveur)
+  1. [Méthodes](#méthodes)
+  2. [Forme des urls](#forme-des-urls)
+  3. [Format des données](#format-des-données)
 
 ## Déclaration des services
 ```javascript
@@ -208,3 +211,34 @@ try {
 ```
 
 ## Considérations pour le serveur
+### Méthodes
+`DBManager.all()` et `DBManger.get()` utilisent la méthode HTTP **`GET`**
+`DBManager.all()` et `DBManager.delete()` utilisent la méthode HTTP **`POST`**
+
+### Forme des urls
+Les urls sont de la forme suivante :
+`http://{servername}/php/{model}.php?action={action}[&id={identifiant}]`  
+- **servername**: le nom de domaine du serveur qui héberge l'application
+- **model**: le nom du modèle, en minuscule sans préfixe du package.  
+Par exemple : `ANNAnnonce` -> `annonce`, `LIELieu` -> `lieu`
+- **action**: l'action que l'on souhaite effectuer :
+  * `create` : insérer un nouvel enregistrement
+  * `read` : lire des données
+  * `updtate` : mettre à jour un enregistrement
+  * `delete` : supprimer un enregistrement
+- **id** *(pour `read`, `update` et `delete`)*: l'identifiant de l'enregistremnt.  
+Pour `read`, le paramètre `id` est **optionel**. Il ne sera présent que si l'on souhaite lire qu'un seul enregistrement.
+
+### Format des données
+Les données envoyées au serveur sont au format JSON.
+À la réception, décoder les données :
+```php
+$data = json_decode(file_get_contents('php://input');
+```
+
+Le serveur doit répondre au format JSON.  
+**Ne pas oublier le header:**
+```php
+header('Content-Type: application/json;charset=utf8;');
+echo $réponse_du_serveur
+```
