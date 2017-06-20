@@ -129,7 +129,7 @@ function RemoteManager (IndexedDB, restService, requestQueue, localManager) {
                 // On stocke la requète dans la base de données locale
                 console.log('No network queuing PUT REQUEST');
                 // Instanciation
-                var request = new Request(null, 'put', _instance._slug(className) + '.php?action=update&id=' + pK, object);
+                var request = new REQRequest(null, 'put', _instance._slug(className) + '.php?action=update&id=' + pK, object);
                 // Mise en attente
                 requestQueue.put(request);
                 // enregistrement dans la base locale
@@ -171,7 +171,7 @@ function RemoteManager (IndexedDB, restService, requestQueue, localManager) {
                 // Pas de réseau
                 // On stocke la requète dans la base de données locale
                 console.log('No network queuing POST REQUEST');
-                var request = new Request(null, 'post', _instance._slug(className) + '.php?action=create', object);
+                var request = new REQRequest(null, 'post', _instance._slug(className) + '.php?action=create', object);
                 requestQueue.put(request);
                 localManager.save(className, object)
                     .then(function (result) {
@@ -248,7 +248,7 @@ function RemoteManager (IndexedDB, restService, requestQueue, localManager) {
                 // Pas de réseau
                 // On stocke la requète dans la base de données locale
                 console.log('No network queuing DELETE REQUEST');
-                var request = new Request(null, 'delete', _instance._slug(className) + "/" + id);
+                var request = new REQRequest(null, 'delete', _instance._slug(className) + "/" + id);
                 requestQueue.put(request);
                 localManager.delete(className, id)
                     .then(resolve) // Succès

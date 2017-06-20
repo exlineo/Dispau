@@ -40,7 +40,7 @@ function RestService ($http, $cookies) {
 
     /**
      * Envoi d'une requête GET
-     * @param {string|Request} query    L'url de la requêten relative au résultat de getApiUrl
+     * @param {string|REQRequest} query    L'url de la requêten relative au résultat de getApiUrl
      * @return {Promise}        Une promise qui résout au corps de la réponse
      */
     this.get = function (query) {
@@ -48,7 +48,7 @@ function RestService ($http, $cookies) {
 
         $http.defaults.headers.common['X-Access-Token'] = $cookies.get('api-token');
 
-        if (query instanceof Request) {
+        if (query instanceof REQRequest) {
             query = query.url;
         }
 
@@ -75,7 +75,7 @@ function RestService ($http, $cookies) {
 
         $http.defaults.headers.common['X-Access-Token'] = $cookies.get('api-token');
 
-        if (query instanceof Request) {
+        if (query instanceof REQRequest) {
             object = query.body;
             query = query.url;
         }
@@ -103,7 +103,7 @@ function RestService ($http, $cookies) {
 
         $http.defaults.headers.common['X-Access-Token'] = $cookies.get('api-token');
 
-        if (query instanceof Request) {
+        if (query instanceof REQRequest) {
             object = query.body;
             query = query.url;
 
@@ -128,7 +128,7 @@ function RestService ($http, $cookies) {
     /**
      * Fusionne une copie locale à une copie distante en fonction des timestamps dans leurs objets "modifications"
      * respctifs
-     * @param {string|Request} request  La requête ou l'url de l'api
+     * @param {string|REQRequest} request  La requête ou l'url de l'api
      * @param {object} object           L'objet à mettre à jour
      * @return {Promise}                Une promise qui résout au résultat de la fusion
      */
@@ -192,7 +192,7 @@ function RestService ($http, $cookies) {
 
         $http.defaults.headers.common['X-Access-Token'] = $cookies.get('api-token');
 
-        if (query instanceof Request) {
+        if (query instanceof REQRequest) {
             query = query.url;
             object = query.body;
         }
