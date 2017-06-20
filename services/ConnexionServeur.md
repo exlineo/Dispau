@@ -1,16 +1,22 @@
 # Connexion avec le serveur
 
-- [Déclaration des services](#declaration-des-services)
+- [Déclaration des services](#déclaration-des-services)
 - [Utilisation](#utilisation)
   1. [DBManager.all()](#dbmanagerallnomdeclasse)
   2. [DBManager.get()](#dbmanagergetnomdeclasse-identifiant)
   3. [DBManager.save()](#dbmanagersavenomdeclasse-objet)
   4. [DBManager.delete()](#dbmanagerdeletenomdeclasse-identifiant)
 - [Authentification](#authentification)
-- [Considérations pour le serveur](#considerations-pour-le-serveur)
+- [Considérations pour le serveur](#considérations-pour-le-serveur)
   1. [Méthodes](#méthodes)
   2. [Forme des urls](#forme-des-urls)
   3. [Format des données](#format-des-données)
+- [Fonctionnement](#fonctionnement)
+  1. [Récupération de données](#récupération-de-données)
+  2. [Création d'un enregistrement](#création-dun-enregistrement)
+  3. [Mise à jour d'un enregistrement](#mise-a-jour-dun-enregistrement)
+  4. [Suppression d'un enregistrement](#suppression-dun-enregistrement)
+  5. [Retour du réseau](#retour-du-réseau)
 
 ## Déclaration des services
 ```javascript
@@ -242,3 +248,64 @@ Le serveur doit répondre au format JSON.
 header('Content-Type: application/json;charset=utf8;');
 echo $réponse_du_serveur
 ```
+
+## Fonctionnement
+### Récupération de données
+#### Online
+![Merge Read](http://gael-philippe.fr/img/dispau/doc/merge-read.png)
+Quand un contrôleur appelle la méthode DBManager.all() ou DBManager.get(), 
+DBManaager utilise AjaxService pour effectuer une requête Ajax (AjaxService.get()).  
+Si celle-ci réussi, le résultat est enregistré dans la base de donnée IndexedDB
+via le IndexedDBManager.
+#### Offline
+![Merge Read](http://gael-philippe.fr/img/dispau/doc/merge-read-no-net.png)
+Si le réseau n'est pas disponible, DBManager utilise IndexedDB pour récupérer les 
+données locales.
+### Création d'un enregistrement
+#### Online
+![Merge Read](http://gael-philippe.fr/img/dispau/doc/merge-create.png)
+Quand un contrôleur appelle la méthode DBManager.save() et que l'enregistrement
+n'existe pas dans la base de données, 
+DBManaager utilise AjaxService pour effectuer une requête Ajax (AjaxService.post()).  
+Si celle-ci réussi, le résultat est enregistré dans la base de donnée IndexedDB
+via le IndexedDBManager.
+#### Offline
+![Merge Read](http://gael-philippe.fr/img/dispau/doc/merge-create-no-net.png)
+Si le réseau n'est pas disponible, on crée une instance de REQRequest qu'on place
+dans la base de données IndexedDB pour plus tard.  
+L'enregistrement est ajouté à la base de données locale.
+### Mise à jour d'un enregistrement
+#### Online
+![Merge Read](http://gael-philippe.fr/img/dispau/doc/merge-update.png)
+Quand un contrôleur appelle la méthode DBManager.save() et que l'enregistrement
+existe dans la base de données, 
+DBManaager utilise AjaxService pour effectuer une requête Ajax (AjaxService.put()).  
+Si celle-ci réussi, le résultat est enregistré dans la base de donnée IndexedDB
+via le IndexedDBManager.
+#### Offline
+![Merge Read](http://gael-philippe.fr/img/dispau/doc/merge-update-no-net.png)
+Si le réseau n'est pas disponible, on crée une instance de REQRequest qu'on place
+dans la base de données IndexedDB pour plus tard.  
+L'enregistrement est mis à jour dans la base de données locale.
+### Suppression d'un enregistrement
+#### Online
+![Merge Read](http://gael-philippe.fr/img/dispau/doc/merge-delete.png)
+Quand un contrôleur appelle la méthode DBManager.delete(),
+DBManaager utilise AjaxService pour effectuer une requête Ajax (AjaxService.delete()).  
+Si celle-ci réussi, l'enregistrement est supprimé de la base de donnée IndexedDB
+via le IndexedDBManager.
+#### Offline
+![Merge Read](http://gael-philippe.fr/img/dispau/doc/merge-delete-no-net.png)
+Si le réseau n'est pas disponible, on crée une instance de REQRequest qu'on place
+dans la base de données IndexedDB pour plus tard.  
+L'enregistrement est supprimé de la base de données locale.
+
+### Retour du réseau
+![Merge Read](http://gael-philippe.fr/img/dispau/doc/merge-net-back.png)
+Quand la connectivité au net revient, le service RequestQueue lis toutes les 
+REQRequest stockées dans l'IndexDB et les envoie au serveur.
+S'il s'agit d'un update, AjaxService utilise sa méthode merge() pour fusionner
+le modifications qu'on souhaite faire et celle effectuées sur le serveur pendant
+qu'on était hors ligne.
+Un champ `modifications` présent sur tous les enregistrements est utilisé pour
+déterminer quel champs mettre à jour.
