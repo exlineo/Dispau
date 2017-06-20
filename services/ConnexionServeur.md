@@ -3,9 +3,9 @@
 - [Déclaration des services](#declaration-des-services)
 - [Utilisation](#utilisation)
   1. [DBManager.all()](#dbmanagerallnomdeclasse)
-  2. [DBManager.get()](#dbmnangergetnomdeclasse-identifiant)
-  3. [DBManager.save()](#dbmnangersavenomdeclasse-objet)
-  4. [DBManager.delete()](#dbmnangerdeletenomdeclasse-identifiant)
+  2. [DBManager.get()](#dbmanagergetnomdeclasse-identifiant)
+  3. [DBManager.save()](#dbmanagersavenomdeclasse-objet)
+  4. [DBManager.delete()](#dbmanagerdeletenomdeclasse-identifiant)
 - [Authentification](#authentification)
 - [Considérations pour le serveur](#considerations-pour-le-serveur)
 
@@ -66,7 +66,7 @@ function myController (dbManagaer) {
 ```
 
 
-#### DBMnanger.get(*nomDeClasse*, *identifiant*)
+#### DBManager.get(*nomDeClasse*, *identifiant*)
 Permet de récupérer un enregistrement unique. Renvoie une instance "hydraté".
 Le premier paramètre permet :
 - de construire la requête Ajax
@@ -103,7 +103,7 @@ function myController(dbManager) {
 ```
 
 
-#### DBMnanger.save(*nomDeClasse*, *objet*)
+#### DBManager.save(*nomDeClasse*, *objet*)
 Permet de sauvegarder ou de mettre à jour un enregistrement dans la base
 de données.  
 Le premier paramètre permet :
@@ -144,7 +144,7 @@ function myController(dbManager) {
 ```
   
   
-#### DBMnanger.delete(*nomDeClasse*, *identifiant*)
+#### DBManager.delete(*nomDeClasse*, *identifiant*)
 Permet de supprimer un enregistrement unique. Renvoie une instance "hydraté".
 Le premier paramètre permet :
 - de construire la requête Ajax
@@ -182,3 +182,27 @@ function myController(dbManager) {
 ```
 
 ## Authentification
+Le token d'identification doit se trouver dans un cookie nommé 'api-token'.  
+Il sera envoyé dans le header 'X-Access-Token'.  
+Le serveur se doit de vérifier la présence de ce header et de le décoder à chaque fois.
+
+**Exemple**
+```php
+// récupération du token
+$token = get_all_headers()['X-Access-Token'];
+
+try {
+    // On décode le token
+    // $secret est la phrase secrète utilisée pour encoder le token
+    $decoded = JWT::decode($token, $secret);
+} catch (Exception $e) {
+    // Le décodage échoue
+    // On revoie un erreur 401 - Unauthorized
+    http_response_code(401);
+    echo 'Erreur d'authentification';
+    // Fin de l'execution du script
+    exit();
+}
+
+// Tout s'est bien passé, on poursuit l'exécution
+```
