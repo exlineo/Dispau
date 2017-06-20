@@ -16,7 +16,7 @@
  * @param {object} [body=null]    Corps de la requète (pour PUT et POST)
  * @constructor
  * @implements Model
- * @requires LocalManager
+ * @requires IndexedDBManager
  */
 function REQRequest (id, method, url, body) {
     this.id = id;
@@ -35,8 +35,8 @@ function REQRequest (id, method, url, body) {
 /**
  * Service de gestion de la file d'attende de requêtes
  * @param {$scope} $rootScope           Le $rootScope qui est utilisé comme bus de communication avec les contrrôleurs
- * @param {LocalManager} localManager   Manager de al base données locale pour persister les requêtes en attente
- * @param {RestService} restService     Le service d'accès à l'API REST pour envoyer les requêtes quand on retrouve
+ * @param {IndexedDBManager} localManager   Manager de al base données locale pour persister les requêtes en attente
+ * @param {AjaxService} restService     Le service d'accès à l'API REST pour envoyer les requêtes quand on retrouve
  * une connection
  * @constructor
  */
