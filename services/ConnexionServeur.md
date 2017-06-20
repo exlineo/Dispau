@@ -14,7 +14,7 @@
 - [Fonctionnement](#fonctionnement)
   1. [Récupération de données](#récupération-de-données)
   2. [Création d'un enregistrement](#création-dun-enregistrement)
-  3. [Mise à jour d'un enregistrement](#mise-a-jour-dun-enregistrement)
+  3. [Mise à jour d'un enregistrement](#mise-à-jour-dun-enregistrement)
   4. [Suppression d'un enregistrement](#suppression-dun-enregistrement)
   5. [Retour du réseau](#retour-du-réseau)
 
