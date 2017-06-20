@@ -1,13 +1,13 @@
 /**
- * NE RIEN CHANGER SAUF ADAPTER DEXIE
+ * SLUG A MODIFIER
  */
 
 /**
- * Manager pour la base de données locale (Dexie)
- * @param {$dexie} $dexie
+ * Manager pour la base de données locale (indexedDB)
+ * @param {$indexedDB} $indexedDB
  * @constructor
  */
-function LocalManager ($dexie) {
+function LocalManager ($indexedDB) {
     var _instance = this;
 
     /**
@@ -17,7 +17,7 @@ function LocalManager ($dexie) {
      * @private
      */
     this._slug = function (className) {
-        return className.toLowerCase() + 's';
+        return className.substr(3).toLowerCase();
     };
 
     /**
@@ -27,7 +27,7 @@ function LocalManager ($dexie) {
      * @returns {Promise}           Une promise qui résout à l'instance de l'objet récupéré
      */
     this.get = function (className, id) {
-        return $dexie[this._slug(className)].get(id);
+        return $indexedDB[this._slug(className)].get(id);
     };
 
     /**
@@ -37,7 +37,7 @@ function LocalManager ($dexie) {
      */
     this.all = function (className) {
         return new Promise(function (resolve, reject) {
-            resolve($dexie[_instance._slug(className)].toCollection());
+            resolve($indexedDB[_instance._slug(className)].toCollection());
         });
     };
 
@@ -80,7 +80,7 @@ function LocalManager ($dexie) {
                         }
 
                         // Insertion / Mise à jour dans la base
-                        $dexie[_instance._slug(className)].put(object)
+                        $indexedDB[_instance._slug(className)].put(object)
                             .then(resolve)
                             .catch(reject);
                     });
@@ -93,11 +93,11 @@ function LocalManager ($dexie) {
                         }
                     }
                 }
-                // On donne une valeur à id pour statisfaire Dexie
+                // On donne une valeur à id pour statisfaire indexedDB
                 object.id = 0;
 
                 // Insertion dans la base
-                $dexie[_instance._slug(className)].put(object)
+                $indexedDB[_instance._slug(className)].put(object)
                     .then(resolve)
                     .catch(reject);
             }
@@ -111,7 +111,7 @@ function LocalManager ($dexie) {
      * @return {Promise<Key>|*}
      */
     this.bulkSave = function (className, data) {
-        return $dexie[_instance._slug(className)].bulkPut(data);
+        return $indexedDB[_instance._slug(className)].bulkPut(data);
     };
 
     /**
@@ -121,7 +121,7 @@ function LocalManager ($dexie) {
      * @returns {Promise}           Un promise qui résout à l'id de l'objet supprimé
      */
     this.delete = function (className, id) {
-        return $dexie[_instance._slug(className)].delete(id);
+        return $indexedDB[_instance._slug(className)].delete(id);
     };
 
     /**
@@ -130,7 +130,7 @@ function LocalManager ($dexie) {
      * @return {Promise<void>|boolean|*}
      */
     this.clearStore = function (className) {
-        return $dexie[_instance._slug(className)].clear();
+        return $indexedDB[_instance._slug(className)].clear();
     };
 
     return this;
