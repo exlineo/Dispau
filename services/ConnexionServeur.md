@@ -128,7 +128,7 @@ function myController(dbManager) {
      */
     this.model;
     
-    // Récupération de l'annonce avec l'identifiant 23
+    // Enregistrement de l'annonce contenue dans ici.model
     this.enregistrerAnnonce = function () {
         dbManager.save('ANNAnnonce', ici.model)
             .then(function (annonce) {
@@ -199,10 +199,12 @@ try {
     // Le décodage échoue
     // On revoie un erreur 401 - Unauthorized
     http_response_code(401);
-    echo 'Erreur d'authentification';
+    echo 'Erreur d\'authentification';
     // Fin de l'execution du script
     exit();
 }
 
 // Tout s'est bien passé, on poursuit l'exécution
 ```
+
+## Considérations pour le serveur
