@@ -1,12 +1,16 @@
 /**
+ * RIEN A CHANGER SAUF ADPATER NOM DEXIE
+ */
+
+/**
  * Manager pour la base de données distant (REST)
- * @param {$indexedDB} $indexedDB       Le service d'accès à la base de données
+ * @param {IndexedDB} IndexedDB               Le service d'accès à la base de données
  * @param {RestService} restService     Le service d'accès à l'API REST
  * @param {RequestQueue} requestQueue   Le service de mise en attente des requêtes
  * @param {LocalManager} localManager   Service Manager pour la base de données locale utilisé en fallback
  * @constructor
  */
-function RemoteManager ($indexedDB, restService, requestQueue, localManager) {
+function RemoteManager (IndexedDB, restService, requestQueue, localManager) {
     var _instance = this;
 
     /**
@@ -29,7 +33,7 @@ function RemoteManager ($indexedDB, restService, requestQueue, localManager) {
             // Si on une connection réseau
             if (navigator.connection.type !== Connection.NONE) {
                 // Envoie d'une requête GET : http://api-url.api/slug/
-                restService.get(_instance._slug(className))
+                restService.get(_instance._slug(className) + '.php?action=get')
                     .then(function (objects) {
                         var modelArray = [];
                         // hydratation du résultat
@@ -65,7 +69,7 @@ function RemoteManager ($indexedDB, restService, requestQueue, localManager) {
         return new Promise(function (resolve, reject) {
             if (navigator.connection.type !== Connection.NONE) {
                 // Envoie d'une requète GET : http://api-url.api/slugs/id
-                restService.get(_instance._slug(className) + "/" + id)
+                restService.get(_instance._slug(className) + ".php?action=get&id=" + encodeURI(id))
                     .then(function (response) { // Cas de succès de la requête REST
                         var model = new window[className](response); // On instancie le model
 
@@ -103,11 +107,11 @@ function RemoteManager ($indexedDB, restService, requestQueue, localManager) {
             // Si on a une connection réseau
             if (navigator.connection.type !== Connection.NONE) {
                 // MERGE:  On fusionne notre version à celle du serveur
-                restService.merge(_instance._slug(className) + '/' + pK, object)
+                restService.merge(_instance._slug(className) + '.php?action=get&id=' + pK, object)
                     .then(function (mergedObject) {
                         // mergedObject est un objet valide à mettre à jour, timestamps mis à jour
                         // Envoi d'une requête PUT : http://api-url.api/slugs/pK
-                        restService.put(_instance._slug(className) + '/' + pK, mergedObject)
+                        restService.put(_instance._slug(className) + '.php?action=update&id=' + pK, mergedObject)
                             .then(function (updatedObject) {
                                 // On enregistre la nouvelle version dans la base
                                 localManager.save(className, updatedObject)
@@ -125,7 +129,7 @@ function RemoteManager ($indexedDB, restService, requestQueue, localManager) {
                 // On stocke la requète dans la base de données locale
                 console.log('No network queuing PUT REQUEST');
                 // Instanciation
-                var request = new Request(null, 'put', _instance._slug(className) + '/' + pK, object);
+                var request = new REQRequest(null, 'put', _instance._slug(className) + '.php?action=update&id=' + pK, object);
                 // Mise en attente
                 requestQueue.put(request);
                 // enregistrement dans la base locale
@@ -152,7 +156,7 @@ function RemoteManager ($indexedDB, restService, requestQueue, localManager) {
                 // On supprime les caractères spéciaux pour la rétro compatibilité IE
                 //object.value = object.value.replace(/\s/g, '');
                 // Envoie d'une requète POST
-                restService.post(query, object)
+                restService.post(_instance._slug(className) + '.php?action=create', object)
                     .then(function (object) { // Cas de succès de la requète REST
                         // On stocke dans la base locale
                         localManager.save(className, object)
@@ -167,7 +171,7 @@ function RemoteManager ($indexedDB, restService, requestQueue, localManager) {
                 // Pas de réseau
                 // On stocke la requète dans la base de données locale
                 console.log('No network queuing POST REQUEST');
-                var request = new Request(null, 'post', _instance._slug(className), object);
+                var request = new REQRequest(null, 'post', _instance._slug(className) + '.php?action=create', object);
                 requestQueue.put(request);
                 localManager.save(className, object)
                     .then(function (result) {
@@ -232,7 +236,7 @@ function RemoteManager ($indexedDB, restService, requestQueue, localManager) {
             // Si tout va bien, on enregistre dans la DB
             if (navigator.connection.type !== Connection.NONE) {
                 // Requête DELETE
-                restService.delete(_instance._slug(className) + "/" + id)
+                restService.delete(_instance._slug(className) + ".php?action=delete&id=" + id)
                     .then(function (responseKey) { // Cas de succès de la requête AJAX
                         // Enregistrement dans la DB
                         localManager.delete(className, id)
@@ -244,7 +248,7 @@ function RemoteManager ($indexedDB, restService, requestQueue, localManager) {
                 // Pas de réseau
                 // On stocke la requète dans la base de données locale
                 console.log('No network queuing DELETE REQUEST');
-                var request = new Request(null, 'delete', _instance._slug(className) + "/" + id);
+                var request = new REQRequest(null, 'delete', _instance._slug(className) + "/" + id);
                 requestQueue.put(request);
                 localManager.delete(className, id)
                     .then(resolve) // Succès
