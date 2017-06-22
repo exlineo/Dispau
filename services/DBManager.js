@@ -103,7 +103,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
      */
     this.update = function (className, object) {
         // On récupère la clé primaire
-        var pK = object.hasOwnProperty('id') ? object.id : object.key;
+        var pK = object.id_nb;
 
         return new Promise(function (resolve, reject) {
             // Si on a une connection réseau
@@ -207,7 +207,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
 
         return new Promise(function (resolve, reject) {
             // On récupère l'identifiant de l'objet
-            var pK = object.hasOwnProperty('id') ? object.id : object.key;
+            var pK = object.id_nb;
 
             // On regarde s'il exite une enregistrement local avec cet id
             localManager.get(className, pK)
