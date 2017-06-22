@@ -6,5 +6,13 @@
  * @constructor
  */
 function LIELieuController () {
-    // Properties
+
+    // requetes ajax pour recup les données
+
+
+
+
+    // faire un new Lieu et peupler la classe avec les données
+
+    // utiliser angular pour afficher les données
 }
