@@ -16,7 +16,7 @@ function IndexedDB() {
      */
     var databaseDeclarations = {
 
-        0: {
+        1: {
             "annonce":    "++id, nom_str, image_str, dateCreation_date, dateFinInscription_date, dateFin_date, dateDebut_date, idLieu_nb, placeMin_nb, placeMax_nb, idGestionnaire_nb, idChat_nb, salleDAttente_ar, participant_ar, centreInteret_ar, validite_nb, modifications",
 
             "centreDInteret":  "++id, nom_str, modifications",
@@ -41,7 +41,7 @@ function IndexedDB() {
 
     // Chargement itératif des stores
 
-    db.version(0).stores(databaseDeclarations[0]);
+    db.version(1).stores(databaseDeclarations[1]);
 
     // On renvoie l'instance de Dexie.
     return db;

@@ -5,7 +5,7 @@
 
 var app = angular.module('dispau-app', [
     'ngRoute',
-    'ngCookies',
+    'ngCookies'
 
 
     // AJOUTER VOS DEPENDANCES
