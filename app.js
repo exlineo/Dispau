@@ -20,7 +20,7 @@ var app = angular.module('dispau-app', [
 
 //app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
 app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
-app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
+app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
 
 
 // Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
@@ -67,7 +67,20 @@ app.factory('RegexService', [RegexService]);
  */
 
 app.config(function ($routeProvider) {
-    $routeProvider.otherwise({
-        redirectTo : '/home'
-    })
+    $routeProvider
+        .when('/annonces/', {
+            templateUrl: 'views/annonces.html',
+            controller: 'ANNAnnonceListe',
+            controllerAs: 'vm'
+        })
+
+        .when('/annonces/:id', {
+            templateUrl: 'views/annoncesID.html',
+            controller: 'ANNAnnonceController',
+            controllerAs: 'vm'
+        })
+
+        .otherwise({
+            redirectTo: '/home'
+        })
 });
