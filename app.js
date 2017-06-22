@@ -7,9 +7,12 @@ var app = angular.module('dispau-app', [
     'ngRoute',
     'ngCookies',
 
+
     // AJOUTER VOS DEPENDANCES
 
-    'uiGmapgoogle-maps'
+    'uiGmapgoogle-maps',
+    'dispauApp.routing',
+    'dispauApp.annonces'
 ]);
 
 
@@ -18,13 +21,13 @@ var app = angular.module('dispau-app', [
  */
 
 app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
+app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
+app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
 
 
 // Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
 
 /*
-app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
-app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
 app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
 app.controller('CHAChatController', ['DBManager', CHAChatController]);
 app.controller('LIELieuController', ['DBManager', LIELieuController]);
@@ -58,9 +61,15 @@ app.config(function(uiGmapGoogleMapApiProvider) {
         //v: '3.25', //defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization'
     });
-});
+})
 
 
 /**
  * DECLARATION DES ROUTES
  */
+
+.config(function ($routeProvider) {
+    $routeProvider.otherwise({
+        redirectTo : '/home'
+    })
+});

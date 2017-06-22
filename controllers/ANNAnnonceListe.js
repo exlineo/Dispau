@@ -2,7 +2,7 @@
  * AnnonceListe est une classe qui permet de créer un tableau d'annonce d'un lieu
  * @constructor
  */
-function ANNAnnonceListe() {
+function ANNAnnonceListe(DBManager) {
     /**
      * Variable possédant toutes les annonces
      * Il est intéressant de l'utiliser pour trier tous les objets

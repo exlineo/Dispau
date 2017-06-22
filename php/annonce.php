@@ -129,7 +129,7 @@ function insertAnnonce(){
 }
 
 function updateAnnonce(){
-    $db = db();
+    /*$db = db();
 
     $nom_str = $_POST['nom_str'];
     $image_str = $_POST['image_str'];
@@ -162,7 +162,7 @@ function updateAnnonce(){
                                                         participant_ar = :participant_ar,
                                                         centreInteret_ar = :centreInteret_ar,
                                                         validite_nb = :validite_nb
-                                                        WHERE id = :id");
+                                                        WHERE id = :id");*/
 }
 
 function deleteAnnonce($id){
