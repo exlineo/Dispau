@@ -38,7 +38,8 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
                         var modelArray = [];
                         // hydratation du résultat
                         objects.forEach(function (object) {
-                            modelArray.push(new window[className](object));
+                            var instance = new window[className];
+                            modelArray.push(instance.hydrater(object));
                         });
 
                         // On efface la table locale et on insère tout
@@ -72,6 +73,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
                 restService.get(_instance._slug(className) + ".php?action=get&id=" + encodeURI(id))
                     .then(function (response) { // Cas de succès de la requête REST
                         var model = new window[className](response); // On instancie le model
+                        model.hydrater(response);
 
                         // On enregistre dans la base
                         localManager.save(className, model)
@@ -117,7 +119,8 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
                                 localManager.save(className, updatedObject)
                                     .then(function (result) {
                                         // Hydratation de la classe
-                                        var resultInstance = new window[className](updatedObject);
+                                        var resultInstance = new window[className]();
+                                        resultInstance.hydrater(updatedObject);
                                         resolve(resultInstance);
                                     }) // Succès
                                     .catch(reject); // Échec
@@ -161,7 +164,8 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
                         // On stocke dans la base locale
                         localManager.save(className, object)
                             .then(function (result) {
-                                var resultInstance = new window[className](object);
+                                var resultInstance = new window[className]();
+                                resultInstance.hydrater(object);
                                 resolve(resultInstance);
                             }) // Succès
                             .catch(reject); // Échec
