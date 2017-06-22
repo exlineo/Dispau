@@ -39,3 +39,24 @@ require_once 'connectDB.php';
 
 // Exemple pour récupérer le PDO
 $db = db();
+
+getLieu($db);
+
+
+function getLieu($db)
+{
+    try
+    {
+        $stmt = $db->prepare("SELECT * FROM `lieu`");
+        $stmt->execute();
+
+        while ($data = $stmt->fetch())
+        {
+            echo "<p>Récupération du lieu : ", $data['nom_str'], "</p>";
+        }
+    }
+    catch(Exception $e)
+    {
+        exit('<b>Catched exception at line '. $e->getLine() .' (code : '. $e->getCode() .') :</b> '. $e->getMessage());
+    }
+}
