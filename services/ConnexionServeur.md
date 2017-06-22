@@ -31,9 +31,7 @@ app.factory('DBManager', ['IndexedDB', 'IndexedDBManager', 'AjaxService', 'Reque
 app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
 
 // Déclaration d'un contrôleur
-app.controller('myController', ['DBManager', function (dbManager) {
-    // Le code du contrôleur
-}]);
+app.controller('myController', ['DBManager', myController]);
 ```
 
 ## Utilisation
