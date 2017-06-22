@@ -82,11 +82,11 @@ function selectAnnonce($id){
         }
 
         else{
-            $req = $db->prepare("SELECT * FROM `annonce` WHERE id = :id");
+            $req = $db->prepare("SELECT * FROM `annonce` WHERE id_nb = :id");
             $req->execute(array(
-                'id' => $id
+                'id_nb' => $id
             ));
-            $donnees = $req->fetchAll(PDO::FETCH_ASSOC);
+            $donnees = $req->fetch(PDO::FETCH_ASSOC);
         }
 
         return json_encode($donnees);

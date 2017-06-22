@@ -1,4 +1,7 @@
-/*definition de la Classe Annonce*/ /* code erreur 01*/
+/**
+ * Classe Annonce permet de créer des annonces
+ * @constructor
+ */
 function ANNAnnonce() {
     //var notice = new Notification();
     var ici = this;
