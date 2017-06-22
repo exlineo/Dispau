@@ -10,7 +10,7 @@
  * @param {IndexedDBManager} localManager   Service Manager pour la base de données locale utilisé en fallback
  * @constructor
  */
-function DBManager (IndexedDB, restService, requestQueue, localManager) {
+function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
     var _instance = this;
 
     /**
@@ -29,7 +29,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
      * @return {Promise}            Une promise qui résout à une collection d'objets
      */
     this.all = function (className) {
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             // Si on une connection réseau
             if (window.navigator.onLine) {
                 // Envoie d'une requête GET : http://api-url.api/slug/
@@ -67,7 +67,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
      * @returns {Promise}           Une promise qui résout à l'instance de l'objet récupéré
      */
     this.get = function (className, id) {
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             if (window.navigator.onLine) {
                 // Envoie d'une requète GET : http://api-url.api/slugs/id
                 restService.get(_instance._slug(className) + ".php?action=get&id=" + encodeURI(id))
@@ -105,7 +105,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
         // On récupère la clé primaire
         var pK = object.id_nb;
 
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             // Si on a une connection réseau
             if (window.navigator.onLine) {
                 // MERGE:  On fusionne notre version à celle du serveur
@@ -152,7 +152,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
      * @return {Promise}            Une Promise qui résout à l'objet inséré
      */
     this.persist = function (className, object) {
-        return new Promise (function (resolve, reject) {
+        return $q(function (resolve, reject) {
             // Si on est en ligne, on envoie la requète sur le serveur
             // Si tout va bien, on enregistre dans la DB
             if (window.navigator.onLine) {
@@ -205,7 +205,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
 
         object.modifications = JSON.stringify(modifications);
 
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             // On récupère l'identifiant de l'objet
             var pK = object.id_nb;
 
@@ -235,7 +235,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
      * @return {Promise}
      */
     this.delete = function (className, id) {
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             // Si on est en ligne, on envoie la requète sur le serveur
             // Si tout va bien, on enregistre dans la DB
             if (window.navigator.onLine) {
