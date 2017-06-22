@@ -33,7 +33,6 @@
  *  - insert()
  *  - update()
  *  - delete()
- *
  */
 
 require_once 'connectDB.php';

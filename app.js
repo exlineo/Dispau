@@ -9,7 +9,7 @@ var app = angular.module('dispau-app', [
 
     // AJOUTER VOS DEPENDANCES
 
-    'uiGmapgoogle-maps'
+    //'uiGmapgoogle-maps'
 ]);
 
 
@@ -17,18 +17,18 @@ var app = angular.module('dispau-app', [
  * DECLARATION DES CONTROLLEURS
  */
 
-app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
+//app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
 
 
 // Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
 
+app.controller('LIELieuController', ['DBManager','$routeParams', LIELieuController]);
+app.controller('LIELieuListe', ['DBManager', LIELieuListe]);
 /*
 app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
 app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
 app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
 app.controller('CHAChatController', ['DBManager', CHAChatController]);
-app.controller('LIELieuController', ['DBManager', LIELieuController]);
-app.controller('LIELieuListe', ['DBManager', LIELieuListe]);
 app.controller('USRDemandeAmiListe', ['DBManager', USRDemandeAmiListe]);
 app.controller('USRLogin', ['DBManager', USRLogin]);
 app.controller('USRUtilisateurController', ['DBManager', USRUtilisateurController]);
@@ -51,7 +51,7 @@ app.factory('RegexService', [RegexService]);
 /**
  * Specifique a la Google Maps
  */
-
+/*
 app.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyBkm4blthirzCbZy1wy6GwUtxLC_jGW9rI&amp',
@@ -59,8 +59,30 @@ app.config(function(uiGmapGoogleMapApiProvider) {
         libraries: 'weather,geometry,visualization'
     });
 });
-
+*/
 
 /**
  * DECLARATION DES ROUTES
  */
+
+
+// Controlleur pour la classe LIEU
+
+app.config(['$routeProvider',function($routeProvider)
+{
+    $routeProvider
+        .when('/lieux/:idLieu', {                                // indique le path pour matcher l'url apres le '#'
+            templateUrl : "views/template_lieu.html",            // fichier qui sera inclu dans le layout dans le 'ngview'
+            controller : 'LIELieuController',                    // controlleur qui le gère
+            controllerAs : 'myCtrl'
+        })
+
+        .when('/lieux/', {                            // indique le path pour matcher l'url apres le '#'
+            templateUrl : "views/template_lieux.html",            // fichier qui sera inclu dans le layout dans le 'ngview'
+            controller  : 'LIELieuListe'                 // controlleur qui le gère
+        })
+
+        .otherwise({                                    // redirection en cas d'erreur
+            redirectTo: '/home'                         // on renvoie vers le 'home'
+        });
+}]);
