@@ -31,7 +31,7 @@ function IndexedDB() {
 
             "utilisateur": "++id, pseudo_str, prenom_str, pass_str, email_str, description_str, nom_str, dateInscription_date, abonnementLieu_ar, notificationRecue_ar, demandeAmi_ar, ami_ar, annonceParticipee_ar, grade_nb, photoProfil_str, modifications",
 
-            "requests": "++id, method, url, body, timestamp"
+            "request": "++id, method, url, body, timestamp"
 
         }
     };
