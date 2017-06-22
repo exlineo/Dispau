@@ -5,11 +5,12 @@
 
 var app = angular.module('dispau-app', [
     'ngRoute',
-    'ngCookies',
+    'ngCookies'
+
 
     // AJOUTER VOS DEPENDANCES
 
-    'uiGmapgoogle-maps'
+    //'uiGmapgoogle-maps'
 ]);
 
 
@@ -17,14 +18,14 @@ var app = angular.module('dispau-app', [
  * DECLARATION DES CONTROLLEURS
  */
 
-app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
+//app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
+app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
+app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
 
 
 // Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
 
 /*
-app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
-app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
 app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
 app.controller('CHAChatController', ['DBManager', CHAChatController]);
 app.controller('LIELieuController', ['DBManager', LIELieuController]);
@@ -43,7 +44,7 @@ app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
 app.factory('IndexedDB', [IndexedDB]);
 app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManager]);
 app.factory('AjaxService', ['$http','$cookies', AjaxService]);
-app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', DBManager]);
+app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', DBManager]);
 app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
 app.factory('RegexService', [RegexService]);
 
@@ -52,15 +53,34 @@ app.factory('RegexService', [RegexService]);
  * Specifique a la Google Maps
  */
 
-app.config(function(uiGmapGoogleMapApiProvider) {
+/*app.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyBkm4blthirzCbZy1wy6GwUtxLC_jGW9rI&amp',
         //v: '3.25', //defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization'
     });
-});
+});*/
 
 
 /**
  * DECLARATION DES ROUTES
  */
+
+app.config(function ($routeProvider) {
+    $routeProvider
+        .when('/annonces/', {
+            templateUrl: 'views/annonces.html',
+            controller: 'ANNAnnonceListe',
+            controllerAs: 'vm'
+        })
+
+        .when('/annonces/:id', {
+            templateUrl: 'views/annoncesID.html',
+            controller: 'ANNAnnonceController',
+            controllerAs: 'vm'
+        })
+
+        .otherwise({
+            redirectTo: '/home'
+        })
+});
