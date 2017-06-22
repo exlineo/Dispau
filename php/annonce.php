@@ -41,50 +41,24 @@ require_once 'connectDB.php';
 // Exemple pour récupérer le PDO
 $db = db();
 
-print_r($_POST);
+/**
+ * Permet de récupérer l'action en GET
+ */
+$actionGET = $_GET['action'];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+/**
+ * Permet de récupérer l'id de l'annonce en GET
+ */
+$id = $_GET['id'];
 
-    /**
-     * Permet de récupérer l'action en POST
-     */
-    //$actionPOST = $_POST['action'];
+switch ($actionGET) {
+    case "get" :
+        echo selectAnnonce($id);
+        break;
 
-    /**
-     * Permet de récupérer l'id en POST
-     */
-    //$id = $_POST['id'];
-
-    /*switch ($actionPOST) {
-        case "create" :
-            echo "hello";
-            break;
-
-        case "update" :
-            break;
-    }*/
-}
-
-else{
-    /**
-     * Permet de récupérer l'action en GET
-     */
-    $actionGET = $_GET['action'];
-
-    /**
-     * Permet de récupérer l'id de l'annonce en GET
-     */
-    $id = $_GET['id'];
-
-    switch ($actionGET) {
-        case "get" :
-            echo selectAnnonce($id);
-            break;
-
-        case "delete" :
-            deleteAnnonce($id);
-            break;
-    }
+    case "delete" :
+        deleteAnnonce($id);
+        break;
 }
 
 
