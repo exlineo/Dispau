@@ -2,7 +2,12 @@
  * AnnonceListe est une classe qui permet de créer un tableau d'annonce d'un lieu
  * @constructor
  */
-function ANNAnnonceListe() {
+function ANNAnnonceListe(recupererAnnonces) {
+console.log(recupererAnnonces);
+    recupererAnnonces.getAnnonces().then(function (rep) {
+        console.log(rep)
+    });
+
     /**
      * Variable possédant toutes les annonces
      * Il est intéressant de l'utiliser pour trier tous les objets

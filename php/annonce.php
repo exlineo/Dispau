@@ -41,52 +41,30 @@ require_once 'connectDB.php';
 // Exemple pour récupérer le PDO
 $db = db();
 
-print_r($_POST);
+/**
+ * Permet de récupérer l'action en GET
+ */
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//var_dump($_GET['action']);
 
-    /**
-     * Permet de récupérer l'action en POST
-     */
-    //$actionPOST = $_POST['action'];
+$donneesURL = json_decode(file_get_contents("php://input"));
 
-    /**
-     * Permet de récupérer l'id en POST
-     */
-    //$id = $_POST['id'];
+//$actionGET = $donneesURL->action;
 
-    /*switch ($actionPOST) {
-        case "create" :
-            echo "hello";
-            break;
+/**
+ * Permet de récupérer l'id de l'annonce en GET
+ */
+//$id = $_GET['id'];
 
-        case "update" :
-            break;
-    }*/
-}
+/*switch ($actionGET) {
+    case "get" :
+        echo selectAnnonce($id);
+        break;
 
-else{
-    /**
-     * Permet de récupérer l'action en GET
-     */
-    $actionGET = $_GET['action'];
-
-    /**
-     * Permet de récupérer l'id de l'annonce en GET
-     */
-    $id = $_GET['id'];
-
-    switch ($actionGET) {
-        case "get" :
-            echo selectAnnonce($id);
-            break;
-
-        case "delete" :
-            deleteAnnonce($id);
-            break;
-    }
-}
-
+    case "delete" :
+        deleteAnnonce($id);
+        break;
+}*/
 
 
 /**
@@ -131,7 +109,7 @@ function insertAnnonce(){
 function updateAnnonce(){
     $db = db();
 
-    $nom_str = $_POST['nom_str'];
+    /*$nom_str = $_POST['nom_str'];
     $image_str = $_POST['image_str'];
     $dateCreation_date = $_POST['dateCreation_date'];
     $dateFinInscription_date = $_POST['dateFinInscription_date'];
@@ -162,7 +140,7 @@ function updateAnnonce(){
                                                         participant_ar = :participant_ar,
                                                         centreInteret_ar = :centreInteret_ar,
                                                         validite_nb = :validite_nb
-                                                        WHERE id = :id");
+                                                        WHERE id = :id");*/
 }
 
 function deleteAnnonce($id){

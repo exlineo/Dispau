@@ -7,9 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body>
-
+<body ng-app="dispauApp">
+    <ng-view></ng-view>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
 <script src="app.js"></script>
+<script src="routerApp.js"></script>
+<script src="controllers/ANNAnnonceListe.js"></script>
+<script src="services/AnnonceServices.js"></script>
 </html>
