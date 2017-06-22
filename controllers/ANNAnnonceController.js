@@ -5,7 +5,7 @@ function ANNAnnonceController (DBManager, $routeParams) {
     // Properties
     this.id = $routeParams.id;
 
-    DBManager.get('ANNAnnonce', 0)
+    DBManager.get('ANNAnnonce', 1)
         .then(function (annonce) {
             console.log(annonce)
         })

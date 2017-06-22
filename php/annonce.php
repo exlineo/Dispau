@@ -42,16 +42,16 @@ require_once 'connectDB.php';
 $db = db();
 
 /**
- * Permet de récupérer l'action en GET
+ * Permet de récupérer l'action
  */
-$actionGET = $_GET['action'];
+$action = $_GET['action'];
 
 /**
- * Permet de récupérer l'id de l'annonce en GET
+ * Permet de récupérer l'id de l'annonce
  */
 $id = $_GET['id'];
 
-switch ($actionGET) {
+switch ($action) {
     case "get" :
         echo selectAnnonce($id);
         break;
