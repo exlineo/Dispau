@@ -50,7 +50,7 @@ function IndexedDBManager (indexedDB) {
     this.save = function (className, object) {
         return new Promise(function (resolve, reject) {
             // On détermine la clé primaire de l'objet
-            var id = object.key || object.id;
+            var id = object.id_nb;
             // Si l'objet a une clé primaire
             if (id !== null) {
                 // On vérifie l'exitence de l'objet dans la base
@@ -94,7 +94,7 @@ function IndexedDBManager (indexedDB) {
                     }
                 }
                 // On donne une valeur à id pour statisfaire indexedDB
-                object.id = 0;
+                object.id_nb = 0;
 
                 // Insertion dans la base
                 indexedDB[_instance._slug(className)].put(object)

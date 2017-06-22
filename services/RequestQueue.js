@@ -19,7 +19,7 @@
  * @requires IndexedDBManager
  */
 function REQRequest (id, method, url, body) {
-    this.id = id;
+    this.id_nb = id;
     this.method = method.toLowerCase(); // On ne garde que le bas de casse pour appeler les fonctions de REST
     this.url = url;
     this.timestamp = Date.now();
