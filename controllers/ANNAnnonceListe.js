@@ -11,6 +11,14 @@ function ANNAnnonceListe(DBManager) {
     var ici = this;
     this.annonces_ar = [];
 
+    DBManager.all('ANNAnnonce')
+        .then(function (annonces) {
+            console.log(annonces);
+        })
+        .catch(function (error) {
+            console.log(error)
+        });
+
     /**
      * propriété qui permet de remplir la variable annonces_obj
      * @param liste_annonces_json est le fichier json récupéré depuis le model

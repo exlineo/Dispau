@@ -49,11 +49,14 @@ $action = $_GET['action'];
 /**
  * Permet de récupérer l'id de l'annonce
  */
-$id = $_GET['id'];
+if(isset($_GET['id']))
+    $id = $_GET['id'];
+else
+    $id = null;
 
 switch ($action) {
     case "get" :
-        echo selectAnnonce($id);
+        echo selectAnnonce($db, $id);
         break;
 
     case "delete" :
@@ -68,21 +71,16 @@ switch ($action) {
  * @param $id de l'annonce
  * @return array d'annonce
  */
-function selectAnnonce($id){
-    /**
-     * Connexion à la DB
-     */
-    $db = db();
-
+function selectAnnonce($db, $id){
     try {
-        if (isset($id)){
+        if (!isset($id)){
             $req = $db->prepare("SELECT * FROM `annonce`");
             $req->execute();
             $donnees = $req->fetchAll(PDO::FETCH_ASSOC);
         }
 
         else{
-            $req = $db->prepare("SELECT * FROM `annonce` WHERE id_nb = :id");
+            $req = $db->prepare("SELECT * FROM `annonce` WHERE id_nb = :id_nb");
             $req->execute(array(
                 'id_nb' => $id
             ));

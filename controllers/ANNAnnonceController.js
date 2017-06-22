@@ -5,9 +5,13 @@ function ANNAnnonceController (DBManager, $routeParams) {
     // Properties
     this.id = $routeParams.id;
 
-    DBManager.get('ANNAnnonce', 1)
+    var vm = this;
+    this.model = null;
+
+    DBManager.get('ANNAnnonce', vm.id)
         .then(function (annonce) {
             console.log(annonce)
+            vm.model = annonce;
         })
         .catch(function (error) {
             console.log(error)
