@@ -17,7 +17,7 @@ function IndexedDB() {
     var databaseDeclarations = {
 
         1: {
-            "annonce":    "++id, nom_str, image_str, dateCreation_date, dateFinInscription_date, dateFin_date, dateDebut_date, idLieu_nb, placeMin_nb, placeMax_nb, idGestionnaire_nb, idChat_nb, salleDAttente_ar, participant_ar, centreInteret_ar, validite_nb, modifications",
+            "annonce":    "++id_nb, nom_str, image_str, dateCreation_date, dateFinInscription_date, dateFin_date, dateDebut_date, idLieu_nb, placeMin_nb, placeMax_nb, idGestionnaire_nb, idChat_nb, salleDAttente_ar, participant_ar, centreInteret_ar, validite_nb, modifications",
 
             "centreDInteret":  "++id_nb, nom_str, modifications",
 
