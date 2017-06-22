@@ -19,11 +19,12 @@ function LIELieuController (DBManager, $routeParams)
 
     DBManager.get('LIELieu', $routeParams.idLieu)
         .then(function(lieu) {
-            console.log("lieu recup : ",lieu);
-           ici.model = lieu;
+            console.log("lieu recup : ", lieu);
+            ici.model = lieu;
         })
         .catch(function(error) {
-            console.log("Erreur lors de l'appel de la méthode get() de DBManager")
+            console.log("Erreur lors de l'appel de la méthode get() de DBManager");
+            console.log(error);
         });
 
 
