@@ -10,11 +10,11 @@ function ANNAnnonceController (DBManager, $routeParams) {
 
     DBManager.get('ANNAnnonce', vm.id)
         .then(function (annonce) {
-            console.log(annonce)
+            console.log(annonce);
             vm.model = annonce;
         })
         .catch(function (error) {
-            console.log(error)
+            console.log(error);
             console.log("ERROR")
         })
 }

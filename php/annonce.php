@@ -42,11 +42,6 @@ require_once 'connectDB.php';
 $db = db();
 
 /**
- * Permet de récupérer l'action
- */
-$action = $_GET['action'];
-
-/**
  * Permet de récupérer l'id de l'annonce
  */
 if(isset($_GET['id']))
@@ -54,13 +49,21 @@ if(isset($_GET['id']))
 else
     $id = null;
 
+/**
+ * Permet de récupérer l'action
+ */
+$action = $_GET['action'];
+
+/**
+ * Switch les $_GET afin de lancer les bonnes fonctions
+ */
 switch ($action) {
     case "get" :
         echo selectAnnonce($db, $id);
         break;
 
     case "delete" :
-        deleteAnnonce($id);
+        deleteAnnonce($db, $id);
         break;
 }
 
@@ -137,16 +140,11 @@ function updateAnnonce(){
                                                         WHERE id = :id");*/
 }
 
-function deleteAnnonce($id){
-    /**
-     * Connexion à la DB
-     */
-    $db = db();
-
+function deleteAnnonce($db, $id){
     try{
-        $req = $db->prepare("DELETE FROM `annonce` WHERE id = :id");
+        $req = $db->prepare("DELETE FROM `annonce` WHERE id = :id_nb");
         $req->execute(array(
-            'id' => $id
+            'id_nb' => $id
         ));
     } catch (Exception $e){
         echo 'ERROR: '. $e->getMessage();
