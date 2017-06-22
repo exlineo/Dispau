@@ -50,9 +50,10 @@ function getLieu($db)
         $stmt = $db->prepare("SELECT * FROM `lieu`");
         $stmt->execute();
 
-        while ($data = $stmt->fetch())
+        while ($data = $stmt->fetch(PDO::FETCH_ASSOC))
         {
-            echo "<p>Récupération du lieu : ", $data['nom_str'], "</p>";
+            header('Content-Type: application/json;charset=utf8;');
+            echo json_encode($data);
         }
     }
     catch(Exception $e)
