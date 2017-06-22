@@ -47,6 +47,25 @@ function getLieu($db)
 {
     try
     {
+        $stmt = $db->prepare("SELECT * FROM `lieu` WHERE `id_nb`= $_GET['id_nb']");
+        $stmt->execute();
+
+        while ($data = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            header('Content-Type: application/json;charset=utf8;');
+            echo json_encode($data);
+        }
+    }
+    catch(Exception $e)
+    {
+        exit('<b>Catched exception at line '. $e->getLine() .' (code : '. $e->getCode() .') :</b> '. $e->getMessage());
+    }
+}
+
+function getLieux($db)
+{
+    try
+    {
         $stmt = $db->prepare("SELECT * FROM `lieu`");
         $stmt->execute();
 

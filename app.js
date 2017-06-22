@@ -79,7 +79,8 @@ app.config(['$routeProvider',function($routeProvider)
 
         .when('/lieux/', {                            // indique le path pour matcher l'url apres le '#'
             templateUrl : "views/template_lieux.html",            // fichier qui sera inclu dans le layout dans le 'ngview'
-            controller  : 'LIELieuListe'                 // controlleur qui le gère
+            controller  : 'LIELieuListe',                          // controlleur qui le gère
+            controllerAs : 'myCtrl'
         })
 
         .otherwise({                                    // redirection en cas d'erreur
