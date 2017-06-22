@@ -58,7 +58,7 @@ function RequestQueue($rootScope, localManager, restService) {
      * @private
      */
     this._getAllRequestsFromDB = function () {
-        localManager.all('Request')
+        localManager.all('REQRequest')
             .then(function (result) {
                 RequestQueue._instance.queue = result;
             });
