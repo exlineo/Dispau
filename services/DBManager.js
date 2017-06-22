@@ -31,7 +31,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
     this.all = function (className) {
         return new Promise(function (resolve, reject) {
             // Si on une connection réseau
-            if (navigator.connection.type !== Connection.NONE) {
+            if (window.navigator.onLine) {
                 // Envoie d'une requête GET : http://api-url.api/slug/
                 restService.get(_instance._slug(className) + '.php?action=get')
                     .then(function (objects) {
@@ -68,7 +68,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
      */
     this.get = function (className, id) {
         return new Promise(function (resolve, reject) {
-            if (navigator.connection.type !== Connection.NONE) {
+            if (window.navigator.onLine) {
                 // Envoie d'une requète GET : http://api-url.api/slugs/id
                 restService.get(_instance._slug(className) + ".php?action=get&id=" + encodeURI(id))
                     .then(function (response) { // Cas de succès de la requête REST
@@ -107,7 +107,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
 
         return new Promise(function (resolve, reject) {
             // Si on a une connection réseau
-            if (navigator.connection.type !== Connection.NONE) {
+            if (window.navigator.onLine) {
                 // MERGE:  On fusionne notre version à celle du serveur
                 restService.merge(_instance._slug(className) + '.php?action=get&id=' + pK, object)
                     .then(function (mergedObject) {
@@ -155,7 +155,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
         return new Promise (function (resolve, reject) {
             // Si on est en ligne, on envoie la requète sur le serveur
             // Si tout va bien, on enregistre dans la DB
-            if (navigator.connection.type !== Connection.NONE) {
+            if (window.navigator.onLine) {
                 // On supprime les caractères spéciaux pour la rétro compatibilité IE
                 //object.value = object.value.replace(/\s/g, '');
                 // Envoie d'une requète POST
@@ -238,7 +238,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager) {
         return new Promise(function (resolve, reject) {
             // Si on est en ligne, on envoie la requète sur le serveur
             // Si tout va bien, on enregistre dans la DB
-            if (navigator.connection.type !== Connection.NONE) {
+            if (window.navigator.onLine) {
                 // Requête DELETE
                 restService.delete(_instance._slug(className) + ".php?action=delete&id=" + id)
                     .then(function (responseKey) { // Cas de succès de la requête AJAX
