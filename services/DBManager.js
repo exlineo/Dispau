@@ -44,7 +44,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
 
                         // On efface la table locale et on insère tout
                         localManager.clearStore(className);
-                        localManager.bulkSave(className, modelArray)
+                        localManager.bulkSave(className, objects)
                             .then(function () {
                                 resolve(modelArray); // Résolution
                             })
@@ -76,7 +76,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
                         model.hydrater(response);
 
                         // On enregistre dans la base
-                        localManager.save(className, model)
+                        localManager.save(className, response)
                             .then(function () {
                                 resolve(model);
                             }) // Sucès
