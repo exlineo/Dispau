@@ -17,13 +17,13 @@ function LIELieuController (DBManager, $routeParams)
     this.model = null;
     // requetes ajax pour recup les données
 
-
     DBManager.get('LIELieu', $routeParams.idLieu)
         .then(function(lieu) {
+            console.log("lieu recup : ",lieu);
            ici.model = lieu;
         })
         .catch(function(error) {
-            // TODO : GERER L'ERREUR
+            console.log("Erreur lors de l'appel de la méthode get() de DBManager")
         });
 
 
