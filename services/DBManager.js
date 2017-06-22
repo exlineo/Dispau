@@ -39,7 +39,8 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
                         // hydratation du résultat
                         objects.forEach(function (object) {
                             var instance = new window[className];
-                            modelArray.push(instance.hydrater(object));
+                            instance.hydrater(object)
+                            modelArray.push(instance);
                         });
 
                         // On efface la table locale et on insère tout
