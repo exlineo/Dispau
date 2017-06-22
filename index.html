@@ -18,7 +18,7 @@
 <link rel="prefetch" href="views/img/dispau_logo.png">
 
 <link href="views/css/global.css" media="screen" rel="stylesheet" type="text/css">
-<base href="/Dispau/">
+<base href="/stephfrmik/">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
 <script src="https://code.angularjs.org/1.6.4/angular-route.js"></script>
 <script src="https://code.angularjs.org/1.6.4/angular-cookies.js"></script>
@@ -38,14 +38,14 @@
 		<div class="header-inner cf">
 
 			<span class="logo relative left"></span>
-			<h1 class="left"><a href="\">DISPAU</a></h1>
+			<h1 class="left"><a ng-href="accueil">DISPAU</a></h1>
 
 			<nav class="top-menu">
-				<span class="logo-responsive"><a href="\">DISPAU</a></span>
+				<span class="logo-responsive"><a ng-href="accueil">DISPAU</a></span>
 				<ul>
 					<li><a ng-href="liste" data-tooltip="" title="J'en suis !" data-cible="connexion" class="tooltip-bottom" id="connexionBtn"><i class="fa fa-sign-in" aria-hidden="true"></i><em>☑</em> Connexion</a></li>
 					<li><a href="#open-modal-creer-lieu" data-tooltip="" title="Je veux découvrir DISPAU" data-cible="inscription" class="tooltip-bottom" id="afficher-inscription-btn"><i class="fa fa-user-plus" aria-hidden="true"></i><em>✔</em> Je m'inscris</a></li>
-					<li><a href="#open-modal-profil" data-tooltip="" title="Afficher mon profil" class="tooltip-bottom" id="afficher-profil-btn"><i class="fa fa-user" aria-hidden="true"></i><em>👥</em> Mon profil</a>
+					<li><a ng-href="profil" data-tooltip="" title="Afficher mon profil" class="tooltip-bottom" id="afficher-profil-btn"><i class="fa fa-user" aria-hidden="true"></i><em>👥</em> Mon profil</a>
 					</li>
 					<li><a href="#open-modal-aide" data-tooltip="" title="Aide d'utilisation" class="tooltip-bottom" id="aide-btn"><i class="fa fa-info-circle" aria-hidden="true"></i><em>i</em> Aide</a></li>
 				</ul>
@@ -77,4 +77,7 @@
 </footer> <!-- /footer -->
 
 <script src="app.js"></script>
-</body></html>
+<script src="controllers/USRUtilisateurController.js"></script>
+
+</body>
+</html>

@@ -6,51 +6,21 @@
  *
  * @constructor
  */
-function USRUtilisateurController () {
+// function USRUtilisateurController () {
 
-}
+// }
 
-var app = angular.module('app', ['services', 'ngRoute']);
+app.controller('USRUtilisateurController', ['$http', '$log', function($http, $log){
 
-app.config(['$routeProvider', '$locationProvider', '$httpProvider',
-    function($routeProvider, $locationProvider, $httpProvider) {
+    var vmu = this;
+    // var profils = appelsHTTP.getAnnonces().then(function(retour) {
+    //     vma.donnees = retour.data.annonce1;
+    //     //console.log(retour.data.annonce1);
+    // });
 
-    $httpProvider.interceptors.push('conneIntercepteur');
+    vmu.pseudo_str = "Profil pseudo";
 
-     $routeProvider
-            .when('/accueil', {
-                templateUrl: 'views/accueil.html',
-                controller: 'accueilCtrl',
-                controllerAs: 'vma'
-            })
-            .when('/annonces', {
-                templateUrl: 'views/annonces.html',
-                controller: 'AnnoncesCtrl',
-                controllerAs: 'vman'
-            })
-            .when('/form', {
-                templateUrl: 'views/formulaire.html',
-                controller: 'connexionCtrl',
-                controllerAs: 'vmc'
-            })
-            .otherwise({
-                redirectTo: '/accueil'
-            });
-
-    $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: true
-        });
-
-}]);
-
-
-app.controller('accueilCtrl', ['$http', '$log', 'appelsHTTP', function($http, $log, appelsHTTP){
-
-    var vma = this;
-    var profils = appelsHTTP.getAnnonces().then(function(retour) {
-        vma.donnees = retour.data.annonce1;
-        //console.log(retour.data.annonce1);
-    });
+    //console.log("USRUtilisateurController");
+    $log.log("USRUtilisateurController");
 
 }]);

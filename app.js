@@ -26,6 +26,12 @@ app.controller('IHMAccueilCtrl', ['$http', '$log', function($http, $log) {
 
 }]);
 
+app.controller('USRUtilisateurController', ['$http', '$log', function($http, $log) {
+        
+}]);
+
+
+
 /*
 app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
 app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
@@ -83,6 +89,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 templateUrl: 'views/tpl/liste.html',
                 controller: 'listeCtrl',
                 controllerAs: 'vml'
+            }) 
+
+            .when('/profil', {
+                templateUrl: 'views/tpl/profil.html',
+                controller: 'USRUtilisateurController',
+                controllerAs: 'vmu'
             }) 
 
             .otherwise({
