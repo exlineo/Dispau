@@ -1,16 +1,15 @@
 /**
- * AnnonceListe est une classe qui permet de créer un tableau d'annonce d'un lieu
+ * ANNAnnonceListe permet d'afficher toute les annonces d'un Lieu
+ * @param DBManager     Gestion de la BD
+ * @param $routeParams  Gestion des paramètres dans les routes
  * @constructor
  */
 function ANNAnnonceListe(DBManager, $routeParams) {
-    /**
-     * Variable possédant toutes les annonces
-     * Il est intéressant de l'utiliser pour trier tous les objets
-     * @type {{}}
-     */
+    //Récupère l'id dans la route
+    this.idLieu = $routeParams.idLieu;
+
     var ici = this;
     this.annonces_ar = [];
-    this.idLieu = $routeParams.idLieu;
 
     DBManager.all('ANNAnnonce')
         .then(function (annonces) {
