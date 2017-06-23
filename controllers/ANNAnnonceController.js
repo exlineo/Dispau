@@ -3,7 +3,7 @@
  */
 function ANNAnnonceController (DBManager, $routeParams) {
     // Properties
-    this.id = $routeParams.id;
+    this.id = $routeParams.idAnnonce
 
     var vm = this;
     this.model = null;
