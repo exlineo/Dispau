@@ -19,7 +19,7 @@ var app = angular.module('dispau-app', [
  */
 
 //app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
-app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
+app.controller('ANNAnnonceListe', ['DBManager', '$routeParams', ANNAnnonceListe]);
 app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
 
 
@@ -68,13 +68,13 @@ app.factory('RegexService', [RegexService]);
 
 app.config(function ($routeProvider) {
     $routeProvider
-        .when('/annonces/', {
+        .when('/annonces/:idLieu', {
             templateUrl: 'views/annonces.html',
             controller: 'ANNAnnonceListe',
             controllerAs: 'vm'
         })
 
-        .when('/annonces/:id', {
+        .when('/annonces/:idLieu/:idAnnonce', {
             templateUrl: 'views/annoncesID.html',
             controller: 'ANNAnnonceController',
             controllerAs: 'vm'
