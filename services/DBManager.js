@@ -28,6 +28,11 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
         return className.substr(3).toLowerCase();
     };
 
+    this.limit = function (limit) {
+       this._limit = limit;
+       return this;
+    };
+
     /**
      * Méthode pour ajouter les fonctions de filtrage à la promise
      * @param {$q} promise
