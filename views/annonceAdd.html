@@ -1,0 +1,18 @@
+<form>
+    <label for="titre">Titre annonce</label>
+    <input type="text" id="titre" ng-model="annonce.titre">
+
+    <label for="description">Description</label>
+    <input type="text" id="description" ng-model="annonce.description">
+
+    <label for="lieu">Lieu</label>
+    <input type="text" id="lieu" ng-model="annonce.lieu">
+
+    <label for="placeMin">Place minimum</label>
+    <input type="text" id="placeMin" ng-model="annonce.placemin">
+
+    <input type="submit" ng-click="vm.save(annonce)" value="Enregistrer">
+</form>
+
+<pre>annonce = {{annonce | json}}</pre>
+<pre>vm.annonce = {{vm.annonce | json}}</pre>

@@ -10,6 +10,8 @@
 function IndexedDBManager (indexedDB) {
     var _instance = this;
 
+    this._limit = -1;
+
     /**
      * Renvoie le nom de la table pour la classe donnée
      * @param {string} className    Le nom de la classe
@@ -19,6 +21,11 @@ function IndexedDBManager (indexedDB) {
     this._slug = function (className) {
         return className.substr(3).toLowerCase();
     };
+
+    this.limit = function (l) {
+        this._limit = (l);
+        return this;
+    }
 
     /**
      * Récupère un élément
@@ -36,9 +43,15 @@ function IndexedDBManager (indexedDB) {
      * @return {Promise}            Une promise qui résout à une collection d'objets
      */
     this.all = function (className) {
-        return new Promise(function (resolve, reject) {
-            resolve(indexedDB[_instance._slug(className)].toCollection());
-        });
+        if (this._limit >= 0) {
+            return new Promise(function (resolve) {
+                resolve(indexedDB[_instance._slug(className)].limit(_instance._limit));
+            });
+        } else {
+            return new Promise(function (resolve) {
+                resolve(indexedDB[_instance._slug(className)].toCollection());
+            });
+        }
     };
 
     /**
@@ -122,6 +135,10 @@ function IndexedDBManager (indexedDB) {
      */
     this.delete = function (className, id) {
         return indexedDB[_instance._slug(className)].delete(id);
+    };
+
+    this.bulkDelete = function (className, ids) {
+        return indexedDB[_instance._slug(className)].bulkDelete(ids);
     };
 
     /**
