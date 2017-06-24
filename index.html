@@ -24,6 +24,7 @@
 <script src="https://code.angularjs.org/1.6.4/angular-cookies.js"></script>
 <script type="text/javascript" src="//maps.google.com/maps/api/js?key=AIzaSyDUtoQMli5Vr2wz8ejaiPPXvlAHAGivOAc"></script>
 <script type="text/javascript" src="services/ng-map.min.js"></script>
+<script type="text/javascript" src="controllers/MAPMapController.js"></script>
 <script>
 //if(typeof angular!='object') document.write('<script src="framework/angular.min.js">\x3C/script>');
 </script>
@@ -57,15 +58,15 @@
 	</header>
 
 	<!-- Google Map -->
-	<ng-map on-click="onClick()" center="current-location" center="[43.3333574, -0.4465493]" zoom="8" id="dispauCarte" ng-controller="carteClr as vmm">
+	<ng-map on-click="onClick()" center="current-location" center="[43.3333574, -0.4465493]" zoom="8" id="dispauCarte" ng-controller="MAPMapController as vmm">
 
 
 		<marker position="43.3333574, -0.4465493"></marker>
 
 		<marker ng-repeat="p in vmm.positions track by $index" id="lieu-{{$index}}" on-click="vmm.map.showInfoWindow('infosCarte', 'lieu-'+$index)" position="{{p.pos}}">
-            <!-- <div>
+             <div>
                 position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
-            </div>-->
+            </div>
         </marker>
 
         <info-window id="infosCarte" on-mouseover="vmm.mouseover()">
