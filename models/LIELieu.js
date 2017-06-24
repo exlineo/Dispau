@@ -3,8 +3,7 @@
  * @constructor
  */
 
-function LIELieu()
-{
+function LIELieu() {
 
     /////// Propriétés ///////
 
@@ -97,10 +96,14 @@ function LIELieu()
      */
     this.image_img = null;             //new Image();
 
+    /**
+     * Les modifications de l'enregistrement
+     * @type {{}}
+     */
+    this.modifications = {};
 
 
     /////// Méthodes ///////
-
 
 
     /**
@@ -108,8 +111,19 @@ function LIELieu()
      * @params {object} objet
      */
     this.hydrater = function (objet) {
-        for (var key in objet)
-            this[key] = objet[key];
+        for (var key in objet) {
+            if (key !== 'modifications') {
+                this[key] = objet[key];
+            } else {
+                if (objet[key] === "") {
+                    this[key] = {};
+                } else {
+                    this[key] = JSON.parse(modifications);
+                }
+            }
+
+        }
+
     };
 
     /**
@@ -211,8 +225,7 @@ function LIELieu()
      */
     this.getAnnoncesEnCours = function (dateDebut, dateFin) {
         var annoncesFiltered = [];
-        for (var i = 0; i < this.annonces_ar.length; i++)
-        {
+        for (var i = 0; i < this.annonces_ar.length; i++) {
             if (dateDebut < this.annonces_ar.dateFin_dat < dateFin)
                 annoncesFiltered.push(this.annonces_ar);
 
@@ -226,8 +239,7 @@ function LIELieu()
      */
     this.getAnnoncesFutures = function (dateDebut) {
         var annoncesFiltered = [];
-        for (var i = 0; i < this.annonces_ar.length; i++)
-        {
+        for (var i = 0; i < this.annonces_ar.length; i++) {
             if (this.annonces_ar.dateFin_dat < dateDebut)
                 annoncesFiltered.push(this.annonces_ar);
         }
@@ -239,8 +251,7 @@ function LIELieu()
      * @returns {ANNAnnonce[]}
      */
     this.getAnnoncesAvecNbParticipantsSuperieurA = function (nb) {
-        for (var i=0;i<this.annonces_ar.length;i++)
-        {
+        for (var i = 0; i < this.annonces_ar.length; i++) {
             if (nb < this.annonces_ar[i].participants_ar.length)
                 return this.annonces_ar[i];
         }
@@ -252,8 +263,7 @@ function LIELieu()
      * @returns {ANNAnnonce[]}
      */
     this.getAnnoncesAvecNbParticipantsInferieurA = function (nb) {
-        for (var i=0;i<this.annonces_ar.length;i++)
-        {
+        for (var i = 0; i < this.annonces_ar.length; i++) {
             if (this.annonces_ar[i].participants_ar.length < nb)
                 return this.annonces_ar[i];
         }
@@ -264,10 +274,8 @@ function LIELieu()
      * @returns {ANNAnnonce[]}
      */
     this.getAnnoncesAvecCentresInterets = function (centresInterets) {
-        for (var i=0;i<this.annonces_ar.length;i++)
-        {
-            for (var j=0;j<this.annonces_ar[i].centresInterets.length;j++)
-            {
+        for (var i = 0; i < this.annonces_ar.length; i++) {
+            for (var j = 0; j < this.annonces_ar[i].centresInterets.length; j++) {
                 if (this.annonces_ar[i].centresIntetets[j].nom_str == centreInteret)
                     return this.annonces_ar[i].centresIntetets[j].nom_str;
             }
@@ -305,14 +313,14 @@ function LIELieu()
      * @returns {Array}
      */
     this.getGeolocation = function (lat, long) {
-        return [this.latitude_nb,this.longitude_nb];
+        return [this.latitude_nb, this.longitude_nb];
     };
 
     /**
      * Renvoie Vrai ou Faux selon la position du lieu
      * @returns {boolean}
      */
-    this.estProcheDe = function (lat,long) {
+    this.estProcheDe = function (lat, long) {
 
 ////////////// A CODER ////////////////
         return false;

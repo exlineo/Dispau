@@ -4,8 +4,11 @@
 - [Utilisation](#utilisation)
   1. [DBManager.all()](#dbmanagerallnomdeclasse)
   2. [DBManager.get()](#dbmanagergetnomdeclasse-identifiant)
-  3. [DBManager.save()](#dbmanagersavenomdeclasse-objet)
-  4. [DBManager.delete()](#dbmanagerdeletenomdeclasse-identifiant)
+  3. [DBManager.limit()](#dbmanagerlimitlimite-de-résultats)
+  4. [DBManager.save()](#dbmanagersavenomdeclasse-objet)
+  5. [DBManager.delete()](#dbmanagerdeletenomdeclasse-identifiant)
+  6. [DBManager.bulkSave()](#dbmanagerbulksaveclassname-objects)
+  7. [DBManager.bulkDelete()](#dbmanagerbulkdeleteclassname-objects)
 - [Authentification](#authentification)
 - [Considérations pour le serveur](#considérations-pour-le-serveur)
   1. [Méthodes](#méthodes)
@@ -109,6 +112,26 @@ function myController(dbManager) {
 }
 ```
 
+#### DBManager.limit(*limite de résultats*)  
+Permet de limiter le nombre de résultats pour *all()* et *get()*.  
+**Exemple**  
+```javascript
+function myController(dbManager) {
+    var ici = this;
+    this.model = [];
+    
+    dbManager
+        .limit(5)
+        .all('ANNAnnonce')
+        .then(function (annonces) {
+            // annonces.length == 5
+            this.model = annonces;
+        })
+        .catch(function (error) {
+            // TODO: Gérer l'erreur
+        });
+}
+```
 
 #### DBManager.save(*nomDeClasse*, *objet*)
 Permet de sauvegarder ou de mettre à jour un enregistrement dans la base
@@ -184,6 +207,76 @@ function myController(dbManager) {
                 .catch(function (error) {
                     // TODO: Gérer l'erreur
                 });
+    }
+}
+```
+
+#### DBManager.bulkSave(*className*, *objects*)
+Permet d'insérer ou de mettre à jour plusieurs objets à la fois.   
+
+**Exemple**
+```javascript
+/**
+ * @param {DBManager} dbManager    Le service d'accès au serveur
+ * @constructor
+ */
+function myController(dbManager) {
+    var ici = this;
+    /** 
+     * Notre modèle de données, un instance de Annonce
+     * @type {ANNAnnonce[]}
+     * @default []
+     */
+    this.model = [];
+    
+    // Enregistrement de l'annonce contenue dans ici.model
+    this.enregistrerAnnonce = function () {
+        dbManager.bulkSave('ANNAnnonce', ici.model)
+            .then(function (annonces) {
+                // annonce est l'annonce mise à jour
+                // ou enregistrée
+                ici.model = annonces;
+            })
+            .catch(function (error) {
+                // TODO: Gérer l'erreur
+            });
+    }
+}
+```
+
+#### DBManager.bulkDelete(*className*, *objects*)
+Permet de supprimer plusieurs objets à la fois.   
+
+**Exemple**
+```javascript
+/**
+ * @param {DBManager} dbManager    Le service d'accès au serveur
+ * @constructor
+ */
+function myController(dbManager) {
+    var ici = this;
+    /** 
+     * Notre modèle de données, un instance de Annonce
+     * @type {ANNAnnonce[]}
+     * @default []
+     */
+    this.model = [];
+    
+    // Suppression toutes les annocnes d'un gestionnnaire
+    this.supprimerAnnoncesDeUtilisateur = function (gestionnaire_id_nb) {
+        var annoncesASupprimer = this.model.filter(function (annonces) {
+            return annonces.idGestionnaire_nb === utilisateur_id_nb;
+        });
+        
+        dbManager.bulkDelete('ANNAnnonce', annoncesASupprimer)
+            .then(function (annonces) {
+                // annonce est l'annonce mise à jour
+                // ou enregistrée
+                ici.model = annonces;
+            })
+            .catch(function (error) {
+                // TODO: Gérer l'erreur
+            });
     }
 }
 ```

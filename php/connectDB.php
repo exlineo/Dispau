@@ -7,7 +7,7 @@ function db()
 {
     $config = [
         "host" => 'localhost',
-        "dbname" => 'dispau',
+        "dbname" => 'exlineodev',
         "username" => 'root',
         "password" => ''
     ];

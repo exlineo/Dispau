@@ -6,7 +6,7 @@
 var app = angular.module('dispau-app', [
     'ngRoute',
     'ngCookies',
-    'ngMap' 
+    'ngMap'
     // AJOUTER VOS DEPENDANCES
 
     //'uiGmapgoogle-maps'
@@ -41,6 +41,12 @@ app.controller('MAPMapController', ['NgMap', afficheMap]);
 /*
 app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
 app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
+app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
+
+
+// Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
+
+/*
 app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
 app.controller('CHAChatController', ['DBManager', CHAChatController]);
 app.controller('LIELieuController', ['DBManager', LIELieuController]);
@@ -54,19 +60,19 @@ app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
 
 /**
  * DECLARATION DES SERVICES (gestion BDD locale...)
- 
+ */
 
 app.factory('IndexedDB', [IndexedDB]);
 app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManager]);
 app.factory('AjaxService', ['$http','$cookies', AjaxService]);
-app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', DBManager]);
+app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', DBManager]);
 app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
 app.factory('RegexService', [RegexService]);
-*/
+
 
 /**
  * Specifique a la Google Maps
- 
+
 
 app.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
@@ -80,6 +86,25 @@ app.config(function(uiGmapGoogleMapApiProvider) {
 /**
  * DECLARATION DES ROUTES
  */
+
+app.config(function ($routeProvider) {
+    $routeProvider
+        .when('/annonces/', {
+            templateUrl: 'views/annonces.html',
+            controller: 'ANNAnnonceListe',
+            controllerAs: 'vm'
+        })
+
+        .when('/annonces/:id', {
+            templateUrl: 'views/annoncesID.html',
+            controller: 'ANNAnnonceController',
+            controllerAs: 'vm'
+        })
+
+        .otherwise({
+            redirectTo: '/home'
+        })
+});
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     function($routeProvider, $locationProvider, $httpProvider) {
@@ -95,7 +120,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 templateUrl: 'views/tpl/liste.html',
                 controller: 'IHMListeCtrl',
                 controllerAs: 'vml'
-            }) 
+            })
 
             .otherwise({
                 redirectTo: '/'
