@@ -1,5 +1,10 @@
 
 
+var pau = {
+    lat : 43.300000,
+    lng : -0.366667
+}
+
 //style de la map
 
 var styleMap = [{
@@ -103,6 +108,8 @@ function afficheMap(NgMap, DBManager) {
         vmm.map = map;
         // ajout du style de la map
         vmm.map.setOptions({styles: styleMap});
+
+        vmm.map.setCenter(pau);
 
         vmm.map.onClick = function() {
             alert('Carte cliquée');

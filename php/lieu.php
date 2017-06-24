@@ -33,10 +33,50 @@
  *  - insert()
  *  - update()
  *  - delete()
- *
  */
 
 require_once 'connectDB.php';
 
 // Exemple pour récupérer le PDO
 $db = db();
+
+getLieux($db);
+
+
+function getLieu($db)
+{
+    try
+    {
+        $stmt = $db->prepare("SELECT * FROM `lieu` WHERE `id_nb`= :id");
+        $stmt->execute(['id' => $_GET['id']]);
+
+        while ($data = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            header('Content-Type: application/json;charset=utf8;');
+            echo json_encode($data);
+        }
+    }
+    catch(Exception $e)
+    {
+        exit('<b>Catched exception at line '. $e->getLine() .' (code : '. $e->getCode() .') :</b> '. $e->getMessage());
+    }
+}
+
+function getLieux($db)
+{
+    try
+    {
+        $stmt = $db->prepare("SELECT * FROM `lieu`");
+        $stmt->execute();
+
+        while ($data = $stmt->fetchAll(PDO::FETCH_ASSOC))
+        {
+            header('Content-Type: application/json;charset=utf8;');
+            echo json_encode($data);
+        }
+    }
+    catch(Exception $e)
+    {
+        exit('<b>Catched exception at line '. $e->getLine() .' (code : '. $e->getCode() .') :</b> '. $e->getMessage());
+    }
+}
