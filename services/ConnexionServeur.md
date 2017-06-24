@@ -5,7 +5,7 @@
   1. [DBManager.all()](#dbmanagerall)
   2. [DBManager.get()](#dbmanagergetidentifiant)
   3. [Fonctions de filtrage](#fonctions-de-filtrage)
-  4. [DBManager.limit()](#dbmanagerlimitlimite-de-résultats)
+  4. [DBManager.limit()](#dbmanagerlimit)
   5. [DBManager.save()](#dbmanagersaveobjet)
   6. [DBManager.delete()](#dbmanagerdeletenidentifiant)
   7. [DBManager.bulkSave()](#dbmanagerbulksaveobjects)
