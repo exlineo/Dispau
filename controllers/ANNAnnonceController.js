@@ -8,13 +8,17 @@ function ANNAnnonceController (DBManager, $routeParams) {
     var vm = this;
     this.model = null;
 
-    DBManager.get('ANNAnnonce', vm.id)
-        .then(function (annonce) {
-            console.log(annonce)
-            vm.model = annonce;
+    var dbManager = DBManager('ANNAnnonce');
+
+    dbManager.all()
+        .where('id_nb').equals(5)
+        .limit(5)
+        .then(function (annonces) {
+            console.log(annonces[0]);
+            vm.model = annonces[0];
         })
         .catch(function (error) {
-            console.log(error)
+            console.log(error);
             console.log("ERROR")
         })
 }
