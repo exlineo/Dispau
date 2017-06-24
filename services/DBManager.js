@@ -220,7 +220,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
         for (var prop in object) {
             if (object.hasOwnProperty(prop)
                 && prop !== 'modifications'
-                && getClass.call(object[prop]) === '[object Function]') {
+                && typeof object[prop] !== 'function') {
                 plainObject[prop] = object[prop];
                 modifications[prop] = now;
             }
@@ -266,7 +266,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
             for (var prop in object) {
                 if (object.hasOwnProperty(prop)
                     && prop !== 'modifications'
-                    && getClass.call(object[prop]) === '[object Function]') {
+                    && typeof object[prop] !== 'function') {
                     plainObject[prop] = object[prop];
                     modifications[prop] = now;
                 }
