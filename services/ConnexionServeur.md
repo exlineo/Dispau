@@ -254,7 +254,7 @@ function myController(dbManager) {
 }
 ```
 
-#### DBManager.save(*nomDeClasse*, *objet*)
+#### DBManager.save(*objet*)
 Permet de sauvegarder ou de mettre à jour un enregistrement dans la base
 de données.  
 Le premier paramètre permet :
@@ -296,7 +296,7 @@ function myController(dbManager) {
 ```
   
   
-#### DBManager.delete(*nomDeClasse*, *identifiant*)
+#### DBManager.delete(*identifiant*)
 Permet de supprimer un enregistrement unique. Renvoie une instance "hydraté".
 Le premier paramètre permet :
 - de construire la requête Ajax
@@ -334,7 +334,7 @@ function myController(dbManager) {
 }
 ```
 
-#### DBManager.bulkSave(*className*, *objects*)
+#### DBManager.bulkSave(*objects*)
 Permet d'insérer ou de mettre à jour plusieurs objets à la fois.   
 
 **Exemple**
@@ -368,7 +368,7 @@ function myController(dbManager) {
 }
 ```
 
-#### DBManager.bulkDelete(*className*, *objects*)
+#### DBManager.bulkDelete(*objects*)
 Permet de supprimer plusieurs objets à la fois.   
 
 **Exemple**
