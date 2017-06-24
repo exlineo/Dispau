@@ -30,17 +30,13 @@ app.controller('IHMListeCtrl', ['$http', '$log', function($http, $log) {
 
 }]);
 
-var pau = {
-    latitude: 43.296371,
-    longitude: -0.370091
-};
 
 
 // CONTROLER POUR LA CARTE DE FOND / GEREE AVEC NG-MAP
-app.controller('MAPMapController', ['NgMap', afficheMap]);
-/*
-app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
-app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
+app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
+
+//app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
+/*app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
 app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
 
 
@@ -67,7 +63,7 @@ app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManager]);
 app.factory('AjaxService', ['$http','$cookies', AjaxService]);
 app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', DBManager]);
 app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
-app.factory('RegexService', [RegexService]);
+//app.factory('RegexService', [RegexService]);
 
 
 /**

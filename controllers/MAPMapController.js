@@ -95,7 +95,7 @@ var styleMap = [{
 ];
 
 
-function afficheMap(NgMap) {
+function afficheMap(NgMap, DBManager) {
 
     var vmm = this;
 
@@ -109,11 +109,11 @@ function afficheMap(NgMap) {
         }
     });
 
-    vmm.positions1 = [
-        { pos: [40.11, -0.21], name: 1 }, { pos: [40.22, -0.10], name: 2 },
-        { pos: [40.33, -0.99], name: 3 }, { pos: [40.44, -0.88], name: 4 },
-        { pos: [40.55, -0.77], name: 5 }, { pos: [40.66, -0.66], name: 6 }
-    ];
+     DBManager.all('LIELieu')
+        .then(function (lieu) {
+            vmm.lieux = lieu;
+        });
+
 
     vmm.positions2 = [
         { pos: [40.71, -0.21], name: 1 }, { pos: [41.72, -0.20], name: 2 },
@@ -125,7 +125,7 @@ function afficheMap(NgMap) {
         vmm.positions = angular.copy(pos);
     };
 
-    vmm.setPositions(vmm.positions2);
+    vmm.setPositions(vmm.lieux);
     vmm.currentIndex = 0;
     vmm.selectNextCustomMarker = function() {
     }
