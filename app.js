@@ -30,6 +30,106 @@ app.controller('IHMListeCtrl', ['$http', '$log', function($http, $log) {
 
 }]);
 
+var pau = {
+    latitude: 43.296371,
+    longitude: -0.370091
+};
+
+
+//styliser la map
+
+var styleMap = [{
+    "featureType": "administrative",
+    "elementType": "all",
+    "stylers": [{
+        "saturation": "-100"
+    }]
+},
+    {
+        "featureType": "administrative.province",
+        "elementType": "all",
+        "stylers": [{
+            "visibility": "off"
+        }]
+    }, {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [{
+            "saturation": -100
+        },
+            {
+                "lightness": 65
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    }, {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [{
+            "saturation": -100
+        },
+            {
+                "lightness": "50"
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    }, {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [{
+            "saturation": "-100"
+        }]
+    }, {
+        "featureType": "road.highway",
+        "elementType": "all",
+        "stylers": [{
+            "visibility": "simplified"
+        }]
+    }, {
+        "featureType": "road.arterial",
+        "elementType": "all",
+        "stylers": [{
+            "lightness": "30"
+        }]
+    }, {
+        "featureType": "road.local",
+        "elementType": "all",
+        "stylers": [{
+            "lightness": "40"
+        }]
+    }, {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [{
+            "saturation": -100
+        }, {
+            "visibility": "simplified"
+        }]
+    }, {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [{
+            "hue": "#ffff00"
+        }, {
+            "lightness": -25
+        }, {
+            "saturation": -97
+        }]
+    }, {
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [{
+            "lightness": -25
+        }, {
+            "saturation": -100
+        }]
+    }
+];
+
 // CONTROLER POUR LA CARTE DE FOND / GEREE AVEC NG-MAP
 app.controller('carteClr', ['NgMap', function(NgMap) {
 
@@ -37,6 +137,8 @@ app.controller('carteClr', ['NgMap', function(NgMap) {
 
     NgMap.getMap('dispauCarte').then(function(map) {
         vmm.map = map;
+
+        vmm.map.setOptions({styles: styleMap});
 
         vmm.map.onClick = function() {
             alert('Carte cliquée');

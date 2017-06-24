@@ -58,9 +58,10 @@
 
 	<!-- Google Map -->
 	<ng-map on-click="onClick()" center="current-location" center="[43.3333574, -0.4465493]" zoom="8" id="dispauCarte" ng-controller="carteClr as vmm">
-        
+
+
 		<marker position="43.3333574, -0.4465493"></marker>
-        
+
 		<marker ng-repeat="p in vmm.positions track by $index" id="lieu-{{$index}}" on-click="vmm.map.showInfoWindow('infosCarte', 'lieu-'+$index)" position="{{p.pos}}">
             <!-- <div>
                 position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
@@ -78,6 +79,7 @@
             <input placeholder="Recherche un lieu" />
         </custom-control>
 
+
     </ng-map>
 
 	<div class="content">
@@ -92,7 +94,35 @@
 <footer class="footer">
 
 	<div class="footer-inner">
-		<p><small>&copy;&nbsp;Copyright DISPAU&nbsp;&reg; 2017, tous droits&nbsp;réservés. <a href="#!" title="Conditions Générales d'Utilisation">C.G.U.</a> | <a href="#!" title="Politique de confidentialité">Confidentialité</a> | <a href="#!" title="Mentions légales du site">Mentions&nbsp;Légales</a> | <a href="#!" title="A propos">Présentation</a> | <a href="#!" title="Contactez DISPAU">Contact et&nbsp;partenariat</a> | Social&nbsp;: <a rel="nofollow" href="https://twitter.com/dispau" data-href="https://twitter.com/dispau" title="Rejoignez notre page Twitter" class="social twitter"><i class="fa fa-twitter" aria-hidden="true"></i><em>T</em></a> <a rel="nofollow" href="//plus.google.com/111387824658555502103" data-href="https://plus.google.com/111387824658555502103" title="Rejoignez notre page G+" class="social gplus"><i class="fa fa-google-plus" aria-hidden="true"></i><em>G</em></a> <a href="https://www.facebook.com/" data-href="https://www.facebook.com/" title="Rejoignez notre page facebook" class="social facebook"><i class="fa fa-facebook" aria-hidden="true"></i><em>F</em></a></small></p>
+		<p><small>&copy;&nbsp;Copyright DISPAU&nbsp;&reg; 2017, tous droits&nbsp;réservés.
+			<a href="#!" title="Conditions Générales d'Utilisation">C.G.U.</a>
+			|
+			<a href="#!" title="Politique de confidentialité">Confidentialité</a>
+			|
+			<a href="#!" title="Mentions légales du site">Mentions&nbsp;Légales</a>
+			|
+			<a href="#!" title="A propos">Présentation</a>
+			|
+			<a href="#!" title="Contactez DISPAU">Contact et&nbsp;partenariat</a>
+			| Social&nbsp;:
+			<a rel="nofollow" href="https://twitter.com/dispau" data-href="https://twitter.com/dispau" title="Rejoignez notre page Twitter" class="social twitter">
+				<i class="fa fa-twitter" aria-hidden="true"></i>
+				<em>T</em>
+			</a>
+			<a rel="nofollow" href="//plus.google.com/111387824658555502103" data-href="https://plus.google.com/111387824658555502103" title="Rejoignez notre page G+" class="social gplus">
+				<i class="fa fa-google-plus" aria-hidden="true">
+
+				</i>
+				<em>G</em>
+			</a>
+			<a href="https://www.facebook.com/" data-href="https://www.facebook.com/" title="Rejoignez notre page facebook" class="social facebook">
+				<i class="fa fa-facebook" aria-hidden="true">
+
+				</i>
+				<em>F</em>
+			</a>
+		</small>
+		</p>
 	</div> <!-- /footer-inner -->
    
 </footer> <!-- /footer -->
