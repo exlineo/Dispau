@@ -7,7 +7,7 @@
  * @param {IndexedDB} indexedDB
  * @constructor
  */
-function IndexedDBManager (indexedDB) {
+function IndexedDBManager (className, indexedDB) {
     var _instance = this;
 
     this._limit = -1;
@@ -25,7 +25,101 @@ function IndexedDBManager (indexedDB) {
     this.limit = function (l) {
         this._limit = (l);
         return this;
-    }
+    };
+
+    this._decoratePromise = function (promise) {
+        promise.where = function (champ) {
+            _instance._whereClause.push({
+                clause : 'where',
+                champ :  champ
+            });
+            return promise;
+        };
+
+        promise.and = function (champ) {
+            if (_instance._whereClause.length > 0) {
+                _instance._whereClause.push({
+                    clause : 'and',
+                    champ :  champ
+                });
+            } else {
+                throw "On ne peut pas utiliser and() sans avoir utilisé where() d'abord";
+            }
+            return promise;
+        };
+
+        promise.or = function (champ) {
+            if (_instance._whereClause.length > 0) {
+                _instance._whereClause.push({
+                    clause : 'or',
+                    champ :  champ
+                });
+            } else {
+                throw "On ne peut pas utiliser or() sans avoir utilisé where() d'abord";
+            }
+            return promise;
+        };
+
+        function comparaison (clause, comparaison, valeur) {
+            clause.comparaison = comparaison;
+            clause.valeur = valeur;
+            return clause;
+        }
+
+        promise.equals = function (value) {
+            if (_instance._whereClause.length > 0) {
+                var dernierIndex = _instance._whereClause.length - 1;
+                _instance._whereClause[dernierIndex] = comparaison(_instance._whereClause[dernierIndex], 'equals', value);
+            } else {
+                throw "On ne peut pas utiliser equals() sans avoir utilisé where() d'abord";
+            }
+
+            return promise;
+        };
+
+        promise.above = function (value) {
+            if (_instance._whereClause.length > 0) {
+                var dernierIndex = _instance._whereClause.length - 1;
+                _instance._whereClause[dernierIndex] = comparaison(_instance._whereClause[dernierIndex], 'above', value);
+            } else {
+                throw "On ne peut pas utiliser above() sans avoir utilisé where() d'abord";
+            }
+
+            return promise;
+        };
+
+        promise.below = function (value) {
+            if (_instance._whereClause.length > 0) {
+                var dernierIndex = _instance._whereClause.length - 1;
+                _instance._whereClause[dernierIndex] = comparaison(_instance._whereClause[dernierIndex], 'below', value);
+            } else {
+                throw "On ne peut pas utiliser below() sans avoir utilisé where() d'abord";
+            }
+
+            return promise;
+        };
+
+        promise.not = function (value) {
+            if (_instance._whereClause.length > 0) {
+                var dernierIndex = _instance._whereClause.length - 1;
+                _instance._whereClause[dernierIndex] = comparaison(_instance._whereClause[dernierIndex], 'not', value);
+            } else {
+                throw "On ne peut pas utiliser not() sans avoir utilisé where() d'abord";
+            }
+
+            return promise;
+        };
+
+        promise.limit = function (value) {
+            _instance._whereClause.push({
+                clause : 'limit',
+                valeur : value
+            });
+            return promise;
+        };
+
+        return promise;
+    };
 
     /**
      * Récupère un élément
@@ -33,7 +127,7 @@ function IndexedDBManager (indexedDB) {
      * @param {number} id           L'identifiant de l'élément à récupérer
      * @returns {Promise}           Une promise qui résout à l'instance de l'objet récupéré
      */
-    this.get = function (className, id) {
+    this.get = function (id) {
         return indexedDB[this._slug(className)].get(id);
     };
 
@@ -42,15 +136,19 @@ function IndexedDBManager (indexedDB) {
      * @param {string} className    Le nom de la classe des objets à récupérer
      * @return {Promise}            Une promise qui résout à une collection d'objets
      */
-    this.all = function (className) {
+    this.all = function () {
         if (this._limit >= 0) {
-            return new Promise(function (resolve) {
-                resolve(indexedDB[_instance._slug(className)].limit(_instance._limit));
-            });
+            return this._decoratePromise(new Promise(function (resolve) {
+                setTimeout(function () {
+                    resolve(indexedDB[_instance._slug(className)].limit(_instance._limit));
+                }, 10);
+            }));
         } else {
-            return new Promise(function (resolve) {
-                resolve(indexedDB[_instance._slug(className)].toCollection());
-            });
+            return this._decoratePromise(new Promise(function (resolve) {
+                setTimeout(function () {
+                    resolve(indexedDB[_instance._slug(className)].toCollection());
+                }, 10);
+            }));
         }
     };
 
@@ -60,14 +158,14 @@ function IndexedDBManager (indexedDB) {
      * @param {object} object       L'objet à persisiter
      * @return {Promise}            Une promise qui résout à l'objet enregistré
      */
-    this.save = function (className, object) {
+    this.save = function (object) {
         return new Promise(function (resolve, reject) {
             // On détermine la clé primaire de l'objet
             var id = object.id_nb;
             // Si l'objet a une clé primaire
             if (id !== null) {
                 // On vérifie l'exitence de l'objet dans la base
-                _instance.get(className, id)
+                _instance.get(id)
                     .then(function (currentObject) {
                         // Si l'objet exite, currentObject est la versio en base (obsolète)
                         // Sinon, c'est "undefined"
@@ -123,7 +221,7 @@ function IndexedDBManager (indexedDB) {
      * @param {Array} data          Tableau contenant les objets à insérer
      * @return {Promise<Key>|*}
      */
-    this.bulkSave = function (className, data) {
+    this.bulkSave = function (data) {
         return indexedDB[_instance._slug(className)].bulkPut(data);
     };
 
@@ -133,11 +231,11 @@ function IndexedDBManager (indexedDB) {
      * @param {number} id           L'identifiant de l'enregistrement à supprimer
      * @returns {Promise}           Un promise qui résout à l'id de l'objet supprimé
      */
-    this.delete = function (className, id) {
+    this.delete = function (id) {
         return indexedDB[_instance._slug(className)].delete(id);
     };
 
-    this.bulkDelete = function (className, ids) {
+    this.bulkDelete = function (ids) {
         return indexedDB[_instance._slug(className)].bulkDelete(ids);
     };
 
@@ -146,9 +244,15 @@ function IndexedDBManager (indexedDB) {
      * @param className
      * @return {Promise<void>|boolean|*}
      */
-    this.clearStore = function (className) {
+    this.clearStore = function () {
         return indexedDB[_instance._slug(className)].clear();
     };
 
     return this;
+}
+
+function IndexedDBManagerFactory (indexedDB) {
+    return function (className) {
+        return new IndexedDBManager(className, indexedDB);
+    }
 }

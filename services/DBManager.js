@@ -10,11 +10,13 @@
  * @param {IndexedDBManager} localManager   Service Manager pour la base de données locale utilisé en fallback
  * @constructor
  */
-function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
+function DBManager (className, IndexedDB, restService, requestQueue, localManager, $q) {
     var _instance = this;
+    this._localManager = localManager(className);
 
     this._limit = -1;
 
+    this._whereClause = [];
 
     /**
      * Renvoie le nom de la table pour la classe donnée
@@ -26,9 +28,160 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
         return className.substr(3).toLowerCase();
     };
 
-    this.limit = function (limit) {
-       this._limit = limit;
-       return this;
+    this._decoratePromise = function (promise) {
+        promise.where = function (champ) {
+            _instance._whereClause.push({
+                clause : 'where',
+                champ :  champ
+            });
+            return promise;
+        };
+
+        promise.and = function (champ) {
+            if (_instance._whereClause.length > 0) {
+                _instance._whereClause.push({
+                    clause : 'and',
+                    champ :  champ
+                });
+            } else {
+                throw "On ne peut pas utiliser and() sans avoir utilisé where() d'abord";
+            }
+            return promise;
+        };
+
+        promise.or = function (champ) {
+            if (_instance._whereClause.length > 0) {
+                _instance._whereClause.push({
+                    clause : 'or',
+                    champ :  champ
+                });
+            } else {
+                throw "On ne peut pas utiliser or() sans avoir utilisé where() d'abord";
+            }
+            return promise;
+        };
+
+        function comparaison (clause, comparaison, valeur) {
+            clause.comparaison = comparaison;
+            clause.valeur = valeur;
+            return clause;
+        }
+
+        promise.equals = function (value) {
+            if (_instance._whereClause.length > 0) {
+                var dernierIndex = _instance._whereClause.length - 1;
+                _instance._whereClause[dernierIndex] = comparaison(_instance._whereClause[dernierIndex], 'equals', value);
+            } else {
+                throw "On ne peut pas utiliser equals() sans avoir utilisé where() d'abord";
+            }
+
+            return promise;
+        };
+
+        promise.above = function (value) {
+            if (_instance._whereClause.length > 0) {
+                var dernierIndex = _instance._whereClause.length - 1;
+                _instance._whereClause[dernierIndex] = comparaison(_instance._whereClause[dernierIndex], 'above', value);
+            } else {
+                throw "On ne peut pas utiliser above() sans avoir utilisé where() d'abord";
+            }
+
+            return promise;
+        };
+
+        promise.below = function (value) {
+            if (_instance._whereClause.length > 0) {
+                var dernierIndex = _instance._whereClause.length - 1;
+                _instance._whereClause[dernierIndex] = comparaison(_instance._whereClause[dernierIndex], 'below', value);
+            } else {
+                throw "On ne peut pas utiliser below() sans avoir utilisé where() d'abord";
+            }
+
+            return promise;
+        };
+
+        promise.not = function (value) {
+            if (_instance._whereClause.length > 0) {
+                var dernierIndex = _instance._whereClause.length - 1;
+                _instance._whereClause[dernierIndex] = comparaison(_instance._whereClause[dernierIndex], 'not', value);
+            } else {
+                throw "On ne peut pas utiliser not() sans avoir utilisé where() d'abord";
+            }
+
+            return promise;
+        };
+
+        promise.limit = function (value) {
+            _instance._whereClause.push({
+                clause : 'limit',
+                valeur : value
+            });
+            return promise;
+        };
+
+        return promise;
+    };
+
+    function comparaisonToSQL (comparaison) {
+        var ret = '';
+
+        switch (comparaison) {
+            default:
+            case 'equals':
+                ret = '=';
+                break;
+            case 'above':
+                ret = '>';
+                break;
+            case 'below':
+                ret = '<';
+                break;
+            case 'not':
+                ret = '<>';
+                break;
+        }
+
+        return ret;
+    }
+
+    function escapeValueForSQL (value) {
+        var ret;
+        switch (typeof value) {
+            default:
+            case 'string':
+                ret = '"' + value + '"';
+                break;
+            case 'number':
+                ret = value;
+                break;
+            case 'object':
+                if (value instanceof Date) {
+                    ret = value.getTime();
+                } else if (value.hasOwnProperty('id_nb')) {
+                    ret = value.id_nb;
+                }
+                break;
+        }
+
+        return ret;
+    }
+
+    this._serializedWhereClause = function () {
+       var swc = '';
+
+       _instance._whereClause.map(function (item) {
+           swc += item.clause;
+           if (item.hasOwnProperty('champ')) {
+               swc += ' `' + item.champ + '`';
+
+               if (item.hasOwnProperty('comparaison')) {
+                   swc += ' ' + comparaisonToSQL(item.comparaison);
+               }
+           }
+           swc += ' ' + escapeValueForSQL(item.valeur) + ' ';
+        });
+
+       return encodeURI(swc);
     };
 
     /**
@@ -36,47 +189,61 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
      * @param {string} className    Le nom de la classe des objets à récupérer
      * @return {Promise}            Une promise qui résout à une collection d'objets
      */
-    this.all = function (className) {
+    this.all = function () {
         var url = _instance._slug(className) + '.php?action=get';
-        if (this._limit >= 0) {
-            url += '&limit=' + this._limit;
-        }
 
-        return $q(function (resolve, reject) {
-            // Si on une connection réseau
-            if (window.navigator.onLine) {
-                // Envoie d'une requête GET : http://api-url.api/slug/
-                restService.get(url)
-                    .then(function (objects) {
-                        var modelArray = [];
-                        // hydratation du résultat
-                        objects.forEach(function (object) {
-                            var instance = new window[className];
-                            instance.hydrater(object)
-                            modelArray.push(instance);
+        return _instance._decoratePromise($q(function (resolve, reject) {
+            setTimeout(function () {
+                if (_instance._whereClause.length !== 0) {
+                    url += '&where=' + _instance._serializedWhereClause();
+                }
+                // Si on une connection réseau
+                if (window.navigator.onLine) {
+                    // Envoie d'une requête GET : http://api-url.api/slug/
+                    restService.get(url)
+                        .then(function (objects) {
+                            var modelArray = [];
+                            // hydratation du résultat
+                            objects.forEach(function (object) {
+                                var instance = new window[className];
+                                instance.hydrater(object);
+                                modelArray.push(instance);
+                            });
+
+                            // On efface la table locale et on insère tout
+                            _instance._localManager.clearStore();
+                            _instance._localManager.bulkSave(objects)
+                                .then(function () {
+                                    resolve(modelArray); // Résolution
+                                })
+                                .catch(reject);
                         });
+                    _instance._limit = -1;
+                    _instance._whereClause = [];
+                }
+                else {
+                    // Si on n'a pas de réseau,
+                    // On lit les données dans la base locale
+                    console.log("No network reading locally");
 
-                        // On efface la table locale et on insère tout
-                        localManager.clearStore(className);
-                        localManager.bulkSave(className, objects)
-                            .then(function () {
-                                resolve(modelArray); // Résolution
-                                _instance._limit = -1;
-                            })
-                            .catch(reject);
+                    var localPromise = _instance._localManager
+                        .all();
+
+                    _instance._whereClause.map(function (item) {
+                        if (item.hasOwnProperty('comparison')) {
+                            localPromise[item.clause](item.champ);
+                            localPromise[item.comparaison](item.value);
+                        }
                     });
-            }
-            else {
-                // Si on n'a pas de réseau,
-                // On lit les données dans la base locale
-                console.log("No network reading locally");
-                localManager
-                    .limit(_instance._limit)
-                    .all(className)
-                    .then(resolve);
-                _instance._limit = -1;
-            }
-        });
+
+                    localPromise.then(resolve);
+
+                    _instance._limit = -1;
+                    _instance._whereClause = [];
+                }
+            }, 10);
+
+        }));
     };
 
     /**
@@ -85,33 +252,38 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
      * @param {number} id           L'identifiant de l'élément à récupérer
      * @returns {Promise}           Une promise qui résout à l'instance de l'objet récupéré
      */
-    this.get = function (className, id) {
-        return $q(function (resolve, reject) {
-            if (window.navigator.onLine) {
-                // Envoie d'une requète GET : http://api-url.api/slugs/id
-                restService.get(_instance._slug(className) + ".php?action=get&id=" + encodeURI(id))
-                    .then(function (response) { // Cas de succès de la requête REST
-                        var model = new window[className](response); // On instancie le model
-                        model.hydrater(response);
+    this.get = function (id) {
+        var url = _instance._slug(className) + '.php?action=get&id=' + encodeURI(id);
 
-                        // On enregistre dans la base
-                        localManager.save(className, response)
-                            .then(function () {
-                                resolve(model);
-                            }) // Sucès
-                            .catch(reject); // Échec
-                    })
-                    .catch(reject); // Échec de la requète REST
-            }
-            else {
-                // Si on n'a pas de réseau,
-                // On lit les données dans la base locale
-                console.log("No network reading locally");
-                localManager.get(className, id)
-                    .then(resolve)
-                    .catch(reject);
-            }
-        });
+        return _instance._decoratePromise($q(function (resolve, reject) {
+            setTimeout(function () {
+                if (window.navigator.onLine) {
+                    // Envoie d'une requète GET : http://api-url.api/slugs/id
+                    restService.get(url)
+                        .then(function (response) { // Cas de succès de la requête REST
+                            var model = new window[className](response); // On instancie le model
+                            model.hydrater(response);
+
+                            // On enregistre dans la base
+                            _instance._localManager.save(response)
+                                .then(function () {
+                                    resolve(model);
+                                }) // Sucès
+                                .catch(reject); // Échec
+                        })
+                        .catch(reject); // Échec de la requète REST
+                }
+                else {
+                    // Si on n'a pas de réseau,
+                    // On lit les données dans la base locale
+                    console.log("No network reading locally");
+                    _instance._localManager.get(id)
+                        .then(resolve)
+                        .catch(reject);
+                }
+            }, 10);
+
+        }));
     };
 
     /**
@@ -120,22 +292,23 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
      * @param {object} object       L'objet à mettre à jour
      * @return {Promise}            Une promise qui résout à l'objet mis à jour
      */
-    this.update = function (className, object) {
+    this.update = function (object) {
         // On récupère la clé primaire
         var pK = object.id_nb;
+        var url = _instance._slug(className) + '.php?action=get&id=' + pK;
 
         return $q(function (resolve, reject) {
             // Si on a une connection réseau
             if (window.navigator.onLine) {
                 // MERGE:  On fusionne notre version à celle du serveur
-                restService.merge(_instance._slug(className) + '.php?action=get&id=' + pK, object)
+                restService.merge(url, object)
                     .then(function (mergedObject) {
                         // mergedObject est un objet valide à mettre à jour, timestamps mis à jour
                         // Envoi d'une requête PUT : http://api-url.api/slugs/pK
-                        restService.put(_instance._slug(className) + '.php?action=update&id=' + pK, mergedObject)
+                        restService.put(url, mergedObject)
                             .then(function (updatedObject) {
                                 // On enregistre la nouvelle version dans la base
-                                localManager.save(className, updatedObject)
+                                _instance._localManager.save(updatedObject)
                                     .then(function (result) {
                                         // Hydratation de la classe
                                         var resultInstance = new window[className]();
@@ -155,7 +328,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
                 // Mise en attente
                 requestQueue.put(request);
                 // enregistrement dans la base locale
-                localManager.save(className, object)
+                _instance._localManager.save(object)
                     .then(function (result) {
                         resolve(object);
                     }) // Succès
@@ -170,7 +343,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
      * @param {object} object       L'objet à insérer dans la base
      * @return {Promise}            Une Promise qui résout à l'objet inséré
      */
-    this.persist = function (className, object) {
+    this.persist = function (object) {
         return $q(function (resolve, reject) {
             // Si on est en ligne, on envoie la requète sur le serveur
             // Si tout va bien, on enregistre dans la DB
@@ -181,7 +354,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
                 restService.post(_instance._slug(className) + '.php?action=create', object)
                     .then(function (object) { // Cas de succès de la requète REST
                         // On stocke dans la base locale
-                        localManager.save(className, object)
+                        _instance._localManager.save(object)
                             .then(function (result) {
                                 var resultInstance = new window[className]();
                                 resultInstance.hydrater(object);
@@ -196,7 +369,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
                 console.log('No network queuing POST REQUEST');
                 var request = new REQRequest(null, 'post', _instance._slug(className) + '.php?action=create', object);
                 requestQueue.put(request);
-                localManager.save(className, object)
+                _instance._localManager.save(object)
                     .then(function (result) {
                         resolve(object);
                     }) // Succès
@@ -211,7 +384,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
      * @param {object} object       L'objet à persister
      * @return {Promise}            Une Promise qui résout à l'objet inséré ou mis à jour
      */
-    this.save = function (className, object) {
+    this.save = function (object) {
         var modifications = {}; // Initialisation des modifications
         var now = +new Date(); // Timestamp de maintenant
         var plainObject = {};
@@ -233,16 +406,16 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
             var pK = object.id_nb;
 
             // On regarde s'il exite une enregistrement local avec cet id
-            localManager.get(className, pK)
+            _instance._localManager.get(pK)
                 .then(function (existingObject) {
                     // Si un objet existe, on fait un update
                     if (typeof existingObject !== 'undefined') {
-                        _instance.update(className, plainObject)
+                        _instance.update(plainObject)
                             .then(resolve)
                             .catch(reject);
                     } else {
                         // Sinon on fait un nouvel enregistrement
-                        _instance.persist(className, plainObject)
+                        _instance.persist(plainObject)
                             .then(resolve)
                             .catch(reject);
                     }
@@ -257,7 +430,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
      * @param {[]} objects           Un tableau d'instances à insérer ou mettre à jour
      * @returns {$q}
      */
-    this.bulkSave = function (className, objects) {
+    this.bulkSave = function (objects) {
         var plainObjects = [];
         objects.map(function (object) {
             var plainObject = {};
@@ -284,7 +457,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
                             instance.hydrater(object);
                             return instance;
                         });
-                        localManager.bulkSave(className, objects);
+                        _instance._localManager.bulkSave(className, objects);
                         resolve(objects);
 
                     })
@@ -294,7 +467,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
             return $q(function (resolve, reject) {
                 var request = new REQRequest(null, 'put', _instance._slug(className) + '.php?action=update', plainObjects);
                 requestQueue.put(request);
-                localManager.bulkSave(className, plainObjects)
+                _instance._localManager.bulkSave(plainObjects)
                     .then(function () {
                         resolve(objects);
                     })
@@ -311,7 +484,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
      * @param id
      * @return {Promise}
      */
-    this.delete = function (className, id) {
+    this.delete = function (id) {
         return $q(function (resolve, reject) {
             // Si on est en ligne, on envoie la requète sur le serveur
             // Si tout va bien, on enregistre dans la DB
@@ -320,7 +493,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
                 restService.delete(_instance._slug(className) + ".php?action=delete&id=" + id)
                     .then(function (responseKey) { // Cas de succès de la requête AJAX
                         // Enregistrement dans la DB
-                        localManager.delete(className, id)
+                        _instance._localManager.delete(className, id)
                             .then(resolve) // Succès
                             .catch(reject); // Échec
                     })
@@ -331,7 +504,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
                 console.log('No network queuing DELETE REQUEST');
                 var request = new REQRequest(null, 'post', _instance._slug(className) + ".php?action=delete&id=" + id);
                 requestQueue.put(request);
-                localManager.delete(className, id)
+                _instance._localManager.delete(className, id)
                     .then(resolve) // Succès
                     .catch(reject); // Échec
             }
@@ -352,7 +525,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
             if (window.navigator.onLine) {
                 restService.post(_instance._slug(className) + '.php?action=delete', ids)
                     .then(function (ids) {
-                        localManager.bulkDelete(className, ids)
+                        _instance._localManager.bulkDelete(className, ids)
                             .then(function () {
                                 resolve(ids);
                             })
@@ -362,7 +535,7 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
             } else {
                 var request = new REQRequest(null, 'post', _instance._slug(className) + '.php?action=delete', ids);
                 requestQueue.put(request);
-                localManager.bulkDelete(className, ids)
+                _instance._localManager.bulkDelete(className, ids)
                     .then(function () {
                         resolve(ids);
                     })
@@ -372,4 +545,10 @@ function DBManager (IndexedDB, restService, requestQueue, localManager, $q) {
     };
 
     return this;
+}
+
+function dbManagerFactory (IndexedDB, restService, requestQueue, localManager, $q) {
+    return function (className) {
+        return new DBManager(className, IndexedDB, restService, requestQueue, localManager, $q);
+    }
 }
