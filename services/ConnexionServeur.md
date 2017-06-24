@@ -4,16 +4,18 @@
 - [Utilisation](#utilisation)
   1. [DBManager.all()](#dbmanagerall)
   2. [DBManager.get()](#dbmanagergetidentifiant)
-  3. [DBManager.limit()](#dbmanagerlimitlimite-de-résultats)
-  4. [DBManager.save()](#dbmanagersaveobjet)
-  5. [DBManager.delete()](#dbmanagerdeletenidentifiant)
-  6. [DBManager.bulkSave()](#dbmanagerbulksaveobjects)
-  7. [DBManager.bulkDelete()](#dbmanagerbulkdeleteobjects)
+  3. [Fonctions de filtrage](#fonctions-de-filtrage)
+  4. [DBManager.limit()](#dbmanagerlimitlimite-de-résultats)
+  5. [DBManager.save()](#dbmanagersaveobjet)
+  6. [DBManager.delete()](#dbmanagerdeletenidentifiant)
+  7. [DBManager.bulkSave()](#dbmanagerbulksaveobjects)
+  8. [DBManager.bulkDelete()](#dbmanagerbulkdeleteobjects)
 - [Authentification](#authentification)
 - [Considérations pour le serveur](#considérations-pour-le-serveur)
   1. [Méthodes](#méthodes)
   2. [Forme des urls](#forme-des-urls)
   3. [Format des données](#format-des-données)
+  4. [Exemples de traîtements côté serveur](#exemples-de-traîtements-côté-serveur)
 - [Fonctionnement](#fonctionnement)
   1. [Récupération de données](#récupération-de-données)
   2. [Création d'un enregistrement](#création-dun-enregistrement)
@@ -436,7 +438,7 @@ try {
 `DBManager.all()` et `DBManager.delete()` utilisent la méthode HTTP **`POST`**
 
 ### Forme des urls
-Les urls sont de la forme suivante :
+Les urls sont de la forme suivante :  
 `http://{servername}/php/{model}.php?action={action}[&id={identifiant}][&where={where}]`  
 - **servername**: le nom de domaine du serveur qui héberge l'application
 - **model**: le nom du modèle, en minuscule sans préfixe du package.  
@@ -444,11 +446,13 @@ Par exemple : `ANNAnnonce` -> `annonce`, `LIELieu` -> `lieu`
 - **action**: l'action que l'on souhaite effectuer :
   * `create` : insérer un nouvel enregistrement
   * `read` : lire des données
-  * `updtate` : mettre à jour un enregistrement
+  * `update` : mettre à jour un enregistrement
   * `delete` : supprimer un enregistrement
 - **id** *(pour `read`, `update` et `delete`)*: l'identifiant de l'enregistremnt.  
-- **where**: Une clause where pour filtrer les éléments
 Pour `read`, le paramètre `id` est **optionel**. Il ne sera présent que si l'on souhaite lire qu'un seul enregistrement.
+
+- **where**: Une clause where pour filtrer les éléments.  
+Il s'agit de d'une chaîne de caractères qui est en fait la partie "WHERE" d'une requête SQL.
 
 ### Format des données
 Les données envoyées au serveur sont au format JSON.
@@ -464,6 +468,132 @@ header('Content-Type: application/json;charset=utf8;');
 echo $réponse_du_serveur
 ```
 
+### Exemples de traîtements côté serveur
+#### Cas général
+```php
+/**
+ * Permet de récupérer l'action
+ */
+$action = $_GET['action'];
+
+// Permet de récupérer l'id de l'annonce
+if (isset($_GET['id']))
+    $id = $_GET['id'];
+else
+    $id = null;
+
+// Permet de récupéere la clause where
+if (isset($_GET['where']))
+    $where = $_GET['where'];
+else
+    $where = false;
+
+// On choisit la focntion à exécuter en fonction 
+// de la variable $action
+switch ($action) {
+    // Lecture
+    case "get" :
+        // S'il n'y pas de clause WHERE
+        if (!$where)
+            echo selectAnnonce($db, $id);
+        // S'il y en a une
+        else
+            echo selectAnnonce($db, $id, $where);
+
+        break;
+        
+    // Création
+    case "create":
+        echo createAnnonce($db, $_POST);
+        break;
+        
+    // Mis à jour
+    case "update":
+        echo updateAnnonce($db, $_POST);
+        break;
+        
+    // Suppression
+    case "delete" :
+        deleteAnnonce($id);
+        break;
+}
+```
+#### Lecture
+```php
+/**
+ * Permet de récupérer les annonces par rapport à l'ID
+ * @param PDO $db           L'instance de PDO représentant la connexion à la BDD
+ * @param string|int $id    Indentifiant de l'annonce
+ * @param string $where     Clause where SQL
+ * @return string           Une annonce ou un tableau d'annonces au format JSON
+ */
+function selectAnnonce($db, $id, $where = '')
+{
+    // Variable contenant les données reçues de la base de données
+    $donnees_ar = [];
+    
+    try {
+        if (!isset($id)) { // Réponse à DBManager.all()
+            $req = $db->prepare("SELECT * FROM `annonce` $where");
+            $req->execute();
+            $donnees_ar = $req->fetchAll(PDO::FETCH_ASSOC);
+        } else { // Réponse à DBManager.get(id)
+            $req = $db->prepare("SELECT * FROM `annonce` WHERE id_nb = :id_nb");
+            $req->execute(array(
+                'id_nb' => $id
+            ));
+            $donnees_ar = $req->fetch(PDO::FETCH_ASSOC);
+        }
+    } catch (Exception $e) {
+        echo 'ERROR: ' . $e->getMessage();
+        return json
+    }
+    
+    return json_encode($donnees);
+}
+```
+#### Création
+```php
+function createAnnonce($db, $data) {
+     // Normalement on ne met pas des ... mais vraiment les noms des champs
+    $req = $db->prepare("INSERT INTO `annonce` (nom_str ...) VALUES (:nom ...)");
+    $result = $req->execute($data);
+    
+    // C'est très mauvais ça, on ne récupère pas l'identifiant du nouvel enregistrement
+    if ($result) {
+        return json_encode($data);
+    }
+}
+```
+
+#### Mise à jour
+```php
+function updateAnnonce($db, $data) {
+    if (isset($_GET['id']) { // Mise à jour d'un seul élément
+        
+        $req = $db->prepare("UPDATE `annonce` SET nom_str=:nom_str, ... WHERE id_nb = :id_nb");
+        $result = $req->execute($data);
+        
+        if ($result) {
+            return json_encode($data);
+        }
+    } else { // Mise à jour ou insertion de plusieurs éléments
+    // TODO: Utiliser peut-être ON DUPLICATE KEY UPDATE pour une insertion en masse
+    // ou, plus idempotent, un table temporaire et MERGE
+    }
+}
+```
+#### Suppression
+```php
+function deleteAnnonce($db, $id) {
+    $req = $db->prepare("DELETE FROM `annonce` WHERE id_nb = :id');
+    $result = $req->execute(['id' => $id]);
+    
+    if ($result) {
+        return $id;
+    }
+}
+```
 ## Fonctionnement
 ### Récupération de données
 #### Online
