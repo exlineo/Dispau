@@ -24,7 +24,7 @@ function IndexedDB() {
             "demandeAmi": "++id_nb, demandeur_nb, cible_nb, dateDemande_dat, modifications",
 
             "lieu": "++id_nb, nom_str, idChat_nb, longitude_nb, latitude_nb, annonce_ar, sousLieu_ar, utilisateur_ar, adresse_str, description_str, image_str, idAdmin_nb, modifications",
-
+// TODO: Corriger les suffxes de date => date_dat
             "message": "++id_nb, idChat_nb, date_date, banni_nb, contenu_str, idExpediteur_nb, modifications",
 
             "sousLieu": "++id_nb, nom_str, lieuParent_nb, lieuPrincipal_nb, sousLieu_ar, modifications",
