@@ -68,6 +68,11 @@ switch ($action) {
 
         break;
 
+    case "create" :
+        $data = json_decode(file_get_contents("php://input"), true);
+        echo insertAnnonce($db, $data);
+        break;
+
     case "delete" :
         deleteAnnonce($id);
         break;
@@ -99,13 +104,94 @@ function selectAnnonce($db, $id, $where = '')
     } catch (Exception $e) {
         echo 'ERROR: ' . $e->getMessage();
     }
-
-
     //return $donnees;
 }
 
-function insertAnnonce()
+/**
+ * Insère une annonce dans la base de données
+ * @param PDO       $db     La connection à la base de données
+ * @param []        $data   Les données à insérer
+ * @return string           Une chaîne JSON représentant les données insérée
+ */
+function insertAnnonce($db, $data)
 {
+    // Il ne faut pas d'id, c'est le SGBD qui nous la donne
+    // On supprime la clé pour ne pas insérer de fausses valeurs
+    unset($data['id_nb']);
+
+    // Ce tableau devra servir à gérer les association "one to many" et "many to one"
+    // TODO: taîter les associations
+    $assocs = [];
+
+    // Pour éviter les erreurs avec les associations
+    // on supprime les champs avec des associations (qui finnissent pas '_ar')
+    foreach ($data as $key => $value) {
+        // Les trois lignes qui suivent servent à trouver les champs
+        // qui finissent pas '_ar'
+        $l = strlen('_ar');
+        $substr = substr($key, -$l);
+
+        if ($substr === '_ar') {
+            // Suppression des clés qui poseront promblème
+            $assoc[$key] = $data[$key];
+            unset($data[$key]);
+        }
+    };
+
+    // On récupère la liste des champs à mettre à jour
+    $champs_ar = array_keys($data);
+    // Création de la chaîne représentant la liste des champs à insérer
+    $champs_str = implode(', ', $champs_ar);
+
+    // Création des la liste des paramètres à passer à PDO::prepare
+    $placeholders_ar = array_map(function ($champ) {
+        return ":$champ";
+    }, $champs_ar);
+    // Création de la chaîne avec les paramètres
+    $placeholders_str = implode(', ', $placeholders_ar);
+
+    // Préparation de la requête d'insertion
+    $req = $db->prepare("INSERT INTO `annonce` ($champs_str) VALUES ($placeholders_str)");
+
+    // Requête de récupération du dernier id inséré
+    $lastInsertIdReq = $db->prepare("SELECT LAST_INSERT_ID();");
+    // Variable pour récupérer le dernier id inséré
+    // On lui donne un fausse valeur
+    $id_nb = -1;
+
+    // On commence la transaction SQL
+    try {
+        $db->beginTransaction();
+        // On exécute la requête, on envoie l'erreur si elle echoue
+        // TODO: Améliorer la gestion d'erreur
+        if (!$req->execute($data)) {
+            $error = $req->errorInfo();
+            echo $error;
+        }
+
+        // Récupération du dernier Id inséré
+        $lastInsertIdReq->execute();
+        $id_nb = $lastInsertIdReq->fetch();
+
+        // La transaction s'est bien passée, on commit
+        $db->commit();
+
+        // Ajout de l'identifiant dans les données à renvoyer
+        $data['id_nb'] = $id_nb[0];
+
+        // On remets les association to-many
+        // TODO: Traîer les associations
+        foreach ($assocs as $key => $value) {
+            $data[$key] = $value;
+        }
+
+        // Renvoie du résultat
+        return json_encode($data);
+    } catch (Exception $e) {
+        $db->rollback();
+        // TODO: Améliorer la gestion des erreurs
+        return json_encode([ 'message' => 'Erreur lors de l\'insertion d\'une annonce']);
+    }
 
 }
 
