@@ -11,6 +11,7 @@ function IndexedDBManager (className, indexedDB) {
     var _instance = this;
 
     this._limit = -1;
+    this._whereClause = [];
 
     /**
      * Renvoie le nom de la table pour la classe donnée
@@ -137,10 +138,22 @@ function IndexedDBManager (className, indexedDB) {
      * @return {Promise}            Une promise qui résout à une collection d'objets
      */
     this.all = function () {
-        if (this._limit >= 0) {
+        if (this._whereClause.length > 0) {
             return this._decoratePromise(new Promise(function (resolve) {
                 setTimeout(function () {
-                    resolve(indexedDB[_instance._slug(className)].limit(_instance._limit));
+                    var slug = _instance._slug(className);
+                    var collection = indexedDB[slug];
+
+                    _instance._whereClause.map(function (item) {
+                        if (item.hasOwnProperty('comparaison')) {
+                            var comparaison = item.comparaison === 'not' ? 'notEqual' : item.comparaison;
+                            collection = collection[item.clause](item.champs)[comparaison](item.valeur);
+                        } else {
+                            collection = collection[item.clause](item.valeur);
+                        }
+                    });
+
+                    resolve(collection);
                 }, 10);
             }));
         } else {
