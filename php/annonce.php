@@ -73,6 +73,12 @@ switch ($action) {
         echo insertAnnonce($db, $data);
         break;
 
+    case "update" :
+        $data = json_decode(file_get_contents("php://input"), true);
+        if (isset($_GET['id'])) {
+            echo updateAnnonce($db, $id, $data);
+        }
+
     case "delete" :
         deleteAnnonce($id);
         break;
@@ -195,8 +201,9 @@ function insertAnnonce($db, $data)
 
 }
 
-function updateAnnonce()
+function updateAnnonce($db, $id, $data)
 {
+    return json_encode($data);
     /*$db = db();
 
     $nom_str = $_POST['nom_str'];
