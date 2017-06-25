@@ -129,7 +129,9 @@ function IndexedDBManager (className, indexedDB) {
      * @returns {Promise}           Une promise qui résout à l'instance de l'objet récupéré
      */
     this.get = function (id) {
-        return indexedDB[this._slug(className)].get(id);
+        return new Promise(function (resolve, reject) {
+            resolve(indexedDB[_instance._slug(className)].where('id_nb').equals(id).first());
+        });
     };
 
     /**
