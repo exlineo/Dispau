@@ -4,17 +4,17 @@
 
 /**
  * Manager pour la base de données distant (REST)
- * @param {IndexedDB} IndexedDB               Le service d'accès à la base de données
+ * @param {string} className            Le nom de la classe du manager
+ * @param {IndexedDB} IndexedDB         Le service d'accès à la base de données
  * @param {AjaxService} restService     Le service d'accès à l'API REST
  * @param {RequestQueue} requestQueue   Le service de mise en attente des requêtes
  * @param {IndexedDBManager} localManager   Service Manager pour la base de données locale utilisé en fallback
+ * @param {$q} $q                       Le service de Promise Angular
  * @constructor
  */
 function DBManager (className, IndexedDB, restService, requestQueue, localManager, $q) {
     var _instance = this;
     this._localManager = localManager(className);
-
-    this._limit = -1;
 
     this._whereClause = [];
 
@@ -28,15 +28,36 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
         return className.substr(3).toLowerCase();
     };
 
+    /**
+     * Méthode pour ajouter les fonctions de filtrage à la promise
+     * @param {$q} promise
+     * @returns {$q}
+     * @private
+     */
     this._decoratePromise = function (promise) {
+        /**
+         * Ajoute une clause 'where'
+         * @param {string} champ
+         * @returns {$q}
+         */
         promise.where = function (champ) {
-            _instance._whereClause.push({
-                clause : 'where',
-                champ :  champ
-            });
+            if (_instance._whereClause.length === 0) {
+                _instance._whereClause.push({
+                    clause: 'where',
+                    champ:  champ
+                });
+            } else {
+                throw 'On ne peut where() qu\'en premier';
+            }
+
             return promise;
         };
 
+        /**
+         * Ajoute une clause 'and'
+         * @param {string} champ
+         * @returns {$q}
+         */
         promise.and = function (champ) {
             if (_instance._whereClause.length > 0) {
                 _instance._whereClause.push({
@@ -49,6 +70,11 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
             return promise;
         };
 
+        /**
+         * Ajoute une clause 'or'
+         * @param {string} champ
+         * @returns {$q}
+         */
         promise.or = function (champ) {
             if (_instance._whereClause.length > 0) {
                 _instance._whereClause.push({
@@ -61,12 +87,24 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
             return promise;
         };
 
+        /**
+         * Ajoute la partie comparaison de la clause
+         * @param {{clause: string, champ: string}} clause  La clause where, ou and, ou or
+         * @param {string} comparaison  La comparaion (equals, above, below, not)
+         * @param {*} valeur    La valeur à comparer
+         * @returns {{clause: string, champ: string, comparaison: string, valeur: *}}
+         */
         function comparaison (clause, comparaison, valeur) {
             clause.comparaison = comparaison;
             clause.valeur = valeur;
             return clause;
         }
 
+        /**
+         * Signifie qu'on attend l'égalité
+         * @param {*} value
+         * @returns {$q}
+         */
         promise.equals = function (value) {
             if (_instance._whereClause.length > 0) {
                 var dernierIndex = _instance._whereClause.length - 1;
@@ -78,6 +116,11 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
             return promise;
         };
 
+        /**
+         * Signifie qu'on attend la supériorité stricte
+         * @param {*} value
+         * @returns {$q}
+         */
         promise.above = function (value) {
             if (_instance._whereClause.length > 0) {
                 var dernierIndex = _instance._whereClause.length - 1;
@@ -89,6 +132,11 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
             return promise;
         };
 
+        /**
+         * Signifie qu'on attend l'ifériorité stricte
+         * @param {*} value
+         * @returns {$q}
+         */
         promise.below = function (value) {
             if (_instance._whereClause.length > 0) {
                 var dernierIndex = _instance._whereClause.length - 1;
@@ -100,6 +148,11 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
             return promise;
         };
 
+        /**
+         * Signifie qu'on attend la différence
+         * @param {*} value
+         * @returns {$q}
+         */
         promise.not = function (value) {
             if (_instance._whereClause.length > 0) {
                 var dernierIndex = _instance._whereClause.length - 1;
@@ -111,6 +164,11 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
             return promise;
         };
 
+        /**
+         * Limite le nombre de résultats
+         * @param {number} value    Le nombre de résultats attendus
+         * @returns {$q}
+         */
         promise.limit = function (value) {
             _instance._whereClause.push({
                 clause : 'limit',
@@ -122,6 +180,11 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
         return promise;
     };
 
+    /**
+     * Transforme l'attribut comparaison d'une clause en verbe SQL
+     * @param {string} [comparaison=equals|above|below|not]
+     * @returns {string} =|>|<|<>
+     */
     function comparaisonToSQL (comparaison) {
         var ret = '';
 
@@ -144,6 +207,13 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
         return ret;
     }
 
+    /**
+     * Encadre les chaînes de double quotes, transforme les Date en timestamp
+     * Transforme les instances de classes en id
+     * @param {*} value
+     * @returns {*}
+     * @private
+     */
     function escapeValueForSQL (value) {
         var ret;
         switch (typeof value) {
@@ -166,6 +236,11 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
         return ret;
     }
 
+    /**
+     * Transforme le tableau de clause en chaîne SQL WHERE ...
+     * @returns {string}
+     * @private
+     */
     this._serializedWhereClause = function () {
        var swc = '';
 
@@ -186,8 +261,7 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
 
     /**
      * Récupère tous les éléments de la table
-     * @param {string} className    Le nom de la classe des objets à récupérer
-     * @return {Promise}            Une promise qui résout à une collection d'objets
+     * @return {$q}            Une promise qui résout à une collection d'objets
      */
     this.all = function () {
         var url = _instance._slug(className) + '.php?action=get';
@@ -218,7 +292,6 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
                                 })
                                 .catch(reject);
                         });
-                    _instance._limit = -1;
                     _instance._whereClause = [];
                 }
                 else {
@@ -238,7 +311,6 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
 
                     localPromise.then(resolve);
 
-                    _instance._limit = -1;
                     _instance._whereClause = [];
                 }
             }, 10);
@@ -248,9 +320,8 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
 
     /**
      * Récupère un élément
-     * @param {string} className    Le nom de la classe
      * @param {number} id           L'identifiant de l'élément à récupérer
-     * @returns {Promise}           Une promise qui résout à l'instance de l'objet récupéré
+     * @returns {$q}           Une promise qui résout à l'instance de l'objet récupéré
      */
     this.get = function (id) {
         var url = _instance._slug(className) + '.php?action=get&id=' + encodeURI(id);
@@ -288,9 +359,8 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
 
     /**
      * Mets à jour un élément
-     * @param {string} className    Le nom de la classe de l'objet
      * @param {object} object       L'objet à mettre à jour
-     * @return {Promise}            Une promise qui résout à l'objet mis à jour
+     * @return {$q}            Une promise qui résout à l'objet mis à jour
      */
     this.update = function (object) {
         // On récupère la clé primaire
@@ -339,9 +409,8 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
 
     /**
      * Enregistre un nouvel enregistrement
-     * @param {string} className    Le nom de la classe de l'objet
      * @param {object} object       L'objet à insérer dans la base
-     * @return {Promise}            Une Promise qui résout à l'objet inséré
+     * @return {$q}            Une Promise qui résout à l'objet inséré
      */
     this.persist = function (object) {
         return $q(function (resolve, reject) {
@@ -380,9 +449,8 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
 
     /**
      * Insère un nouvel enregistrement ou met un enregistrement à jour
-     * @param {string} className    Le nom de la classe de l'objet à insérer ou mettre à jour
      * @param {object} object       L'objet à persister
-     * @return {Promise}            Une Promise qui résout à l'objet inséré ou mis à jour
+     * @return {$q}            Une Promise qui résout à l'objet inséré ou mis à jour
      */
     this.save = function (object) {
         var modifications = {}; // Initialisation des modifications
@@ -426,7 +494,6 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
 
     /**
      * Insère ou mets à jour une collection (tableau) d'éléments
-     * @param {string} className     Le nom de la classe des objets à insérer ou mettre à jour
      * @param {[]} objects           Un tableau d'instances à insérer ou mettre à jour
      * @returns {$q}
      */
@@ -452,7 +519,7 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
             return $q(function (resolve, reject) {
                 restService.put(_instance._slug(className) + '.php?action=update', plainObjects)
                     .then(function (objects) {
-                        var instances = objects.map(function (object) {
+                        objects.map(function (object) {
                             var instance = new window[className]();
                             instance.hydrater(object);
                             return instance;
@@ -480,9 +547,8 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
 
     /**
      * Supprime un enregistrement de la base de données
-     * @param className
      * @param id
-     * @return {Promise}
+     * @return {$q}
      */
     this.delete = function (id) {
         return $q(function (resolve, reject) {
