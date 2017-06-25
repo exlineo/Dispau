@@ -66,14 +66,40 @@ function getLieux($db)
 {
     try
     {
-        $stmt = $db->prepare("SELECT * FROM `lieu`");
-        $stmt->execute();
 
-        while ($data = $stmt->fetchAll(PDO::FETCH_ASSOC))
+        $stmt = $db->prepare("SELECT lieu.*, annonce.id_nb as nb_annonces FROM lieu LEFT OUTER JOIN annonce ON lieu.id_nb = annonce.idLieu_nb");
+        $stmt->execute();
+        $lieux = [];
+        $tempLieu = -1;
+        $tempNbAnn = 0;
+        $index = -1;
+        while ($data = $stmt->fetch(PDO::FETCH_ASSOC))
         {
-            header('Content-Type: application/json;charset=utf8;');
-            echo json_encode($data);
+            //var_dump($data);
+            if($data["id_nb"] != $tempLieu) {
+                $index++;
+                $tempNbAnn = 1;
+                if($data["nb_annonces"]==null){
+                     $data["nb_annonces"] = 0;
+                } else {
+                     $data["nb_annonces"] = 1;
+                }
+                $tempLieu = $data["id_nb"];
+                $lieux[$index] = $data;
+            } else {
+                $tempNbAnn++;
+                $data["nb_annonces"] = $tempNbAnn;
+                $lieux[$index] = $data;
+            }
+
         }
+
+        //header('Content-Type: application/json;charset=utf8;');
+        $json_str = json_encode($lieux);
+        if ($json_str)
+            echo json_encode($lieux);
+        else
+            echo json_last_error_msg();
     }
     catch(Exception $e)
     {

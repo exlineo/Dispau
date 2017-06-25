@@ -1,8 +1,6 @@
-
-
 var pau = {
-    lat : 43.300000,
-    lng : -0.366667
+    lat: 43.300000,
+    lng: -0.366667
 }
 
 //style de la map
@@ -104,37 +102,42 @@ function afficheMap(NgMap, DBManager) {
 
     var vmm = this;
 
-    NgMap.getMap('dispauCarte').then(function(map) {
+    vmm.onClick = function (e, lieu) {
+        console.log(lieu);
+        vmm.lieu = lieu;
+        vmm.map.showInfoWindow('infosCarte', "lieu-" + lieu.id_nb);
+    };
+
+
+    NgMap.getMap('dispauCarte').then(function (map) {
         vmm.map = map;
+
         // ajout du style de la map
         vmm.map.setOptions({styles: styleMap});
 
         vmm.map.setCenter(pau);
 
-        vmm.map.onClick = function() {
+        vmm.map.onClick = function () {
             alert('Carte cliquée');
         }
     });
 
-     DBManager.all('LIELieu')
+    DBManager.all('LIELieu')
         .then(function (lieu) {
             vmm.lieux = lieu;
+            vmm.lieu = vmm.lieux[0];
+            console.log(vmm.lieu);
+
         });
 
 
-    vmm.positions2 = [
-        { pos: [40.71, -0.21], name: 1 }, { pos: [41.72, -0.20], name: 2 },
-        { pos: [40.73, -0.19], name: 3 }, { pos: [40.74, -0.18], name: 4 },
-        { pos: [40.75, -0.17], name: 5 }, { pos: [43.76, -0.16], name: 6 }
-    ];
-
-    vmm.setPositions = function(pos) {
+    vmm.setPositions = function (pos) {
         vmm.positions = angular.copy(pos);
     };
 
     vmm.setPositions(vmm.lieux);
     vmm.currentIndex = 0;
-    vmm.selectNextCustomMarker = function() {
+    vmm.selectNextCustomMarker = function () {
     }
 
 }
