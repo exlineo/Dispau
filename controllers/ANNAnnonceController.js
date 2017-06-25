@@ -31,11 +31,23 @@ function ANNAnnonceController (DBManager, $routeParams) {
      */
     this.model = null;
 
+    var test = true;
+
     // Récupération de l'annonce
     annonceManager.get(vm.id)
         .then(function (annonce) {
             console.log(annonce);
             vm.model = annonce;
+
+            if (test) {
+                annonceManager.save(annonce)
+                    .then(function (annonce) {
+                        console.log("UPDATED", annonce);
+                    })
+                    .catch(function (error) {
+                        console.log("ERROR UPDATIN' : ", error);
+                    });
+            }
         })
         .catch(function (error) {
             console.log(error);
