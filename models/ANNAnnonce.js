@@ -9,16 +9,16 @@ function ANNAnnonce() {
     this.id_nb;
 
     /*identifiant de l'annonce. Cle de la base de donnée*/
-    this.nom_str;
+    this.nom_str = '';
 
     /*nom de l'annonce*/
-    this.image_img;
+    this.image_img = '';
 
     /*nomdu fichier qui contient la photo liée à l'annonce*/
-    this.description_str;
+    this.description_str = '';
 
     /* description de l'annonce en chaine de caractere sans attribut*/
-    this.personnesMax_nb;
+    this.personnesMax_nb = 15;
 
     /*nombre de personnes maximum*/
     this.personnesMin_nb;
@@ -36,30 +36,30 @@ function ANNAnnonce() {
     this.idLieu_nb;
 
     /*Id clé) du Lieu auquel est attaché l'annonce. */
-    this.dateDebut_dat;
+    this.dateDebut_dat = +new Date();
 
     /*Date   limite pour les inscriptions */
-    this.dateFin_dat;
+    this.dateFin_dat = +new Date();
 
     /*date  du début de l'activité de cette annonce*/
-    this.dateFinInscriptions_dat;
+    this.dateFinInscriptions_dat = +new Date();
 
     /*date  de la fin de l'activité*/
-    this.dateCreation_dat;
+    this.dateCreation_dat = +new Date();
 
     /*date de creation de l'annonde. Se met automatiquement*/
-    this.idGestionnaire_nb;
+    this.idGestionnaire_nb = 1;
 
     /* id du gestionnaire */
-    this.validite_bl = false;
+    this.validite_bl = true;
 
     /*booleen annonce validee=true*/
-    this.annulee_bl = false;
+    this.annulee_bl;
 
     /*booleen annonce annulée Pour la recréer, il faut en recréer une, avec un Id different*/
-    this.limiteAge_nb;
+    this.limiteAge_nb = 18;
 
-    /*age minimum requis pour la participation en années*/
+    this.idChat_nb = 1;
 
     this.centresDInterets_ar = [];
     /*Liste des centres d'interets auquels se rapporte cette annonce.¨Pour cibler les éventuels "clients"*/

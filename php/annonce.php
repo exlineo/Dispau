@@ -200,8 +200,8 @@ function insertAnnonce($db, $data)
 function updateAnnonce($db, $id, $data)
 {
     return json_encode($data);
-}
-    /*$db = db();
+
+    $db = db();
 
     $req = $db->prepare();
 }
@@ -216,4 +216,3 @@ function deleteAnnonce($db, $id){
         echo 'ERROR: ' . $e->getMessage();
     }
 }
-*/
