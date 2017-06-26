@@ -284,11 +284,16 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
                                 modelArray.push(instance);
                             });
 
-                            // On efface la table locale et on insère tout
-                            _instance._localManager.clearStore();
-                            _instance._localManager.bulkSave(objects)
+                            // On efface les objets récupéré de la base locale
+                            // et on insère les donénes fraîches
+                            _instance._localManager.bulkDelete(objects)
                                 .then(function () {
-                                    resolve(modelArray); // Résolution
+                                    // Insertion
+                                    _instance._localManager.bulkSave(objects)
+                                        .then(function () {
+                                            resolve(modelArray); // Résolution
+                                        })
+                                        .catch(reject);
                                 })
                                 .catch(reject);
                         });

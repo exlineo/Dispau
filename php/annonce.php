@@ -78,9 +78,10 @@ switch ($action) {
         if (isset($_GET['id'])) {
             echo updateAnnonce($db, $id, $data);
         }
+        break;
 
     case "delete" :
-        deleteAnnonce($id);
+        echo deleteAnnonce($id);
         break;
 }
 
@@ -252,6 +253,8 @@ function deleteAnnonce($id)
         $req->execute(array(
             'id' => $id
         ));
+
+        return $id;
     } catch (Exception $e) {
         echo 'ERROR: ' . $e->getMessage();
     }

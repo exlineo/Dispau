@@ -247,11 +247,18 @@ function IndexedDBManager (className, indexedDB) {
      * @returns {Promise}           Un promise qui résout à l'id de l'objet supprimé
      */
     this.delete = function (id) {
-        return indexedDB[_instance._slug(className)].delete(id);
+        return indexedDB[_instance._slug(className)].where('id_nb').delete();
     };
 
-    this.bulkDelete = function (ids) {
-        return indexedDB[_instance._slug(className)].bulkDelete(ids);
+    this.bulkDelete = function (objects) {
+        var id_ar = objects.map(function (object) {
+            if (object.hasOwnProperty('id_nb')) {
+                return object.id_nb;
+            }
+        });
+        return indexedDB[_instance._slug(className)].filter(function (record) {
+            return id_ar.indexOf(record.id_nb) >= 0;
+        }).delete();
     };
 
     /**
