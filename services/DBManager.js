@@ -180,6 +180,8 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
                 valeur : champ,
                 order : order
             });
+
+            return promise;
         };
 
         /**

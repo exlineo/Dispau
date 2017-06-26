@@ -122,6 +122,8 @@ function IndexedDBManager (className, indexedDB) {
                 valeur : champ,
                 order : order
             });
+
+            return promise;
         };
 
         promise.limit = function (value) {
