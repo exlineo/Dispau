@@ -35,6 +35,10 @@ function ANNAnnonceController (DBManager, $routeParams) {
 
     // Récupération de l'annonce
     annonceManager.get(vm.id)
+        .where('idChat_nb').equals(15)
+        .and('banni_nb').equals(0)
+        .orderBy('time', 'desc')
+        .limit(5)
         .then(function (annonce) {
             console.log(annonce);
             vm.model = annonce;
