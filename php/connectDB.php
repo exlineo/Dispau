@@ -1,15 +1,17 @@
 <?php
 
+include('config.php');
+
 /**
  * @return null|PDO
  */
 function db()
 {
     $config = [
-        "host" => 'localhost',
-        "dbname" => 'dispau',
-        "username" => 'root',
-        "password" => ''
+        "host" => DB_HOST,
+        "dbname" => DB_NAME,
+        "username" => DB_USER,
+        "password" => DB_PASS
     ];
 
     $db = null;
