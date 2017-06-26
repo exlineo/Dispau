@@ -173,7 +173,7 @@ function insertAnnonce($db, $data)
         // TODO: Améliorer la gestion d'erreur
         if (!$req->execute($data)) {
             $error = $req->errorInfo();
-            echo $error;
+            echo json_encode($error);
         }
 
         // Récupération du dernier Id inséré
@@ -205,57 +205,20 @@ function insertAnnonce($db, $data)
 function updateAnnonce($db, $id, $data)
 {
     return json_encode($data);
+}
     /*$db = db();
 
-    $nom_str = $_POST['nom_str'];
-    $image_str = $_POST['image_str'];
-    $dateCreation_date = $_POST['dateCreation_date'];
-    $dateFinInscription_date = $_POST['dateFinInscription_date'];
-    $dateFin_date = $_POST['dateFin_date'];
-    $dateDebut_date = $_POST['dateDebut_date'];
-    $idLieu_nb = $_POST['idLieu_nb'];
-    $placeMin_nb = $_POST['placeMin_nb'];
-    $placeMax_nb = $_POST['placeMax_nb'];
-    $idGestionnaire_nb = $_POST['idGestionnaire_nb'];
-    $idChat_nb = $_POST['idChat_nb'];
-    $salleDAttente_ar = $_POST['salleDAttente_ar'];
-    $participant_ar = $_POST['participant_ar'];
-    $centreInteret_ar = $_POST['centreInteret_ar'];
-    $validite_nb = $_POST['validite_nb'];
-
-    $req = $db->prepare("UPDATE `annonce` SET  nom_str   = :nom_str,
-                                                        image_str = :image_str,
-                                                        dateCreation_date = :dateCreation_date,
-                                                        dateFinInscription_date = :ateFinInscription_date,
-                                                        dateFin_date = :dateFin_date,
-                                                        dateDebut_date = :dateDebut_date,
-                                                        idLieu_nb = :idLieu_nb,
-                                                        placeMin_nb = :placeMin_nb,
-                                                        placeMax_nb = :placeMax_nb,
-                                                        idGestionnaire_nb = :idGestionnaire_nb,
-                                                        idChat_nb = :idChat_nb,
-                                                        salleDAttente_ar = :salleDAttente_ar,
-                                                        participant_ar = :participant_ar,
-                                                        centreInteret_ar = :centreInteret_ar,
-                                                        validite_nb = :validite_nb
-                                                        WHERE id = :id");*/
+    $req = $db->prepare();
 }
 
-function deleteAnnonce($id)
-{
-    /**
-     * Connexion à la DB
-     */
-    $db = db();
-
-    try {
-        $req = $db->prepare("DELETE FROM `annonce` WHERE id = :id");
+function deleteAnnonce($db, $id){
+    try{
+        $req = $db->prepare("DELETE FROM `annonce` WHERE id_nb = :id_nb");
         $req->execute(array(
-            'id' => $id
+            'id_nb' => $id
         ));
-
-        return $id;
     } catch (Exception $e) {
         echo 'ERROR: ' . $e->getMessage();
     }
 }
+*/

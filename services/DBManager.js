@@ -28,6 +28,11 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
         return className.substr(3).toLowerCase();
     };
 
+    this.limit = function (limit) {
+       this._limit = limit;
+       return this;
+    };
+
     /**
      * Méthode pour ajouter les fonctions de filtrage à la promise
      * @param {$q} promise
@@ -495,22 +500,28 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
             // On récupère l'identifiant de l'objet
             var pK = object.id_nb;
 
-            // On regarde s'il exite une enregistrement local avec cet id
-            _instance._localManager.get(pK)
-                .then(function (existingObject) {
-                    // Si un objet existe, on fait un update
-                    if (typeof existingObject !== 'undefined') {
-                        _instance.update(plainObject)
-                            .then(resolve)
-                            .catch(reject);
-                    } else {
-                        // Sinon on fait un nouvel enregistrement
-                        _instance.persist(plainObject)
-                            .then(resolve)
-                            .catch(reject);
-                    }
-                })
-                .catch(reject);
+            if(typeof pK === 'undefined') {
+                _instance.persist(plainObject)
+                    .then(resolve)
+                    .catch(reject);
+            } else {
+                // On regarde s'il exite une enregistrement local avec cet id
+                _instance._localManager.get(pK)
+                    .then(function (existingObject) {
+                        // Si un objet existe, on fait un update
+                        if (typeof existingObject !== 'undefined') {
+                            _instance.update(plainObject)
+                                .then(resolve)
+                                .catch(reject);
+                        } else {
+                            // Sinon on fait un nouvel enregistrement
+                            _instance.persist(plainObject)
+                                .then(resolve)
+                                .catch(reject);
+                        }
+                    })
+                    .catch(reject);
+            }
         });
     };
 

@@ -15,7 +15,7 @@ function IndexedDB() {
      * ATTENTION : il est possible d'utiliser l'* pour caractériser un tableau de clé (utile ???)
      */
     var databaseDeclarations = {
-
+        //@TODO Mettre à jour la ligne 'annonce' avec la nouvelle BDD V5
         1: {
             "annonce":    "++id_nb, nom_str, image_str, dateCreation_date, dateFinInscription_date, dateFin_date, dateDebut_date, idLieu_nb, placeMin_nb, placeMax_nb, idGestionnaire_nb, idChat_nb, salleDAttente_ar, participant_ar, centreInteret_ar, validite_nb, modifications",
 

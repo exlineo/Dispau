@@ -1,7 +1,7 @@
 /**
- * Controlleur pour une annonce
- * @param {dbManagerFactory} DBManager Fabrique de gestionnaire d'entités
- * @param {$routeParams} $routeParams Service de paramètres de route
+ * Classe qui permet d'afficher un lieu par rapport à un ID
+ * @param DBManager     Gestion de la BD
+ * @param $routeParams  Gestion des paramètres dans les routes
  * @constructor
  */
 function ANNAnnonceController (DBManager, $routeParams) {
