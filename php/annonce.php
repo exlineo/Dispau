@@ -54,7 +54,7 @@ if (isset($_GET['where']))
 else
     $where = false;
 
-switch ($action) {
+switch ($_GET['action']) {
     case "get" :
         if (!$where)
             echo selectAnnonce($db, $id);
@@ -168,7 +168,7 @@ function insertAnnonce($db, $data)
         // TODO: Améliorer la gestion d'erreur
         if (!$req->execute($data)) {
             $error = $req->errorInfo();
-            echo $error;
+            echo json_encode($error);
         }
 
         // Récupération du dernier Id inséré
@@ -200,6 +200,7 @@ function insertAnnonce($db, $data)
 function updateAnnonce($db, $id, $data)
 {
     return json_encode($data);
+}
     /*$db = db();
 
     $req = $db->prepare();
@@ -215,3 +216,4 @@ function deleteAnnonce($db, $id){
         echo 'ERROR: ' . $e->getMessage();
     }
 }
+*/
