@@ -59,6 +59,16 @@ app.factory('RegexService', [RegexService]);
 */
 
 /**
+ * DECLARATION DES SERVICES (gestion BDD distante...)
+ */
+
+app.factory('IndexedDB', [IndexedDB]);
+app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManagerFactory]);
+app.factory('AjaxService', ['$http','$cookies', AjaxService]);
+app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', dbManagerFactory]);
+app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
+
+/**
  * Specifique a la Google Maps
  
 
