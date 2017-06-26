@@ -2,19 +2,27 @@
 function ANNAnnonceAdd(DBManager){
     var vm = this;
     this.annonce = {};
-    
-    this.save = function (annonce) {
-        vm.annonce = angular.copy(annonce)
 
-        DBManager.save('ANNAnnonce', vm.annonce)
-            .then(function (annonce) {
-                // annonce est l'annonce mise à jour
-                // ou enregistrée
-                ici.model = annonce;
-                console.log(annonce)
+    /**
+     * Gestionnaire d'entités
+     * @type {DBManager}
+     * @private
+     */
+    var annonceManager = DBManager('ANNAnnonce');
+
+    this.enregistrerAnnonce = function (donnees) {
+        console.log(donnees)
+        // Hydratation de l'instance à envoyer
+        var annonce = new ANNAnnonce();
+        annonce.hydrater(donnees);
+
+        // Envoi de la requête d'insertion
+        annonceManager.save(annonce)
+            .then(function (annonceEnregistree) {
+                // TODO: traîtement à l'ajout
             })
             .catch(function (error) {
-                console.log(error)
+                // TODO: traîter l'erreur
             });
-    }
+    };
 }
