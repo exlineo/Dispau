@@ -111,6 +111,19 @@ function IndexedDBManager (className, indexedDB) {
             return promise;
         };
 
+        /**
+         * Détermine l'ordre des résultats
+         * @param {string}  champ               Le champs sur lequel trier
+         * @param {string}  [order=asc|desc]    L'ordre de tri
+         */
+        promise.orderBy = function (champ, order) {
+            _instance._whereClause.push({
+                clause : 'order by',
+                valeur : champ,
+                order : order
+            });
+        };
+
         promise.limit = function (value) {
             _instance._whereClause.push({
                 clause : 'limit',
@@ -150,8 +163,13 @@ function IndexedDBManager (className, indexedDB) {
                         if (item.hasOwnProperty('comparaison')) {
                             var comparaison = item.comparaison === 'not' ? 'notEqual' : item.comparaison;
                             collection = collection[item.clause](item.champs)[comparaison](item.valeur);
-                        } else {
+                        } else if (item.clause === 'limit') {
                             collection = collection[item.clause](item.valeur);
+                        } else if (item.clause === 'order by') {
+                            collection = collection.sortBy(item.champ);
+                            if (item.order === 'desc') {
+                                collection = collection.reverse();
+                            }
                         }
                     });
 

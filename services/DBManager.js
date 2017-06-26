@@ -165,6 +165,19 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
         };
 
         /**
+         * Détermine l'ordre des résultats
+         * @param {string}  champ               Le champs sur lequel trier
+         * @param {string}  [order=asc|desc]    L'ordre de tri
+         */
+        promise.orderBy = function (champ, order) {
+            _instance._whereClause.push({
+                clause : 'order by',
+                valeur : champ,
+                order : order
+            });
+        };
+
+        /**
          * Limite le nombre de résultats
          * @param {number} value    Le nombre de résultats attendus
          * @returns {$q}
@@ -246,14 +259,18 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
 
        _instance._whereClause.map(function (item) {
            swc += item.clause;
-           if (item.hasOwnProperty('champ')) {
-               swc += ' `' + item.champ + '`';
+           if (item.clause !== 'order by') {
+               if (item.hasOwnProperty('champ')) {
+                   swc += ' `' + item.champ + '`';
 
-               if (item.hasOwnProperty('comparaison')) {
-                   swc += ' ' + comparaisonToSQL(item.comparaison);
+                   if (item.hasOwnProperty('comparaison')) {
+                       swc += ' ' + comparaisonToSQL(item.comparaison);
+                   }
                }
+               swc += ' ' + escapeValueForSQL(item.valeur) + ' ';
+           } else {
+               swc += ' `' + item.champ + '`' + item.order;
            }
-           swc += ' ' + escapeValueForSQL(item.valeur) + ' ';
         });
 
        return encodeURI(swc);
