@@ -166,7 +166,7 @@ function IndexedDBManager (className, indexedDB) {
                         } else if (item.clause === 'limit') {
                             collection = collection[item.clause](item.valeur);
                         } else if (item.clause === 'order by') {
-                            collection = collection.sortBy(item.champ);
+                            collection = collection.sortBy(item.valeur);
                             if (item.order === 'desc') {
                                 collection = collection.reverse();
                             }

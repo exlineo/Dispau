@@ -274,7 +274,7 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
                }
                swc += ' ' + escapeValueForSQL(item.valeur) + ' ';
            } else {
-               swc += ' `' + item.champ + '`' + item.order;
+               swc += ' `' + item.valeur + '`' + item.order;
            }
         });
 
