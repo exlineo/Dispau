@@ -23,7 +23,7 @@ function ANNAnnonceController (DBManager, $routeParams) {
      * Identifiant de l'annonce
      * @type {number}
      */
-    this.id = $routeParams.id;
+    this.id = $routeParams.idAnnonce;
 
     /**
      * L'annonce contrôlée
@@ -31,7 +31,7 @@ function ANNAnnonceController (DBManager, $routeParams) {
      */
     this.model = null;
 
-    var test = true;
+    var test = false;
 
     // Récupération de l'annonce
     annonceManager.get(vm.id)
