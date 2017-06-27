@@ -1,8 +1,6 @@
 /**
  * DECLARATION DE L'APP ANGULAR
  */
-
-
 var app = angular.module('dispau-app', [
     'ngRoute',
     'ngCookies',
@@ -96,15 +94,14 @@ app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
 
 /**
  * DECLARATION DES SERVICES (gestion BDD locale...)
- 
-
-app.factory('IndexedDB', [IndexedDB]);
-app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManager]);
-app.factory('AjaxService', ['$http','$cookies', AjaxService]);
-app.factory('DBManager', ['IndexedDB', 'IndexedDBManager', 'AjaxService', 'RequestQueue', DBManager]);
-app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
-app.factory('RegexService', [RegexService]);
 */
+app.factory('IndexedDB', [IndexedDB]);
+app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManagerFactory]);
+app.factory('AjaxService', ['$http','$cookies', AjaxService]);
+app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', dbManagerFactory]);
+app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
+
+
 
 /**
  * Specifique a la Google Maps
