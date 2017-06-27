@@ -104,16 +104,14 @@ function afficheMap(NgMap, DBManager) {
     var vmm = this;
 
     vmm.onClick = function (e, lieu) {
-        console.log(lieu);
         vmm.lieu = lieu;
         vmm.map.showInfoWindow('infosCarte', "lieu-" + lieu.id_nb);
     };
-    console.log("valeur de ngmap ", NgMap);
+
     // console.log("valeur de la position du navigateur ", navigator.geolocation.getCurrentPosition());
 
     NgMap.getMap('dispauCarte').then(function (map) {
         vmm.map = map;
-        console.log("valeur de map ", map);
 
         // ajout du style de la map
         vmm.map.setOptions({styles: styleMap});
@@ -129,7 +127,6 @@ function afficheMap(NgMap, DBManager) {
         .then(function (lieu) {
             vmm.lieux = lieu;
             vmm.lieu = vmm.lieux[0];
-            console.log(vmm.lieu);
 
         });
 
