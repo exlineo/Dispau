@@ -22,11 +22,19 @@ var app = angular.module('dispau-app', [
 
 // Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
 
-app.controller('IHMAccueilCtrl', ['$http', '$log', function($http, $log) {
+app.controller('IHMAideCtrl', ['$http', '$log', function($http, $log) {
 
 }]);
 
-app.controller('IHMListeCtrl', ['$http', '$log', function($http, $log) {
+app.controller('IHMConnectionCtrl', ['$http', '$log', function($http, $log) {
+
+}]);
+
+app.controller('IHMInscriptionCtrl', ['$http', '$log', function($http, $log) {
+
+}]);
+
+app.controller('IHMProfilCtrl', ['$http', '$log', function($http, $log) {
 
 }]);
 
@@ -117,16 +125,28 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     function($routeProvider, $locationProvider, $httpProvider) {
 
     $routeProvider
-            .when('/accueil', {
-                templateUrl: 'views/tpl/acceuil.html',
-                controller: 'IHMAccueilCtrl',
+            .when('/aide', {
+                templateUrl: 'views/tpl/aide.html',
+                controller: 'IHMAideCtrl',
                 controllerAs: 'vma'
             })
 
-            .when('/liste', {
-                templateUrl: 'views/tpl/liste.html',
-                controller: 'IHMListeCtrl',
-                controllerAs: 'vml'
+            .when('/connection', {
+                templateUrl: 'views/tpl/connection.html',
+                controller: 'IHMConnectionCtrl',
+                controllerAs: 'vmc'
+            }) 
+
+            .when('/inscription', {
+                templateUrl: 'views/tpl/inscription.html',
+                controller: 'IHMInscriptionCtrl',
+                controllerAs: 'vmi'
+            }) 
+
+            .when('/profil', {
+                templateUrl: 'views/tpl/profil.html',
+                controller: 'IHMProfilCtrl',
+                controllerAs: 'vmp'
             }) 
 
             .otherwise({
