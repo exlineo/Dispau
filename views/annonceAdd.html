@@ -1,0 +1,17 @@
+<form ng-submit="vm.enregistrerAnnonce(annonce)">
+    <label for="titre">Titre annonce</label>
+    <input type="text" id="titre" ng-model="annonce.nom_str">
+
+    <label for="description">Description</label>
+    <input type="text" id="description" ng-model="annonce.description_str">
+
+    <label for="lieu">Lieu</label>
+    <input type="text" id="lieu" ng-model="annonce.idLieu_nb">
+
+    <label for="placeMin">Place minimum</label>
+    <input type="text" id="placeMin" ng-model="annonce.	personnesMin_nb">
+
+    <input type="submit" value="Enregistrer">
+</form>
+
+<pre>annonce = {{annonce | json}}</pre>

@@ -19,8 +19,9 @@ var app = angular.module('dispau-app', [
  */
 
 //app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
-app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
+app.controller('ANNAnnonceListe', ['DBManager', '$routeParams', ANNAnnonceListe]);
 app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
+app.controller('ANNAnnonceAdd', ['DBManager', ANNAnnonceAdd]);
 
 
 // Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
@@ -42,9 +43,9 @@ app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
  */
 
 app.factory('IndexedDB', [IndexedDB]);
-app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManager]);
+app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManagerFactory]);
 app.factory('AjaxService', ['$http','$cookies', AjaxService]);
-app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', DBManager]);
+app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', dbManagerFactory]);
 app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
 app.factory('RegexService', [RegexService]);
 
@@ -68,15 +69,21 @@ app.factory('RegexService', [RegexService]);
 
 app.config(function ($routeProvider) {
     $routeProvider
-        .when('/annonces/', {
+        .when('/annonces/:idLieu', {
             templateUrl: 'views/annonces.html',
             controller: 'ANNAnnonceListe',
             controllerAs: 'vm'
         })
 
-        .when('/annonces/:id', {
+        .when('/annonces/:idLieu/:idAnnonce', {
             templateUrl: 'views/annoncesID.html',
             controller: 'ANNAnnonceController',
+            controllerAs: 'vm'
+        })
+
+        .when('/ajouter-annonce/', {
+            templateUrl: 'views/annonceAdd.html',
+            controller: 'ANNAnnonceAdd',
             controllerAs: 'vm'
         })
 

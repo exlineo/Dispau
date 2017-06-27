@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+ID Params : {{vm.idLieu}}
 
-</body>
-</html>
+<div ng-repeat="(key, value) in vm.annonces_ar | filter: {idLieu_nb : vm.idLieu} : true">
+    {{value.nom_str}}
+    {{value.idLieu_nb}}
+</div>

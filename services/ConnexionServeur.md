@@ -2,18 +2,20 @@
 
 - [Déclaration des services](#déclaration-des-services)
 - [Utilisation](#utilisation)
-  1. [DBManager.all()](#dbmanagerallnomdeclasse)
-  2. [DBManager.get()](#dbmanagergetnomdeclasse-identifiant)
-  3. [DBManager.limit()](#dbmanagerlimitlimite-de-résultats)
-  4. [DBManager.save()](#dbmanagersavenomdeclasse-objet)
-  5. [DBManager.delete()](#dbmanagerdeletenomdeclasse-identifiant)
-  6. [DBManager.bulkSave()](#dbmanagerbulksaveclassname-objects)
-  7. [DBManager.bulkDelete()](#dbmanagerbulkdeleteclassname-objects)
+  1. [DBManager.all()](#dbmanagerall)
+  2. [DBManager.get()](#dbmanagergetidentifiant)
+  3. [Fonctions de filtrage](#fonctions-de-filtrage)
+  4. [DBManager.limit()](#dbmanagerlimit)
+  5. [DBManager.save()](#dbmanagersaveobjet)
+  6. [DBManager.delete()](#dbmanagerdeleteidentifiant)
+  7. [DBManager.bulkSave()](#dbmanagerbulksaveobjects)
+  8. [DBManager.bulkDelete()](#dbmanagerbulkdeleteobjects)
 - [Authentification](#authentification)
 - [Considérations pour le serveur](#considérations-pour-le-serveur)
   1. [Méthodes](#méthodes)
   2. [Forme des urls](#forme-des-urls)
   3. [Format des données](#format-des-données)
+  4. [Exemples de traîtements côté serveur](#exemples-de-traîtements-côté-serveur)
 - [Fonctionnement](#fonctionnement)
   1. [Récupération de données](#récupération-de-données)
   2. [Création d'un enregistrement](#création-dun-enregistrement)
@@ -28,9 +30,9 @@ var app = angular.module('myApp', []);
 
 // Déclaration des services
 app.factory('IndexedDB', [IndexedDB]);
-app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManager]);
+app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManagerFactory]);
 app.factory('AjaxService', ['$http','$cookies', AjaxService]);
-app.factory('DBManager', ['IndexedDB', 'IndexedDBManager', 'AjaxService', 'RequestQueue', DBManager]);
+app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', dbManagerFactory]);
 app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
 
 // Déclaration d'un contrôleur
@@ -39,7 +41,7 @@ app.controller('myController', ['DBManager', myController]);
 
 ## Utilisation
 ### Récupération des données
-#### DBManager.all(*nomDeClasse*)
+#### DBManager.all()
 Permet de récupérer touts les enregistrements d'une table. 
 Renvoie un tableau "hydraté".  
 Le premier paramètre permet :
@@ -63,7 +65,8 @@ function myController (dbManagaer) {
     this.model = [];
     
     // Récupération de TOUTES les annonces
-    dbManagaer.all('ANNAnnonce')
+    var annoncesManager = dbManager('ANNAnnonce');
+    annoncesManager.all()
         .then(function (annonces) {
             // annonces est un tableau contenant
             // des instances de ANNAnnonce
@@ -76,7 +79,7 @@ function myController (dbManagaer) {
 ```
 
 
-#### DBManager.get(*nomDeClasse*, *identifiant*)
+#### DBManager.get(*identifiant*)
 Permet de récupérer un enregistrement unique. Renvoie une instance "hydraté".
 Le premier paramètre permet :
 - de construire la requête Ajax
@@ -101,7 +104,8 @@ function myController(dbManager) {
     this.model = null;
     
     // Récupération de l'annonce avec l'identifiant 23
-    dbManager.get('ANNAnnonce', 23)
+    var annonceManager = dbManager('ANNAnnonce');
+    dbManager.get(23)
         .then(function (annonce) {
             // annonce est une instance d'ANNAnnonce
             ici.model = annonce;
@@ -112,7 +116,120 @@ function myController(dbManager) {
 }
 ```
 
-#### DBManager.limit(*limite de résultats*)  
+#### Fonctions de filtrage
+Les fonctions de filtrage permettent de filtrer les résultats attendus. 
+
+- where(*champ*) : permet de désigner un champ sur lequel appliquer une condition
+- and(*champ*) : permet d'appliquer une deuxième condition
+- or(*champ*) : permet d'appliquer une condition alternative
+- equals(*valeur*) : permet d'indiquer une égalitée
+- above(*valeur*) : permet d'indiquer une supériorité exclusive
+- below(*valeur*) : permet d'indiguer une infériorité exclusive
+- not(*valeur*) : tout sauf ça
+
+**Exemples**
+```javascript
+// Récupérer toutes les annonces du gestionaire avec l'identifiant 15
+var annonceManager = dbManager('ANNAnnonce');
+annonceManager
+    // Envoie une requête HTTP GET avec comme paramètres:
+    // - action : get
+    // - where : where `idGestionnaire_id` = 15
+    .all().where('idGestionnaire_id').equals(15)
+    .then(function (annonces) {
+        // annonces est un tableau d'instances d'annonces dont la propriété idGestionnaire_nb est égale à 15
+        ici.model = annonces;
+    })
+    .catch(function (error) {
+        
+    });
+```
+```javascript
+// Récupérer toutes les annonces des gestionnaire dont l'identifiant n'est pas 15
+var annonceManager = dbManager('ANNAnnonce');
+annonceManager
+    // Envoie une requête HTTP GET avec comme paramètres:
+    // - action : get
+    // - where : where `idGestionnaire_id` <> 15
+    .all().where('idGestionnaire_id').not(15)
+    .then(function (annonces) {
+        // annonces est un tableau d'instances d'annonces dont la propriété idGestionnaire_nb n'est pas 15
+        ici.model = annonces;
+    })
+    .catch(function (error) {
+        
+    });
+```
+```javascript
+// Récupérer toutes les annonces après une date
+var annonceManager = dbManager('ANNAnnonce');
+annonceManager
+    // Envoie une requête HTTP GET avec comme paramètres:
+    // - action : get
+    // - where : where `date_dat` > 17294302348
+    .all().where('date_dat').above(new Date('2017-01-01'))
+    .then(function (annonces) {
+        // annonces est un tableau d'instances d'annonces dont la date est postérieur au 1/1/2017
+        ici.model = annonces;
+    })
+    .catch(function (error) {
+        
+    });
+```
+```javascript
+// Récupérer toutes les annonces avant une date
+var annonceManager = dbManager('ANNAnnonce');
+annonceManager
+    // Envoie une requête HTTP GET avec comme paramètres:
+    // - action : get
+    // - where : where `date_dat` < 17459382383
+    .all().where('date_date').below(new Date())
+    .then(function (annonces) {
+        // annonces est un tableau d'instances d'annonces dont la date est antérieure à aujourd'hui
+        ici.model = annonces;
+    })
+    .catch(function (error) {
+        
+    });
+```
+```javascript
+// Récupérer toutes les annonces entre deux dates
+var annonceManager = dbManager('ANNAnnonce');
+annonceManager
+    // Envoie une requête HTTP GET avec comme paramètres:
+    // - action : get
+    // - where : where `date_dat` > 17294302348 and `date_dat` < 17294302348
+    .all().where('date_date').below(new Date())
+    .and('date_dat').above(new Date('2017-01-01'))
+    .then(function (annonces) {
+        // annonces est un tableau d'instances d'annonces dont la date est 
+        // entre le 1/1/2017 et aujourd'hui
+        ici.model = annonces;
+    })
+    .catch(function (error) {
+        
+    });
+```
+```javascript
+// Récupérer toutes les annonces avec 1 ou 3 participants max
+var annonceManager = dbManager('ANNAnnonce');
+annonceManager
+    // Envoie une requête HTTP GET avec comme paramètres:
+    // - action : get
+    // - where : where `personnesMax_nb` = 3 or `personnesMax_nb` = 1
+    .all().where('personnesMax_nb').equals(3)
+    .or('personnesMax_nb').equals(1)
+    .then(function (annonces) {
+        // annonces est un tableau d'instances d'annonces 
+        // avec soit 3 personnes Max ou 1 personnes max
+        ici.model = annonces;
+    })
+    .catch(function (error) {
+        
+    });
+```
+
+#### DBManager.limit()  
 Permet de limiter le nombre de résultats pour *all()* et *get()*.  
 **Exemple**  
 ```javascript
@@ -120,12 +237,16 @@ function myController(dbManager) {
     var ici = this;
     this.model = [];
     
-    dbManager
+    var annoncesManager = dbManager('ANNAnnonce');
+    // Envoie une requête HTTP GET avec comme paramètres:
+    // - action : get
+    // - where : limit 5
+    annoncesManager
+        .all()
         .limit(5)
-        .all('ANNAnnonce')
         .then(function (annonces) {
             // annonces.length == 5
-            this.model = annonces;
+            ici.model = annonces;
         })
         .catch(function (error) {
             // TODO: Gérer l'erreur
@@ -133,7 +254,7 @@ function myController(dbManager) {
 }
 ```
 
-#### DBManager.save(*nomDeClasse*, *objet*)
+#### DBManager.save(*objet*)
 Permet de sauvegarder ou de mettre à jour un enregistrement dans la base
 de données.  
 Le premier paramètre permet :
@@ -159,8 +280,9 @@ function myController(dbManager) {
     this.model;
     
     // Enregistrement de l'annonce contenue dans ici.model
+    var annonceManager = dbManager('ANNAnnonce');
     this.enregistrerAnnonce = function () {
-        dbManager.save('ANNAnnonce', ici.model)
+        annonceManager.save(ici.model)
             .then(function (annonce) {
                 // annonce est l'annonce mise à jour
                 // ou enregistrée
@@ -174,7 +296,7 @@ function myController(dbManager) {
 ```
   
   
-#### DBManager.delete(*nomDeClasse*, *identifiant*)
+#### DBManager.delete(*identifiant*)
 Permet de supprimer un enregistrement unique. Renvoie une instance "hydraté".
 Le premier paramètre permet :
 - de construire la requête Ajax
@@ -198,9 +320,10 @@ function myController(dbManager) {
      */
     this.model;
     
+    var annonceManager = dbManager('ANNAnnonce');
     this.supprimerAnnonce = function () {
         // Récupération de l'annonce avec l'identifiant 23
-            dbManager.get('ANNAnnonce', ici.model.id)
+            annonceManager.delete(ici.model.id)
                 .then(function (annonce) {
                     // annonce est l'instance de l'annonce supprimée
                 })
@@ -211,7 +334,7 @@ function myController(dbManager) {
 }
 ```
 
-#### DBManager.bulkSave(*className*, *objects*)
+#### DBManager.bulkSave(*objects*)
 Permet d'insérer ou de mettre à jour plusieurs objets à la fois.   
 
 **Exemple**
@@ -230,8 +353,9 @@ function myController(dbManager) {
     this.model = [];
     
     // Enregistrement de l'annonce contenue dans ici.model
+    var annonceManager = dbManager('ANNAnnonce');
     this.enregistrerAnnonce = function () {
-        dbManager.bulkSave('ANNAnnonce', ici.model)
+        annonceManager.bulkSave(ici.model)
             .then(function (annonces) {
                 // annonce est l'annonce mise à jour
                 // ou enregistrée
@@ -244,7 +368,7 @@ function myController(dbManager) {
 }
 ```
 
-#### DBManager.bulkDelete(*className*, *objects*)
+#### DBManager.bulkDelete(*objects*)
 Permet de supprimer plusieurs objets à la fois.   
 
 **Exemple**
@@ -263,12 +387,13 @@ function myController(dbManager) {
     this.model = [];
     
     // Suppression toutes les annocnes d'un gestionnnaire
+    var annonceManager = dbManager('ANNAnnonce');
     this.supprimerAnnoncesDeUtilisateur = function (gestionnaire_id_nb) {
         var annoncesASupprimer = this.model.filter(function (annonces) {
             return annonces.idGestionnaire_nb === utilisateur_id_nb;
         });
         
-        dbManager.bulkDelete('ANNAnnonce', annoncesASupprimer)
+        annonceManager.bulkDelete(annoncesASupprimer)
             .then(function (annonces) {
                 // annonce est l'annonce mise à jour
                 // ou enregistrée
@@ -313,18 +438,21 @@ try {
 `DBManager.all()` et `DBManager.delete()` utilisent la méthode HTTP **`POST`**
 
 ### Forme des urls
-Les urls sont de la forme suivante :
-`http://{servername}/php/{model}.php?action={action}[&id={identifiant}]`  
+Les urls sont de la forme suivante :  
+`http://{servername}/php/{model}.php?action={action}[&id={identifiant}][&where={where}]`  
 - **servername**: le nom de domaine du serveur qui héberge l'application
 - **model**: le nom du modèle, en minuscule sans préfixe du package.  
 Par exemple : `ANNAnnonce` -> `annonce`, `LIELieu` -> `lieu`
 - **action**: l'action que l'on souhaite effectuer :
   * `create` : insérer un nouvel enregistrement
   * `read` : lire des données
-  * `updtate` : mettre à jour un enregistrement
+  * `update` : mettre à jour un enregistrement
   * `delete` : supprimer un enregistrement
 - **id** *(pour `read`, `update` et `delete`)*: l'identifiant de l'enregistremnt.  
 Pour `read`, le paramètre `id` est **optionel**. Il ne sera présent que si l'on souhaite lire qu'un seul enregistrement.
+
+- **where**: Une clause where pour filtrer les éléments.  
+Il s'agit de d'une chaîne de caractères qui est en fait la partie "WHERE" d'une requête SQL.
 
 ### Format des données
 Les données envoyées au serveur sont au format JSON.
@@ -340,6 +468,132 @@ header('Content-Type: application/json;charset=utf8;');
 echo $réponse_du_serveur
 ```
 
+### Exemples de traîtements côté serveur
+#### Cas général
+```php
+/**
+ * Permet de récupérer l'action
+ */
+$action = $_GET['action'];
+
+// Permet de récupérer l'id de l'annonce
+if (isset($_GET['id']))
+    $id = $_GET['id'];
+else
+    $id = null;
+
+// Permet de récupéere la clause where
+if (isset($_GET['where']))
+    $where = $_GET['where'];
+else
+    $where = false;
+
+// On choisit la focntion à exécuter en fonction 
+// de la variable $action
+switch ($action) {
+    // Lecture
+    case "get" :
+        // S'il n'y pas de clause WHERE
+        if (!$where)
+            echo selectAnnonce($db, $id);
+        // S'il y en a une
+        else
+            echo selectAnnonce($db, $id, $where);
+
+        break;
+        
+    // Création
+    case "create":
+        echo createAnnonce($db, $_POST);
+        break;
+        
+    // Mis à jour
+    case "update":
+        echo updateAnnonce($db, $_POST);
+        break;
+        
+    // Suppression
+    case "delete" :
+        deleteAnnonce($id);
+        break;
+}
+```
+#### Lecture
+```php
+/**
+ * Permet de récupérer les annonces par rapport à l'ID
+ * @param PDO $db           L'instance de PDO représentant la connexion à la BDD
+ * @param string|int $id    Indentifiant de l'annonce
+ * @param string $where     Clause where SQL
+ * @return string           Une annonce ou un tableau d'annonces au format JSON
+ */
+function selectAnnonce($db, $id, $where = '')
+{
+    // Variable contenant les données reçues de la base de données
+    $donnees_ar = [];
+    
+    try {
+        if (!isset($id)) { // Réponse à DBManager.all()
+            $req = $db->prepare("SELECT * FROM `annonce` $where");
+            $req->execute();
+            $donnees_ar = $req->fetchAll(PDO::FETCH_ASSOC);
+        } else { // Réponse à DBManager.get(id)
+            $req = $db->prepare("SELECT * FROM `annonce` WHERE id_nb = :id_nb");
+            $req->execute(array(
+                'id_nb' => $id
+            ));
+            $donnees_ar = $req->fetch(PDO::FETCH_ASSOC);
+        }
+    } catch (Exception $e) {
+        echo 'ERROR: ' . $e->getMessage();
+        return json
+    }
+    
+    return json_encode($donnees);
+}
+```
+#### Création
+```php
+function createAnnonce($db, $data) {
+     // Normalement on ne met pas des ... mais vraiment les noms des champs
+    $req = $db->prepare("INSERT INTO `annonce` (nom_str ...) VALUES (:nom ...)");
+    $result = $req->execute($data);
+    
+    // C'est très mauvais ça, on ne récupère pas l'identifiant du nouvel enregistrement
+    if ($result) {
+        return json_encode($data);
+    }
+}
+```
+
+#### Mise à jour
+```php
+function updateAnnonce($db, $data) {
+    if (isset($_GET['id']) { // Mise à jour d'un seul élément
+        
+        $req = $db->prepare("UPDATE `annonce` SET nom_str=:nom_str, ... WHERE id_nb = :id_nb");
+        $result = $req->execute($data);
+        
+        if ($result) {
+            return json_encode($data);
+        }
+    } else { // Mise à jour ou insertion de plusieurs éléments
+    // TODO: Utiliser peut-être ON DUPLICATE KEY UPDATE pour une insertion en masse
+    // ou, plus idempotent, un table temporaire et MERGE
+    }
+}
+```
+#### Suppression
+```php
+function deleteAnnonce($db, $id) {
+    $req = $db->prepare("DELETE FROM `annonce` WHERE id_nb = :id');
+    $result = $req->execute(['id' => $id]);
+    
+    if ($result) {
+        return $id;
+    }
+}
+```
 ## Fonctionnement
 ### Récupération de données
 #### Online
