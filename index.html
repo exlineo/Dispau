@@ -1,348 +1,457 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>DISPAU, J'en suis ! Trouvez et participez à des événements : le réseau participatif de vos centres d'intérêts</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>DISPAU Trouvez et participez à des événements : le réseau participatif de vos centre d'intérêts</title>
 
-	<!-- SEO part: veuillez renseigner les informations au niveau du marketing -->
-	<meta name="description" content="">
-	<meta name="keywords" content="">
+    <!-- SEO part: veuillez renseigner les informations au niveau du marketing -->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
 
-	<!-- Prefetch -->
-	<link rel="dns-prefetch" href="//fonts.googleapis.com">
-	<link rel="dns-prefetch" href="//ajax.googleapis.com">
-	<link rel="dns-prefetch" href="//maps.google.com">
-	<link rel="dns-prefetch" href="//www.google-analytics.com">
-	<link rel="prefetch" href="views/img/dispau_logo.png">
+    <!-- Prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//ajax.googleapis.com">
+    <link rel="dns-prefetch" href="//maps.google.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="prefetch" href="views/img/dispau_logo.png">
 
-	<link href="views/css/global.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="views/css/global.css" media="screen" rel="stylesheet" type="text/css">
 
-	<!--[if IE]>
-	<meta http-equiv="imagetoolbar" content="no">
-	<![endif]-->
+    <!--[if IE]>
+    <meta http-equiv="imagetoolbar" content="no">
+    <![endif]-->
 
-	<style>
+<style>
+.ui-gmap-google-map {
+	height: 400px;
+}
 
-	/* 'Above the Fold' part
-	   Google recommande de placer, ici, les styles CSS affectant la partie immédiatement
-	   visible du "viewport" (au dessus de la ligne de flottaison) à destination des SmartPhones
-	   notamment et pour une rapidité d'affichage optimale. Le reste des styles doivent être inclus
-	   dans un fichier externe (un seul).
-	*/
+.angular-google-map-container { height: 350px; }
 
-	</style>
+/* 'Above the Fold part'
+    Google recommande de placer, ici, les styles CSS affectant la partie immédiatement
+    visible du "viewport" (au dessus de la ligne de flottaison) à destination des SmartPhones
+    notamment et pour une rapidité d'affichage optimale. Le reste des styles doivent être inclus
+    dans un fichier externe (un seul).
+*/
+</style>
+<script>
+/*! Support des balisages HTML5 pour les vieux navigateurs */
+var arr = ['header', 'nav', 'main', 'section', 'article', 'aside', 'figure', 'figcaption', 'template', 'footer'];
+for (var i = 0; i < arr.length; i++)
+	document.createElement(arr[i]);
+/*! Ajout d'une classe 'js' à la balise <html> */
+if (document.documentElement)
+	document.documentElement.className += 'js';
+</script>
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "WebApplication",
+	"url": "http://exlineo.com/dispau",
+	"name": "DISPAU",
+	"description": "DISPAU : Trouvez et participez à des événements : le réseau participatif de vos centres d'intérêts.",
+	"aggregateRating": {
+		"ratingValue": "5",
+		"ratingCount": "10"
+	},
+	"countriesSupported": "fr",
+	"applicationCategory": "Social Network, Events",
+	"offers": {
+		"priceCurrency": "€",
+		"price": "0"
+	},
+	"operatingSystem": "Windows 7, OSX 10.6, Android 4.4",
+	"browserRequirements": "requires HTML5 support",
+	"screenshot": "http://exlineo.com/dispau/img/dispau_preview.png"
+}
+</script>
 
-	<script>
-	/*! Support des balisages HTML5 pour les vieux navigateurs */
-	var arr=['article', 'aside', 'footer', 'header', 'nav', 'section', 'figcaption', 'figure', 'main', 'template'];
-	for (var i=0; i<arr.length; i++)
-		 document.createElement(arr[i]);
-	/*! Ajout d'une classe 'js' à la balise <html> pour indiquer l'activation de js dans le navigateur client : utile quand on fait du javascript :D */
-	if(document.documentElement){document.documentElement.className+='js';}
-	</script>
-
-	<style>
-
-	/*! "Above the Fold" part */
-
-	</style>
-
-	<!-- Je conseille vivement l'usage de JSON-LD pour le référencement : c'est la méthode désormais recommandée par Google.
-		 Me demander pour de plus amples informations -->
-	<script type="application/ld+json">
-
-	</script>
+    <script type="application/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+    <script type="application/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.js"></script>
+    <script type="application/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.js"></script>
 
 </head>
-<body>
+<body ng-app="dispau-app">
 
 <div class="wrapper">
 
-	<div id="map"><span class="overlay"></span></div>
+    /////////////////////////////////
+    <div id="map_canvas" ng-controller="MAPMap">
+        <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+            <ui-gmap-markers models="markers" idKey="'id'" coords="'coord'" icon="'icon'">
+                <!--<ui-gmap-window show="marker.show" ng-cloak closeClick="!marker.show">
+                    <div ng-controller="GmapCtrl">
+                        <p>{{marker.email}}
+                    </div>
+                </ui-gmap-window>-->
+            </ui-gmap-markers>
+        </ui-gmap-google-map>
+    </div>
+    /////////////////////////////////
+    <!--
+        <div id="map"><span class="overlay"></span></div>
+        <ng-view>
 
-	<header class="main-header no-select">
+        </ng-view>
+    -->
+    <header class="main-header no-select">
 
-		<span class="mask absolute"></span>
-		<div class="header-inner cf">
+        <span class="mask absolute"></span>
+        <div class="header-inner cf">
 
-			<span class="logo relative left"></span>
-			<h1 class="left"><a href="\">DISPAU</a></h1>
+            <span class="logo relative left"></span>
+            <h1 class="left"><a href="\">DISPAU</a></h1>
 
-			<nav class="top-menu">
-				<span class="logo-responsive"><a href="\">DISPAU</a></span>
-				<ul>
-					<li><a href="#open-modal-connexion" data-tooltip="" title="J'en suis !" data-cible="connexion" class="tooltip-bottom" id="connexionBtn"><i class="fa fa-sign-in" aria-hidden="true"></i><em>☑</em> Connexion</a></li>
-					<li><a href="#open-modal-creer-lieu" data-tooltip="" title="Je veux découvrir DISPAU" data-cible="inscription" class="tooltip-bottom" id="afficher-inscription-btn"><i class="fa fa-user-plus" aria-hidden="true"></i><em>✔</em> Je m'inscris</a></li>
-					<li><a href="#open-modal-profil" data-tooltip="" title="Afficher mon profil" class="tooltip-bottom" id="afficher-profil-btn"><i class="fa fa-user" aria-hidden="true"></i><em>👥</em> Mon profil</a></li>
-					<li><a href="#open-modal-aide" data-tooltip="" title="Aide d'utilisation" class="tooltip-bottom" id="aide-btn"><i class="fa fa-info-circle" aria-hidden="true"></i><em>i</em> Aide</a></li>
-				</ul>
-			</nav>
+            <nav class="top-menu">
+                <span class="logo-responsive"><a href="\">DISPAU</a></span>
+                <ul>
+                    <li><a href="#open-modal-connexion" data-tooltip="" title="J'en suis !" data-cible="connexion"
+                           class="tooltip-bottom" id="connexionBtn"><i class="fa fa-sign-in" aria-hidden="true"></i><em>☑</em>
+                        Connexion</a></li>
+                    <li><a href="#open-modal-creer-lieu" data-tooltip="" title="Je veux découvrir DISPAU"
+                           data-cible="inscription" class="tooltip-bottom" id="afficher-inscription-btn"><i
+                            class="fa fa-user-plus" aria-hidden="true"></i><em>✔</em> Je m'inscris</a></li>
+                    <li><a href="#open-modal-profil" data-tooltip="" title="Afficher mon profil" class="tooltip-bottom"
+                           id="afficher-profil-btn"><i class="fa fa-user" aria-hidden="true"></i><em>👥</em> Mon profil</a>
+                    </li>
+                    <li><a href="#open-modal-aide" data-tooltip="" title="Aide d'utilisation" class="tooltip-bottom"
+                           id="aide-btn"><i class="fa fa-info-circle" aria-hidden="true"></i><em>i</em> Aide</a></li>
+                </ul>
+            </nav>
 
-		</div> <!-- /header-inner -->
-	</header>
+        </div> <!-- /header-inner -->
+    </header>
 
-	<div class="content">
-		
-		<!-- MESSAGE ALERTE : EXEMPLE 
-  		<div aria-hidden="true" role="dialog" class="modal-dialog dialog msg no-select" id="open-modal-alerte">
+    <div class="content">
 
-      			<div>
-        			<div class="modal">
-          				<div class="inner-dialog">
+        <!-- MESSAGE ALERTE : EXEMPLE
+          <div aria-hidden="true" role="dialog" class="modal-dialog dialog msg no-select" id="open-modal-alerte">
 
-
-            					<a href="#!" title="Fermer" class="close squizz" id="close-msg"><i class="fa fa-times" aria-hidden="true"></i><em>×</em></a>
-            					<h3 class="gris"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><em>!</em> ALERTE</h3>
-            					<p class="alert-text">Vous avez tout cassé ! <i class="fa fa-check-circle" aria-hidden="true"></i></p>
-
-          				</div> 
-
-        			</div> 
-      			</div>
-    		</div> <!-- /open-modal-alerte -->
-
-	<!-- CONNEXION -->
-
-		<div aria-hidden="true" role="dialog" class="modal-dialog dialog tiny no-select" id="open-modal-connexion">
-
-			<div>
-				<div class="modal">
-					<div class="inner-dialog">
-						<a href="" title="Fermer" class="close squizz"><i class="fa fa-times" aria-hidden="true"></i><em>×</em></a>
-						<h3 class="gris">Se connecter</h3>
-						<form method="post" action="/">
-							<label for="user">Pseudonyme :</label>
-							<input type="text" required="" name="pseudo" value="" placeholder="Votre pseudonyme DISPAU" id="user">
-							<label for="password">Mot de passe :</label>
-							<div class="flex">
-								<input type="password" required="" name="password" value="" minlength="8" placeholder="Votre mot de passe DISPAU" class="password" id="password">
-								<button type="button" title="Révéler la saisie masquée par appui long" id="eye"><i class="fa fa-eye-slash" aria-hidden="true"></i><em>👁</em></button>
-							</div>
-							<span class="full inblock txt-right gris"><a href="#open-modal-mot-passe-oublie" title="Retrouver un mot de passe" class="gris">Mot de passe oublié</a> ?</span>
-							<button class="button btn-flat button-green full ripple-in"><span>Confirmer</span></button>
-						</form>
-
-					</div> <!-- /inner-dialog -->
-
-				</div> <!-- /modal -->
-			</div>
-		</div> <!-- /open-modal-connexion -->
-
-	<!-- FIN CONNEXION -->
+                  <div>
+                    <div class="modal">
+                          <div class="inner-dialog">
 
 
-		<!-- CONNEXION -->
+                                <a href="#!" title="Fermer" class="close squizz" id="close-msg"><i class="fa fa-times" aria-hidden="true"></i><em>×</em></a>
+                                <h3 class="gris"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><em>!</em> ALERTE</h3>
+                                <p class="alert-text">Vous avez tout cassé ! <i class="fa fa-check-circle" aria-hidden="true"></i></p>
 
-		<div aria-hidden="true" role="dialog" class="modal-dialog dialog tiny no-select" id="open-modal-mot-passe-oublie">
+                          </div>
 
-			<div>
-				<div class="modal">
-					<div class="inner-dialog">
-						<a href="#!" title="Fermer" class="close squizz"><i class="fa fa-times" aria-hidden="true"></i><em>×</em></a>
-						<h3 class="gris">Récupération de mot de passe</h3>
-						<form method="post" action="file:///C:/Users/Patrick/Desktop/WORK/">
-							<label for="user">Pseudonyme :</label>
-							<input type="text" required="" name="pseudo" value="" placeholder="Votre pseudonyme DISPAU" id="user">
-							<label for="email">Adresse email :</label>
-							<input type="email" required="" name="email" value="" placeholder="Votre adresse email" class="email" id="email">
-							<button class="button btn-flat button-green full ripple-in"><span>Obtenir</span></button>
-						</form>
+                    </div>
+                  </div>
+            </div> <!-- /open-modal-alerte -->
 
-					</div> <!-- /inner-dialog -->
+        <!-- CONNEXION -->
 
-				</div> <!-- /modal -->
-			</div>
-		</div> <!-- /open-modal-mot-passe-oublie -->
+        <div aria-hidden="true" role="dialog" class="modal-dialog dialog tiny no-select" id="open-modal-connexion">
 
-	<!-- FIN MOT PASSE OUBLIE -->
+            <div>
+                <div class="modal">
+                    <div class="inner-dialog">
+                        <a href="" title="Fermer" class="close squizz"><i class="fa fa-times"
+                                                                          aria-hidden="true"></i><em>×</em></a>
+                        <h3 class="gris">Se connecter</h3>
+                        <form method="post" action="/">
+                            <label for="user">Pseudonyme :</label>
+                            <input type="text" required="" name="pseudo" value="" placeholder="Votre pseudonyme DISPAU"
+                                   id="user">
+                            <label for="password">Mot de passe :</label>
+                            <div class="flex">
+                                <input type="password" required="" name="password" value="" minlength="8"
+                                       placeholder="Votre mot de passe DISPAU" class="password" id="password">
+                                <button type="button" title="Révéler la saisie masquée par appui long" id="eye"><i
+                                        class="fa fa-eye-slash" aria-hidden="true"></i><em>👁</em></button>
+                            </div>
+                            <span class="full inblock txt-right gris"><a href="#open-modal-mot-passe-oublie"
+                                                                         title="Retrouver un mot de passe" class="gris">Mot de passe oublié</a> ?</span>
+                            <button class="button btn-flat button-green full ripple-in"><span>Confirmer</span></button>
+                        </form>
 
+                    </div> <!-- /inner-dialog -->
 
-	<!-- PROFIL -->
+                </div> <!-- /modal -->
+            </div>
+        </div> <!-- /open-modal-connexion -->
 
-		<div aria-hidden="true" role="dialog" class="modal-dialog dialog overflow" id="open-modal-profil">
-
-			<div>
-				<div class="modal">
-					<div class="inner-dialog">
-						<a href="#!" title="Fermer" class="close"><i class="fa fa-times" aria-hidden="true"></i><em>×</em></a>
-
-						<h2>Mon Profil</h2>
-						<p>Exemple de fenêtre modale disponible pour DISPAU.</p>
-						<p>Peut être utilisé pour tous les éléments d'interaction nécessaires :</p>
-						<ul>
-							<li>Formulaires ;</li>
-							<li>Logs d'accès ;</li>
-							<li>Simples "Message Box" d'erreurs ou succès d'actions (scroll maîtrisable : avec ou sans).</li>
-						</ul>
-						<button class="button btn-flat button-green ripple-in inactive clear"><span>Inactif</span></button>
-						<div class="btn-group">
-							<button class="button btn-flat">Avec liste <span class="caret"></span></button>
-							<ul class="dropdown-btn">
-								<li>Test</li>
-								<li><a href="" title="Zyva !">Test</a></li>
-								<li>Test</li>
-							</ul>
-						</div>
-						<p><a href="#open-modal-aide">Essayez celle-ci</a></p>
-
-					</div> <!-- /inner-dialog -->
-
-				</div> <!-- /modal -->
-				
-			</div>
-		</div> <!-- /open-modal-profil -->
-
-		<!-- FIN PROFIL -->
+        <!-- FIN CONNEXION -->
 
 
-		<!-- AIDE -->
+        <!-- CONNEXION -->
 
-		<div aria-hidden="true" role="dialog" class="modal-dialog no-select" id="open-modal-aide">
+        <div aria-hidden="true" role="dialog" class="modal-dialog dialog tiny no-select"
+             id="open-modal-mot-passe-oublie">
 
-			<div>
-				<div class="modal">
-					<div class="inner-dialog">
-						<a href="#!" title="Fermer" class="close"><i class="fa fa-times" aria-hidden="true"></i><em>×</em></a>
+            <div>
+                <div class="modal">
+                    <div class="inner-dialog">
+                        <a href="#!" title="Fermer" class="close squizz"><i class="fa fa-times"
+                                                                            aria-hidden="true"></i><em>×</em></a>
+                        <h3 class="gris">Récupération de mot de passe</h3>
+                        <form method="post" action="file:///C:/Users/Patrick/Desktop/WORK/">
+                            <label for="user">Pseudonyme :</label>
+                            <input type="text" required="" name="pseudo" value="" placeholder="Votre pseudonyme DISPAU"
+                                   id="user">
+                            <label for="email">Adresse email :</label>
+                            <input type="email" required="" name="email" value="" placeholder="Votre adresse email"
+                                   class="email" id="email">
+                            <button class="button btn-flat button-green full ripple-in"><span>Obtenir</span></button>
+                        </form>
 
-						<h2>Aide d'utilisation</h2>
-						<p>Le réseau de vos centres d'intérêts <strong>DISPAU</strong>&nbsp;&reg; est trop ouf que ça jette : mais trop, grave !</p>
-						<p>A tout moment, vous trouverez, ici, l'aide en ligne contextuelle pour vous familiariser avec les différentes fonctionnalités offertes.</p>
-						<h3>Connexion</h3>
-						<p>Une fois inscrit(e), vous pourrez vous connecter à <strong>DISPAU</strong>&nbsp;&reg; à tout monment à l'aide de votre pseudonyme et de votre mot de passe préalablement renseignés.</p>
-						<h3>Inscription</h3>
-						<p>En quelques renseignements, inscrivez-vous pour profiter, immédiatement, de tous les avantages de <strong>DISPAU</strong>&nbsp;&reg;.</p>
-						<h3>Mon profil</h3>
-						<p>Visualisez vos informations et modifiez, éventuellement, les données vous concernant. Enregistrez les événements auquels vous avez participé, ceux à venir. Etablissez le contact avec les personnes partageant vos mêmes centres d'intérêts.</p>
-						<h3>Aide</h3>
-						<p>Evidemment, c'est le texte que vous consultez actuellement ;)</p>
+                    </div> <!-- /inner-dialog -->
 
-					</div> <!-- /inner-dialog -->
+                </div> <!-- /modal -->
+            </div>
+        </div> <!-- /open-modal-mot-passe-oublie -->
 
-				</div> <!-- /modal -->
-				<div class="footer-modal">
-					<a href="#open-modal-aide" class="link no-select ripple">Aide</a><a href="#!" class="help no-select ripple">Fermer</a>
-				</div>
-			</div>
-		</div> <!-- /modal-dialog -->
-
-		<!-- FIN AIDE -->
+        <!-- FIN MOT PASSE OUBLIE -->
 
 
-		<!-- CREER LIEU -->
+        <!-- PROFIL -->
 
-		<div aria-hidden="true" role="dialog" class="modal-dialog no-select" id="open-modal-creer-lieu">
+        <div aria-hidden="true" role="dialog" class="modal-dialog dialog overflow" id="open-modal-profil">
 
-			<div>
-				<div class="modal">
-					<div class="inner-dialog">
+            <div>
+                <div class="modal">
+                    <div class="inner-dialog">
+                        <a href="#!" title="Fermer" class="close"><i class="fa fa-times"
+                                                                     aria-hidden="true"></i><em>×</em></a>
 
-						<h2 class="gris">Création d'un lieu</h2>
-						<form action="" method="post">
-							<div class="row">
-							<div class="c-2">
-								<label for="nom-lieu-input">Nom :</label>
-								<input name="nom_str" type="text" id="nom-lieu-input" placeholder="Nom du lieu" class="input-txt">
-							</div> <!-- /c-2 -->
-							<div class="c-2">
-								<label for="image-lieu-btn" title="Charger une image" class="label-file">Photo du Lieu <i class="fa fa-picture-o" aria-hidden="true"></i><em>:</em></label>
-								<input name="image_img" type="file" class="input-file" id="image-lieu-btn">
-								<div class="preview">
-									<img src="http://placehold.it/350x150" alt="placeholder" />
-								</div>
-							</div> <!-- /c-2 -->
-							</div>
-							<div class="full">
-								<label for="description-lieu-input">Description :</label>
-								<textarea id="description-lieu-input" name="description_str" rows="6" cols="6" placeholder="Description du lieu"></textarea>
-								<label for="adresse-lieu-input">Adresse :</label>
-								<textarea id="adresse-lieu-input" name="adresse_str" rows="6" cols="6" placeholder="Adresse du lieu"></textarea>
-							</div> <!-- /full -->
-							<div class="row">
-							<div class="c-2">
-								<label for="longitude-lieu-input">Longitude :</label>
-								<input name="longitude_str" id="longitude-lieu-input" placeholder="Longitude" class="input-txt" type="text">
-							</div> <!-- /c-2 -->
-							<div class="c-2">
-								<label for="latitude-lieu-input">Latitude :</label>
-								<input name="latitude_str" id="latitude-lieu-input" placeholder="Latitude" class="input-txt" type="text">
-							</div> <!-- /c-2 -->
-							</div>
-							<!--  <fieldset>
-								<legend>Voulez vous créer des Sous-Lieux ?</legend>
-								<input type="radio" name="sousLieu" id="sous-lieu"> <label for="ouiSL">Oui</label>
-								<input type="radio" name="sousLieu" id="sous-lieu"> <label for="nonSL">Non</label>
-							</fieldset>
-							<fieldset>
-								<legend>Voulez vous disposez d'un chat affilier à votre Lieu ?</legend>
-								<input type="radio" name="chatLieu" id="chat-lieu"> <label for="ouiChat">Oui</label>
-								<input type="radio" name="chatLieu" id="chat-lieu"> <label for="nonChat">Non</label>
-							</fieldset>--> 
-							<div class="checkbox">
-								<label><input value="" type="checkbox">&nbsp;Voulez-vous créer des Sous-Lieux ?</label>
-							</div>
-							<div class="checkbox">
-								<label><input value="" type="checkbox" class="cbx">&nbsp;Voulez-vous disposer d'un chat affilié à votre Lieu ?</label>
-							</div>
-							<button type="submit" title="Enregistrer ce nouveau lieu" class="button btn-flat button-green ripple-in" id="creer-lieu-btn">Valider</button>
-						</form>
-					</div> <!-- /inner-dialog -->
+                        <h2>Mon Profil</h2>
+                        <p>Exemple de fenêtre modale disponible pour DISPAU.</p>
+                        <p>Peut être utilisé pour tous les éléments d'interaction nécessaires :</p>
+                        <ul>
+                            <li>Formulaires ;</li>
+                            <li>Logs d'accès ;</li>
+                            <li>Simples "Message Box" d'erreurs ou succès d'actions (scroll maîtrisable : avec ou
+                                sans).
+                            </li>
+                        </ul>
+                        <button class="button btn-flat button-green ripple-in inactive clear"><span>Inactif</span>
+                        </button>
+                        <div class="btn-group">
+                            <button class="button btn-flat">Avec liste <span class="caret"></span></button>
+                            <ul class="dropdown-btn">
+                                <li>Test</li>
+                                <li><a href="" title="Zyva !">Test</a></li>
+                                <li>Test</li>
+                            </ul>
+                        </div>
+                        <p><a href="#open-modal-aide">Essayez celle-ci</a></p>
 
-				</div> <!-- /modal -->
-				<div class="footer-modal">
-					<a href="https://www.cara-tm.com" class="link">Aide</a><a href="#!" class="help">Fermer</a> 
-				</div>
-			</div>
-		</div> <!-- /open-modal-creer-lieu -->
+                    </div> <!-- /inner-dialog -->
 
-		<!-- FIN CREER LIEU -->
+                </div> <!-- /modal -->
+
+            </div>
+        </div> <!-- /open-modal-profil -->
+
+        <!-- FIN PROFIL -->
 
 
-	</div> <!-- /content -->
+        <!-- AIDE -->
 
-	<!-- Recherche lieu -->
-	<aside class="" id="info">
-		<a href="#!" title="Réduire" class="close squizz" id="close"><em>⤰</em></a> <!-- × -->
-		<h2>Titre</h2>
-		<p>Trouvez, localisez et participez à des événements. Le réseau participatif de vos centres d'intérêts.</p>
-		<form method="get" action="\">
-			<label for="search">Chercher un événement :</label>
-			<input name="search" value="" placeholder="Je recherche&hellip;" id="search" type="text">
-			<button class="button btn-flat button-green ripple-in"><span>Trouver</span></button>
-		</form>
-		<form method="get" action="\">
-			<label for="selector">Choisir dans la liste :</label>
-			<select name="select" id="selector">
-				<option value="valeur1" selected="">Choisissez dans la liste&hellip;</option> 
-				<option value="valeur2">Valeur 2</option>
-				<option value="valeur3">Valeur 3</option>
-			</select>
-			<button class="button btn-flat button-green ripple-in"><span>Découvrir</span></button>
-		</form>
-	</aside>
+        <div aria-hidden="true" role="dialog" class="modal-dialog no-select" id="open-modal-aide">
 
-	<div class="push"></div>
+            <div>
+                <div class="modal">
+                    <div class="inner-dialog">
+                        <a href="#!" title="Fermer" class="close"><i class="fa fa-times"
+                                                                     aria-hidden="true"></i><em>×</em></a>
+
+                        <h2>Aide d'utilisation</h2>
+                        <p>Le réseau de vos centres d'intérêts <strong>DISPAU</strong>&nbsp;&reg; est trop ouf que ça
+                            jette : mais trop, grave !</p>
+                        <p>A tout moment, vous trouverez, ici, l'aide en ligne contextuelle pour vous familiariser avec
+                            les différentes fonctionnalités offertes.</p>
+                        <h3>Connexion</h3>
+                        <p>Une fois inscrit(e), vous pourrez vous connecter à <strong>DISPAU</strong>&nbsp;&reg; à tout
+                            monment à l'aide de votre pseudonyme et de votre mot de passe préalablement renseignés.</p>
+                        <h3>Inscription</h3>
+                        <p>En quelques renseignements, inscrivez-vous pour profiter, immédiatement, de tous les
+                            avantages de <strong>DISPAU</strong>&nbsp;&reg;.</p>
+                        <h3>Mon profil</h3>
+                        <p>Visualisez vos informations et modifiez, éventuellement, les données vous concernant.
+                            Enregistrez les événements auquels vous avez participé, ceux à venir. Etablissez le contact
+                            avec les personnes partageant vos mêmes centres d'intérêts.</p>
+                        <h3>Aide</h3>
+                        <p>Evidemment, c'est le texte que vous consultez actuellement ;)</p>
+
+                    </div> <!-- /inner-dialog -->
+
+                </div> <!-- /modal -->
+                <div class="footer-modal">
+                    <a href="#open-modal-aide" class="link no-select ripple">Aide</a><a href="#!"
+                                                                                        class="help no-select ripple">Fermer</a>
+                </div>
+            </div>
+        </div> <!-- /modal-dialog -->
+
+        <!-- FIN AIDE -->
+
+
+        <!-- CREER LIEU -->
+
+        <div aria-hidden="true" role="dialog" class="modal-dialog no-select" id="open-modal-creer-lieu">
+
+            <div>
+                <div class="modal">
+                    <div class="inner-dialog">
+
+                        <h2 class="gris">Création d'un lieu</h2>
+                        <form action="" method="post">
+                            <div class="row">
+                                <div class="c-2">
+                                    <label for="nom-lieu-input">Nom :</label>
+                                    <input name="nom_str" type="text" id="nom-lieu-input" placeholder="Nom du lieu"
+                                           class="input-txt">
+                                </div> <!-- /c-2 -->
+                                <div class="c-2">
+                                    <label for="image-lieu-btn" title="Charger une image" class="label-file">Photo du
+                                        Lieu <i class="fa fa-picture-o" aria-hidden="true"></i><em>:</em></label>
+                                    <input name="image_img" type="file" class="input-file" id="image-lieu-btn">
+                                    <div class="preview">
+                                        <img src="http://placehold.it/350x150" alt="placeholder"/>
+                                    </div>
+                                </div> <!-- /c-2 -->
+                            </div>
+                            <div class="full">
+                                <label for="description-lieu-input">Description :</label>
+                                <textarea id="description-lieu-input" name="description_str" rows="6" cols="6"
+                                          placeholder="Description du lieu"></textarea>
+                                <label for="adresse-lieu-input">Adresse :</label>
+                                <textarea id="adresse-lieu-input" name="adresse_str" rows="6" cols="6"
+                                          placeholder="Adresse du lieu"></textarea>
+                            </div> <!-- /full -->
+                            <div class="row">
+                                <div class="c-2">
+                                    <label for="longitude-lieu-input">Longitude :</label>
+                                    <input name="longitude_str" id="longitude-lieu-input" placeholder="Longitude"
+                                           class="input-txt" type="text">
+                                </div> <!-- /c-2 -->
+                                <div class="c-2">
+                                    <label for="latitude-lieu-input">Latitude :</label>
+                                    <input name="latitude_str" id="latitude-lieu-input" placeholder="Latitude"
+                                           class="input-txt" type="text">
+                                </div> <!-- /c-2 -->
+                            </div>
+                            <!--  <fieldset>
+                                <legend>Voulez vous créer des Sous-Lieux ?</legend>
+                                <input type="radio" name="sousLieu" id="sous-lieu"> <label for="ouiSL">Oui</label>
+                                <input type="radio" name="sousLieu" id="sous-lieu"> <label for="nonSL">Non</label>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Voulez vous disposez d'un chat affilier à votre Lieu ?</legend>
+                                <input type="radio" name="chatLieu" id="chat-lieu"> <label for="ouiChat">Oui</label>
+                                <input type="radio" name="chatLieu" id="chat-lieu"> <label for="nonChat">Non</label>
+                            </fieldset>-->
+                            <div class="checkbox">
+                                <label><input value="" type="checkbox">&nbsp;Voulez-vous créer des Sous-Lieux ?</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input value="" type="checkbox" class="cbx">&nbsp;Voulez-vous disposer d'un chat
+                                    affilié à votre Lieu ?</label>
+                            </div>
+                            <button type="submit" title="Enregistrer ce nouveau lieu"
+                                    class="button btn-flat button-green ripple-in" id="creer-lieu-btn">Valider
+                            </button>
+                        </form>
+                    </div> <!-- /inner-dialog -->
+
+                </div> <!-- /modal -->
+                <div class="footer-modal">
+                    <a href="https://www.cara-tm.com" class="link">Aide</a><a href="#!" class="help">Fermer</a>
+                </div>
+            </div>
+        </div> <!-- /open-modal-creer-lieu -->
+
+        <!-- FIN CREER LIEU -->
+
+
+    </div> <!-- /content -->
+
+    <!-- Recherche lieu -->
+    <aside class="" id="info">
+        <a href="#!" title="Réduire" class="close squizz" id="close"><em>⤰</em></a> <!-- × -->
+        <h2>Titre</h2>
+        <p>Trouvez, localisez et participez à des événements. Le réseau participatif de vos centres d'intérêts.</p>
+        <form method="get" action="\">
+            <label for="search">Chercher un événement :</label>
+            <input name="search" value="" placeholder="Je recherche&hellip;" id="search" type="text">
+            <button class="button btn-flat button-green ripple-in"><span>Trouver</span></button>
+        </form>
+        <form method="get" action="\">
+            <label for="selector">Choisir dans la liste :</label>
+            <select name="select" id="selector">
+                <option value="valeur1" selected="">Choisissez dans la liste&hellip;</option>
+                <option value="valeur2">Valeur 2</option>
+                <option value="valeur3">Valeur 3</option>
+            </select>
+            <button class="button btn-flat button-green ripple-in"><span>Découvrir</span></button>
+        </form>
+    </aside>
+
+    <div class="push"></div>
 
 </div> <!-- /wrapper -->
 
 <footer class="footer">
-	<div class="footer-inner">
-		<p><small>&copy;&nbsp;Copyright DISPAU&nbsp;&reg; 2017, tous droits&nbsp;réservés. <a href="#!" title="Conditions Générales d'Utilisation">C.G.U.</a> | <a href="#!" title="Politique de confidentialité">Confidentialité</a> | <a href="#!" title="Mentions légales du site">Mentions&nbsp;Légales</a> | <a href="#!" title="A propos">Présentation</a> | <a href="#!" title="Contactez DISPAU">Contact et&nbsp;partenariat</a> | Social&nbsp;: <a rel="nofollow" href="https://twitter.com/dispau" data-href="https://twitter.com/dispau" title="Rejoignez notre page Twitter" class="social twitter"><i class="fa fa-twitter" aria-hidden="true"></i><em>T</em></a> <a rel="nofollow" href="//plus.google.com/111387824658555502103" data-href="https://plus.google.com/111387824658555502103" title="Rejoignez notre page G+" class="social gplus"><i class="fa fa-google-plus" aria-hidden="true"></i><em>G</em></a> <a href="https://www.facebook.com/" data-href="https://www.facebook.com/" title="Rejoignez notre page facebook" class="social facebook"><i class="fa fa-facebook" aria-hidden="true"></i><em>F</em></a> </small></p>
-	</div> <!-- /footer-inner -->
-	<div id="block-cookies">
-	++	<div id="msg-cookies"></div>
+    <div class="footer-inner">
+        <p>
+            <small>&copy;&nbsp;Copyright DISPAU&nbsp;&reg; 2017, tous droits&nbsp;réservés. <a href="#!"
+                                                                                               title="Conditions Générales d'Utilisation">C.G.U.</a>
+                | <a href="#!" title="Politique de confidentialité">Confidentialité</a> | <a href="#!"
+                                                                                             title="Mentions légales du site">Mentions&nbsp;Légales</a>
+                | <a href="#!" title="A propos">Présentation</a> | <a href="#!" title="Contactez DISPAU">Contact et&nbsp;partenariat</a>
+                | Social&nbsp;: <a rel="nofollow" href="https://twitter.com/dispau"
+                                   data-href="https://twitter.com/dispau" title="Rejoignez notre page Twitter"
+                                   class="social twitter"><i class="fa fa-twitter" aria-hidden="true"></i><em>T</em></a>
+                <a rel="nofollow" href="//plus.google.com/111387824658555502103"
+                   data-href="https://plus.google.com/111387824658555502103" title="Rejoignez notre page G+"
+                   class="social gplus"><i class="fa fa-google-plus" aria-hidden="true"></i><em>G</em></a> <a
+                        href="https://www.facebook.com/" data-href="https://www.facebook.com/"
+                        title="Rejoignez notre page facebook" class="social facebook"><i class="fa fa-facebook"
+                                                                                         aria-hidden="true"></i><em>F</em></a>
+            </small>
+        </p>
+    </div> <!-- /footer-inner -->
+    <div id="block-cookies">
+        ++
+        <div id="msg-cookies"></div>
 
-		<p id="cookie-choices">Ce site enregistre des cookies tiers externes sur votre appareil. Vous pouver les <a href="#!" title="J'accepte les Cookies" id="ok-cookies">Accepter</a> ou les <a href="#!" title="Je refuse les Cookies" id="no-cookies">Refuser</a>. <p id="cookies-delay">Délai avant la fin de l'acceptation automatique des Cookies : <span id="counter">1:00</span></p>
-	</div>
+        <p id="cookie-choices">Ce site enregistre des cookies tiers externes sur votre appareil. Vous pouver les <a
+                href="#!" title="J'accepte les Cookies" id="ok-cookies">Accepter</a> ou les <a href="#!"
+                                                                                               title="Je refuse les Cookies"
+                                                                                               id="no-cookies">Refuser</a>.
+        <p id="cookies-delay">Délai avant la fin de l'acceptation automatique des Cookies : <span
+                id="counter">1:00</span></p>
+    </div>
 </footer>
 <!--<script>
 window.jQuery || document.write('<script src="js/jquery-1.12.4.min.js">\x3C/script>');
-if(typeof angular!='object') document.write('<script src="js/angular/1.6.4/angular.min.js">\x3C/script>');
+if(typeof angular!='object') document.write('<script src="js/angular/1.angular.jsn.js">\x3C/script>');
 </script>-->
+
 <script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkm4blthirzCbZy1wy6GwUtxLC_jGW9rI&amp;callback=initMap"></script>
-<script src="views/js/app.js"></script>
+<script type="application/javascript" src="bower_components/lodash/lodash.js"></script>
+<script type="application/javascript" src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+<script type="application/javascript"
+        src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
 
-</body></html>
+<!--<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+<!--
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkm4blthirzCbZy1wy6GwUtxLC_jGW9rI&amp;callback=initMap"></script>
+-->
+<script src="views/js/app.js"></script>
+<script src="controllers/MAPMap.js"></script>
+<script type="application/javascript" src="index.js"></script>
+
+</body>
+</html>
