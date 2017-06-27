@@ -70,7 +70,17 @@ function ANNAnnonceController (DBManager, $routeParams) {
 
     else{
         switch (vm.action){
-            
+            case 'edit' :
+
+            break;
+
+            case 'ajouter' :
+
+            break;
+
+            case 'supprimer':
+
+            break;
         }
         /**
          * Enregistre une annonce, la met à jour si elle existe
