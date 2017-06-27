@@ -138,7 +138,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 controller: 'IHMConnectionCtrl',
                 controllerAs: 'vmc'
             })
-        
+
             .when('/annonces/:idLieu', {
                 templateUrl: 'views/annonces.html',
                 controller: 'ANNAnnonceListe',
