@@ -11,7 +11,9 @@ function ANNAnnonceListe(DBManager, $routeParams) {
     var ici = this;
     this.annonces_ar = [];
 
-    DBManager.all('ANNAnnonce')
+    var annonceManager = DBManager('ANNAnnonce');
+
+    annonceManager.all('ANNAnnonce')
         .then(function (annonces) {
             console.log(annonces);
             ici.annonces_ar = annonces;
