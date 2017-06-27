@@ -729,8 +729,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 	background: rgba(0, 0, 0, 0.8);
 	/* ...ou blanc */
 	background: rgba(255,255,255,.5);
-	font-family: 'Roboto', Arial, Helvetica, sans-serif;
-	pointer-events: none
+	font-family: 'Roboto', Arial, Helvetica, sans-serif
 }
 
 .modal-dialog:not('.msg') {
@@ -1170,7 +1169,6 @@ img {
 	height:100%;
 	top:0;
 	left:0;
-	pointer-events:none;
 	background-image:radial-gradient(circle,#000 10%,transparent 10.01%);
 	background-repeat:no-repeat;
 	background-position:50%;
