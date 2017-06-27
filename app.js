@@ -21,7 +21,6 @@ var app = angular.module('dispau-app', [
 //app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
 app.controller('ANNAnnonceListe', ['DBManager', '$routeParams', ANNAnnonceListe]);
 app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
-app.controller('ANNAnnonceAdd', ['DBManager', ANNAnnonceAdd]);
 
 
 // Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
@@ -81,9 +80,9 @@ app.config(function ($routeProvider) {
             controllerAs: 'vm'
         })
 
-        .when('/ajouter-annonce/', {
-            templateUrl: 'views/annonceAdd.html',
-            controller: 'ANNAnnonceAdd',
+        .when('/annonces/:idLieu/:idAnnonce/:action', {
+            templateUrl: 'views/annoncesID.html',
+            controller: 'ANNAnnonceController',
             controllerAs: 'vm'
         })
 
