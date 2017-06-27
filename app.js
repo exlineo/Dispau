@@ -59,9 +59,9 @@ app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
  */
 
 app.factory('IndexedDB', [IndexedDB]);
-app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManager]);
+app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManagerFactory]);
 app.factory('AjaxService', ['$http','$cookies', AjaxService]);
-app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', DBManager]);
+app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', dbManagerFactory]);
 app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
 //app.factory('RegexService', [RegexService]);
 
