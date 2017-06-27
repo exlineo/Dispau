@@ -1,6 +1,5 @@
 <div ng-controller="LIELieuController as myCtrl">
-    <ul ng-repeat="">
-        <li>Nom du lieu : {{ myCtrl.model.nom_str }}</li>
-        <li>Description : {{ myCtrl.model.description_str }}</li>
+    <ul ng-repeat="lieu in lieux">
+        <li ng-repeat="(key,value) in lieu">{{key}} : {{value}}</li>
     </ul>
 </div>

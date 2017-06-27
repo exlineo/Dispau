@@ -47,7 +47,7 @@ function getLieu($db)
 {
     try
     {
-        $stmt = $db->prepare("SELECT * FROM `lieu` WHERE `id_nb`= $_GET['id_nb']");
+        $stmt = $db->prepare("SELECT * FROM `lieu` WHERE `id_nb`= 1");
         $stmt->execute();
 
         while ($data = $stmt->fetch(PDO::FETCH_ASSOC))
