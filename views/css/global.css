@@ -113,9 +113,11 @@ header,
 
 #dispauCarte {
 	/* Fallback */
-	height: auto;
+	height: 600px;
 	min-height: 430px;
-	min-height: 100%
+	min-height: 100%;
+
+
 }
 
 .push,
@@ -294,7 +296,8 @@ ul {line-height: 2}
 .main-header {
 	/* Fallback */
 	background: #7ac9ed;
-	background: rgba(122, 201, 237, 0.7)
+	background: rgba(122, 201, 237, 0.7);
+	display: flow-root;
 }
 
 header .mask {background: #7ac9ed}
@@ -1667,5 +1670,7 @@ and (orientation: portrait) {
 
 
 }
+
+
 
 /*! End of file. Pat was here */
