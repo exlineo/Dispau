@@ -81,6 +81,7 @@ app.controller('carteClr', ['NgMap', function(NgMap) {
 
 app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
 app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
+app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
 // app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
 // app.controller('CHAChatController', ['DBManager', CHAChatController]);
 // app.controller('LIELieuController', ['DBManager', LIELieuController]);
