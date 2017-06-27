@@ -42,8 +42,8 @@ require_once 'connectDB.php';
 /**
  * Récupération des paramètres d'URL
  */
-$_action = (isset($_GET['action']) ? $_GET['action'] : '');
-$_id = (isset($_GET['id']) ? $_GET['id'] : '');
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$id = (isset($_GET['id']) ? $_GET['id'] : '');
 
 
 /**
