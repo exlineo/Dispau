@@ -111,7 +111,7 @@ header,
 	}
 }
 
-#dispauCarte {
+#map {
 	/* Fallback */
 	height: auto;
 	min-height: 430px;
@@ -715,9 +715,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 }
 
 .modal-dialog {
-/*
 	display: none;
-*/
 	position: fixed;
 	z-index: 99999;
 	top: 0;
@@ -729,7 +727,8 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 	background: rgba(0, 0, 0, 0.8);
 	/* ...ou blanc */
 	background: rgba(255,255,255,.5);
-	font-family: 'Roboto', Arial, Helvetica, sans-serif
+	font-family: 'Roboto', Arial, Helvetica, sans-serif;
+	pointer-events: none
 }
 
 .modal-dialog:not('.msg') {
@@ -803,15 +802,11 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 .footer-modal {
 	position: absolute;
 	right: 0;
-	/*
 	bottom: -50px;
-	*/
 	left: 0;
 	max-width: 900px;
 	min-width: 250px;
-	/*
 	width: 80%;
-	*/
 	height: 51px;
 	margin: 0 auto;
 	text-align: right;
@@ -834,9 +829,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 
 .footer-modal a:hover {background: rgba(0, 0, 0, 0.2)}
 
-/*
 .modal-dialog.dialog .footer-modal {display: none}
-*/
 
 /* Formulaires */
 
@@ -1169,6 +1162,7 @@ img {
 	height:100%;
 	top:0;
 	left:0;
+	pointer-events:none;
 	background-image:radial-gradient(circle,#000 10%,transparent 10.01%);
 	background-repeat:no-repeat;
 	background-position:50%;
