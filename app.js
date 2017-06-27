@@ -18,6 +18,8 @@ var app = angular.module('dispau-app', [
  */
 
 //app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
+app.controller('ANNAnnonceListe', ['DBManager', '$routeParams', ANNAnnonceListe]);
+app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
 
 
 // Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
@@ -137,6 +139,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 controllerAs: 'vmc'
             }) 
 
+        .when('/annonces/:idLieu/:idAnnonce/:action', {
+            templateUrl: 'views/annoncesID.html',
+            controller: 'ANNAnnonceController',
+            controllerAs: 'vm'
+        })
             .when('/inscription', {
                 templateUrl: 'views/tpl/inscription.html',
                 controller: 'IHMInscriptionCtrl',
