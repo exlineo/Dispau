@@ -41,7 +41,7 @@ app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
 /**
  * DECLARATION DES SERVICES (gestion BDD locale...)
  */
-
+app.factory('Emetteur', [Emetteur]);
 app.factory('IndexedDB', [IndexedDB]);
 app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManagerFactory]);
 app.factory('AjaxService', ['$http','$cookies', AjaxService]);
