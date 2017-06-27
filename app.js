@@ -19,7 +19,7 @@ var app = angular.module('dispau-app', [
  */
 
 //app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
-app.controller('ANNAnnonceListe', ['DBManager', '$routeParams', ANNAnnonceListe]);
+app.controller('ANNAnnonceListe', ['DBManager', 'Emetteur', '$routeParams', ANNAnnonceListe]);
 app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
 app.controller('ANNAnnonceAdd', ['DBManager', ANNAnnonceAdd]);
 
@@ -41,7 +41,7 @@ app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
 /**
  * DECLARATION DES SERVICES (gestion BDD locale...)
  */
-app.factory('Emetteur', [Emetteur]);
+app.factory('Emetteur', ['$rootScope', Emetteur]);
 app.factory('IndexedDB', [IndexedDB]);
 app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManagerFactory]);
 app.factory('AjaxService', ['$http','$cookies', AjaxService]);

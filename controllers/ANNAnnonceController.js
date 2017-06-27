@@ -4,7 +4,7 @@
  * @param $routeParams  Gestion des paramètres dans les routes
  * @constructor
  */
-function ANNAnnonceController (DBManager, $routeParams) {
+function ANNAnnonceController (DBManager, Emetteur, $routeParams) {
     /**
      * Réference locale
      * @type {ANNAnnonceController}
