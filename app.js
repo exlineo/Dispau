@@ -20,8 +20,8 @@ var app = angular.module('dispau-app', [
 
 //app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
 app.controller('ANNAnnonceListe', ['DBManager', 'Emetteur', '$routeParams', ANNAnnonceListe]);
-app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
-app.controller('ANNAnnonceAdd', ['DBManager', ANNAnnonceAdd]);
+app.controller('ANNAnnonceController', ['DBManager', 'Emetteur', '$routeParams', ANNAnnonceController]);
+app.controller('ANNAnnonceAdd', ['DBManager', 'Emetteur', ANNAnnonceAdd]);
 
 
 // Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML

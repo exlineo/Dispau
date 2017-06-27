@@ -1,5 +1,5 @@
 
-function ANNAnnonceAdd(DBManager){
+function ANNAnnonceAdd(DBManager, Emetteur){
     var vm = this;
     this.annonce = {};
 
@@ -9,6 +9,11 @@ function ANNAnnonceAdd(DBManager){
      * @private
      */
     var annonceManager = DBManager('ANNAnnonce');
+
+    Emetteur.when('annonce:updated', function ($event, annonce) {
+        console.log(annonce);
+        alert('Yo');
+    });
 
     this.enregistrerAnnonce = function (donnees) {
         console.log(donnees)

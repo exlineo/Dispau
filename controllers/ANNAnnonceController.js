@@ -1,6 +1,7 @@
 /**
  * Classe qui permet d'afficher un lieu par rapport à un ID
  * @param DBManager     Gestion de la BD
+ * @param {Emetteur}    Emetteur
  * @param $routeParams  Gestion des paramètres dans les routes
  * @constructor
  */
@@ -23,7 +24,7 @@ function ANNAnnonceController (DBManager, Emetteur, $routeParams) {
      * Identifiant de l'annonce
      * @type {number}
      */
-    this.id = $routeParams.id;
+    this.id = $routeParams.idAnnonce;
 
     /**
      * L'annonce contrôlée
@@ -47,6 +48,7 @@ function ANNAnnonceController (DBManager, Emetteur, $routeParams) {
                 annonceManager.save(annonce)
                     .then(function (annonce) {
                         console.log("UPDATED", annonce);
+                        Emetteur.emettre('annonce:updated', annonce);
                     })
                     .catch(function (error) {
                         console.log("ERROR UPDATIN' : ", error);
