@@ -66,8 +66,8 @@ function select() {
 
 			// Exécution de la requête selon son placeholder
 			$stmt->execute(array(
-								'id' => $id
-								));
+						'id' => $id
+					));
 			// Fetch
 			$data = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -113,45 +113,45 @@ function insert() {
 				try
 				{
 					$stmt = $this->pdo->prepare('INSERT INTO `lieu` 
-															(nom_str, 
-															idChat_nb, 
-															longitude_nb, 
-															latitude_nb, 
-															annonce_ar,
-															sousLieu_ar, 
-															utilisateur_ar, 
-															adresse_str, 
-															description_str, 
-															image_str, 
-															idAdmin_nb)
-														VALUES (
-															 :nom_str,
-															 :idChat_nb,
-															 :longitude_nb,
-															 :latitude_nb,
-															 :annonce_ar,
-															 :sousLieu_ar,
-															 :utilisateur_ar,
-															 :adresse_ar,
-															 :description_str,
-															 :image_str,
-															 :idAdmin_nb)
-												');
+										(nom_str, 
+										idChat_nb, 
+										longitude_nb, 
+										latitude_nb, 
+										annonce_ar,
+										sousLieu_ar, 
+										utilisateur_ar, 
+										adresse_str, 
+										description_str, 
+										image_str, 
+										idAdmin_nb)
+									VALUES (
+										:nom_str,
+										:idChat_nb,
+										:longitude_nb,
+										:latitude_nb,
+										:annonce_ar,
+										:sousLieu_ar,
+										:utilisateur_ar,
+										:adresse_ar,
+										:description_str,
+										:image_str,
+										:idAdmin_nb)
+								  ');
 
 					// Exécution de la requête selon ses placeholders
 					$stmt->execute(array(
-										'nom_str' => $_POST['nom_str'],
-										'idChat_nb' => $_POST['idChat_nb'],
-										'longitude_nb' => $_POST['longitude_nb'],
-										'latitude_nb' => $_POST['latitude_nb'],
-										'annonce_ar' => $_POST['annonce_ar'],
-										'sousLieu_ar' => $_POST['sousLieu_ar'],
-										'utilisateur_ar' => $_POST['utilisateur_ar'],
-										'adresse_ar' => $_POST['adresse_ar'],
-										'description_str' => $_POST['description_str'],
-										'image_str' => $_POST['image_str'],
-										'idAdmin_nb' => $_POST['idAdmin_nb']
-										));
+								'nom_str' => $_POST['nom_str'],
+								'idChat_nb' => $_POST['idChat_nb'],
+								'longitude_nb' => $_POST['longitude_nb'],
+								'latitude_nb' => $_POST['latitude_nb'],
+								'annonce_ar' => $_POST['annonce_ar'],
+								'sousLieu_ar' => $_POST['sousLieu_ar'],
+								'utilisateur_ar' => $_POST['utilisateur_ar'],
+								'adresse_ar' => $_POST['adresse_ar'],
+								'description_str' => $_POST['description_str'],
+								'image_str' => $_POST['image_str'],
+								'idAdmin_nb' => $_POST['idAdmin_nb']
+							));
 
 					$idLieu = $db->LastInsertId(); //$id = mysql_insert_id();
 
@@ -184,37 +184,37 @@ function update() {
 
 		// Préparation de la requête
 		$stmt = $bd->prepare('UPDATE 
-	 							`lieu` 
-	 						  SET 
-	 					   		nom_str = :nom_str,
-	 					   		idChat_nb = :idChat_nb,
-	 					   		longitude_nb = :longitude_nb,
-	 					   		latitude_nb = :latitude_nb,
-	 					   		annonce_ar = :annonce_ar,
-	 					   		sousLieu_ar = : sousLieu_ar,
-	 					   		utilisateur_ar = :utilisateur_ar,
-	 					   		adresse_str = :adresse_str,
-	 					   		description_str = :description_str,
-	 					   		image_str = :image_str,
-	 					   		idAdmin_nb = idAdmin_nb
-	 						  WHERE id = :id
-	 					');
+	 					`lieu` 
+	 				 SET 
+	 					 nom_str = :nom_str,
+	 					 idChat_nb = :idChat_nb,
+	 					 longitude_nb = :longitude_nb,
+	 					 latitude_nb = :latitude_nb,
+	 					 annonce_ar = :annonce_ar,
+	 					 sousLieu_ar = : sousLieu_ar,
+	 					 utilisateur_ar = :utilisateur_ar,
+	 					 adresse_str = :adresse_str,
+	 					 description_str = :description_str,
+	 					 image_str = :image_str,
+	 					 idAdmin_nb = idAdmin_nb
+	 				 WHERE id = :id
+	 				');
 
 		// Exécution de la requête par population des champs
 		$stmt->execute(array(
-							'nom_str' => $_POST['nom_str'],
-							'idChat_nb' => $_POST['idChat_nb'],
-							'longitude_nb' => $_POST['longitude_nb'],
-							'latitude_nb' => $_POST['latitude_nb'],
-							'annonce_ar' => $_POST['annonce_ar'],
-							'sousLieu_ar' => $_POST['sousLieu_ar'],
-							'utilisateur_ar' => $_POST['utilisateur_ar'],
-							'adresse_str' => $_POST['adresse_str'],
-							'description_str' => $_POST['description_str'],
-							'image_str' => $_POST['image_str'],
-							'idAdmin_nb' => $_POST['idAdmin_nb'],
-							'id' => $id
-						));
+					'nom_str' => $_POST['nom_str'],
+					'idChat_nb' => $_POST['idChat_nb'],
+					'longitude_nb' => $_POST['longitude_nb'],
+					'latitude_nb' => $_POST['latitude_nb'],
+					'annonce_ar' => $_POST['annonce_ar'],
+					'sousLieu_ar' => $_POST['sousLieu_ar'],
+					'utilisateur_ar' => $_POST['utilisateur_ar'],
+					'adresse_str' => $_POST['adresse_str'],
+					'description_str' => $_POST['description_str'],
+					'image_str' => $_POST['image_str'],
+					'idAdmin_nb' => $_POST['idAdmin_nb'],
+					'id' => $id
+				));
 
 	}
 
@@ -229,7 +229,7 @@ function update() {
  */
 function delete($id) {
 
-	if( $_GET['action'] == 'delete' && true == is_numeric($id) ) {
+	if( $action == 'delete' && true == is_numeric($id) ) {
 
 		// Connexion BDD
 		$db = db();
