@@ -1,23 +1,49 @@
 /**
- * AnnonceListe est une classe qui permet de créer un tableau d'annonce d'un lieu
+ * ANNAnnonceListe permet d'afficher toute les annonces d'un Lieu
+ * @param DBManager     Gestion de la BD
+ * @param $routeParams  Gestion des paramètres dans les routes
  * @constructor
  */
-function ANNAnnonceListe(DBManager) {
-    /**
-     * Variable possédant toutes les annonces
-     * Il est intéressant de l'utiliser pour trier tous les objets
-     * @type {{}}
-     */
+function ANNAnnonceListe(DBManager, $routeParams) {
+    //Récupère l'id dans la route
+    this.idLieu = $routeParams.idLieu;
+
     var ici = this;
     this.annonces_ar = [];
 
     DBManager.all('ANNAnnonce')
         .then(function (annonces) {
             console.log(annonces);
+            ici.annonces_ar = annonces;
         })
         .catch(function (error) {
             console.log(error)
         });
+
+    /**
+     * @TODO Implémenter la fonction delete a AnnonceListe, récupérer id_nb de l'annonce pour la supprimer
+     *  FONCTIONNE
+     DBManager.delete('ANNAnnonce', 1)
+     .then(function (annonce) {
+ // annonce est l'instance de l'annonce supprimée
+ })
+     .catch(function (error) {
+ console.log(error)
+ });
+     */
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * propriété qui permet de remplir la variable annonces_obj
