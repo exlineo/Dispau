@@ -1386,6 +1386,13 @@ html .inactive:hover:before {
 		overflow-y: scroll
 	}
 
+	/* Ecrase les styles de .modal avec positionnement à droite */
+	html .modal-dialog .modal-right {
+		left: 50%;
+    	margin-left: 0;
+    	max-width: 600px;
+	}
+
 	#info {top: 3em; bottom: 40px; width: 83%; overflow-y: scroll}
 
 	html .push,
