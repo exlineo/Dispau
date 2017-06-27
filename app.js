@@ -1,10 +1,12 @@
 /**
  * DECLARATION DE L'APP ANGULAR
  */
+
+
 var app = angular.module('dispau-app', [
     'ngRoute',
     'ngCookies',
-    'ngMap' 
+    'ngMap'
     // AJOUTER VOS DEPENDANCES
 
     //'uiGmapgoogle-maps'
@@ -16,7 +18,25 @@ var app = angular.module('dispau-app', [
  */
 
 //app.controller('MAPMap', ['uiGmapGoogleMapApi', '$scope', MAPMap]);
-app.controller('ANNAnnonceListe', ['DBManager', '$routeParams', ANNAnnonceListe]);
+
+
+// Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
+
+app.controller('IHMAccueilCtrl', ['$http', '$log', function($http, $log) {
+
+}]);
+
+app.controller('IHMListeCtrl', ['$http', '$log', function($http, $log) {
+
+}]);
+
+
+
+// CONTROLER POUR LA CARTE DE FOND / GEREE AVEC NG-MAP
+app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
+
+//app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
+/*app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
 app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
 
 
@@ -79,8 +99,6 @@ app.controller('carteClr', ['NgMap', function(NgMap) {
 
 }]);
 /*
-app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
-app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
 app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
 app.controller('CHAChatController', ['DBManager', CHAChatController]);
 app.controller('LIELieuController', ['DBManager', LIELieuController]);
@@ -94,27 +112,28 @@ app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
 
 /**
  * DECLARATION DES SERVICES (gestion BDD locale...)
-*/
+ */
+
 app.factory('IndexedDB', [IndexedDB]);
 app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManagerFactory]);
 app.factory('AjaxService', ['$http','$cookies', AjaxService]);
 app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', dbManagerFactory]);
 app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
-
+app.factory('RegexService', [RegexService]);
 
 
 /**
  * Specifique a la Google Maps
- 
+ */
 
-app.config(function(uiGmapGoogleMapApiProvider) {
+/*app.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyBkm4blthirzCbZy1wy6GwUtxLC_jGW9rI&amp',
         //v: '3.25', //defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization'
     });
-});
-*/
+});*/
+
 
 /**
  * DECLARATION DES ROUTES
@@ -158,13 +177,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 templateUrl: 'views/tpl/inscription.html',
                 controller: 'IHMInscriptionCtrl',
                 controllerAs: 'vmi'
-            }) 
+            })
 
             .when('/profil', {
                 templateUrl: 'views/tpl/profil.html',
                 controller: 'IHMProfilCtrl',
                 controllerAs: 'vmp'
-            }) 
+            })
 
             .otherwise({
                 redirectTo: '/'

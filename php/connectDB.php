@@ -9,7 +9,7 @@ function db()
         "host" => 'localhost',
         "dbname" => 'exlineodev',
         "username" => 'root',
-        "password" => ''
+        "password" => 'toto'
     ];
 
     $db = null;
