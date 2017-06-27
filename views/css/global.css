@@ -727,8 +727,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 .modal-dialog:target,
 	/* Affiche tous les Messages d'alertes */
 	.modal-dialog.msg {
-		display: block;
-		pointer-events: auto
+		display: block
 }
 
 .modal-dialog {
@@ -776,9 +775,68 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 .dialog .modal {overflow: hidden}
 
 .modal-dialog.msg {
+/* Nul besoin désormais
 	opacity: 0;
-	-webkit-animation: fadeinout 9s linear 3s forwards;
-	animation: fadeinout 9s linear 3s forwards
+*/
+	-webkit-animation: fadeinout 9s linear 3s forwards, InDown .75s linear 2s;
+	animation: fadeinout 9s linear 3s forwards, InDown .75s linear 2s
+}
+
+/* Animation des messages de notifications (type erreurs) */
+@-webkit-keyframes InDown {
+	from, 60%, 75%, 90%, to {-webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000)}
+
+	0% {
+		opacity: 0;
+		-webkit-transform: translate3d(0, -3000px, 0);
+		transform: translate3d(0, -3000px, 0)
+	}
+
+	60% {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 25px, 0);
+		transform: translate3d(0, 25px, 0)
+	}
+
+	75% {
+		-webkit-transform: translate3d(0, -10px, 0);
+		transform: translate3d(0, -10px, 0)
+	}
+
+	90% {
+		-webkit-transform: translate3d(0, 5px, 0);
+		transform: translate3d(0, 5px, 0)
+	}
+
+  to {
+    -webkit-transform: none;
+	transform: none
+  }
+}
+
+@keyframes InDown {from, 60%, 75%, 90%, to {animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000)}
+
+	0% {
+		opacity: 0;
+		transform: translate3d(0, -3000px, 0)
+	}
+
+	60% {
+		opacity: 1;
+		transform: translate3d(0, 25px, 0)
+	}
+
+	75% {
+		transform: translate3d(0, -10px, 0)
+	}
+
+	90% {
+		transform: translate3d(0, 5px, 0)
+	}
+
+	to {
+		transform: none
+	}
 }
 
 /* Aspect de modal boxes avec scrolling */
