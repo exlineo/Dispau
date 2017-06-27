@@ -1,6 +1,22 @@
-ID Params : {{vm.idLieu}}
+<div ng-controller="ANNAnnonceListe as vm" aria-hidden="true" role="dialog" class="modal-dialog dialog no-select" id="inscription">
 
-<div ng-repeat="(key, value) in vm.annonces_ar | filter: {idLieu_nb : vm.idLieu} : true">
-    {{value.nom_str}}
-    {{value.idLieu_nb}}
-</div>
+    <div>
+        <div class="modal">
+            <div class="inner-dialog">
+
+                ID Params : {{vm.idLieu}}
+
+                <div ng-repeat="(key, value) in vm.annonces_ar | filter: {idLieu_nb : vm.idLieu} : true">
+                    {{value.nom_str}}
+                    {{value.idLieu_nb}}
+                </div>
+
+            </div> <!-- /inner-dialog -->
+
+        </div> <!-- /modal -->
+        <div class="footer-modal">
+            <a ng-href="index.html" class="help no-select ripple">Fermer</a>
+            <a href="#open-modal-aide" class="link no-select ripple">Aide</a>
+        </div> <!-- /footer-modal -->
+    </div>
+</div> <!-- /modal-dialog -->

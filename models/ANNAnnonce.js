@@ -6,21 +6,34 @@ function ANNAnnonce() {
     //var notice = new Notification();
     var ici = this;
 
+    /**
+     * ID de l'annonce
+     */
     this.id_nb;
 
-    /*identifiant de l'annonce. Cle de la base de donnée*/
+    /**
+     * Nom de l'annonce
+     */
     this.nom_str;
 
-    /*nom de l'annonce*/
-    this.image_img;
+    /**
+     * Image de l'annonce
+     */
+    this.image_img = '';
 
-    /*nomdu fichier qui contient la photo liée à l'annonce*/
+    /**
+     * Description de l'annonce
+     */
     this.description_str;
 
-    /* description de l'annonce en chaine de caractere sans attribut*/
+    /**
+     * Nombre de personnes maximum
+     */
     this.personnesMax_nb;
 
-    /*nombre de personnes maximum*/
+    /**
+     * Nombre de personnes minimum
+     */
     this.personnesMin_nb;
 
     /*nombre de personnes minimum*/
@@ -36,30 +49,32 @@ function ANNAnnonce() {
     this.idLieu_nb;
 
     /*Id clé) du Lieu auquel est attaché l'annonce. */
-    this.dateDebut_dat;
+    this.dateDebut_dat = +new Date();
 
     /*Date   limite pour les inscriptions */
-    this.dateFin_dat;
+    this.dateFin_dat = +new Date();
 
     /*date  du début de l'activité de cette annonce*/
-    this.dateFinInscriptions_dat;
+    this.dateFinInscriptions_dat = +new Date();
 
     /*date  de la fin de l'activité*/
-    this.dateCreation_dat;
+    this.dateCreation_dat = +new Date();
 
     /*date de creation de l'annonde. Se met automatiquement*/
-    this.idGestionnaire_nb;
+    this.idGestionnaire_nb = 1;
 
     /* id du gestionnaire */
-    this.validite_bl = false;
+    this.validite_bl = true;
 
     /*booleen annonce validee=true*/
-    this.annulee_bl = false;
+    this.annulee_bl;
 
-    /*booleen annonce annulée Pour la recréer, il faut en recréer une, avec un Id different*/
+    /**
+     * Limite de l'âge pour l'annonce
+     */
     this.limiteAge_nb;
 
-    /*age minimum requis pour la participation en années*/
+    this.idChat_nb = 1;
 
     this.centresDInterets_ar = [];
     /*Liste des centres d'interets auquels se rapporte cette annonce.¨Pour cibler les éventuels "clients"*/

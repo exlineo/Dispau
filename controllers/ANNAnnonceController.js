@@ -23,7 +23,15 @@ function ANNAnnonceController (DBManager, $routeParams) {
      * Identifiant de l'annonce
      * @type {number}
      */
-    this.id = $routeParams.id;
+    this.id = $routeParams.idAnnonce;
+
+    /**
+     * Action de l'annonce
+     * @type {string}
+     */
+    this.action = $routeParams.action;
+
+    console.log(this.action);
 
     /**
      * L'annonce contrôlée
@@ -31,65 +39,80 @@ function ANNAnnonceController (DBManager, $routeParams) {
      */
     this.model = null;
 
-    var test = true;
+    var test = false;
 
-    // Récupération de l'annonce
-    annonceManager.get(vm.id)
-        .where('idChat_nb').equals(15)
-        .and('banni_nb').equals(0)
-        .orderBy('time', 'desc')
-        .limit(5)
-        .then(function (annonce) {
-            console.log(annonce);
-            vm.model = annonce;
+    //Si la route n'est pas défini, affiche les informations de l'annonce
+    if (typeof(vm.action) === 'undefined'){
 
-            if (test) {
-                annonceManager.save(annonce)
-                    .then(function (annonce) {
-                        console.log("UPDATED", annonce);
-                    })
-                    .catch(function (error) {
-                        console.log("ERROR UPDATIN' : ", error);
-                    });
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-            console.log("ERROR")
-        });
+        /**
+         * Permet d'afficher l'annnonce par rapport à son id
+         */
+        annonceManager.get(vm.id)
+            .then(function (annonce) {
+                console.log(annonce);
+                vm.model = annonce;
 
-    /**
-     * Enregistre une annonce, la met à jour si elle existe
-     * @param {object} donnees
-     */
-    this.enregistrerAnnonce = function (donnees) {
-        // Hydratation de l'instance à envoyer
-        var annonce = new ANNAnnonce();
-        annonce.hydrater(donnees);
-
-        // Envoi de la requête d'insertion
-        annonceManager.save(annonce)
-            .then(function (annonceEnregistree) {
-                // TODO: traîtement à l'ajout
+                if (test) {
+                    annonceManager.save(annonce)
+                        .then(function (annonce) {
+                            console.log("UPDATED", annonce);
+                        })
+                        .catch(function (error) {
+                            console.log("ERROR UPDATIN' : ", error);
+                        });
+                }
             })
             .catch(function (error) {
-                // TODO: traîter l'erreur
+                console.log(error);
+                console.log("ERROR")
             });
-    };
+    }
 
-    /**
-     * Supprime une annocne
-     * @param {number} annonceId
-     */
-    this.supprimerAnnonce = function (annonceId) {
-        if (confirm('Voulez-vous supprimer cette annonce ?')) {
-            annonceManager.delete(annonceId)
-                .then(function (annonceId) {
+    else{
+        switch (vm.action){
+            
+        }
+        /**
+         * Enregistre une annonce, la met à jour si elle existe
+         * @param {object} donnees
+         */
+        this.enregistrerAnnonce = function () {
+            console.log(vm.annonce);
+            // Hydratation de l'instance à envoyer
+            var annonce = new ANNAnnonce();
+            annonce.hydrater(vm.annonce);
 
+            // Envoi de la requête d'insertion
+            annonceManager.save(annonce)
+                .then(function (annonceEnregistree) {
+                    // TODO: traîtement à l'ajout
                 })
                 .catch(function (error) {
-
+                    // TODO: traîter l'erreur
                 });
+        };
+
+        /**
+         * Supprime une annocne
+         * @param {number} annonceId
+         */
+        this.supprimerAnnonce = function (annonceId) {
+            if (confirm('Voulez-vous supprimer cette annonce ?')) {
+                annonceManager.delete(annonceId)
+                    .then(function (annonceId) {
+
+                    })
+                    .catch(function (error) {
+
+                    });
+            }
+        };
+
+        vm.ajouterCentreDInterets= function () {
+            console.log();
+            vm.annonce.centreDInteret.push(vm.interet_str);
         }
-    };
+    }
+
+
 }

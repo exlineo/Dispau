@@ -81,7 +81,7 @@ switch ($action) {
         break;
 
     case "delete" :
-        echo deleteAnnonce($id);
+        deleteAnnonce($db, $id);
         break;
 }
 
@@ -205,10 +205,9 @@ function insertAnnonce($db, $data)
 function updateAnnonce($db, $id, $data)
 {
     return json_encode($data);
-}
-    /*$db = db();
 
-    $req = $db->prepare();
+    $db = db();
+
 }
 
 function deleteAnnonce($db, $id){
@@ -221,4 +220,3 @@ function deleteAnnonce($db, $id){
         echo 'ERROR: ' . $e->getMessage();
     }
 }
-*/
