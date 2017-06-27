@@ -1,0 +1,42 @@
+<!--Modifier Le css, class .modal1 : rajouter 100 a maxHeigth et passer de 60à70vh -->        
+
+<!-- INSCRIPTION -->
+        <div aria-hidden="true" role="dialog" class="modal-dialog dialog tiny no-select" id="open-modal-inscription">
+
+            <div>
+                <div class="modal">
+                    <div class="inner-dialog">
+                        <a href="" title="Fermer" class="close squizz"><i class="fa fa-times"
+                                                                          aria-hidden="true"></i><em>×</em></a>
+                        <h3 class="gris">S'inscrire</h3>
+                        <form method="post" action="/">
+                            <label for="user">Pseudonyme :</label>
+                            <input type="text" required="" name="pseudo" value="" placeholder="Votre pseudonyme DISPAU"
+                                   id="user">
+                            <label for="user">Email :</label>
+                            <input type="email" required="" name="email" value="" placeholder="Votre email"
+                                   id="email">
+                            <label for="password">Mot de passe :</label>
+                            <div class="flex">
+                                <input type="password" required="" name="password" value="" minlength="8"
+                                       placeholder="Votre mot de passe DISPAU" class="password" id="password">
+                                <button type="button" title="Révéler la saisie masquée par appui long" id="eye"><i
+                                        class="fa fa-eye-slash" aria-hidden="true"></i><em>👁</em></button>
+                            </div>
+                            <label for="password_confirm">Confirmation mot de passe :</label>
+                            <div class="flex">
+                                <input type="password" required="" name="password_confirm" value="" minlength="8"
+                                       placeholder="Confirmation du mot de passe" class="password" id="password_confirm">
+                                <button type="button" title="Révéler la saisie masquée par appui long" id="eye"><i
+                                        class="fa fa-eye-slash" aria-hidden="true"></i><em>👁</em></button>
+                            </div>
+                            <button class="button btn-flat button-green full ripple-in"><span>Confirmer</span></button>
+                        </form>
+
+                    </div> <!-- /inner-dialog -->
+
+                </div> <!-- /modal -->
+            </div>
+        </div> <!-- /open-modal-inscription -->
+
+        <!-- FIN INSCRIPTION -->
