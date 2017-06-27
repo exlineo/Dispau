@@ -10,7 +10,7 @@
 
 // }
 
-app.controller('USRUtilisateurController', ['$http', '$log', function($http, $log){
+app.controller('USRUtilisateurController', ['DBManager', '$http', '$log', function($http, $log, DBManager){
 
     var vmu = this;
     // var profils = appelsHTTP.getAnnonces().then(function(retour) {
@@ -20,7 +20,7 @@ app.controller('USRUtilisateurController', ['$http', '$log', function($http, $lo
 
     vmu.pseudo_str = "Profil pseudo";
 
-    //console.log("USRUtilisateurController");
-    $log.log("USRUtilisateurController");
+    console.log("USRUtilisateurController");
+    //$log.log("USRUtilisateurController");
 
 }]);
