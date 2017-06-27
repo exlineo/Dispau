@@ -6,21 +6,34 @@ function ANNAnnonce() {
     //var notice = new Notification();
     var ici = this;
 
+    /**
+     * ID de l'annonce
+     */
     this.id_nb;
 
-    /*identifiant de l'annonce. Cle de la base de donnée*/
-    this.nom_str = '';
+    /**
+     * Nom de l'annonce
+     */
+    this.nom_str;
 
-    /*nom de l'annonce*/
+    /**
+     * Image de l'annonce
+     */
     this.image_img = '';
 
-    /*nomdu fichier qui contient la photo liée à l'annonce*/
-    this.description_str = '';
+    /**
+     * Description de l'annonce
+     */
+    this.description_str;
 
-    /* description de l'annonce en chaine de caractere sans attribut*/
-    this.personnesMax_nb = 15;
+    /**
+     * Nombre de personnes maximum
+     */
+    this.personnesMax_nb;
 
-    /*nombre de personnes maximum*/
+    /**
+     * Nombre de personnes minimum
+     */
     this.personnesMin_nb;
 
     /*nombre de personnes minimum*/
@@ -56,8 +69,10 @@ function ANNAnnonce() {
     /*booleen annonce validee=true*/
     this.annulee_bl;
 
-    /*booleen annonce annulée Pour la recréer, il faut en recréer une, avec un Id different*/
-    this.limiteAge_nb = 18;
+    /**
+     * Limite de l'âge pour l'annonce
+     */
+    this.limiteAge_nb;
 
     this.idChat_nb = 1;
 

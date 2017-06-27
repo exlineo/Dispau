@@ -1,7 +1,9 @@
 
 function ANNAnnonceAdd(DBManager){
     var vm = this;
-    this.annonce = {};
+    vm.annonce = {
+        "centreDInteret" : []
+    };
 
     /**
      * Gestionnaire d'entités
@@ -10,11 +12,11 @@ function ANNAnnonceAdd(DBManager){
      */
     var annonceManager = DBManager('ANNAnnonce');
 
-    this.enregistrerAnnonce = function (donnees) {
-        console.log(donnees)
+    vm.enregistrerAnnonce = function () {
+        console.log(vm.annonce);
         // Hydratation de l'instance à envoyer
         var annonce = new ANNAnnonce();
-        annonce.hydrater(donnees);
+        annonce.hydrater(vm.annonce);
 
         // Envoi de la requête d'insertion
         annonceManager.save(annonce)
@@ -23,6 +25,12 @@ function ANNAnnonceAdd(DBManager){
             })
             .catch(function (error) {
                 // TODO: traîter l'erreur
-            });
+            })
+        vm.annonce = {};
     };
+    
+    vm.ajouterCentreDInterets= function () {
+        console.log();
+        vm.annonce.centreDInteret.push(vm.interet_str);
+    }
 }

@@ -73,9 +73,9 @@ switch ($_GET['action']) {
         if (isset($_GET['id'])) {
             echo updateAnnonce($db, $id, $data);
         }
+        break;
 
     case "delete" :
-        echo "YO";
         deleteAnnonce($db, $id);
         break;
 }
@@ -203,7 +203,6 @@ function updateAnnonce($db, $id, $data)
 
     $db = db();
 
-    $req = $db->prepare();
 }
 
 function deleteAnnonce($db, $id){
