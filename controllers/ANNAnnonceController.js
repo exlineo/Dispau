@@ -32,6 +32,12 @@ function ANNAnnonceController (DBManager, $routeParams) {
     this.action = $routeParams.action;
 
     /**
+     * ID du lieu
+     * @type {number}
+     */
+    this.idLieu = $routeParams.idLieu;
+
+    /**
      * Permet d'afficher le détail de l'annonce
      * @type {boolean}
      */
@@ -63,7 +69,11 @@ function ANNAnnonceController (DBManager, $routeParams) {
         /**
          * Permet d'afficher l'annnonce par rapport à son id
          */
-        annonceManager.get(vm.id)
+        annonceManager.all()
+            .where('id_nb')
+            .equals(vm.id)
+            .and('idLieu_nb')
+            .equals(vm.idLieu)
             .then(function (annonce) {
                 console.log(annonce);
                 vm.annonce = annonce;
@@ -101,7 +111,7 @@ function ANNAnnonceController (DBManager, $routeParams) {
 
                 /**
                  * Enregistre une annonce, la met à jour si elle existe
-                 * @param {object} donnees
+                 * @param {object} annonce
                  */
                 this.enregistrerAnnonce = function () {
                     console.log(vm.annonce);

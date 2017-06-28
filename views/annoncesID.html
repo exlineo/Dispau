@@ -4,9 +4,9 @@
         <div class="modal">
             <div class="inner-dialog">
 
-                <div ng-show="vm.showAnnonce">
-                    ID: {{vm.model.id_nb}}
-                    Nom: {{vm.model.nom_str}}
+                <div ng-show="vm.showAnnonce" ng-repeat="value in vm.annonce">
+                    ID: {{value.id_nb}}
+                    Nom: {{value.nom_str}}
                 </div>
 
                 <div ng-show="vm.showEdit">
