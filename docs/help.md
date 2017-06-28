@@ -63,6 +63,8 @@ La structure à adopter est la suivante :
 
 L'ID de l'élément est l'identifiant unique permettant d'ouvrir les fenêtres modales par un lien avec cet ID en guise d'ancre.
 
+**Nota Bene** Les ID n'impacteront, aucunement, l'aspect visuel (seules les classes sont déterminantes) : ces ID ne servant que pour la ferneture, dans la version statique pure HTML, des fenêtres. Ils sont est laissés libre à tout le moins et à votre convenance si la fermeture des fenêtres est gérée via Angular JS.
+
 Par exemple, placé dans le menu de navigation, ce lien ouvrira la fenêtre modale, ci-avant, sur un clic ou "Tap" identifiée par son ID `open-modal-connexion` :
 
     <a href="#open-modal-connexion" data-tooltip="" title="J'en suis !" data-cible="connexion" class="tooltip-bottom" id="connexionBtn"><i class="fa fa-sign-in" aria-hidden="true"></i><em>☑</em> Connexion</a></li>
@@ -71,7 +73,7 @@ Détail des classes associées à la première balise `<div>`d'une fenêtre moda
 
 * `modal-dialog` : obligatoire, c'est ce qui définit les fenêtres modales (de même que les message box). Par défaut, la barre de scroll sur le côté droit sera ajoutée si le contenu excède la hauteur maximale autorisée (variable selon la taille des écrans).
 * `dialog` : facultatif. Permet de changer la fenêtre en un message box. Les message box ne comportent jamais de barre de scroll sur le côté - sauf mention contraire (cf. Message Box) : ce sont des blocs informatifs.
-* `tiny` : facultatif. Permet de créer des blocs de largeur réduite de 450px maximale : par exemple pour créer une boîte de connexion (par défaut, la largeur maximale est de 900px, fluide et Responsive).
+* `tiny` : facultatif. Permet de créer des blocs de largeur réduite de 450 pixel maximale : par exemple pour créer une boîte de connexion (par défaut, la largeur maximale est de 900 pixel, fluide et Responsive).
 * `no-select`: facultatif. Permet d'interdire la sélection du texte à la souris.
 
 ### Fenêtres modales occupant la moitié de la larguer d'écran et positionnées sur la droite
