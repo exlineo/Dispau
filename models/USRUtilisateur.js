@@ -23,11 +23,11 @@ function Profil(_pseudo_str, _email_str, _pass_str) {
      * @function
      * @param {obj} Profil
      */
-    this.hydrate = function(obj) {
+    this.hydrater = function(obj) {
         for (var k in obj) {
             ici[k] = obj[k];
         }
-        ici.demanderAmi = ListDemandeAmi;
+        //ici.demanderAmi = ListDemandeAmi;
     }
 }
 
@@ -48,7 +48,7 @@ function USRUtilisateur(_pseudo_str, _email_str, _pass_str)
     this.demandesAmis_obj = {};
     this.notificationsRecues_arr = [];
     this.abonnementsLieux_arr = [];
-    this.dernierConnection = date.now();
+    this.dernierConnection = Date.now();
 
 
     /**

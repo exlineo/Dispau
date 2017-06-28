@@ -48,32 +48,52 @@ $action = $_GET['action'];
 /**
  * Permet de récupérer l'id de l'utilisateur
  */
-if (isset($_GET['id']))
-    $id = $_GET['id'];
-else
-    $id = null;
-if (isset($_GET['where']))
-    $where = $_GET['where'];
-else
-    $where = false;
-switch ($action) {
-    case "get" :
-        if (!$where)
-            echo selectUtilisateur($db, $id);
-        else
-            echo selectUtilisateur($db, $id, $where);
-        break;
-    case "create" :
-        $data = json_decode(file_get_contents("php://input"), true);
-        echo insertUtilisateur($db, $data);
-        break;
-    case "update" :
-        $data = json_decode(file_get_contents("php://input"), true);
-        if (isset($_GET['id'])) {
-            echo updateUtilisateur($db, $id, $data);
-        }
-        break;
-    case "delete" :
-        echo deleteUtilisateur($id);
-        break;
+// if (isset($_GET['id']))
+//     $id = $_GET['id'];
+// else
+//     $id = null;
+// if (isset($_GET['where']))
+//     $where = $_GET['where'];
+// else
+//     $where = false;
+// switch ($action) {
+//     case "get" :
+//         if (!$where)
+//             header('Content-Type: application/json;charset=utf8;');
+//             echo selectUtilisateur($db, $id);
+//         else
+//             header('Content-Type: application/json;charset=utf8;');
+//             echo selectUtilisateur($db, $id, $where);
+//         break;
+//     case "create" :
+//         $data = json_decode(file_get_contents("php://input"), true);
+//         echo insertUtilisateur($db, $data);
+//         break;
+//     case "update" :
+//         $data = json_decode(file_get_contents("php://input"), true);
+//         if (isset($_GET['id'])) {
+//             echo updateUtilisateur($db, $id, $data);
+//         }
+//         break;
+//     case "delete" :
+//         echo deleteUtilisateur($id);
+//         break;
+// }
+
+function getUtilisateurs($db)
+{
+    try
+    {
+        $stmt = $db->prepare("SELECT * FROM `utilisateur`");
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        header('Content-Type: application/json;charset=utf8;');
+        echo json_encode($data);
+    }
+    catch(Exception $e)
+    {
+        exit('<b>Catched exception at line '. $e->getLine() .' (code : '. $e->getCode() .') :</b> '. $e->getMessage());
+    }
 }
+
+ getUtilisateurs($db);

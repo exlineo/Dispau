@@ -26,10 +26,11 @@ app.controller('IHMAccueilCtrl', ['$http', '$log', function($http, $log) {
 
 }]);
 
-app.controller('USRUtilisateurController', ['$http', '$log', function($http, $log) {
+// app.controller('USRUtilisateurController', ['DBManager', '$http', '$log', function(DBManager, $http, $log) {
         
-}]);
+// }]);
 
+app.controller('USRUtilisateurController', ['DBManager', USRUtilisateurController]);
 
 
 /*
@@ -48,18 +49,6 @@ app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
 
 /**
  * DECLARATION DES SERVICES (gestion BDD locale...)
- 
-
-app.factory('IndexedDB', [IndexedDB]);
-app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManager]);
-app.factory('AjaxService', ['$http','$cookies', AjaxService]);
-app.factory('DBManager', ['IndexedDB', 'IndexedDBManager', 'AjaxService', 'RequestQueue', DBManager]);
-app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
-app.factory('RegexService', [RegexService]);
-*/
-
-/**
- * DECLARATION DES SERVICES (gestion BDD distante...)
  */
 
 app.factory('IndexedDB', [IndexedDB]);
@@ -67,6 +56,7 @@ app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManagerFactory]);
 app.factory('AjaxService', ['$http','$cookies', AjaxService]);
 app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', dbManagerFactory]);
 app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
+//app.factory('RegexService', [RegexService]);
 
 /**
  * Specifique a la Google Maps
