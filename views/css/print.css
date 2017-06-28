@@ -1,8 +1,11 @@
+@charset "UTF-8";
+
 /*! Affichage d'un message sur la page d'impression */
 .wrapper:before {
-  content:"Désolé, il n'y a rien à imprimer..."
+  content: "Désolé, il n'y a rien à imprimer..."
 }
+
 /*! Et masquage du reste, soit : tout ! */
 .wrapper * {
-  display:none!important
+  display: none!important
 }
