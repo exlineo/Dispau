@@ -53,7 +53,7 @@ function ANNAnnonceController (DBManager, $routeParams) {
      * L'annonce contrôlée
      * @type {ANNAnnonce|null}
      */
-    this.model = null;
+    this.annonce = null;
 
     var test = false;
 
@@ -66,7 +66,7 @@ function ANNAnnonceController (DBManager, $routeParams) {
         annonceManager.get(vm.id)
             .then(function (annonce) {
                 console.log(annonce);
-                vm.model = annonce;
+                vm.annonce = annonce;
 
                 if (test) {
                     annonceManager.save(annonce)
@@ -103,19 +103,24 @@ function ANNAnnonceController (DBManager, $routeParams) {
                  * Enregistre une annonce, la met à jour si elle existe
                  * @param {object} donnees
                  */
-                console.log(vm.annonce);
-                // Hydratation de l'instance à envoyer
-                var annonce = new ANNAnnonce();
-                annonce.hydrater(vm.annonce);
+                this.enregistrerAnnonce = function () {
+                    console.log(vm.annonce);
+                    // Hydratation de l'instance à envoyer
+                    var annonce = new ANNAnnonce();
+                    annonce.hydrater(vm.annonce);
 
-                // Envoi de la requête d'insertion
-                annonceManager.save(annonce)
-                    .then(function (annonceEnregistree) {
-                        // TODO: traîtement à l'ajout
-                    })
-                    .catch(function (error) {
-                        // TODO: traîter l'erreur
-                    });
+                    // Envoi de la requête d'insertion
+                    annonceManager.save(annonce)
+                        .then(function (annonceEnregistree) {
+                            // TODO: traîtement à l'ajout
+                        })
+                        .catch(function (error) {
+                            // TODO: traîter l'erreur
+                        });
+
+                    //Vide l'object une fois insérer
+                    vm.annonce = {};
+                };
                 break;
 
             case 'supprimer':
