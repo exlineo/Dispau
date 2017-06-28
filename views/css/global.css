@@ -1436,6 +1436,17 @@ html .inactive:hover:before {
 
 }
 
+@media only screen and (min-width: 790px) {
+	
+	/* Ecrase les styles de .modal avec positionnement à droite */
+	html .modal-dialog .modal-right {
+		left: 50%;
+    		margin-left: 0;
+    		max-width: 600px
+	}
+
+}
+
 @media only screen and (max-width: 790px) {
 
 	html .wrapper {width: 100%;margin: 0 0 0 0}
