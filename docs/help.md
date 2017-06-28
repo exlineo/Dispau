@@ -63,7 +63,7 @@ La structure à adopter est la suivante :
 
 L'ID de l'élément est l'identifiant unique permettant d'ouvrir les fenêtres modales par un lien avec cet ID en guise d'ancre.
 
-**Nota Bene** Les ID n'impacteront, aucunement, l'aspect visuel (seules les classes sont déterminantes) : ces ID ne servant que pour la ferneture, dans la version statique pure HTML, des fenêtres. Ils sont est laissés libre à tout le moins et à votre convenance si la fermeture des fenêtres est gérée via Angular JS.
+**Notez Bien** : Les ID n'impacteront, aucunement, l'aspect visuel (seules les classes sont déterminantes) : ces ID ne servant que pour la ferneture, dans la version statique pure HTML, des fenêtres. Ils sont laissés libres, à tout le moins et à votre convenance, si la fermeture des fenêtres est gérée via Angular JS.
 
 Par exemple, placé dans le menu de navigation, ce lien ouvrira la fenêtre modale, ci-avant, sur un clic ou "Tap" identifiée par son ID `open-modal-connexion` :
 
