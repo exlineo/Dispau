@@ -4,7 +4,17 @@
 			<div class="modal">
 				<div class="inner-dialog">
 					
-        ... IHMConnectionCtrl : Votre contenu avec balisage HTML ...
+					<p>Bienvenue sur DisPau, pour vous connecter à votre compte utilisateur, nous vous invitons à remplir ce formulaire:</p>
+					<form ng-submit="">
+
+						<label for="email_str">email_str</label>
+						<input type="text" id="email_str" ng-model="vm.profil.email_str">
+
+						<label for="pass_str">pass_str</label>
+						<input type="text" id="pass_str" ng-model="vm.profil.pass_str">
+
+						<input type="submit" value="Verifier">
+					</form>
        
 				</div> <!-- /inner-dialog -->
 
