@@ -31,7 +31,23 @@ function ANNAnnonceController (DBManager, $routeParams) {
      */
     this.action = $routeParams.action;
 
-    console.log(this.action);
+    /**
+     * Permet d'afficher le détail de l'annonce
+     * @type {boolean}
+     */
+    this.showAnnonce = true;
+
+    /**
+     * Permet d'afficher la div d'édition
+     * @type {boolean}
+     */
+    this.showEdit = false;
+
+    /**
+     * Permet d'afficher la div d'édition
+     * @type {boolean}
+     */
+    this.showAdd = false;
 
     /**
      * L'annonce contrôlée
@@ -71,10 +87,18 @@ function ANNAnnonceController (DBManager, $routeParams) {
     else{
         switch (vm.action){
             case 'edit' :
-                console.log("EDIT")
+                //Permet d'afficher la div edit
+                vm.showEdit = true;
+                //Masque le détail de l'annonce
+                vm.showAnnonce = false;
                 break;
 
             case 'ajouter' :
+                //Affiche la div add
+                vm.showAdd = true;
+                //Masque le détail de l'annonce
+                vm.showAnnonce = false;
+
                 /**
                  * Enregistre une annonce, la met à jour si elle existe
                  * @param {object} donnees
@@ -97,7 +121,7 @@ function ANNAnnonceController (DBManager, $routeParams) {
             case 'supprimer':
                 /**
                  * Supprime une annocne
-                 * @param {number} annonceId
+                 * @param {number} id annonce
                  */
                 if (confirm('Voulez-vous supprimer cette annonce ?')) {
                     annonceManager.delete(vm.id)
