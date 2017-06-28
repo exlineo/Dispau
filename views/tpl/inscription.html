@@ -1,11 +1,33 @@
-<div ng-controller="IHMInscriptionCtrl as vmi" aria-hidden="true" role="dialog" class="modal-dialog dialog no-select" id="inscription">
+<div ng-controller="USRUtilisateurController as vm" aria-hidden="true" role="dialog" class="modal-dialog dialog no-select" id="inscription">
 
 		<div>
 			<div class="modal">
 				<div class="inner-dialog">
 					
-        ... IHMInscriptionCtrl : Votre contenu avec balisage HTML ...
-       
+					<form ng-submit="vm.enregistrerUtilisateur()">
+
+						<label for="pseudo_str">pseudo_str</label>
+						<input type="text" id="pseudo_str" ng-model="vm.profil.pseudo_str">
+
+						<label for="email_str">email_str</label>
+						<input type="text" id="email_str" ng-model="vm.profil.email_str">
+
+						<label for="pass_str">pass_str</label>
+						<input type="text" id="pass_str" ng-model="vm.profil.pass_str">
+
+						<label for="prenom_str">prenom_str</label>
+						<input type="text" id="prenom_str" ng-model="vm.profil.prenom_str">
+
+						<label for="nom_str">nom_str</label>
+						<input type="text" id="nom_str" ng-model="vm.profil.nom_str">
+
+						<label for="description_str">description_str</label>
+						<textarea id="description_str" ng-model="vm.profil.description_str"></textarea>
+
+						<input type="submit" value="Enregistrer">
+						
+					</form>
+			 
 				</div> <!-- /inner-dialog -->
 
 			</div> <!-- /modal -->

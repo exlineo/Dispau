@@ -30,10 +30,6 @@ app.controller('IHMConnectionCtrl', ['$http', '$log', function($http, $log) {
 
 }]);
 
-app.controller('IHMInscriptionCtrl', ['$http', '$log', function($http, $log) {
-
-}]);
-
 app.controller('IHMProfilCtrl', ['$http', '$log', function($http, $log) {
 
 }]);
@@ -88,7 +84,7 @@ app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
 // app.controller('LIELieuListe', ['DBManager', LIELieuListe]);
 // app.controller('USRDemandeAmiListe', ['DBManager', USRDemandeAmiListe]);
 // app.controller('USRLogin', ['DBManager', USRLogin]);
-// app.controller('USRUtilisateurController', ['DBManager', USRUtilisateurController]);
+app.controller('USRUtilisateurController', ['DBManager', USRUtilisateurController]);
 // app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
 
 
@@ -140,8 +136,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
             .when('/inscription', {
                 templateUrl: 'views/tpl/inscription.html',
-                controller: 'IHMInscriptionCtrl',
-                controllerAs: 'vmi'
+                controller: 'USRUtilisateurController',
+                controllerAs: 'vm'
             }) 
 
             .when('/profil', {
