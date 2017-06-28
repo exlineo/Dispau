@@ -71,6 +71,32 @@ Détail des classes associées à la première balise `<div>`d'une fenêtre moda
 * `tiny` : facultatif. Permet de créer des blocs de largeur réduite de 450px maximale : par exemple pour créer une boîte de connexion (par défaut, la largeur maximale est de 900px, fluide et Responsive).
 * `no-select`: facultatif. Permet d'interdire la sélection du texte à la souris.
 
+### Fenêtres modales occupant la moitiée de la larguer d'écran et positionnées sur la droite
+
+Un modèle de fenêtres modales permettant de révéler davantage la carte Google Map aux utilisateurs.
+La structure est identique à la précédente, avec l'ajout, par deux fois, d'une classe nommée `modal-right`.
+
+Exemple :
+
+    <div aria-hidden="true" role="dialog" class="modal-dialog dialog" id="liste">
+
+    		<div>
+    			<div class="modal modal-right">
+    				<div class="inner-dialog" style="">
+					
+        ... IHMProfilCtrl : Votre contenu avec balisage HTML ...
+       
+    				</div> <!-- /inner-dialog -->
+
+    			</div> <!-- /modal -->
+    			<div class="footer-modal modal-right">
+    					<a href="index.html" class="help no-select ripple">Fermer</a> 
+    					<a href="#!" class="link no-select ripple">Aide</a>
+    				</div> <!-- /footer-modal -->
+    		</div>
+
+    </div> <!-- /modal-dialog -->
+
 
 ## Message Box
 
