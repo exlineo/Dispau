@@ -109,7 +109,7 @@ function selectAnnonce($db, $id, $where = '')
 
         return json_encode($donnees);
     } catch (Exception $e) {
-        echo 'ERROR: ' . $e->getMessage();
+        exit('<b>Catched exception at line '. $e->getLine() .' (code : '. $e->getCode() .') :</b> '. $e->getMessage());
     }
     //return $donnees;
 }
@@ -217,6 +217,6 @@ function deleteAnnonce($db, $id){
             'id_nb' => $id
         ));
     } catch (Exception $e) {
-        echo 'ERROR: ' . $e->getMessage();
+        exit('<b>Catched exception at line '. $e->getLine() .' (code : '. $e->getCode() .') :</b> '. $e->getMessage());
     }
 }
