@@ -14,7 +14,42 @@
                 </div>
 
                 <div ng-show="vm.showAdd">
-                    <p>je suis ajouter</p>
+                    <form ng-submit="vm.enregistrerAnnonce()">
+                        <label for="titre">Titre annonce</label>
+                        <input type="text" id="titre" ng-model="vm.annonce.nom_str">
+
+                        <label for="description">Description</label>
+                        <textarea id="description" ng-model="vm.annonce.description_str"></textarea>
+
+                        <label for="lieu">Lieu</label>
+                        <input type="text" id="lieu" ng-model="vm.annonce.idLieu_nb">
+
+                        <label for="placeMin">Place minimum</label>
+                        <input type="text" id="placeMin" ng-model="vm.annonce.personnesMin_nb">
+
+                        <label for="placeMax">Place maximum</label>
+                        <input type="text" id="placeMax" ng-model="vm.annonce.personnesMax_nb">
+
+                        <label for="limiteage">Limite d'âge</label>
+                        <input type="text" id="limiteage" ng-model="vm.annonce.limiteAge_nb">
+
+                        <!--@TODO: Ajouter un système pour ajouter plusieurs centres d'intérêts dans un tableau -->
+                        <!--<label for="centreDInteret">Centres d'intérêts</label>
+                        <input type="text" id="centreDInteret" ng-model="vm.interet_str">
+                        <input type="button" ng-click="vm.ajouterCentreDInterets()" value="Ajouter Intérêt">
+                        <ul>
+                            <li ng-repeat="interet in vm.annonce.centreDInteret track by $index">{{interet}}</li>
+                        </ul>-->
+
+                        <!--<label for="dateFinInscriptions">Date fin d'inscriptions</label>
+                        <input type="date" id="dateFinInscriptions" ng-model="vm.annonce.dateFinInscriptions_dat">-->
+
+                        <input type="submit" value="Enregistrer">
+                    </form>
+
+                    <pre>annonce = {{vm.annonce | json}}</pre>
+
+                    {{vm.centreDInteret}}
                 </div>
 
             </div> <!-- /inner-dialog -->
