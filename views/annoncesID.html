@@ -4,8 +4,18 @@
         <div class="modal">
             <div class="inner-dialog">
 
-                ID: {{vm.model.id_nb}}
-                Nom: {{vm.model.nom_str}}
+                <div ng-show="vm.showAnnonce">
+                    ID: {{vm.model.id_nb}}
+                    Nom: {{vm.model.nom_str}}
+                </div>
+
+                <div ng-show="vm.showEdit">
+                    <p>je suis edit</p>
+                </div>
+
+                <div ng-show="vm.showAdd">
+                    <p>je suis ajouter</p>
+                </div>
 
             </div> <!-- /inner-dialog -->
 
