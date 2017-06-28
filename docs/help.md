@@ -1,5 +1,7 @@
-![DISPAU sur iPhone 5](https://github.com/Greta-JS-2017/Dispau/blob/patrick/views/dispau-iphone5.png)
-![DISPAU sur écran TV](https://github.com/Greta-JS-2017/Dispau/blob/patrick/views/dispau-ecran-tv.png)
+![DISPAU sur iPhone 5](https://github.com/Greta-JS-2017/Dispau/blob/groupe3/views/UI/dispau-iphone5.png)
+![DISPAU sur iPad Pro](https://github.com/Greta-JS-2017/Dispau/blob/groupe3/views/UI/dispau-ipad-pro.png)
+![DISPAU sur desktop](https://github.com/Greta-JS-2017/Dispau/blob/groupe3/views/UI/dispau-ecran-desktop.png)
+![DISPAU sur écran TV](https://github.com/Greta-JS-2017/Dispau/blob/groupe3/views/UI/dispau-ecran-tv.png)
 
 # Support des navigateurs
 
@@ -14,7 +16,7 @@ Ce modèle a été testé avec succès depuis les navigateurs suivants (hors jav
 * iPhone 5C sous Chrome ;
 * Tablette Android 4.x sous Chrome.
 
-Soit, globalement, avec un meilleur support que Twitter Bootstrap.
+Soit, globalement, avec un meilleur support que Twitter © Bootstrap et pour un poids de fichier réduit (versions minifiées : environ 35Ko contre 119Ko).
 
 Le projet DISPAU, en raison de la particularité de sa maquette initiale, doit s'afficher dans la limite verticale de la fenêtre des navigateurs sans scroll. La seule méthode pour afficher des éléments dont le contenu ne peut excéder cette limite de hauteur contrainte est de concevoir des "Modal Boxes" (ou fenêtres modales, semblables à ce que peut produire des iframes sans leurs inconvéniants, totalement déconseillés pour le SEO, notamment).
 
@@ -29,8 +31,9 @@ La création de ces éléments doit être contenue entre les balises d'ouvertre 
 
 ## Fenêtres modales
 
-Les fenêtres modales comportent un espace central dévolu au contenu ainsi que d'un pied de box destiné à recevoir des boutons (au minimum un seul : celui permettant leur fermeture).
-    Ces boîtes sont centrées et s'adaptent automatiquement en hauteur si bien que vous n'avez pas à vous soucier des problèmes de dimensions ni de positionnement (support des écrans larges, jusque les Smart TV ainsi que les petits écrans de SmartPhones).
+Les fenêtres modales comportent un espace central dévolu au contenu ainsi que d'un pied de box destiné à recevoir des boutons (au minimum un seul : celui permettant leur fermeture. Pas de limite maximale : les libellés des boutons ne seront jamais fractionnés et se positionneront en retour de ligne avec présence d'une barre de scroll verticale incluse dans les pieds de box afin d'offrir l'accès à l'utilisateur final).
+
+Ces boîtes sont centrées et s'adaptent automatiquement en hauteur si bien que vous n'avez pas à vous soucier des problèmes de dimensions ni de positionnement (support des écrans larges, jusque les Smart TV ainsi que les petits écrans de SmartPhones).
 Masquées par défaut, elles s'ouvrent, tout comme les Message Box, par un lien `<a>` dont le `href` est une ancre constituée de l'ID de la fenêtre modale ou du message box, peu importe l'emplacement de ces liens d'ouverture dans le document.
 
 La structure à adopter est la suivante :
