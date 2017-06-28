@@ -71,58 +71,50 @@ function ANNAnnonceController (DBManager, $routeParams) {
     else{
         switch (vm.action){
             case 'edit' :
-
-            break;
+                console.log("EDIT")
+                break;
 
             case 'ajouter' :
+                /**
+                 * Enregistre une annonce, la met à jour si elle existe
+                 * @param {object} donnees
+                 */
+                console.log(vm.annonce);
+                // Hydratation de l'instance à envoyer
+                var annonce = new ANNAnnonce();
+                annonce.hydrater(vm.annonce);
 
-            break;
-
-            case 'supprimer':
-
-            break;
-        }
-        /**
-         * Enregistre une annonce, la met à jour si elle existe
-         * @param {object} donnees
-         */
-        this.enregistrerAnnonce = function () {
-            console.log(vm.annonce);
-            // Hydratation de l'instance à envoyer
-            var annonce = new ANNAnnonce();
-            annonce.hydrater(vm.annonce);
-
-            // Envoi de la requête d'insertion
-            annonceManager.save(annonce)
-                .then(function (annonceEnregistree) {
-                    // TODO: traîtement à l'ajout
-                })
-                .catch(function (error) {
-                    // TODO: traîter l'erreur
-                });
-        };
-
-        /**
-         * Supprime une annocne
-         * @param {number} annonceId
-         */
-        this.supprimerAnnonce = function (annonceId) {
-            if (confirm('Voulez-vous supprimer cette annonce ?')) {
-                annonceManager.delete(annonceId)
-                    .then(function (annonceId) {
-
+                // Envoi de la requête d'insertion
+                annonceManager.save(annonce)
+                    .then(function (annonceEnregistree) {
+                        // TODO: traîtement à l'ajout
                     })
                     .catch(function (error) {
-
+                        // TODO: traîter l'erreur
                     });
-            }
-        };
+                break;
 
-        vm.ajouterCentreDInterets= function () {
+            case 'supprimer':
+                /**
+                 * Supprime une annocne
+                 * @param {number} annonceId
+                 */
+                if (confirm('Voulez-vous supprimer cette annonce ?')) {
+                    annonceManager.delete(vm.id)
+                        .then(function (annonceId) {
+
+                        })
+                        .catch(function (error) {
+
+                        });
+                }
+                break;
+        }
+
+
+        vm.ajouterCentreDInterets = function () {
             console.log();
             vm.annonce.centreDInteret.push(vm.interet_str);
         }
     }
-
-
 }
