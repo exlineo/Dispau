@@ -112,7 +112,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 controller: 'ANNAnnonceController',
                 controllerAs: 'vm'
             })
-        
+
             .when('/profil', {
                 templateUrl: 'views/tpl/profil.html',
                 controller: 'IHMProfilCtrl',
