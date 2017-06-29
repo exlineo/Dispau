@@ -1,5 +1,7 @@
-![DISPAU sur iPhone 5](https://github.com/Greta-JS-2017/Dispau/blob/patrick/views/dispau-iphone5.png)
-![DISPAU sur écran TV](https://github.com/Greta-JS-2017/Dispau/blob/patrick/views/dispau-ecran-tv.png)
+![DISPAU sur iPhone 5](https://github.com/Greta-JS-2017/Dispau/blob/groupe3/views/UI/dispau-iphone5.png)
+![DISPAU sur iPad Pro](https://github.com/Greta-JS-2017/Dispau/blob/groupe3/views/UI/dispau-ipad-pro.png)
+![DISPAU sur desktop](https://github.com/Greta-JS-2017/Dispau/blob/groupe3/views/UI/dispau-ecran-desktop.png)
+![DISPAU sur écran TV](https://github.com/Greta-JS-2017/Dispau/blob/groupe3/views/UI/dispau-ecran-tv.png)
 
 # Support des navigateurs
 
@@ -14,7 +16,7 @@ Ce modèle a été testé avec succès depuis les navigateurs suivants (hors jav
 * iPhone 5C sous Chrome ;
 * Tablette Android 4.x sous Chrome.
 
-Soit, globalement, avec un meilleur support que Twitter Bootstrap.
+Soit, globalement, avec un meilleur support que Twitter © Bootstrap et pour un poids de fichier réduit (versions minifiées : environ 35Ko contre 119Ko).
 
 Le projet DISPAU, en raison de la particularité de sa maquette initiale, doit s'afficher dans la limite verticale de la fenêtre des navigateurs sans scroll. La seule méthode pour afficher des éléments dont le contenu ne peut excéder cette limite de hauteur contrainte est de concevoir des "Modal Boxes" (ou fenêtres modales, semblables à ce que peut produire des iframes sans leurs inconvéniants, totalement déconseillés pour le SEO, notamment).
 
@@ -23,14 +25,15 @@ Vous pourrez donc inclure vos divers éléments IHM dans ces Modal Boxes (cf. [d
 # Creation de fenêtres modales et de message box
 
 La conception permet l'usage de "_Modal Boxes_" ou encore de "_Message Boxes_" dont la hauteur est maîtrisée afin de s'insérer dans l'espace disponible du "viewport" (limitée à la ligne de flotaison du site).
-Les Message Boxes seront particulièrement utiles pour l'affichage de messages d'erreurs, notamment.
+Les _Message Boxes_ seront particulièrement utiles pour l'affichage de messages d'erreurs, notamment.
 
-La création de ces éléments doit être contenue entre les balises d'ouvertre et de fermeture `<div class="content"> ... </div>` du document HTML (voir le fichier : [index.html](https://github.com/Greta-JS-2017/Dispau/blob/patrick/views/index.html)).
+La création de ces divers éléments doit être contenue entre les balises d'ouvertre et de fermeture `<div class="content"> ... </div>` du document HTML (voir le fichier : [index.html](https://github.com/Greta-JS-2017/Dispau/blob/patrick/views/index.html)).
 
 ## Fenêtres modales
 
-Les fenêtres modales comportent un espace central dévolu au contenu ainsi que d'un pied de box destiné à recevoir des boutons (au minimum un seul : celui permettant leur fermeture).
-    Ces boîtes sont centrées et s'adaptent automatiquement en hauteur si bien que vous n'avez pas à vous soucier des problèmes de dimensions ni de positionnement (support des écrans larges, jusque les Smart TV ainsi que les petits écrans de SmartPhones).
+Les fenêtres modales comportent un espace central dévolu au contenu ainsi que d'un pied de box ("footer") destiné à recevoir des boutons (au minimum un seul : celui permettant leur fermeture. Pas de limite maximale : les libellés des boutons ne seront jamais fractionnés et se positionneront en retour de ligne avec présence d'une barre de scroll verticale incluse dans les pieds de box afin d'offrir l'accès à l'utilisateur final).
+
+Ces boîtes sont centrées et s'adaptent automatiquement en hauteur si bien que vous n'avez pas à vous soucier des problèmes de dimensions ni de positionnement (support des écrans larges, jusque les Smart TV ainsi que les petits écrans de SmartPhones).
 Masquées par défaut, elles s'ouvrent, tout comme les Message Box, par un lien `<a>` dont le `href` est une ancre constituée de l'ID de la fenêtre modale ou du message box, peu importe l'emplacement de ces liens d'ouverture dans le document.
 
 La structure à adopter est la suivante :
@@ -60,6 +63,8 @@ La structure à adopter est la suivante :
 
 L'ID de l'élément est l'identifiant unique permettant d'ouvrir les fenêtres modales par un lien avec cet ID en guise d'ancre.
 
+**Notez Bien** : Les ID n'impacteront, aucunement, l'aspect visuel (seules les classes sont déterminantes) : ces ID ne servant que pour la ferneture, dans la version statique pure HTML, des fenêtres. Ils sont laissés libres, à tout le moins et à votre convenance, si la fermeture des fenêtres est gérée via Angular JS.
+
 Par exemple, placé dans le menu de navigation, ce lien ouvrira la fenêtre modale, ci-avant, sur un clic ou "Tap" identifiée par son ID `open-modal-connexion` :
 
     <a href="#open-modal-connexion" data-tooltip="" title="J'en suis !" data-cible="connexion" class="tooltip-bottom" id="connexionBtn"><i class="fa fa-sign-in" aria-hidden="true"></i><em>☑</em> Connexion</a></li>
@@ -68,8 +73,34 @@ Détail des classes associées à la première balise `<div>`d'une fenêtre moda
 
 * `modal-dialog` : obligatoire, c'est ce qui définit les fenêtres modales (de même que les message box). Par défaut, la barre de scroll sur le côté droit sera ajoutée si le contenu excède la hauteur maximale autorisée (variable selon la taille des écrans).
 * `dialog` : facultatif. Permet de changer la fenêtre en un message box. Les message box ne comportent jamais de barre de scroll sur le côté - sauf mention contraire (cf. Message Box) : ce sont des blocs informatifs.
-* `tiny` : facultatif. Permet de créer des blocs de largeur réduite de 450px maximale : par exemple pour créer une boîte de connexion (par défaut, la largeur maximale est de 900px, fluide et Responsive).
+* `tiny` : facultatif. Permet de créer des blocs de largeur réduite de 450 pixel maximale : par exemple pour créer une boîte de connexion (par défaut, la largeur maximale est de 900 pixel, fluide et Responsive).
 * `no-select`: facultatif. Permet d'interdire la sélection du texte à la souris.
+
+### Fenêtres modales occupant la moitié de la larguer d'écran et positionnées sur la droite
+
+Un modèle de fenêtres modales permettant de révéler davantage la carte Google Map aux utilisateurs.
+La structure est identique à la précédente, avec l'ajout, par deux fois, d'une classe nommée `modal-right`.
+
+Exemple :
+
+    <div aria-hidden="true" role="dialog" class="modal-dialog dialog" id="liste">
+
+    		<div>
+    			<div class="modal modal-right">
+    				<div class="inner-dialog" style="">
+					
+        ... IHMProfilCtrl : Votre contenu avec balisage HTML ...
+       
+    				</div> <!-- /inner-dialog -->
+
+    			</div> <!-- /modal -->
+    			<div class="footer-modal modal-right">
+    					<a href="index.html" class="help no-select ripple">Fermer</a> 
+    					<a href="#!" class="link no-select ripple">Aide</a>
+    				</div> <!-- /footer-modal -->
+    		</div>
+
+    </div> <!-- /modal-dialog -->
 
 
 ## Message Box
