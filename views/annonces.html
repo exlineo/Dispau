@@ -6,7 +6,7 @@
 
                 ID Params : {{vm.idLieu}}
 
-                <div ng-repeat="(key, value) in vm.annonces_ar | filter: {idLieu_nb : vm.idLieu} : true">
+                <div ng-repeat="(key, value) in vm.annonces_ar">
                     {{value.nom_str}}
                     {{value.idLieu_nb}}
                 </div>
