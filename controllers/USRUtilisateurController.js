@@ -36,9 +36,9 @@ function USRUtilisateurController (DBManager) {
         console.log(vm.utilisateur);
 
         // Hydratation de l'instance à envoyer
-        var profil = new Profil();
-        profil.hydrater(vm.profil);
         var utilisateur = new USRUtilisateur();
+        utilisateur.hydrater(vm.profil);
+        
         // TODO: voir ce qui lie Profil et USRUtilisateur
         
         // Envoi de la requête d'insertion
