@@ -46,8 +46,6 @@ function RequestQueue($rootScope, localManager, restService) {
     }
     RequestQueue._instance = this;
 
-    this._localManager = localManager('REQRequest');
-
     /**
      * Un tableau contenante les requêtes en attentes
      * @todo Vérifier la nécessité de garder ça en mémoire
@@ -60,7 +58,7 @@ function RequestQueue($rootScope, localManager, restService) {
      * @private
      */
     this._getAllRequestsFromDB = function () {
-        this._localManager.all()
+        localManager.all('REQRequest')
             .then(function (result) {
                 RequestQueue._instance.queue = result;
             });
@@ -75,7 +73,7 @@ function RequestQueue($rootScope, localManager, restService) {
      */
     this.put = function (request) {
         console.log('Queued request : ' + request.method + ' ' + request.url);
-        this._localManager.save(request);
+        localManager.save('REQRequest', request);
         this._getAllRequestsFromDB();
     };
 
@@ -92,7 +90,7 @@ function RequestQueue($rootScope, localManager, restService) {
                 restService[request.method](request)
                     .catch(function (xhr) { // Échec de la requête
                         // Affichage d'une erreur
-                        // TODO: Gérer l'erreur
+                        document.getElementById('camera-error').innerHTML = xhr.responseText;
                     });
             } else {
                 restService.merge(request, request.body)
@@ -104,7 +102,7 @@ function RequestQueue($rootScope, localManager, restService) {
                                 $rootScope.$emit('data-changed');
                             })
                             .catch(function (xhr) {
-                                // TODO: Gérer l'erreur
+                                document.getElementById('camera-error').innerHTML = xhr.responseText;
                             });
                     })
                     .catch(function (response) {
