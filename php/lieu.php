@@ -129,7 +129,7 @@ function selectLieu($db, $id)
 }
 
 
-function insertAnnonce($db, $data)
+function insertLieu($db, $data)
 {
     // Il ne faut pas d'id, c'est le SGBD qui nous la donne
     // On supprime la clé pour ne pas insérer de fausses valeurs
