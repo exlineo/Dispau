@@ -37,8 +37,8 @@ app.controller('IHMProfilCtrl', ['$http', '$log', function($http, $log) {
 // CONTROLER POUR LA CARTE DE FOND / GEREE AVEC NG-MAP
 
 
-//app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
-//app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
+app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
+app.controller('ANNAnnonceListe', ['DBManager', '$routeParams', ANNAnnonceListe]);
 app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
 // app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
 // app.controller('CHAChatController', ['DBManager', CHAChatController]);
