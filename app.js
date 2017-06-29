@@ -80,8 +80,8 @@ app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
 app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
 // app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
 // app.controller('CHAChatController', ['DBManager', CHAChatController]);
-// app.controller('LIELieuController', ['DBManager', LIELieuController]);
-// app.controller('LIELieuListe', ['DBManager', LIELieuListe]);
+app.controller('LIELieuController', ['DBManager','$routeParams', LIELieuController]);
+app.controller('LIELieuListe', ['DBManager', LIELieuListe]);
 // app.controller('USRDemandeAmiListe', ['DBManager', USRDemandeAmiListe]);
 // app.controller('USRLogin', ['DBManager', USRLogin]);
 app.controller('USRUtilisateurController', ['DBManager', USRUtilisateurController]);
@@ -144,9 +144,25 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 templateUrl: 'views/tpl/profil.html',
                 controller: 'IHMProfilCtrl',
                 controllerAs: 'vmp'
-            }) 
+            })
 
-            .otherwise({
+            .when('/lieux/:idLieu', {                                // indique le path pour matcher l'url apres le '#'
+                templateUrl : "views/tpl/lieu.html",            // fichier qui sera inclu dans le layout dans le 'ngview'
+                controller : 'LIELieuController',                    // controlleur qui le gère
+                controllerAs : 'myCtrl'
+            })
+
+            .when('/lieux/', {                            // indique le path pour matcher l'url apres le '#'
+                templateUrl : "views/tpl/lieux.html",            // fichier qui sera inclu dans le layout dans le 'ngview'
+                controller  : 'LIELieuListe',                          // controlleur qui le gère
+                controllerAs : 'myCtrl'
+            })
+
+            /**
+             * Action par défaut
+             */
+
+        .otherwise({
                 redirectTo: '/'
             });
 

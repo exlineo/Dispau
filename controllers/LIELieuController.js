@@ -9,6 +9,68 @@ function LIELieuController () {
 
     // requetes ajax pour recup les données
 
+    var ici = this;
+
+    ici.model = [];
+
+
+    var lieuManager = DBManager('LIELieu');
+
+
+    /**
+     * Récupération des arguments du GET
+     */
+
+    ici.action = $routeParams.action;
+    ici.idLieu = $routeParams.idLieu;
+
+console.log(ici.action);
+
+    switch (ici.action)
+    {
+        case 'ajouter' :
+
+            break;
+
+        case 'editer' :
+
+            break;
+
+        case 'supprimer' :
+
+            break;
+
+        default :
+            // Si l'id est vide, on affiche tous les lieux
+            if (ici.action === '')
+            {
+                lieuManager.all()
+                    .then(function(lieu) {
+                        ici.model = lieu;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        console.log("ERROR")
+                    });
+            }
+            // Si l'id est défini, on affiche le lieu
+            else
+            {
+                lieuManager.all()
+                    .where('id_nb')
+                    .equals(ici.idLieu)
+                    .then(function(lieu) {
+                        ici.model = lieu;
+                    })
+                    .catch(function (error) {
+                        console.log("Error :", error);
+                    });
+            }
+            break;
+    }
+
+
+
     DBManager.get('LIELieu', $routeParams.idLieu)
         .then(function(lieu) {
             console.log("lieu recup : ", lieu);

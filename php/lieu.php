@@ -71,6 +71,7 @@ switch ($_GET['action'])
 {
     case "get" :
         echo selectLieu($db, $id);
+        getLieux();
         break;
 
     case "create" :
@@ -94,6 +95,52 @@ switch ($_GET['action'])
 /**
  * Fonction SELECT
  */
+
+
+function getLieux($db)
+{
+    try
+    {
+
+        $stmt = $db->prepare("SELECT lieu.*, annonce.id_nb as nb_annonces FROM lieu LEFT OUTER JOIN annonce ON lieu.id_nb = annonce.idLieu_nb");
+        $stmt->execute();
+        $lieux = [];
+        $tempLieu = -1;
+        $tempNbAnn = 0;
+        $index = -1;
+        while ($data = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            //var_dump($data);
+            if($data["id_nb"] != $tempLieu) {
+                $index++;
+                $tempNbAnn = 1;
+                if($data["nb_annonces"]==null){
+                     $data["nb_annonces"] = 0;
+                } else {
+                     $data["nb_annonces"] = 1;
+                }
+                $tempLieu = $data["id_nb"];
+                $lieux[$index] = $data;
+            } else {
+                $tempNbAnn++;
+                $data["nb_annonces"] = $tempNbAnn;
+                $lieux[$index] = $data;
+            }
+
+        }
+
+        //header('Content-Type: application/json;charset=utf8;');
+        $json_str = json_encode($lieux);
+        if ($json_str)
+            echo json_encode($lieux);
+        else
+            echo json_last_error_msg();
+    }
+    catch(Exception $e)
+    {
+        exit('<b>Catched exception at line '. $e->getLine() .' (code : '. $e->getCode() .') :</b> '. $e->getMessage());
+    }
+}
 
 
 function selectLieu($db, $id)
