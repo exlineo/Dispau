@@ -132,14 +132,26 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 templateUrl: 'views/tpl/connection.html',
                 controller: 'IHMConnectionCtrl',
                 controllerAs: 'vmc'
-            }) 
+            })
 
-            .when('/inscription', {
-                templateUrl: 'views/tpl/inscription.html',
-                controller: 'USRUtilisateurController',
+            .when('/annonces/:idLieu', {
+                templateUrl: 'views/annonces.html',
+                controller: 'ANNAnnonceListe',
                 controllerAs: 'vm'
-            }) 
+            })
 
+            .when('/annonces/:idLieu/:idAnnonce', {
+                templateUrl: 'views/annoncesID.html',
+                controller: 'ANNAnnonceController',
+                controllerAs: 'vm'
+            })
+
+            .when('/annonces/:idLieu/:idAnnonce/:action', {
+                templateUrl: 'views/annoncesID.html',
+                controller: 'ANNAnnonceController',
+                controllerAs: 'vm'
+            })
+        
             .when('/profil', {
                 templateUrl: 'views/tpl/profil.html',
                 controller: 'IHMProfilCtrl',
@@ -150,10 +162,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 redirectTo: '/'
             });
 
-    $locationProvider.html5Mode({
+    /*$locationProvider.html5Mode({
             enabled: true,
             requireBase: true
-        });
+        });*/
 
     //$httpProvider.interceptors.push('conneIntercepteur');
 
