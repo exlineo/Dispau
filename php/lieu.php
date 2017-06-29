@@ -129,7 +129,7 @@ function getLieux($db)
 
         }
 
-        //header('Content-Type: application/json;charset=utf8;');
+        header('Content-Type: application/json;charset=utf8;');
         $json_str = json_encode($lieux);
         if ($json_str)
             echo json_encode($lieux);
