@@ -1,0 +1,27 @@
+<div ng-controller="IHMConnectionCtrl as vmc" aria-hidden="true" role="dialog" class="modal-dialog dialog no-select" id="liste">
+
+		<div>
+			<div class="modal">
+				<div class="inner-dialog">
+					
+					<p>Bienvenue sur DisPau, pour vous connecter à votre compte utilisateur, nous vous invitons à remplir ce formulaire:</p>
+					<form ng-submit="">
+
+						<label for="email_str">email_str</label>
+						<input type="text" id="email_str" ng-model="vm.profil.email_str">
+
+						<label for="pass_str">pass_str</label>
+						<input type="text" id="pass_str" ng-model="vm.profil.pass_str">
+
+						<input type="submit" value="Verifier">
+					</form>
+       
+				</div> <!-- /inner-dialog -->
+
+			</div> <!-- /modal -->
+			<div class="footer-modal">
+					<a ng-href="index.html" class="help no-select ripple">Fermer</a> 
+					<a href="#open-modal-aide" class="link no-select ripple">Aide</a>
+			</div> <!-- /footer-modal -->
+		</div>
+ </div> <!-- /modal-dialog -->
