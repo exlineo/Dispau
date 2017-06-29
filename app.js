@@ -35,48 +35,10 @@ app.controller('IHMProfilCtrl', ['$http', '$log', function($http, $log) {
 }]);
 
 // CONTROLER POUR LA CARTE DE FOND / GEREE AVEC NG-MAP
-app.controller('carteClr', ['NgMap', function(NgMap) {
 
-    var vmm = this;
 
-    NgMap.getMap('dispauCarte').then(function(map) {
-        vmm.map = map;
-
-        vmm.map.onClick = function() {
-            alert('Carte cliquée');
-        }
-    });
-
-    vmm.positions1 = [
-        { pos: [40.11, -0.21], name: 1 }, { pos: [40.22, -0.10], name: 2 },
-        { pos: [40.33, -0.99], name: 3 }, { pos: [40.44, -0.88], name: 4 },
-        { pos: [40.55, -0.77], name: 5 }, { pos: [40.66, -0.66], name: 6 }
-    ];
-
-    vmm.positions2 = [
-        { pos: [40.71, -0.21], name: 1 }, { pos: [40.72, -0.20], name: 2 },
-        { pos: [40.73, -0.19], name: 3 }, { pos: [40.74, -0.18], name: 4 },
-        { pos: [40.75, -0.17], name: 5 }, { pos: [40.76, -0.16], name: 6 }
-    ];
-
-    vmm.setPositions = function(pos) {
-        vmm.positions = angular.copy(pos);
-    };
-
-    vmm.setPositions(vmm.positions1);
-    vmm.currentIndex = 0;
-    vmm.selectNextCustomMarker = function() {
-        /* vmm.map.customMarkers[vmm.currentIndex].removeClass('selected');
-        vmm.currentIndex = (vmm.currentIndex + 1) % vmm.positions.length;
-        vmm.map.customMarkers[vmm.currentIndex].addClass('selected');
-        vmm.currentPosition = vmm.positions[vmm.currentIndex];
-        */
-    }
-
-}]);
-
-app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
-app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
+//app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
+//app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
 app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
 // app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
 // app.controller('CHAChatController', ['DBManager', CHAChatController]);
@@ -84,9 +46,11 @@ app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
 // app.controller('LIELieuListe', ['DBManager', LIELieuListe]);
 // app.controller('USRDemandeAmiListe', ['DBManager', USRDemandeAmiListe]);
 // app.controller('USRLogin', ['DBManager', USRLogin]);
-app.controller('USRUtilisateurController', ['DBManager', USRUtilisateurController]);
+//app.controller('USRUtilisateurController', ['DBManager', USRUtilisateurController]);
 // app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
 
+    NgMap.getMap('dispauCarte').then(function(map) {
+        vmm.map = map;
 
 
 /**
