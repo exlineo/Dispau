@@ -61,8 +61,6 @@ function ANNAnnonceController (DBManager, $routeParams) {
      */
     this.annonce = null;
 
-    var test = false;
-
     //Si la route n'est pas défini, affiche les informations de l'annonce
     if (typeof(vm.action) === 'undefined'){
 
@@ -77,16 +75,6 @@ function ANNAnnonceController (DBManager, $routeParams) {
             .then(function (annonce) {
                 console.log(annonce);
                 vm.annonce = annonce;
-
-                if (test) {
-                    annonceManager.save(annonce)
-                        .then(function (annonce) {
-                            console.log("UPDATED", annonce);
-                        })
-                        .catch(function (error) {
-                            console.log("ERROR UPDATIN' : ", error);
-                        });
-                }
             })
             .catch(function (error) {
                 console.log(error);
