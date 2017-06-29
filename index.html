@@ -60,28 +60,36 @@
 	</header>
 
 	<!-- Google Map -->
-	<ng-map on-click="onClick()" center="current-location" center="[43.3333574, -0.4465493]" zoom="8" id="dispauCarte" ng-controller="carteClr as vmm">
-        
-		<marker position="43.3333574, -0.4465493"></marker>
-        
-		<marker ng-repeat="p in vmm.positions track by $index" id="lieu-{{$index}}" on-click="vmm.map.showInfoWindow('infosCarte', 'lieu-'+$index)" position="{{p.pos}}">
-            <!-- <div>
-                position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
-            </div>-->
-        </marker>
+	<ng-map center='current-position'
+			zoom="8"
+			id="dispauCarte"
+			default-style="false"
+			ng-controller="MAPMapController as vmm">
 
-        <info-window id="infosCarte" on-mouseover="vmm.mouseover()">
-            <!--
+		<marker ng-repeat="p in vmm.lieux track by $index"
+				label = "{
+                text:'{{p.nb_annonces}}',
+                color:'#F5F5F5',
+                fontWeight:'bold'}"
+				on-click="vmm.onClick(p)"
+				id="lieu-{{p.id_nb}}"
+				position="{{p.longitude_nb}}, {{p.latitude_nb}}"></marker>
+
+		<info-window id="infosCarte">
 			<div ng-non-bindable="">
-                Lat: {{anchor.getPosition().lat()}}<br/> Lng: {{anchor.getPosition().lng()}}<br/>
-            </div> -->
-        </info-window>
+				<h1>{{vmm.lieu.nom_str}}</h1>
+				<span>Description : {{vmm.lieu.description_str}}</span>
+				<span> Nombre d'annonce sur ce lieu : {{vmm.lieu.nb_annonces}}</span></br>
+				Adresse : {{vmm.lieu.adresse_str}}<br/>
+				<a href="#/lieu:{{vmm.lieu.id_nb}}">Voir ce lieu</a>
+			</div>
+		</info-window>
 
-        <custom-control position="TOP_CENTER">
-            <input placeholder="Recherche un lieu" />
-        </custom-control>
+		<custom-control position="TOP_CENTER">
+			<input placeholder="Recherche un lieu" />
+		</custom-control>
 
-    </ng-map>
+	</ng-map>
 
 	<main class="content">
 
@@ -114,8 +122,10 @@
 <script src="controllers/USRLogin.js"></script>
 <script src="controllers/USRDemandeAmiListe.js"></script>
 
-<script src="services/dexie.js"></script>
+<script src="services/ng-map.min.js"></script>
 <script src="controllers/MAPMapController.js"></script>
+
+<script src="services/dexie.js"></script>
 <script src="services/IndexedDB.js"></script>
 <script src="services/IndexedDBManager.js"></script>
 <script src="services/AjaxService.js"></script>

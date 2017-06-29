@@ -6,7 +6,7 @@
 var app = angular.module('dispau-app', [
     'ngRoute',
     'ngCookies',
-    'ngMap' 
+    'ngMap'
     // AJOUTER VOS DEPENDANCES
 
     //'uiGmapgoogle-maps'
@@ -49,8 +49,6 @@ app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
 //app.controller('USRUtilisateurController', ['DBManager', USRUtilisateurController]);
 // app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
 
-    NgMap.getMap('dispauCarte').then(function(map) {
-        vmm.map = map;
 
 
 /**
@@ -67,16 +65,16 @@ app.factory('RegexService', [RegexService]);
 
 /**
  * Specifique a la Google Maps
- 
 
-app.config(function(uiGmapGoogleMapApiProvider) {
+
+ app.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyBkm4blthirzCbZy1wy6GwUtxLC_jGW9rI&amp',
         //v: '3.25', //defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization'
     });
 });
-*/
+ */
 
 /**
  * DECLARATION DES ROUTES
@@ -85,7 +83,7 @@ app.config(function(uiGmapGoogleMapApiProvider) {
 app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     function($routeProvider, $locationProvider, $httpProvider) {
 
-    $routeProvider
+        $routeProvider
             .when('/aide', {
                 templateUrl: 'views/tpl/aide.html',
                 controller: 'IHMAideCtrl',
@@ -96,29 +94,29 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 templateUrl: 'views/tpl/connection.html',
                 controller: 'IHMConnectionCtrl',
                 controllerAs: 'vmc'
-            }) 
+            })
 
             .when('/inscription', {
                 templateUrl: 'views/tpl/inscription.html',
                 controller: 'USRUtilisateurController',
                 controllerAs: 'vm'
-            }) 
+            })
 
             .when('/profil', {
                 templateUrl: 'views/tpl/profil.html',
                 controller: 'IHMProfilCtrl',
                 controllerAs: 'vmp'
-            }) 
+            })
 
             .otherwise({
                 redirectTo: '/'
             });
 
-    $locationProvider.html5Mode({
+        $locationProvider.html5Mode({
             enabled: true,
             requireBase: true
         });
 
-    //$httpProvider.interceptors.push('conneIntercepteur');
+        //$httpProvider.interceptors.push('conneIntercepteur');
 
-}]);
+    }]);
