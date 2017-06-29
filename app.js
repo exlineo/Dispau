@@ -96,19 +96,19 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             })
 
             .when('/annonces/:idLieu', {
-                templateUrl: 'views/annonces.html',
+                templateUrl: 'views/tpl/annonces.html',
                 controller: 'ANNAnnonceListe',
                 controllerAs: 'vm'
             })
 
             .when('/annonces/:idLieu/:idAnnonce', {
-                templateUrl: 'views/annoncesID.html',
+                templateUrl: 'views/tpl/annoncesID.html',
                 controller: 'ANNAnnonceController',
                 controllerAs: 'vm'
             })
 
             .when('/annonces/:idLieu/:idAnnonce/:action', {
-                templateUrl: 'views/annoncesID.html',
+                templateUrl: 'views/tpl/annoncesID.html',
                 controller: 'ANNAnnonceController',
                 controllerAs: 'vm'
             })
