@@ -7,8 +7,10 @@
                 ID Params : {{vm.idLieu}}
 
                 <div ng-repeat="(key, value) in vm.annonces_ar">
-                    {{value.nom_str}}
-                    {{value.idLieu_nb}}
+                    <p>{{value.nom_str}}</p>
+                    <p>Débute le : {{value.dateDebut_dat}}</p>
+                    <a href="#!/annonces/{{value.idLieu_nb}}/{{value.id_nb}}">Détails de l'annonce</a>
+
                 </div>
 
             </div> <!-- /inner-dialog -->

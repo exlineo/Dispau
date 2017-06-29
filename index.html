@@ -61,7 +61,7 @@
 
 	<!-- Google Map -->
 	<ng-map center='current-position'
-			zoom="8"
+			zoom="9"
 			id="dispauCarte"
 			default-style="false"
 			ng-controller="MAPMapController as vmm">
@@ -78,10 +78,10 @@
 		<info-window id="infosCarte">
 			<div ng-non-bindable="">
 				<h1>{{vmm.lieu.nom_str}}</h1>
-				<span>Description : {{vmm.lieu.description_str}}</span>
+				<span>Description : {{vmm.lieu.description_str}}</span><br/>
 				<span> Nombre d'annonce sur ce lieu : {{vmm.lieu.nb_annonces}}</span></br>
-				Adresse : {{vmm.lieu.adresse_str}}<br/>
-				<a href="#/lieu:{{vmm.lieu.id_nb}}">Voir ce lieu</a>
+				<span>Adresse : {{vmm.lieu.adresse_str}}</span><br/>
+				<a href="#!/annonces/{{vmm.lieu.id_nb}}">Voir les annonces du lieu</a>
 			</div>
 		</info-window>
 
