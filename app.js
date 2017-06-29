@@ -107,7 +107,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 controllerAs: 'vm'
             })
 
-            .when('/annonces/:idLieu/:idAnnonce/:action', {
+            .when('/annonces/:idLieu/:idAnnonce/:action?', {
                 templateUrl: 'views/tpl/annoncesID.html',
                 controller: 'ANNAnnonceController',
                 controllerAs: 'vm'

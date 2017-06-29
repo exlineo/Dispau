@@ -61,87 +61,84 @@ function ANNAnnonceController (DBManager, $routeParams) {
      */
     this.annonce = null;
 
-    //Si la route n'est pas défini, affiche les informations de l'annonce
-    if (typeof(vm.action) === 'undefined'){
+    /**
+     * Permet d'afficher le formulaire et d'ajouter une annonce
+     */
+    if (vm.id === "ajouter"){
+        //Affiche la div add
+        vm.showAdd = true;
+        //Masque le détail de l'annonce
+        vm.showAnnonce = false;
 
         /**
-         * Permet d'afficher l'annnonce par rapport à son id
+         * Enregistre une annonce, la met à jour si elle existe
+         * @param {object} annonce
          */
-        annonceManager.all()
-            .where('id_nb')
-            .equals(vm.id)
-            .and('idLieu_nb')
-            .equals(vm.idLieu)
-            .then(function (annonce) {
-                console.log(annonce);
-                vm.annonce = annonce;
-            })
-            .catch(function (error) {
-                console.log(error);
-                console.log("ERROR")
-            });
+        this.enregistrerAnnonce = function () {
+            console.log(vm.annonce);
+            // Hydratation de l'instance à envoyer
+            var annonce = new ANNAnnonce();
+            annonce.hydrater(vm.annonce);
+
+            // Envoi de la requête d'insertion
+            annonceManager.save(annonce)
+                .then(function (annonceEnregistree) {
+                    //console.log("Annonce Enregistrée", annonceEnregistree)
+                })
+                .catch(function (error) {
+                    // TODO: traîter l'erreur
+                });
+
+            //Vide l'object une fois insérer
+            vm.annonce = {};
+        };
     }
 
-    else{
-        switch (vm.action){
-            case 'edit' :
-                //Permet d'afficher la div edit
-                vm.showEdit = true;
-                //Masque le détail de l'annonce
-                vm.showAnnonce = false;
-                break;
+    switch (vm.action){
+        case 'edit' :
+            //Permet d'afficher la div edit
+            vm.showEdit = true;
+            //Masque le détail de l'annonce
+            vm.showAnnonce = false;
+            break;
 
-            case 'ajouter' :
-                //Affiche la div add
-                vm.showAdd = true;
-                //Masque le détail de l'annonce
-                vm.showAnnonce = false;
+        case 'supprimer':
+            /**
+             * Supprime une annocne
+             * @param {number} id annonce
+             */
+            if (confirm('Voulez-vous supprimer cette annonce ?')) {
+                annonceManager.delete(vm.id)
+                    .then(function (annonceId) {
 
-                /**
-                 * Enregistre une annonce, la met à jour si elle existe
-                 * @param {object} annonce
-                 */
-                this.enregistrerAnnonce = function () {
-                    console.log(vm.annonce);
-                    // Hydratation de l'instance à envoyer
-                    var annonce = new ANNAnnonce();
-                    annonce.hydrater(vm.annonce);
+                    })
+                    .catch(function (error) {
 
-                    // Envoi de la requête d'insertion
-                    annonceManager.save(annonce)
-                        .then(function (annonceEnregistree) {
-                            // TODO: traîtement à l'ajout
-                        })
-                        .catch(function (error) {
-                            // TODO: traîter l'erreur
-                        });
-
-                    //Vide l'object une fois insérer
-                    vm.annonce = {};
-                };
-                break;
-
-            case 'supprimer':
-                /**
-                 * Supprime une annocne
-                 * @param {number} id annonce
-                 */
-                if (confirm('Voulez-vous supprimer cette annonce ?')) {
-                    annonceManager.delete(vm.id)
-                        .then(function (annonceId) {
-
-                        })
-                        .catch(function (error) {
-
-                        });
-                }
-                break;
-        }
+                    });
+            }
+            break;
+        default :
+            /**
+             * Permet d'afficher l'annnonce par rapport à son id
+             */
+            annonceManager.all()
+                .where('id_nb')
+                .equals(vm.id)
+                .and('idLieu_nb')
+                .equals(vm.idLieu)
+                .then(function (annonce) {
+                    console.log(annonce);
+                    vm.annonce = annonce;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    console.log("ERROR")
+                });
+    }
 
 
-        vm.ajouterCentreDInterets = function () {
-            console.log();
-            vm.annonce.centreDInteret.push(vm.interet_str);
-        }
+    vm.ajouterCentreDInterets = function () {
+        console.log();
+        vm.annonce.centreDInteret.push(vm.interet_str);
     }
 }

@@ -24,17 +24,11 @@ function ANNAnnonceListe(DBManager, $routeParams) {
             console.log(error)
         });
 
-    /**
-     * @TODO Implémenter la fonction delete a AnnonceListe, récupérer id_nb de l'annonce pour la supprimer
-     *  FONCTIONNE
-     DBManager.delete('ANNAnnonce', 1)
-     .then(function (annonce) {
- // annonce est l'instance de l'annonce supprimée
- })
-     .catch(function (error) {
- console.log(error)
- });
-     */
+
+
+
+
+
 
 
 

@@ -761,7 +761,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 }
 
 /* Aspect de message boxes */
-.dialog .modal {overflow: hidden}
+/*.dialog .modal {overflow: hidden}*/
 
 .modal-dialog.msg {
 	opacity: 0;
