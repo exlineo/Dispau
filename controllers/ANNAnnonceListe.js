@@ -8,15 +8,17 @@ function ANNAnnonceListe(DBManager, $routeParams) {
     //Récupère l'id dans la route
     this.idLieu = $routeParams.idLieu;
 
-    var ici = this;
+    var vm = this;
     this.annonces_ar = [];
 
     var annonceManager = DBManager('ANNAnnonce');
 
     annonceManager.all('ANNAnnonce')
+        .where('idLieu_nb')
+        .equals(vm.idLieu)
         .then(function (annonces) {
             console.log(annonces);
-            ici.annonces_ar = annonces;
+            vm.annonces_ar = annonces;
         })
         .catch(function (error) {
             console.log(error)
