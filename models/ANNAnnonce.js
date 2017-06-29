@@ -77,9 +77,6 @@ function ANNAnnonce() {
     this.idChat_nb = 1;
 
     this.centresDInterets_ar = [];
-    /*Liste des centres d'interets auquels se rapporte cette annonce.¨Pour cibler les éventuels "clients"*/
-
-    this.validite_nb;
 
     this.salleDeTchat_nb;
     /* Salle de tchat specifisue pour cette activité */
