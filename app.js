@@ -6,7 +6,7 @@
 var app = angular.module('dispau-app', [
     'ngRoute',
     'ngCookies',
-    'ngMap'
+    'ngMap' 
     // AJOUTER VOS DEPENDANCES
 
     //'uiGmapgoogle-maps'
@@ -22,36 +22,33 @@ var app = angular.module('dispau-app', [
 
 // Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
 
-app.controller('IHMAccueilCtrl', ['$http', '$log', function($http, $log) {
+app.controller('IHMAideCtrl', ['$http', '$log', function($http, $log) {
 
 }]);
 
-app.controller('IHMListeCtrl', ['$http', '$log', function($http, $log) {
+app.controller('IHMConnectionCtrl', ['$http', '$log', function($http, $log) {
 
 }]);
 
+app.controller('IHMProfilCtrl', ['$http', '$log', function($http, $log) {
 
+}]);
 
 // CONTROLER POUR LA CARTE DE FOND / GEREE AVEC NG-MAP
-app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
+
 
 //app.controller('ANNAnnonceController', ['DBManager', ANNAnnonceController]);
-/*app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
-app.controller('ANNAnnonceController', ['DBManager', '$routeParams', ANNAnnonceController]);
+//app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
+app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
+// app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
+// app.controller('CHAChatController', ['DBManager', CHAChatController]);
+// app.controller('LIELieuController', ['DBManager', LIELieuController]);
+// app.controller('LIELieuListe', ['DBManager', LIELieuListe]);
+// app.controller('USRDemandeAmiListe', ['DBManager', USRDemandeAmiListe]);
+// app.controller('USRLogin', ['DBManager', USRLogin]);
+//app.controller('USRUtilisateurController', ['DBManager', USRUtilisateurController]);
+// app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
 
-
-// Les controlleurs suivants DOIVENT ETRE vérifiés ET adaptés aux templates HTML
-
-/*
-app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
-app.controller('CHAChatController', ['DBManager', CHAChatController]);
-app.controller('LIELieuController', ['DBManager', LIELieuController]);
-app.controller('LIELieuListe', ['DBManager', LIELieuListe]);
-app.controller('USRDemandeAmiListe', ['DBManager', USRDemandeAmiListe]);
-app.controller('USRLogin', ['DBManager', USRLogin]);
-app.controller('USRUtilisateurController', ['DBManager', USRUtilisateurController]);
-app.controller('USRUtilisateurListe', ['DBManager', USRUtilisateurListe]);
-*/
 
 
 /**
@@ -63,12 +60,12 @@ app.factory('IndexedDBManager', ['IndexedDB', IndexedDBManagerFactory]);
 app.factory('AjaxService', ['$http','$cookies', AjaxService]);
 app.factory('DBManager', ['IndexedDB', 'AjaxService', 'RequestQueue', 'IndexedDBManager', '$q', dbManagerFactory]);
 app.factory('RequestQueue', ['$rootScope', 'IndexedDBManager', 'AjaxService', RequestQueue]);
-//app.factory('RegexService', [RegexService]);
+app.factory('RegexService', [RegexService]);
 
 
 /**
  * Specifique a la Google Maps
-
+ 
 
 app.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
@@ -106,17 +103,29 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     function($routeProvider, $locationProvider, $httpProvider) {
 
     $routeProvider
-            .when('/accueil', {
-                templateUrl: 'views/tpl/acceuil.html',
-                controller: 'IHMAccueilCtrl',
+            .when('/aide', {
+                templateUrl: 'views/tpl/aide.html',
+                controller: 'IHMAideCtrl',
                 controllerAs: 'vma'
             })
 
-            .when('/liste', {
-                templateUrl: 'views/tpl/liste.html',
-                controller: 'IHMListeCtrl',
-                controllerAs: 'vml'
-            })
+            .when('/connection', {
+                templateUrl: 'views/tpl/connection.html',
+                controller: 'IHMConnectionCtrl',
+                controllerAs: 'vmc'
+            }) 
+
+            .when('/inscription', {
+                templateUrl: 'views/tpl/inscription.html',
+                controller: 'USRUtilisateurController',
+                controllerAs: 'vm'
+            }) 
+
+            .when('/profil', {
+                templateUrl: 'views/tpl/profil.html',
+                controller: 'IHMProfilCtrl',
+                controllerAs: 'vmp'
+            }) 
 
             .otherwise({
                 redirectTo: '/'
