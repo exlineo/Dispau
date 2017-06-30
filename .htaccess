@@ -1,0 +1,10 @@
+# On suit les liens symboliques 
+# Options +FollowSymlinks 
+# Activation du mod rewrite d'Apache 
+# RewriteEngine On
+
+# Réécriture de tout sur index.html
+# RewriteRule ^.*$ ./index.html
+
+# ErrorDocument 404 http://localhost:8080/Dispau/
+ErrorDocument 404 /Dispau/index.html
