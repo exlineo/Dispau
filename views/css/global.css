@@ -1145,6 +1145,21 @@ img {
 	text-align: center
 }
 
+/* Image de profil */
+.profil-img {
+	height: 100%;
+	width: 100%;
+	border-radius: 50%;
+	box-shadow: 0px 0px 30px rgba(0, 0, 0, .5);
+	border: 3px solid #eee
+}
+
+/* Liste de profils */
+#profil .inner-dialog ul, 
+	#profil .inner-dialog ul li,
+	#liste .inner-dialog ul, 
+	#liste .inner-dialog ul li {list-style-type: none}
+
 .social .fa {
 	margin: 0 .5em 0 0;
 	vertical-align: middle

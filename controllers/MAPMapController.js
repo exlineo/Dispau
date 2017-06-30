@@ -123,7 +123,9 @@ function afficheMap(NgMap, DBManager) {
         }
     });
 
-    DBManager('LIELieu').all()
+    var lieuManager = DBManager('LIELieu');
+
+    lieuManager.all()
         .then(function (lieu) {
             vmm.lieux = lieu;
             vmm.lieu = vmm.lieux[0];

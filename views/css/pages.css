@@ -1,0 +1,377 @@
+/*! Styles pour les pages internes et statiques de DISPAU
+ *
+ * @date 29/06/2017
+ * @revision 29/06/2017
+ * @author Patrick ; ...
+ */
+
+html,
+  body {
+    margin: 0;
+    padding: 0;
+    font: normal normal normal 100%/1 sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility
+}
+
+.cf:before,.cf:after {
+  content: " ";
+  display: table
+}
+.cf:after {clear: both}
+.cf {*zoom: 1}
+
+.left {float: left}
+.right {float: right}
+.relative{position:relative}
+.absolute{position:absolute}
+.fixed{position:fixed}
+.static{position:static}
+ul{line-height:2}
+.mt5 {margin-top: 5em}
+.txt-center{text-align:center}
+.txt-right{text-align:right}
+
+.container {
+  display: table;
+  width: 100%;
+  height: 100%
+}
+
+.hero {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 500px;
+  height: 100vh;
+  background-color: rgba(156, 113, 120, .5);
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both
+}
+
+.hero:after {
+  display: block;
+  content: "";
+  position: absolute;
+  z-index: 200;
+  right: -1.1px;
+  bottom: -1px;
+  width: 100%;
+  height: 200px;
+  background: url(../img/banner.svg) 50% 50% no-repeat;
+  background-size: cover
+}
+
+.hero .overlay {
+  position: absolute;
+  z-index: -1;
+  width: 99.9%;
+  height: 500px;
+  height: 100vh;
+  background: url(../img/hero-presentation.jpg) center center no-repeat;
+  background-size: cover
+}
+
+header {
+  position: relative;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%
+}
+
+header, header .mask, .header-inner {
+    height: 5.7em;
+}
+
+header .mask {
+    display: block;
+    top: 0;
+    left: 0;
+    width: 3%;
+    min-width: 46px;
+}
+
+.main-header {
+    background: #fff;
+    background: rgba(255, 255, 255, 0.7);
+    display: flow-root;
+}
+
+header .logo {
+    width: 96px;
+    height: 140px;
+    background: url(../img/dispau_logo.png) center center no-repeat;
+}
+
+header .header-inner h1 {
+    margin: .85em 0 0;
+}
+
+header h1 a {
+    text-decoration: none;
+    color: #e6005c
+}
+
+.top-menu {
+    float: right;
+    width: auto;
+    min-width: 450px;
+    max-width: 45em;
+    margin: .5em 0 0 0;
+}
+
+.top-menu ul {
+    display: block;
+    padding: 0;
+    list-style: none;
+}
+
+.top-menu li {
+    display: inline;
+    float: left;
+    margin: 0 .4em;
+}
+
+.top-menu a {
+    display: block;
+    min-width: 6em;
+    padding: .1em .5em .3em;
+    text-align: center;
+    color: #333;
+}
+
+.wrapper,
+  .header-inner,
+  .footer-inner {
+    position: relative;
+    max-width: 1280px;
+    min-height: 1px;
+    margin: 0 auto;
+    padding: 0 1%
+}
+
+.wrapper {
+  margin: 0 auto
+}
+
+main {
+  margin-top: 210px;
+  margin-top: 30vh
+}
+
+.content {
+  display: table;
+  width: 100%;
+  height: 100%;
+  margin-top: 30%
+}
+
+h2,
+  h3 {font-family: 'Open Sans', serif}
+
+p {
+  line-height: 1.3;
+  hyphens: auto
+}
+
+
+.c-1,
+  .l-2,
+  .c-2,
+  .c-4 {
+    display: inline;
+    float: left;
+    min-height: 1px
+ }
+
+ .c-1 {width: 100%; clear: both}
+
+@media only screen and (min-width: 1280px) {
+
+
+  header .mask {
+    width: calc(((100% - 1280px) / 2) + 46px);
+  }
+
+  .top-menu li {
+    line-height: 2.9;
+  }
+
+  small {
+      font-size: 85%;
+    }
+
+}
+ 
+ 
+ @media only screen and (min-width: 790px) {
+
+   .l-2 {
+    width: 50%;
+    margin: 0
+   }
+   
+   .odd,
+    .even {
+      width: 50%;
+      min-height: 40em;
+      margin: 0 0 3em;
+      background-size: cover
+  }
+
+  .odd .tbl,
+    .even .tbl {
+      display: table;
+      width: 100%;
+      height: 40em;
+      padding: 0 1em;
+      vertical-align: middle
+  }
+
+  .txt-inner {
+    position: relative;
+    z-index: -1;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle
+  }
+  
+  .l-2.left:hover .move {
+    background-color: #e33a2c !important;
+    box-shadow: 0 0 35px rgba(0,0,0,.7);
+      
+    flex-grow: 3;
+    
+    animation: right-transform 200ms ease-in-out forwards
+  }
+  
+  .l-2.right:hover .move {
+    background: #e33a2c !important;
+    box-shadow: 0 0 35px rgba(0,0,0,.7);
+
+    flex-grow: 3;
+    animation: left-transform 200ms linear forwards
+  }
+
+  .l-2.left:hover ~ .l-2.right .txt-inner {color: #bbb; filter: blur(3px)}
+
+
+}
+
+
+
+.ville {
+  min-height: 40em;
+  background: url(../img/ville.jpg) center center no-repeat;
+  background-size: cover
+}
+
+.conference {
+  min-height: 40em;
+  background: url(../img/conference.jpg) center center no-repeat;
+  background-size: cover
+}
+
+
+.c-2 {
+  width: 48%;
+  margin: 0 1%
+}
+
+.offer {
+  position: relative;
+  left: 50%;
+  margin-left: -24%
+}
+
+.offer .btn-large {
+  display: table;
+  margin: 0 auto
+}
+
+
+
+
+@keyframes right-transform {
+
+  from {}
+  to {transform:translateX(35%) translateY(0%)}
+
+}
+
+
+@keyframes left-transform {
+
+  from {}
+  to {transform:translateX(-35%) translateY(0%)}
+
+}
+
+@media only screen and (max-width: 955px) {
+
+  .c-2 {
+    position: static;
+    width: 100%
+  }
+
+}
+
+@media only screen and (max-width: 1000px) {
+
+  .wrapper .offer {
+    position: static;
+    width: 100%;
+    margin-top: 4em;
+    margin-left: 0
+  }
+
+}
+
+@media only screen and (max-width: 720px) {
+
+  .offer {text-align: center}
+  .l-2 {width: 98%; margin: 0 1%}
+
+}
+
+
+.push {height: auto}
+
+.footer {
+  background: #95405a;
+  background: rgba(149, 64, 90, 0.85);
+  color: #fff
+}
+
+.footer-inner {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  color: #fff
+}
+
+.footer-inner a {color: #fff}
+
+.social em {
+    margin: 0 .5em;
+    font-style: normal;
+    font-size: large;
+}
+
+.fa + em {
+    font-style: normal;
+}
+
+
+
+/* For small window height: reduce the map height */
+@media only screen and (max-height: 480px) {
+
+  header{top: -190px}
+
+}
