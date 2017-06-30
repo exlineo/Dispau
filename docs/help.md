@@ -164,6 +164,10 @@ La structure nécessite l'encapsulation - quoique *falcultative* mais requise po
 
 **Notez bien** : les colonnes sont affectées d'une pleine largeur (semblable à `c-1`) et empilées sur petits écrans.
 
+## Stylisation des photos de profils
+
+La classe `profil-img` appliquée sur une image permet de la présenter dans un cercle avec un léger ombrage.
+
 ## Boutons, liens et animations
 
 La conception de boutons se réalise de cette manière :

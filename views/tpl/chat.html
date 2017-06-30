@@ -1,0 +1,65 @@
+<div ng-controller="CHAChatController as vm" aria-hidden="true" role="dialog" class="modal-dialog dialog no-select" id="wrap">
+
+		<div>
+			<div class="modal">
+				<div class="inner-dialog">
+					<h1>Forum:</h1>
+									
+					<div class="messagesChat" >
+						<div class="premierMessage">
+							<p>
+						Ecrivez un premier message et participez au Chat!
+							</p>	
+						</div>
+
+						<div ng-repeat="message in vm.messages | orderBy : 'date_dat'">
+							
+							<div ng-show="message.msg_bool" class="message">
+							<div class="imageDiv">
+								<img ng-src="upload/{{message.photoProfil_img}} " class="profil-img">
+							</div>
+							<div class="conteneur">
+								<p>{{message.contenu_str}}</p>
+							</div>
+							<div class="nom">
+								<p>{{message.pseudo_str}}</p>
+								<p> {{message.jourSemaine}} {{message.date_dat | date : "HH:mm" }}</p>
+							</div>
+							</div>
+							<div ng-if="!message.msg_bool" class="message">
+								<div class="nom">
+									<p>{{message.pseudo_str}}</p>
+									<p> {{message.jourSemaine}} {{message.date_dat | date : "HH:mm" }}</p>
+									<p>
+										<a ng-show="message.admin()"  ng-click="vm.bannir(message.idExpediteur_nb)">
+											bannir</a>
+									</p>
+								</div>
+								<div class="conteneur">
+									<p>{{message.contenu_str}}</p>                   
+								</div>
+								<div class="imageDiv">
+									<img ng-src="upload/{{message.photoProfil_img}}" class="profil-img">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="formulaire">
+						<form>
+							<textarea ng-model="vm.texteAExpedier" autofocus="" ng-keydown="vm.toucheEntree($event)" rows="1" cols="12" placeholder="Tapez ici votre message..."></textarea>
+							
+							<span id="valider-btn" ng-click="vm.enregistrerMessage()">Envoyer</span>
+						</form>
+					</div>
+        
+       
+				</div> <!-- /inner-dialog -->
+
+			</div> <!-- /modal -->
+			<div class="footer-modal">
+					<a ng-href="index.html" class="help no-select ripple">Fermer</a> 
+					<a href="#open-modal-aide" class="link no-select ripple">Aide</a>
+			</div> <!-- /footer-modal -->
+		</div>
+ </div> <!-- /modal-dialog -->
