@@ -15,7 +15,7 @@ function AjaxService ($http, $cookies) {
      * L'url de l'API
      * @type {string}
      */
-    this.apiUrl = "http://localhost:8080/Dispau/php/";
+    this.apiUrl = "http://localhost/Dispau/php/";
 
     // Définition des headers à envoyer à chaque requête
     // Le token de l'utilisateur
