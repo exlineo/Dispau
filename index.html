@@ -20,7 +20,7 @@
 <link href="views/css/global.css" media="screen" rel="stylesheet" type="text/css">
 <link href="views/css/print.css" media="print" rel="stylesheet" type="text/css">
 
-<base href="/Dispau/">
+<!--<base href="/Dispau/">-->
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
 <script src="https://code.angularjs.org/1.6.4/angular-route.js"></script>
@@ -78,10 +78,13 @@
 		<info-window id="infosCarte">
 			<div ng-non-bindable="">
 				<h1>{{vmm.lieu.nom_str}}</h1>
-				<span>Description : {{vmm.lieu.description_str}}</span>
-				<span> Nombre d'annonce sur ce lieu : {{vmm.lieu.nb_annonces}}</span></br>
-				Adresse : {{vmm.lieu.adresse_str}}<br/>
-				<a href="#/lieu:{{vmm.lieu.id_nb}}">Voir ce lieu</a>
+				<p>Description : {{vmm.lieu.description_str}}</p>
+				<p>Adresse : {{vmm.lieu.adresse_str}}</p>
+				<p>Nombre d'annonces sur ce lieu : {{vmm.lieu.nb_annonces}}</p>
+				<br />
+				<a href="#!/lieux/{{vmm.lieu.id_nb}}">Détail du lieu</a>
+				<a href="#!/annonces/{{}}">Voir les annonces</a>
+				<a href="#!/profils/{{}}">Voir les profils</a>
 			</div>
 		</info-window>
 
@@ -116,13 +119,16 @@
 <script src="controllers/ANNAnnonceListe.js"></script>
 <script src="controllers/ANNAnnonceController.js"></script>
 
+<script src="models/LIELieu.js"></script>
+<script src="controllers/LIELieuController.js"></script>
+<script src="controllers/LIESousLieuListe.js"></script>
+
 <script src="models/USRUtilisateur.js"></script>
 <script src="controllers/USRUtilisateurListe.js"></script>
 <script src="controllers/USRUtilisateurController.js"></script>
 <script src="controllers/USRLogin.js"></script>
 <script src="controllers/USRDemandeAmiListe.js"></script>
 
-<script src="models/LIELieu.js"></script>
 <script src="services/ng-map.min.js"></script>
 <script src="controllers/MAPMapController.js"></script>
 

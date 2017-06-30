@@ -29,8 +29,8 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
     };
 
     this.limit = function (limit) {
-       this._limit = limit;
-       return this;
+        this._limit = limit;
+        return this;
     };
 
     /**
@@ -262,25 +262,25 @@ function DBManager (className, IndexedDB, restService, requestQueue, localManage
      * @private
      */
     this._serializedWhereClause = function () {
-       var swc = '';
+        var swc = '';
 
-       _instance._whereClause.map(function (item) {
-           swc += item.clause;
-           if (item.clause !== 'order by') {
-               if (item.hasOwnProperty('champ')) {
-                   swc += ' `' + item.champ + '`';
+        _instance._whereClause.map(function (item) {
+            swc += item.clause;
+            if (item.clause !== 'order by') {
+                if (item.hasOwnProperty('champ')) {
+                    swc += ' `' + item.champ + '`';
 
-                   if (item.hasOwnProperty('comparaison')) {
-                       swc += ' ' + comparaisonToSQL(item.comparaison);
-                   }
-               }
-               swc += ' ' + escapeValueForSQL(item.valeur) + ' ';
-           } else {
-               swc += ' `' + item.valeur + '`' + item.order + ' ';
-           }
+                    if (item.hasOwnProperty('comparaison')) {
+                        swc += ' ' + comparaisonToSQL(item.comparaison);
+                    }
+                }
+                swc += ' ' + escapeValueForSQL(item.valeur) + ' ';
+            } else {
+                swc += ' `' + item.valeur + '`' + item.order + ' ';
+            }
         });
 
-       return encodeURI(swc);
+        return encodeURI(swc);
     };
 
     /**

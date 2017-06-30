@@ -81,7 +81,7 @@ app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
 // app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
 // app.controller('CHAChatController', ['DBManager', CHAChatController]);
 app.controller('LIELieuController', ['DBManager','$routeParams', LIELieuController]);
-app.controller('LIELieuListe', ['DBManager', LIELieuListe]);
+//app.controller('LIELieuListe', ['DBManager', LIELieuListe]);
 // app.controller('USRDemandeAmiListe', ['DBManager', USRDemandeAmiListe]);
 // app.controller('USRLogin', ['DBManager', USRLogin]);
 app.controller('USRUtilisateurController', ['DBManager', USRUtilisateurController]);
@@ -166,11 +166,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 redirectTo: '/'
             });
 
-    $locationProvider.html5Mode({
+/*    $locationProvider.html5Mode({
             enabled: true,
             requireBase: true
         });
-
+*/
     //$httpProvider.interceptors.push('conneIntercepteur');
 
 }]);

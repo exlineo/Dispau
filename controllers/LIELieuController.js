@@ -5,7 +5,7 @@
 /**
  * @constructor
  */
-function LIELieuController () {
+function LIELieuController (DBManager) {
 
     // requetes ajax pour recup les données
 
@@ -42,10 +42,11 @@ console.log(ici.action);
 
         default :
             // Si l'id est vide, on affiche tous les lieux
-            if (ici.action === '')
+            if (ici.idLieu === '')
             {
                 lieuManager.all()
                     .then(function(lieu) {
+                        console.log(lieu);
                         ici.model = lieu;
                     })
                     .catch(function (error) {
@@ -60,6 +61,7 @@ console.log(ici.action);
                     .where('id_nb')
                     .equals(ici.idLieu)
                     .then(function(lieu) {
+                        console.log(lieu);
                         ici.model = lieu;
                     })
                     .catch(function (error) {
@@ -70,7 +72,7 @@ console.log(ici.action);
     }
 
 
-
+/*
     DBManager.get('LIELieu', $routeParams.idLieu)
         .then(function(lieu) {
             console.log("lieu recup : ", lieu);
@@ -80,7 +82,7 @@ console.log(ici.action);
             console.log("Erreur lors de l'appel de la méthode get() de DBManager");
             console.log(error);
         });
-
+*/
 
 
     // faire un new Lieu et peupler la classe avec les données
