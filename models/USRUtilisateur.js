@@ -8,7 +8,7 @@
 
 function Profil(_pseudo_str, _email_str, _pass_str) {
     var ici = this;
-	this.id_nb;
+    this.id_nb;
     this.pseudo_str = _pseudo_str;
     this.email_str = (_email_str && _pass_str)?_email_str : "guess"+ici.id_nb+"@dispau.com";
     this.pass_str = _pass_str || null;
@@ -57,13 +57,13 @@ function USRUtilisateur(_pseudo_str, _email_str, _pass_str)
     * @param {obj} Utilisateur
     */
     this.demanderAmi = function(_Utilisateur) {
-    	var utile = new DemanderAmi();
-    	utile.de_user = ici.id_nb;
-    	utile.a_user = Utilisateur.id_nb;
-    	utile.date_date = new Date.now();
-    	return utile;
+        var utile = new DemanderAmi();
+        utile.de_user = ici.id_nb;
+        utile.a_user = Utilisateur.id_nb;
+        utile.date_date = new Date.now();
+        return utile;
     }
-	
+    
     /**
     * validerDemandeAmi
     * @function
