@@ -43,7 +43,7 @@ app.controller('myController', ['DBManager', myController]);
 ### Récupération des données
 #### DBManager.all()
 Permet de récupérer touts les enregistrements d'une table. 
-Renvoie un tableau "hydraté".  
+Renvoie un tableau d'hydratation à la fonction 'hydrater' des contrôleurs.  
 Le premier paramètre permet :
 - de construire la requête Ajax
 - de indiquer la table de la base de données du navigateur
@@ -55,7 +55,7 @@ Le premier paramètre permet :
 * @param {DBManager} dbManager  Le service d'accès au serveur
 * @constructor
 */
-function myController (dbManagaer) {
+function myController (dbManager) {
     var ici = this;
     /**
      * Notre modèle de données des instances de ANNAnnonce
@@ -65,7 +65,7 @@ function myController (dbManagaer) {
     this.model = [];
     
     // Récupération de TOUTES les annonces
-    var annoncesManager = dbManager('ANNAnnonce');
+    var annoncesManager = dbManager('ANNAnnonce'); // L'argument dans la fonction dbManager (ici ANNAnnonce) va appeler le fichier modèle : ANNAnnonce.js et le fichier PHP annonce.php
     annoncesManager.all()
         .then(function (annonces) {
             // annonces est un tableau contenant
@@ -80,7 +80,7 @@ function myController (dbManagaer) {
 
 
 #### DBManager.get(*identifiant*)
-Permet de récupérer un enregistrement unique. Renvoie une instance "hydraté".
+Permet de récupérer un enregistrement unique. Renvoie un tableau d'hydratation à la fonction 'hydrater' des contrôleurs.
 Le premier paramètre permet :
 - de construire la requête Ajax
 - de indiquer la table de la base de données du navigateur
@@ -104,7 +104,7 @@ function myController(dbManager) {
     this.model = null;
     
     // Récupération de l'annonce avec l'identifiant 23
-    var annonceManager = dbManager('ANNAnnonce');
+    var annonceManager = dbManager('ANNAnnonce'); // L'argument dans la fonction dbManager (ici ANNAnnonce) va appeler le fichier modèle : ANNAnnonce.js et le fichier PHP annonce.php
     dbManager.get(23)
         .then(function (annonce) {
             // annonce est une instance d'ANNAnnonce
@@ -145,8 +145,8 @@ annonceManager
     });
 ```
 ```javascript
-// Récupérer toutes les annonces des gestionnaire dont l'identifiant n'est pas 15
-var annonceManager = dbManager('ANNAnnonce');
+// Récupérer toutes les annonces des gestionnaires dont l'identifiant n'est pas 15
+var annonceManager = dbManager('ANNAnnonce'); // L'argument dans la fonction dbManager (ici ANNAnnonce) va appeler le fichier modèle : ANNAnnonce.js et le fichier PHP annonce.php
 annonceManager
     // Envoie une requête HTTP GET avec comme paramètres:
     // - action : get
@@ -162,7 +162,7 @@ annonceManager
 ```
 ```javascript
 // Récupérer toutes les annonces après une date
-var annonceManager = dbManager('ANNAnnonce');
+var annonceManager = dbManager('ANNAnnonce'); // L'argument dans la fonction dbManager (ici ANNAnnonce) va appeler le fichier modèle : ANNAnnonce.js et le fichier PHP annonce.php
 annonceManager
     // Envoie une requête HTTP GET avec comme paramètres:
     // - action : get
@@ -178,7 +178,7 @@ annonceManager
 ```
 ```javascript
 // Récupérer toutes les annonces avant une date
-var annonceManager = dbManager('ANNAnnonce');
+var annonceManager = dbManager('ANNAnnonce'); // L'argument dans la fonction dbManager (ici ANNAnnonce) va appeler le fichier modèle : ANNAnnonce.js et le fichier PHP annonce.php
 annonceManager
     // Envoie une requête HTTP GET avec comme paramètres:
     // - action : get
@@ -194,7 +194,7 @@ annonceManager
 ```
 ```javascript
 // Récupérer toutes les annonces entre deux dates
-var annonceManager = dbManager('ANNAnnonce');
+var annonceManager = dbManager('ANNAnnonce'); // L'argument dans la fonction dbManager (ici ANNAnnonce) va appeler le fichier modèle : ANNAnnonce.js et le fichier PHP annonce.php
 annonceManager
     // Envoie une requête HTTP GET avec comme paramètres:
     // - action : get
@@ -212,7 +212,7 @@ annonceManager
 ```
 ```javascript
 // Récupérer toutes les annonces avec 1 ou 3 participants max
-var annonceManager = dbManager('ANNAnnonce');
+var annonceManager = dbManager('ANNAnnonce'); // L'argument dans la fonction dbManager (ici ANNAnnonce) va appeler le fichier modèle : ANNAnnonce.js et le fichier PHP annonce.php
 annonceManager
     // Envoie une requête HTTP GET avec comme paramètres:
     // - action : get
@@ -237,7 +237,7 @@ function myController(dbManager) {
     var ici = this;
     this.model = [];
     
-    var annoncesManager = dbManager('ANNAnnonce');
+    var annoncesManager = dbManager('ANNAnnonce'); // L'argument dans la fonction dbManager (ici ANNAnnonce) va appeler le fichier modèle : ANNAnnonce.js et le fichier PHP annonce.php
     // Envoie une requête HTTP GET avec comme paramètres:
     // - action : get
     // - where : limit 5
@@ -320,7 +320,7 @@ function myController(dbManager) {
      */
     this.model;
     
-    var annonceManager = dbManager('ANNAnnonce');
+    var annonceManager = dbManager('ANNAnnonce'); // L'argument dans la fonction dbManager (ici ANNAnnonce) va appeler le fichier modèle : ANNAnnonce.js et le fichier PHP annonce.php
     this.supprimerAnnonce = function () {
         // Récupération de l'annonce avec l'identifiant 23
             annonceManager.delete(ici.model.id)
