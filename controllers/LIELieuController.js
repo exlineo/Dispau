@@ -5,7 +5,7 @@
 /**
  * @constructor
  */
-function LIELieuController (DBManager) {
+function LIELieuController (DBManager,$routeParams) {
 
     // requetes ajax pour recup les données
 
