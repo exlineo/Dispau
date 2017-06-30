@@ -749,7 +749,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 	width: 80%;
 	max-height: 200px;
 	/* Bizarrement, 80vh excède */
-	max-height: 55vh;
+	max-height: 65vh;
 	margin: 11% auto 0;
 	margin: 15vh auto 0;
 	border-radius: 2px 2px 0 0
@@ -761,7 +761,7 @@ i.visually-hidden {padding:0 0 0 .4em;vertical-align:middle;font-style: normal}
 }
 
 /* Aspect de message boxes */
-.dialog .modal {overflow: hidden}
+
 
 .modal-dialog.msg {
 	opacity: 0;
@@ -1145,6 +1145,21 @@ img {
 	text-align: center
 }
 
+/* Image de profil */
+.profil-img {
+	height: 100%;
+	width: 100%;
+	border-radius: 50%;
+	box-shadow: 0px 0px 30px rgba(0, 0, 0, .5);
+	border: 3px solid #eee
+}
+
+/* Liste de profils */
+#profil .inner-dialog ul, 
+	#profil .inner-dialog ul li,
+	#liste .inner-dialog ul, 
+	#liste .inner-dialog ul li {list-style-type: none}
+
 .social .fa {
 	margin: 0 .5em 0 0;
 	vertical-align: middle
@@ -1307,6 +1322,96 @@ html .inactive:hover:before {
 	#chat::-webkit-scrollbar-thumb {
 		background-color: #999;
 		border: 1px solid #777
+}
+
+.wrap{
+	width: 500px;
+	min-width: 400px;
+	font-family: Arial;
+	color: #444;
+}
+
+.messagesChat{
+	width: 480px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 100px;
+	/*height: 400px;*/
+	/*overflow-y: auto;*/
+	/*box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+	border: 1px solid #eee;
+	border-radius: 4px;*/
+
+/*	transition: all linear 3s;
+	transform: translate(0px,50px);*/
+	/*scroll-behavior: smooth;*/
+}
+
+.message{
+	clear: both;
+	padding: 10px 0px;
+
+}
+
+.nom{
+	float: left;
+	margin-right: 10px;
+	margin-top: -18px;
+	width: 75px;
+	overflow: hidden;
+	padding-left: 6px;
+ 	
+}
+
+.nom p:first-child { 
+    font-weight: bold;
+}
+
+.conteneur{
+	padding: 0px 10px;
+	position: relative;
+	float: left;
+	height: 100px;
+	width: 200px;
+	box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+	border: 3px solid #eee;
+	border-radius: 4px;
+}
+
+.imageDiv{
+	float: left;
+	height: 100px;
+	width: 100px;
+	margin: 0px 20px;
+
+}
+
+.profil-img{
+  	height: 100%;
+	width: 100%;
+	border-radius: 50%;
+	box-shadow: 0px 0px 30px rgba(0,0,0,0.5);
+	border: 3px solid #eee
+	
+	
+}
+
+.conteneur::before{
+	content: "";
+	position: absolute;
+	left: -10px;
+	width: 0;
+	height: 0;
+	border-top: 5px solid transparent;
+	border-right: 5px solid #222;
+	border-bottom: 5px solid transparent;
+}
+
+.formulaire{
+	border: 1px solid grey;
+	padding: 10px;
+	/*margin-top: 10px;*/
+	margin-right: 16px;
 }
 
 /* Media Queries & Supports 

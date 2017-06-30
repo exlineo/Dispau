@@ -41,7 +41,7 @@ app.controller('IHMProfilCtrl', ['$http', '$log', function($http, $log) {
 //app.controller('ANNAnnonceListe', ['DBManager', ANNAnnonceListe]);
 app.controller('MAPMapController', ['NgMap', 'DBManager', afficheMap]);
 // app.controller('ANNCentreInteretListe', ['DBManager', ANNCentreInteretListe]);
-// app.controller('CHAChatController', ['DBManager', CHAChatController]);
+app.controller('CHAChatController', ['DBManager', '$routeParams', CHAChatController]);
 // app.controller('LIELieuController', ['DBManager', LIELieuController]);
 // app.controller('LIELieuListe', ['DBManager', LIELieuListe]);
 // app.controller('USRDemandeAmiListe', ['DBManager', USRDemandeAmiListe]);
@@ -107,6 +107,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 controllerAs: 'vmp'
             })
 
+            .when('/chat/:idChat?', {
+                templateUrl: 'views/tpl/chat.html',
+                controller: 'CHAChatController',
+                controllerAs: 'vm'
+            }) 
+
             .otherwise({
                 redirectTo: '/'
             });
@@ -118,4 +124,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
         //$httpProvider.interceptors.push('conneIntercepteur');
 
-    }]);
+}]);
+
+
+// paramètres du chat temporaire:
+
+// CHAT: utilisateur identifié  // a mettre dans session
+
+var fille = prompt('n° de la fille:');
+
+var utilisateur_moi = {'id_nb' : fille, 'grade_nb' : 2}; 
