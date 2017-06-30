@@ -60,7 +60,7 @@ function ANNAnnonceController (DBManager, $routeParams) {
      * @type {ANNAnnonce|null}
      */
     this.annonce = null;
-
+    
     /**
      * Permet d'afficher le formulaire et d'ajouter une annonce
      */
@@ -127,7 +127,8 @@ function ANNAnnonceController (DBManager, $routeParams) {
                 .and('idLieu_nb')
                 .equals(vm.idLieu)
                 .then(function (annonce) {
-                    console.log(annonce);
+                    //console.log(annonce[0].dateCreation_dat);
+                    //console.log(formatDate(annonce[0].dateCreation_dat))
                     vm.annonce = annonce;
                 })
                 .catch(function (error) {

@@ -5,8 +5,11 @@
             <div class="inner-dialog">
 
                 <div ng-show="vm.showAnnonce" ng-repeat="value in vm.annonce">
-                    ID: {{value.id_nb}}
-                    Nom: {{value.nom_str}}
+                    <img ng-src="{{ value.image_img }}" alt="Photo de l'évènement {{value.nom_str}}">
+                    <h1>{{ value.nom_str }}</h1>
+                    <p>{{ value.description_str }}</p>
+                    <p>Créé le  {{ value.dateCreation_dat | date : 'dd MMM yyyy à hh:ss'}}</p>
+                    <p>Commence le {{ value.dateDebut_dat | date : 'dd MMM yyyy à hh:ss'}}</p>
                 </div>
 
                 <div ng-show="vm.showEdit">
