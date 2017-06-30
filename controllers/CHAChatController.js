@@ -1,5 +1,7 @@
 /**
 * @param {DBManager} dbManager  Le service d'accès au serveur
+* @param DBManager     Gestion de la BD
+* @param $routeParams  Gestion des paramètres dans les routes
 * @constructor
 */
 function CHAChatController (dbManager, $routeParams) {
@@ -17,61 +19,68 @@ function CHAChatController (dbManager, $routeParams) {
      * @default []
      */
     this.messages = [];
-    // Récupération limitée des messages (5)
-
+    // Lance la récupération des messages toutes les 5 secondes.
     setInterval(function () {
 
-    var messageManager = dbManager('CHAMessage');
-    messageManager
-    .all()
-    .where('idChat_nb')
-    .equals(ici.idChat)
-    .and('banni_nb')
-    .equals(0)
-    .orderBy('date_dat', 'desc')
-    .limit(5)
+      var messageManager = dbManager('CHAMessage');
+      messageManager
+      .all()
+      .where('idChat_nb')
+      .equals(ici.idChat)
+      .and('banni_nb')
+      .equals(0)
+      .orderBy('date_dat', 'desc')
+      // Récupération limitée des messages (5)
+      .limit(5)
 
-    .then(function (messages) {
-        // messages est un tableau contenant
-        // des instances de CHAMessage
-      if (messages.length == 0) {
-        // Message d'accueil si aucun message dans le chat
-        document.getElementsByClassName("messagesChat")[0].display = 'none';
+      .then(function (messages) {
+          // messages est un tableau contenant
+          // des instances de CHAMessage
+        if (messages.length == 0) {
+          // Message d'accueil si aucun message dans le chat
+          document.getElementsByClassName("messagesChat")[0].display = 'none';
 
-      } else {
+        } else {
 
-        document.getElementsByClassName("messagesChat")[0].display = 'contents';
+          document.getElementsByClassName("messagesChat")[0].display = 'contents';
 
-        var temp = ici.stockerHistorique(messages);
-        ici.messages = temp; // Stockage des messages réçus de l'hydratation depuis DBManager
-        console.log(temp);
-        // crée et déclenche l'événement
-        setTimeout(function () {
-          // body...
-          // scroll placé en bas du chat
-          document.getElementsByClassName("modal")[0].scrollTop += 10000;
-        }, 100);
-        
+          var temp = ici.stockerHistorique(messages);
+          ici.messages = temp; // Stockage des messages réçus de l'hydratation depuis DBManager
+          console.log(temp);
+          // crée et déclenche l'événement
+          setTimeout(function () {
+            // body...
+            // scroll placé en bas du chat
+            document.getElementsByClassName("modal")[0].scrollTop += 10000;
+          }, 100);
+          
       }
 
 
 
-    })
-    .catch(function (error) {}); 
+      })
+      .catch(function (error) {}); 
 
     }, 5000);
 
-    ///////////////
-    // Envoi  le message sur la touche entrée du clavier
+    /**
+     * méthode qui permet l'envoi du message avec la touche entrée du clavier
+     * @param evenement 
+     */
+
     this.toucheEntree = function (event) {
-		// Validation du formulaire par la touche Entrée
+		// code 13 => touche Entrée
 		  if( event.keyCode == 13 )
         {
           ici.enregistrerMessage();
         }
 	  }
 
-    // Enregistrement du message sur la bdd
+    /**
+     * méthode qui permet l'enregistrement du message sur la bdd
+     * @param aucun 
+     */
+
     this.enregistrerMessage = function () {
 
         // on vide le textarea
@@ -100,13 +109,20 @@ function CHAChatController (dbManager, $routeParams) {
 
     }
 
+    /**
+     * méthode qui permet de stocker au fur et à mesure les messages sur le session storage
+     * @param ajax_ar : réponse de la requete ajax lors de la récupération des messages
+     */
+
     this.stockerHistorique = function (ajax_ar) {
     // teste si la réponse est vide
     if (ajax_ar.length < 1) {
-      return [{ '@ban' : 0 }];
+      return 0;
 
     } else {
         // inversion du tableau ajax_ar pour que le message le plus récent soit en fin de tableau
+
+        // 
       if (ajax_ar.length % 2 == 0) {
         for (var i = 0; i < (ajax_ar.length / 2); i++) {
           var temp = ajax_ar[i];
